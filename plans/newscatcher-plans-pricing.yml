@@ -1,0 +1,166 @@
+specificationVersion: "0.1"
+id: newscatcher-plans-pricing
+name: Newscatcher Plans & Pricing
+description: >
+  Newscatcher offers separate pricing tracks for the Web Search (CatchAll) API
+  and the News API. The Web Search API uses a self-service credit-based model
+  with four published tiers. The News API (v3) is sold as an enterprise product
+  with three NLP enrichment plan IDs; pricing is available on request via the
+  sales team.
+url: https://www.newscatcherapi.com/pricing
+plans:
+  # ── Web Search (CatchAll) API ────────────────────────────────────────────
+  - id: catchall-individual
+    name: Individual
+    description: Free pay-as-you-go access to the CatchAll Web Search API with basic features.
+    product: CatchAll Web Search API
+    price:
+      amount: 0
+      currency: USD
+      period: monthly
+    features:
+      - Pay-as-you-go credits (no monthly allocation)
+      - 1 monitor slot
+      - Daily query frequency
+      - 2-week search depth
+      - 100 max results per search
+      - Lite and Base retrieval modes
+      - 1 concurrent request
+    limits:
+      results_per_search: 100
+      monitor_slots: 1
+      concurrency: 1
+      search_depth_weeks: 2
+
+  - id: catchall-starter
+    name: Starter
+    description: Entry-level paid plan for developers and small teams using the CatchAll Web Search API.
+    product: CatchAll Web Search API
+    price:
+      amount: 50
+      currency: USD
+      period: monthly
+    features:
+      - 6,000 monthly credits (unused credits roll over)
+      - Up to 5 monitor slots
+      - Daily query frequency
+      - 1-month search depth
+      - 300 max results per search
+      - Lite and Base retrieval modes
+      - 2 concurrent requests
+      - Additional credits purchasable anytime
+    limits:
+      monthly_credits: 6000
+      results_per_search: 300
+      monitor_slots: 5
+      concurrency: 2
+      search_depth_months: 1
+
+  - id: catchall-scale
+    name: Scale
+    description: Mid-tier plan for growing teams that need higher volume and more frequent monitoring.
+    product: CatchAll Web Search API
+    price:
+      amount: 500
+      currency: USD
+      period: monthly
+    features:
+      - 60,000 monthly credits (unused credits roll over)
+      - Up to 10 monitor slots
+      - 6-hour query frequency
+      - 3-month search depth
+      - 1,000 max results per search
+      - Lite and Base retrieval modes
+      - 4 concurrent requests
+      - Additional credits purchasable anytime
+    limits:
+      monthly_credits: 60000
+      results_per_search: 1000
+      monitor_slots: 10
+      concurrency: 4
+      search_depth_months: 3
+
+  - id: catchall-enterprise
+    name: Enterprise
+    description: Custom enterprise plan with Deep Search mode, full archive access, and backfill capabilities.
+    product: CatchAll Web Search API
+    price:
+      amount: custom
+      currency: USD
+      period: monthly
+    features:
+      - Custom monthly credits (unused credits roll over)
+      - 10+ monitor slots
+      - 6-hour query frequency
+      - Full archive access with backfill
+      - 1,000+ max results per search
+      - Lite, Base, and Deep Search modes
+      - 4+ concurrent requests
+      - Dedicated support
+    limits:
+      results_per_search: 1000+
+      monitor_slots: 10+
+      concurrency: 4+
+      search_depth: full_archive
+
+  # ── News API (v3) ────────────────────────────────────────────────────────
+  - id: news-api-nlp
+    name: NLP Plan
+    description: >
+      Foundational News API plan providing NLP enrichment including theme
+      classification, named entity recognition, sentiment analysis, AI
+      summaries, and clustering. Historical data back to 2019.
+    product: News API v3
+    plan_id: v3_nlp
+    price:
+      amount: contact_sales
+      currency: USD
+      period: monthly
+    features:
+      - Access to 120,000+ global news sources
+      - NLP enrichment on articles indexed from July 2023
+      - Theme classification across 16 categories
+      - Named entity recognition
+      - Sentiment analysis (-1.0 to 1.0 scale)
+      - AI summaries
+      - Article clustering
+      - Up to 1,000 articles per request
+      - Historical data from 2019
+      - x-api-token header authentication
+    contact: sales@newscatcherapi.com
+
+  - id: news-api-iptc
+    name: IPTC Tags Plan
+    description: >
+      Mid-tier News API plan adding standardized IPTC media topic tags and IAB
+      advertising category hierarchies on top of the full NLP feature set.
+    product: News API v3
+    plan_id: v3_nlp_iptc_tags
+    price:
+      amount: contact_sales
+      currency: USD
+      period: monthly
+    features:
+      - All NLP Plan features
+      - IPTC media topic tags
+      - IAB advertising categories with hierarchical filtering
+    contact: sales@newscatcherapi.com
+
+  - id: news-api-embeddings
+    name: Embeddings Plan
+    description: >
+      Premium News API plan incorporating all IPTC Tags features plus
+      pre-computed 1024-dimensional vector embeddings per article for semantic
+      search and custom recommendation systems.
+    product: News API v3
+    plan_id: v3_nlp_embeddings
+    price:
+      amount: contact_sales
+      currency: USD
+      period: monthly
+    features:
+      - All IPTC Tags Plan features
+      - Pre-computed 1024-dimensional vector embeddings per article
+      - Semantic search enablement
+      - Custom recommendation system support
+    contact: sales@newscatcherapi.com

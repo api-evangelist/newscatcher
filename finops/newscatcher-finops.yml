@@ -1,0 +1,159 @@
+specificationVersion: "1.0"
+id: newscatcher-finops
+name: Newscatcher FinOps
+description: >
+  FOCUS-aligned FinOps cost and usage reference for Newscatcher API products.
+  Covers the Web Search (CatchAll) API credit-based billing model and the
+  enterprise News API quota model, enabling teams to forecast spend, track
+  consumption, and optimize API usage within budget constraints.
+url: https://www.newscatcherapi.com/pricing
+provider: Newscatcher
+currency: USD
+
+billing_models:
+  - id: catchall-credit-model
+    name: CatchAll Web Search API — Credit Model
+    description: >
+      Self-service credit-based billing. Monthly credits are pre-allocated per
+      plan. Unused credits roll over. Additional credits can be purchased
+      on-demand at any time. Two retrieval modes have different credit costs.
+    type: prepaid_credits
+    rollover: true
+    overage: purchasable_on_demand
+    modes:
+      - name: Lite
+        cost_per_unit: 100
+        unit: credits_per_search
+        description: Fixed 100 credits per search operation regardless of result count.
+      - name: Base
+        cost_per_unit: 10
+        unit: credits_per_valid_record
+        description: 10 credits per valid article/record returned.
+      - name: Deep Search
+        availability: Enterprise only
+        description: Enterprise-tier enhanced recall mode; credit cost available on request.
+
+  - id: news-api-quota-model
+    name: News API v3 — Enterprise Quota Model
+    description: >
+      Enterprise subscription billed monthly. Pricing is negotiated with the
+      sales team based on volume, plan tier (NLP / IPTC Tags / Embeddings),
+      and required historical depth. Monthly call quota and concurrent call
+      limits are set at contract level and visible via the /subscription
+      endpoint at runtime.
+    type: enterprise_subscription
+    billing_period: monthly
+    pricing_contact: sales@newscatcherapi.com
+    quota_endpoint: https://v3-api.newscatcherapi.com/api/subscription
+
+cost_dimensions:
+  - id: dim-plan-tier
+    name: Plan Tier
+    description: >
+      The primary cost driver. Web Search API: Individual ($0), Starter ($50/mo),
+      Scale ($500/mo), Enterprise (custom). News API: NLP, IPTC Tags, Embeddings
+      — all custom enterprise pricing.
+    applies_to:
+      - catchall-web-search-api
+      - news-api-v3
+
+  - id: dim-credit-consumption
+    name: Credit Consumption
+    description: >
+      For the CatchAll API, actual monthly spend depends on the mix of Lite
+      (100 credits/search) and Base (10 credits/record) calls. Teams running
+      high-volume Base mode queries consume credits faster per month than
+      Lite-mode-heavy workflows.
+    applies_to:
+      - catchall-web-search-api
+
+  - id: dim-historical-depth
+    name: Historical Data Depth
+    description: >
+      News API plans with greater historical depth (days) carry higher contract
+      pricing. Teams needing only recent news can reduce costs by selecting a
+      shorter historical window.
+    applies_to:
+      - news-api-v3
+
+  - id: dim-nlp-enrichment
+    name: NLP Enrichment Level
+    description: >
+      Each step up the News API plan ladder (NLP → IPTC Tags → Embeddings)
+      adds enrichment capabilities and increases per-call cost. Teams not
+      requiring vector embeddings should select the NLP or IPTC Tags plan.
+    applies_to:
+      - news-api-v3
+
+optimization_recommendations:
+  - id: opt-mode-selection
+    name: Choose the Right Retrieval Mode
+    description: >
+      For CatchAll API, use Lite mode (100 credits/search) when only a result
+      count or small sample set is needed. Switch to Base mode (10 credits/record)
+      for bulk article retrieval where per-record cost is lower at scale.
+    applies_to: catchall-web-search-api
+
+  - id: opt-credit-rollover
+    name: Leverage Credit Rollover
+    description: >
+      Unused monthly credits roll over. Avoid purchasing additional credits
+      mid-month before confirming rollover balance. Monitor consumption via the
+      platform dashboard to pace usage.
+    applies_to: catchall-web-search-api
+
+  - id: opt-subscription-endpoint
+    name: Monitor Quota via /subscription
+    description: >
+      The News API /subscription endpoint returns remaining_calls, plan_calls,
+      concurrent_calls, and historical_days in real time. Integrate this endpoint
+      into monitoring pipelines to trigger alerts before quota exhaustion.
+    applies_to: news-api-v3
+
+  - id: opt-pagination
+    name: Right-Size Page Requests
+    description: >
+      News API requests default to 100 articles per page (max 1,000). Using
+      the maximum page size reduces the number of API calls needed for bulk
+      exports, preserving monthly quota.
+    applies_to: news-api-v3
+
+  - id: opt-nlp-tier
+    name: Match NLP Tier to Use Case
+    description: >
+      Select the lowest News API plan that satisfies requirements. If embeddings
+      are not needed for downstream semantic search, the NLP or IPTC Tags plan
+      will provide equivalent retrieval at lower cost.
+    applies_to: news-api-v3
+
+  - id: opt-retry-backoff
+    name: Implement Exponential Backoff for 429s
+    description: >
+      SDK clients retry automatically up to 2 times with exponential backoff
+      on 429 errors. For custom clients, implement backoff to avoid wasting
+      call quota on failed concurrent retries.
+    applies_to:
+      - news-api-v3
+      - catchall-web-search-api
+
+pricing_tiers_summary:
+  catchall_web_search_api:
+    - plan: Individual
+      monthly_price_usd: 0
+      monthly_credits: pay_as_you_go
+    - plan: Starter
+      monthly_price_usd: 50
+      monthly_credits: 6000
+    - plan: Scale
+      monthly_price_usd: 500
+      monthly_credits: 60000
+    - plan: Enterprise
+      monthly_price_usd: custom
+      monthly_credits: custom
+  news_api_v3:
+    - plan: NLP (v3_nlp)
+      monthly_price_usd: contact_sales
+    - plan: IPTC Tags (v3_nlp_iptc_tags)
+      monthly_price_usd: contact_sales
+    - plan: Embeddings (v3_nlp_embeddings)
+      monthly_price_usd: contact_sales

@@ -1,0 +1,145 @@
+specificationVersion: "0.1"
+id: newscatcher-rate-limits
+name: Newscatcher Rate Limits
+description: >
+  Newscatcher enforces rate limits across three dimensions for the News API:
+  concurrent calls, total monthly plan calls, and historical data depth in days.
+  The Web Search (CatchAll) API uses a credit-based model where each retrieval
+  mode has a defined credit cost per operation. Exceeding concurrent call limits
+  returns HTTP 429. Monthly quotas reset at the start of each billing cycle with
+  no rollover for call counts (Web Search credits do roll over). Current quota
+  consumption can be queried via the /subscription endpoint.
+url: https://newscatcherapi.com/docs/v3/api-reference/overview/rate-limits
+limits:
+  # ── News API (v3) ─────────────────────────────────────────────────────────
+  - id: news-api-concurrent-calls
+    name: Concurrent Calls
+    description: >
+      Maximum number of simultaneous in-flight API requests allowed per
+      subscription. Exceeding this limit returns a 429 Too Many Requests error.
+      The exact value depends on the subscription plan; the example quota in the
+      docs shows 10 concurrent calls for a mid-tier plan.
+    scope: news-api
+    type: concurrency
+    enforcement: HTTP 429 on breach
+    reset: per_request
+    example_value: 10
+    unit: simultaneous_requests
+    note: Check /subscription endpoint for your plan-specific value.
+
+  - id: news-api-monthly-calls
+    name: Monthly Plan Calls
+    description: >
+      Total API calls permitted per billing cycle. Once exhausted the API
+      returns an error until the quota resets. The example quota response in the
+      documentation shows 250,000 monthly calls for a mid-tier subscription.
+    scope: news-api
+    type: quota
+    period: monthly
+    reset: billing_cycle_start
+    example_value: 250000
+    unit: api_calls
+    note: Check /subscription endpoint for your remaining_calls and plan_calls values.
+
+  - id: news-api-historical-depth
+    name: Historical Data Depth
+    description: >
+      The maximum number of days into the past that articles can be retrieved,
+      determined by subscription plan. The example quota shows 400 days.
+      NLP enrichment features apply only to articles indexed from July 2023.
+    scope: news-api
+    type: data_window
+    example_value: 400
+    unit: days
+    note: Earlier articles (pre-July 2023) have limited NLP processing.
+
+  - id: news-api-articles-per-request
+    name: Articles Per Request (Page Size)
+    description: >
+      Maximum number of articles returned in a single API response. Default is
+      100 and the hard ceiling is 1,000 per page. A hard cap of 10,000 articles
+      applies per query; if total_hits equals 10,000, actual matching articles
+      likely exceed that value.
+    scope: news-api
+    type: page_size
+    default_value: 100
+    max_value: 1000
+    hard_cap_per_query: 10000
+    unit: articles
+
+  # ── Web Search (CatchAll) API ─────────────────────────────────────────────
+  - id: catchall-credits-base-mode
+    name: Base Mode Credit Cost
+    description: >
+      Each valid record (article/result) retrieved in Base mode costs 10 credits
+      from the monthly credit allocation.
+    scope: catchall-web-search-api
+    type: credit_cost
+    mode: Base
+    cost_per_unit: 10
+    unit: credits_per_valid_record
+
+  - id: catchall-credits-lite-mode
+    name: Lite Mode Credit Cost
+    description: >
+      Each search operation performed in Lite mode costs 100 credits from the
+      monthly credit allocation regardless of results returned.
+    scope: catchall-web-search-api
+    type: credit_cost
+    mode: Lite
+    cost_per_unit: 100
+    unit: credits_per_search
+
+  - id: catchall-concurrency-individual
+    name: Concurrency - Individual Plan
+    description: Maximum concurrent requests for the free Individual plan.
+    scope: catchall-web-search-api
+    plan: individual
+    type: concurrency
+    max_value: 1
+    unit: simultaneous_requests
+
+  - id: catchall-concurrency-starter
+    name: Concurrency - Starter Plan
+    description: Maximum concurrent requests for the $50/month Starter plan.
+    scope: catchall-web-search-api
+    plan: starter
+    type: concurrency
+    max_value: 2
+    unit: simultaneous_requests
+
+  - id: catchall-concurrency-scale
+    name: Concurrency - Scale Plan
+    description: Maximum concurrent requests for the $500/month Scale plan.
+    scope: catchall-web-search-api
+    plan: scale
+    type: concurrency
+    max_value: 4
+    unit: simultaneous_requests
+
+  - id: catchall-monthly-credits-starter
+    name: Monthly Credits - Starter Plan
+    description: Monthly credit allocation for the Starter plan. Unused credits roll over.
+    scope: catchall-web-search-api
+    plan: starter
+    type: quota
+    period: monthly
+    max_value: 6000
+    rollover: true
+    unit: credits
+
+  - id: catchall-monthly-credits-scale
+    name: Monthly Credits - Scale Plan
+    description: Monthly credit allocation for the Scale plan. Unused credits roll over.
+    scope: catchall-web-search-api
+    plan: scale
+    type: quota
+    period: monthly
+    max_value: 60000
+    rollover: true
+    unit: credits
+
+error_codes:
+  - code: 429
+    description: Too Many Requests — concurrent call limit exceeded. Wait briefly before retrying.
+    retry_behavior: Exponential backoff; SDKs retry up to 2 times by default (configurable via WithMaxAttempts).

@@ -1,0 +1,119 @@
+aid: newscatcher
+name: Newscatcher
+description: >
+  Newscatcher is a news search and aggregation API platform that provides access
+  to over 120,000 news sources worldwide with full-text search, NLP enrichment,
+  entity extraction, sentiment analysis, and automated clustering. The platform
+  offers three core products — a News API for structured article retrieval, a
+  Web Search (CatchAll) API for recall-first AI-grade web search, and a Local
+  News API for hyper-local geographic news coverage. All APIs return clean,
+  enriched, and deduplication-ready data designed for enterprise risk teams,
+  financial services, AI platforms, and media intelligence workflows. The company
+  is backed by Y Combinator (S22) and holds ISO certifications and SOC2 Type II
+  compliance.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/newscatcher/refs/heads/main/apis.yml
+created: "2026-06-12"
+modified: "2026-06-12"
+specificationVersion: "0.19"
+tags:
+  - News
+  - Search
+  - NLP
+  - Sentiment Analysis
+  - Entity Extraction
+  - Clustering
+  - Media Intelligence
+  - Financial Intelligence
+  - AI
+  - Enterprise
+apis:
+  - aid: newscatcher:news-api
+    name: Newscatcher News API
+    description: >
+      The News API provides structured access to 120,000+ global news sources
+      with advanced search, NLP enrichment, named entity recognition, sentiment
+      scoring, IPTC tagging, pre-computed embeddings, and article clustering.
+      Endpoints cover keyword/boolean search, latest headlines, breaking news,
+      author lookup, source directory, aggregation counts, and subscription
+      metadata. Authentication uses the x-api-token request header and the API
+      targets https://v3-api.newscatcherapi.com/api.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://www.newscatcherapi.com/news-api
+    baseURL: https://v3-api.newscatcherapi.com/api
+    tags:
+      - News
+      - NLP
+      - Search
+      - Entity Extraction
+      - Sentiment Analysis
+    properties:
+      - type: Documentation
+        url: https://www.newscatcherapi.com/docs/v3/api-reference/overview/introduction
+  - aid: newscatcher:web-search-api
+    name: Newscatcher CatchAll Web Search API
+    description: >
+      CatchAll is a recall-first web search API designed for AI agents and
+      enterprise workflows requiring comprehensive information coverage. It
+      supports Lite and Base retrieval modes, monitor slots for scheduled
+      queries, configurable search depth up to a full archive, and up to 1,000
+      max results per call. Plans are credit-based with monthly rollovers and
+      optional Deep Search available on Enterprise tiers. Authentication uses API
+      keys issued instantly via the self-service platform dashboard.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://www.newscatcherapi.com
+    baseURL: https://api.newscatcherapi.com
+    tags:
+      - Web Search
+      - AI
+      - Recall
+      - Agents
+    properties:
+      - type: Documentation
+        url: https://www.newscatcherapi.com/docs
+  - aid: newscatcher:local-news-api
+    name: Newscatcher Local News API
+    description: >
+      The Local News API specializes in hyper-local geographic news coverage
+      with location-based detection and NLP capabilities, enabling developers to
+      retrieve location-specific news signals with enriched metadata. The API is
+      suited for real estate, government, insurance, and compliance applications
+      that require precise geographic news filtering at a city, region, or
+      country level.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://www.newscatcherapi.com/local-news-api
+    baseURL: https://v3-api.newscatcherapi.com/api
+    tags:
+      - Local News
+      - Geographic
+      - NLP
+    properties:
+      - type: Documentation
+        url: https://www.newscatcherapi.com/docs
+common:
+  - type: Website
+    url: https://www.newscatcherapi.com
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs
+  - type: GitHubOrg
+    url: https://github.com/Newscatcher
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/newscatcherapi
+  - type: Blog
+    url: https://www.newscatcherapi.com/blog
+  - type: Pricing
+    url: https://www.newscatcherapi.com/pricing
+  - type: StatusPage
+    url: https://status.newscatcherapi.com
+  - type: X
+    url: https://x.com/newscatcherapi
+  - type: Plans
+    url: plans/newscatcher-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/newscatcher-rate-limits.yml
+  - type: FinOps
+    url: finops/newscatcher-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
