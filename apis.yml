@@ -51,6 +51,8 @@ apis:
     properties:
       - type: Documentation
         url: https://www.newscatcherapi.com/docs/v3/api-reference/overview/introduction
+      - type: OpenAPI
+        url: openapi/newscatcher-news-api-openapi.yml
   - aid: newscatcher:web-search-api
     name: Newscatcher CatchAll Web Search API
     description: >
@@ -72,6 +74,8 @@ apis:
     properties:
       - type: Documentation
         url: https://www.newscatcherapi.com/docs
+      - type: OpenAPI
+        url: openapi/newscatcher-web-search-api-openapi.yml
   - aid: newscatcher:local-news-api
     name: Newscatcher Local News API
     description: >
@@ -91,6 +95,8 @@ apis:
     properties:
       - type: Documentation
         url: https://www.newscatcherapi.com/docs
+      - type: OpenAPI
+        url: openapi/newscatcher-local-news-api-openapi.yml
 common:
   - type: Website
     url: https://www.newscatcherapi.com
@@ -114,6 +120,14 @@ common:
     url: rate-limits/newscatcher-rate-limits.yml
   - type: FinOps
     url: finops/newscatcher-finops.yml
+  - type: Vocabulary
+    url: vocabulary/newscatcher-vocabulary.yml
+  - type: JSONSchemaCollection
+    url: json-schema/newscatcher-article-schema.json
+  - type: JSONSchemaCollection
+    url: json-schema/newscatcher-search-response-schema.json
+  - type: JSONLDContext
+    url: json-ld/newscatcher-context.jsonld
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

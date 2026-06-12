@@ -1,0 +1,14 @@
+{
+  "q": "artificial intelligence regulation",
+  "lang": ["en"],
+  "countries": ["US", "GB"],
+  "from": "2025-01-01",
+  "to": "2026-06-12",
+  "sort_by": "relevancy",
+  "page_size": 10,
+  "page": 1,
+  "include_nlp_data": true,
+  "has_nlp": true,
+  "clustering_enabled": true,
+  "clustering_threshold": 0.6
+}

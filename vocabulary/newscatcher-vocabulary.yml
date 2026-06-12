@@ -1,0 +1,211 @@
+vocabulary:
+  provider: newscatcher
+  version: "1.0.0"
+  description: >
+    Domain vocabulary for the Newscatcher API platform covering news search,
+    NLP enrichment, entity extraction, sentiment analysis, article clustering,
+    web search, and local news geographic filtering.
+
+  terms:
+    # Core article concepts
+    - term: article
+      definition: >
+        A news item retrieved from a publisher source, containing title, content,
+        author, publication date, and optional NLP enrichment fields. The fundamental
+        data unit returned by News API search endpoints.
+      related: [headline, cluster, breaking_news]
+
+    - term: headline
+      definition: >
+        An article designated as a top/featured story on its source domain at the
+        time of parsing, indicated by the is_headline boolean field.
+      related: [article, breaking_news]
+
+    - term: breaking_news
+      definition: >
+        Very recently published articles detected as significant, time-sensitive
+        news events. Returned by the /api/breaking_news endpoint with additional
+        event grouping metadata.
+      related: [headline, article]
+
+    - term: cluster
+      definition: >
+        A group of semantically similar articles bundled together by the API's
+        clustering algorithm to reduce noise and surface unique stories. Each
+        cluster has a cluster_id, cluster_size, and list of member articles.
+        Enabled via clustering_enabled=true in search requests.
+      related: [article, clustering_threshold]
+
+    - term: clustering_threshold
+      definition: >
+        A float value (0.0–1.0) controlling how aggressively articles are grouped
+        into clusters. Higher values produce fewer, tighter clusters; lower values
+        produce more clusters with looser groupings. Default is typically 0.6.
+      related: [cluster]
+
+    # NLP and enrichment concepts
+    - term: nlp
+      definition: >
+        The Natural Language Processing enrichment block attached to articles
+        when include_nlp_data=true. Contains theme, summary, sentiment scores,
+        named entities (PER/ORG/LOC/MISC), IPTC tags, IAB tags, and optionally
+        pre-computed vector embeddings.
+      related: [sentiment, ner, iptc_tags, embedding]
+
+    - term: sentiment
+      definition: >
+        Sentiment polarity scores for an article's title and content, ranging from
+        -1.0 (strongly negative) to 1.0 (strongly positive), with 0.0 being neutral.
+        Part of the nlp enrichment block.
+      related: [nlp]
+
+    - term: ner
+      definition: >
+        Named Entity Recognition — the extraction of structured entities from
+        article text. Newscatcher provides four entity types: NER_PER (persons),
+        NER_ORG (organizations), NER_LOC (locations), NER_MISC (miscellaneous).
+      related: [nlp]
+
+    - term: iptc_tags
+      definition: >
+        International Press Telecommunications Council (IPTC) Media Topic taxonomy
+        codes used to classify articles by subject matter. Provides standardized
+        content categorization for editorial workflows.
+      related: [nlp, iab_tags]
+
+    - term: iab_tags
+      definition: >
+        Interactive Advertising Bureau (IAB) content category taxonomy labels
+        applied to articles, useful for ad targeting and content classification
+        in digital media workflows.
+      related: [nlp, iptc_tags]
+
+    - term: embedding
+      definition: >
+        A pre-computed dense vector representation of an article's semantic content,
+        returned as a float array in the nlp block. Useful for downstream similarity
+        search, retrieval-augmented generation (RAG), and clustering workflows.
+      related: [nlp]
+
+    - term: theme
+      definition: >
+        A human-readable topic label or set of labels assigned to an article by
+        Newscatcher's classification model (e.g., "Technology > Artificial Intelligence",
+        "Politics > Regulation"). Returned as a string in the nlp block.
+      related: [nlp, iptc_tags]
+
+    # Source and domain concepts
+    - term: source
+      definition: >
+        A news publisher registered in the Newscatcher index, characterized by its
+        domain_url, name_source, country of origin, language, rank, and optional
+        RSS feed. Discoverable via the /api/sources endpoint.
+      related: [domain_url, rank]
+
+    - term: domain_url
+      definition: >
+        The root domain of a news source (e.g., "bbc.com"). Used as the primary
+        identifier for source filtering and deduplication.
+      related: [source, parent_url]
+
+    - term: parent_url
+      definition: >
+        The section or category URL within a domain where the article was published
+        (e.g., "https://www.bbc.com/news/technology"). Useful for topic-level
+        source filtering.
+      related: [domain_url]
+
+    - term: rank
+      definition: >
+        An integer representing the global traffic rank of a news source, sourced
+        from third-party traffic data providers. Lower numbers indicate higher-traffic
+        sources. Used with from_rank and to_rank parameters to filter by source prominence.
+      related: [source]
+
+    - term: paid_content
+      definition: >
+        A boolean field indicating whether a news article is behind a paywall or
+        requires a subscription for full access, as declared by the publisher.
+      related: [article]
+
+    - term: robots_compliant
+      definition: >
+        A boolean indicating whether the article content can be safely accessed and
+        used according to the publisher's robots.txt directives. True means access
+        is permitted; false means restricted.
+      related: [article]
+
+    # Search parameters
+    - term: boolean_query
+      definition: >
+        The q parameter supports Boolean operators (AND, OR, NOT) as well as phrase
+        search with double quotes, parentheses for grouping, proximity operators,
+        and wildcard characters to build precise search queries.
+      related: [article]
+
+    - term: ranked_only
+      definition: >
+        A boolean parameter that, when true, restricts results to articles from
+        news sources that appear in global traffic rankings (i.e., sources with
+        an established web presence). Useful for filtering out low-quality sources.
+      related: [rank]
+
+    # CatchAll / Web Search API concepts
+    - term: catchall_job
+      definition: >
+        A CatchAll API asynchronous search job submitted via /catchAll/submit.
+        Jobs process comprehensive recall-first web searches over large date ranges.
+        Status is polled via /catchAll/status/{job_id}; results retrieved via
+        /catchAll/pull/{job_id}.
+      related: [monitor, job_id]
+
+    - term: monitor
+      definition: >
+        A CatchAll API scheduled search configuration that automatically runs queries
+        on a recurring schedule and delivers results to a webhook or makes them
+        available for polling via /catchAll/monitors/{monitor_id}/jobs.
+      related: [catchall_job, webhook]
+
+    - term: webhook
+      definition: >
+        An HTTP callback endpoint registered with the CatchAll API to receive
+        push notifications when a monitor produces new results or a job completes.
+        Managed via /catchAll/webhooks endpoints.
+      related: [monitor]
+
+    - term: dataset
+      definition: >
+        A named collection of entities (companies, topics, URLs) uploaded to the
+        CatchAll API to enable structured entity-based filtering and enrichment
+        in search jobs. Managed via /catchAll/datasets endpoints.
+      related: [catchall_job]
+
+    # Local News API concepts
+    - term: geonames
+      definition: >
+        A structured geographic location identifier from the GeoNames database,
+        used in Local News API advanced endpoints (/api/search/advanced and
+        /api/latest_headlines/advanced) for precise geographic filtering beyond
+        simple city/state string matching.
+      related: [local_news]
+
+    - term: local_news
+      definition: >
+        News articles from hyperlocal and regional publishers focused on specific
+        cities, regions, or counties. The Local News API provides location-based
+        detection and geographic filtering capabilities for these articles.
+      related: [geonames]
+
+    # Authentication
+    - term: x_api_token
+      definition: >
+        The HTTP request header name used to pass API authentication credentials
+        to the News API and Local News API (header: x-api-token). The CatchAll API
+        uses x-api-key instead.
+      related: [x_api_key]
+
+    - term: x_api_key
+      definition: >
+        The HTTP request header name used to pass API authentication credentials
+        to the CatchAll (Web Search) API (header: x-api-key).
+      related: [x_api_token]

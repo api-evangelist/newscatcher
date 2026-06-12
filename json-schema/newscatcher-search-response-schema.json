@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/newscatcher/main/json-schema/newscatcher-search-response-schema.json",
+  "title": "Newscatcher Search Response",
+  "description": "Schema for the search response returned by the Newscatcher News API v3 /api/search endpoint.",
+  "type": "object",
+  "required": ["status", "total_hits", "page", "total_pages", "page_size", "articles"],
+  "properties": {
+    "status": {
+      "type": "string",
+      "description": "Status of the response (ok or error).",
+      "enum": ["ok", "error", "No matches for your search parameters"]
+    },
+    "total_hits": {
+      "type": "integer",
+      "description": "The total number of articles matching the search query."
+    },
+    "page": {
+      "type": "integer",
+      "description": "The current page number.",
+      "minimum": 1
+    },
+    "total_pages": {
+      "type": "integer",
+      "description": "The total number of pages available."
+    },
+    "page_size": {
+      "type": "integer",
+      "description": "The number of articles returned per page.",
+      "minimum": 1,
+      "maximum": 1000
+    },
+    "articles": {
+      "type": "array",
+      "description": "The list of articles matching the search criteria.",
+      "items": {
+        "$ref": "newscatcher-article-schema.json"
+      }
+    },
+    "user_input": {
+      "type": "object",
+      "description": "Echo of the user's input parameters.",
+      "properties": {
+        "q": {"type": "string"},
+        "search_in": {"type": "array", "items": {"type": "string"}},
+        "lang": {"type": "array", "items": {"type": "string"}},
+        "not_lang": {"type": "array", "items": {"type": "string"}},
+        "countries": {"type": "array", "items": {"type": "string"}},
+        "not_countries": {"type": "array", "items": {"type": "string"}},
+        "from": {"type": "string"},
+        "to": {"type": "string"},
+        "ranked_only": {"type": "boolean"},
+        "from_rank": {"type": "integer"},
+        "to_rank": {"type": "integer"},
+        "sort_by": {"type": "string"},
+        "page_size": {"type": "integer"},
+        "page": {"type": "integer"},
+        "include_nlp_data": {"type": "boolean"},
+        "has_nlp": {"type": "boolean"},
+        "theme": {"type": "string"},
+        "clustering_enabled": {"type": "boolean"},
+        "clustering_threshold": {"type": "number"}
+      }
+    },
+    "clusters_count": {
+      "type": "integer",
+      "description": "The number of article clusters returned (when clustering is enabled)."
+    },
+    "clusters": {
+      "type": "array",
+      "description": "Article clusters (returned when clustering_enabled is true).",
+      "items": {
+        "$ref": "#/$defs/ClusterEntity"
+      }
+    }
+  },
+  "$defs": {
+    "ClusterEntity": {
+      "type": "object",
+      "description": "A cluster of related articles grouped by topic similarity.",
+      "required": ["cluster_id", "cluster_size", "articles"],
+      "properties": {
+        "cluster_id": {
+          "type": "string",
+          "description": "The unique identifier for the cluster."
+        },
+        "cluster_size": {
+          "type": "integer",
+          "description": "The number of articles in the cluster."
+        },
+        "articles": {
+          "type": "array",
+          "description": "The articles belonging to this cluster.",
+          "items": {
+            "$ref": "newscatcher-article-schema.json"
+          }
+        }
+      }
+    }
+  }
+}

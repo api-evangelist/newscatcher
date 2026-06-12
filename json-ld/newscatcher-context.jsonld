@@ -1,0 +1,194 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "newscatcher": "https://www.newscatcherapi.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Article": "schema:NewsArticle",
+    "Source": "schema:NewsMediaOrganization",
+    "Cluster": "newscatcher:ArticleCluster",
+    "NlpData": "newscatcher:NlpEnrichment",
+    "SentimentScores": "newscatcher:SentimentScores",
+    "SearchResponse": "newscatcher:SearchResponse",
+    "CatchAllJob": "newscatcher:CatchAllJob",
+    "Monitor": "newscatcher:Monitor",
+    "Webhook": "newscatcher:Webhook",
+    "Dataset": "newscatcher:Dataset",
+
+    "id": "@id",
+    "type": "@type",
+
+    "title": "schema:headline",
+    "author": "schema:author",
+    "authors": {
+      "@id": "schema:author",
+      "@container": "@list"
+    },
+    "published_date": {
+      "@id": "schema:datePublished",
+      "@type": "xsd:dateTime"
+    },
+    "updated_date": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+    "parse_date": {
+      "@id": "newscatcher:parseDate",
+      "@type": "xsd:dateTime"
+    },
+    "link": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "domain_url": "schema:domainIncludes",
+    "full_domain_url": "newscatcher:fullDomainUrl",
+    "name_source": {
+      "@id": "schema:publisher",
+      "@type": "schema:NewsMediaOrganization"
+    },
+    "is_headline": {
+      "@id": "newscatcher:isHeadline",
+      "@type": "xsd:boolean"
+    },
+    "paid_content": {
+      "@id": "schema:isAccessibleForFree",
+      "@type": "xsd:boolean"
+    },
+    "parent_url": {
+      "@id": "newscatcher:parentUrl",
+      "@type": "@id"
+    },
+    "country": {
+      "@id": "schema:countryOfOrigin",
+      "@type": "schema:Country"
+    },
+    "language": {
+      "@id": "schema:inLanguage",
+      "@type": "xsd:language"
+    },
+    "rank": {
+      "@id": "newscatcher:sourceRank",
+      "@type": "xsd:integer"
+    },
+    "score": {
+      "@id": "newscatcher:relevanceScore",
+      "@type": "xsd:float"
+    },
+    "description": "schema:description",
+    "content": "schema:articleBody",
+    "word_count": {
+      "@id": "schema:wordCount",
+      "@type": "xsd:integer"
+    },
+    "is_opinion": {
+      "@id": "newscatcher:isOpinion",
+      "@type": "xsd:boolean"
+    },
+    "media": {
+      "@id": "schema:image",
+      "@type": "@id"
+    },
+    "rights": "schema:copyrightNotice",
+    "twitter_account": "schema:sameAs",
+    "all_links": {
+      "@id": "newscatcher:allLinks",
+      "@container": "@list"
+    },
+    "all_domain_links": {
+      "@id": "newscatcher:allDomainLinks",
+      "@container": "@list"
+    },
+    "robots_compliant": {
+      "@id": "newscatcher:robotsCompliant",
+      "@type": "xsd:boolean"
+    },
+    "custom_tags": "newscatcher:customTags",
+
+    "nlp": "newscatcher:nlpEnrichment",
+    "theme": "newscatcher:theme",
+    "summary": "schema:abstract",
+    "translation_summary": "newscatcher:translationSummary",
+    "sentiment": "newscatcher:sentiment",
+    "ner_PER": {
+      "@id": "newscatcher:namedEntityPerson",
+      "@container": "@list"
+    },
+    "ner_ORG": {
+      "@id": "newscatcher:namedEntityOrganization",
+      "@container": "@list"
+    },
+    "ner_LOC": {
+      "@id": "newscatcher:namedEntityLocation",
+      "@container": "@list"
+    },
+    "ner_MISC": {
+      "@id": "newscatcher:namedEntityMiscellaneous",
+      "@container": "@list"
+    },
+    "iptc_tags": {
+      "@id": "newscatcher:iptcTags",
+      "@container": "@list"
+    },
+    "iab_tags": {
+      "@id": "newscatcher:iabTags",
+      "@container": "@list"
+    },
+    "embedding": {
+      "@id": "newscatcher:vectorEmbedding",
+      "@container": "@list"
+    },
+
+    "total_hits": {
+      "@id": "newscatcher:totalHits",
+      "@type": "xsd:integer"
+    },
+    "page": {
+      "@id": "newscatcher:page",
+      "@type": "xsd:integer"
+    },
+    "total_pages": {
+      "@id": "newscatcher:totalPages",
+      "@type": "xsd:integer"
+    },
+    "page_size": {
+      "@id": "newscatcher:pageSize",
+      "@type": "xsd:integer"
+    },
+    "articles": {
+      "@id": "newscatcher:articles",
+      "@container": "@list"
+    },
+    "status": "newscatcher:responseStatus",
+
+    "cluster_id": "newscatcher:clusterId",
+    "cluster_size": {
+      "@id": "newscatcher:clusterSize",
+      "@type": "xsd:integer"
+    },
+    "clusters": {
+      "@id": "newscatcher:clusters",
+      "@container": "@list"
+    },
+    "clusters_count": {
+      "@id": "newscatcher:clustersCount",
+      "@type": "xsd:integer"
+    },
+
+    "job_id": "newscatcher:jobId",
+    "monitor_id": "newscatcher:monitorId",
+    "webhook_id": "newscatcher:webhookId",
+    "dataset_id": "newscatcher:datasetId",
+    "created_at": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+
+    "domain_url_source": "schema:url",
+    "name_source_org": "schema:name",
+    "logo": {
+      "@id": "schema:logo",
+      "@type": "@id"
+    }
+  }
+}

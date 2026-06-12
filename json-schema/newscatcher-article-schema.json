@@ -1,0 +1,228 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/newscatcher/main/json-schema/newscatcher-article-schema.json",
+  "title": "Newscatcher Article",
+  "description": "Schema for a news article returned by the Newscatcher News API v3.",
+  "type": "object",
+  "required": ["title", "link", "domain_url", "full_domain_url", "parent_url", "rank", "id", "score"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique identifier for the article."
+    },
+    "title": {
+      "type": "string",
+      "description": "The title of the article."
+    },
+    "author": {
+      "type": "string",
+      "description": "The primary author of the article."
+    },
+    "authors": {
+      "description": "A list of authors of the article.",
+      "anyOf": [
+        {"type": "array", "items": {"type": "string"}},
+        {"type": "string"}
+      ]
+    },
+    "published_date": {
+      "type": "string",
+      "description": "The date the article was published (ISO 8601)."
+    },
+    "published_date_precision": {
+      "type": "string",
+      "description": "The precision of the published date (e.g., full, timezone unknown)."
+    },
+    "updated_date": {
+      "type": ["string", "null"],
+      "description": "The date the article was last updated."
+    },
+    "parse_date": {
+      "type": ["string", "null"],
+      "description": "The date the article was parsed by Newscatcher."
+    },
+    "link": {
+      "type": "string",
+      "format": "uri",
+      "description": "The URL link to the article."
+    },
+    "domain_url": {
+      "type": "string",
+      "description": "The domain URL of the article's source."
+    },
+    "full_domain_url": {
+      "type": "string",
+      "description": "The full domain URL of the article's source."
+    },
+    "name_source": {
+      "type": "string",
+      "description": "The name of the source where the article was published."
+    },
+    "is_headline": {
+      "type": "boolean",
+      "description": "Indicates if the article is a headline."
+    },
+    "paid_content": {
+      "type": "boolean",
+      "description": "Indicates whether the article is behind a paywall."
+    },
+    "parent_url": {
+      "type": "string",
+      "description": "The categorical/section URL of the article."
+    },
+    "country": {
+      "type": "string",
+      "description": "The country where the article was published (ISO 3166-1 alpha-2)."
+    },
+    "language": {
+      "type": "string",
+      "description": "The language in which the article is written (ISO 639-1)."
+    },
+    "rank": {
+      "type": "integer",
+      "description": "The rank of the article's source by global traffic."
+    },
+    "score": {
+      "type": "number",
+      "description": "The relevance score of the article."
+    },
+    "description": {
+      "type": "string",
+      "description": "A brief description or excerpt of the article."
+    },
+    "content": {
+      "type": "string",
+      "description": "The full text content of the article."
+    },
+    "word_count": {
+      "type": "integer",
+      "description": "The word count of the article.",
+      "default": 0
+    },
+    "is_opinion": {
+      "type": "boolean",
+      "description": "Indicates if the article is an opinion piece."
+    },
+    "media": {
+      "type": "string",
+      "description": "The media/image URL associated with the article."
+    },
+    "rights": {
+      "type": "string",
+      "description": "The copyright/rights information for the article."
+    },
+    "twitter_account": {
+      "type": ["string", "null"],
+      "description": "The Twitter account associated with the article's author or source."
+    },
+    "all_links": {
+      "description": "A list of all URLs mentioned in the article.",
+      "anyOf": [
+        {"type": "array", "items": {"type": "string"}},
+        {"type": "string"}
+      ],
+      "default": []
+    },
+    "all_domain_links": {
+      "description": "A list of all domain URLs mentioned in the article.",
+      "anyOf": [
+        {"type": "array", "items": {"type": "string"}},
+        {"type": "string"}
+      ],
+      "default": []
+    },
+    "nlp": {
+      "$ref": "#/$defs/NlpData"
+    },
+    "robots_compliant": {
+      "type": "boolean",
+      "description": "True if the article content can be safely accessed per the publisher's robots.txt rules."
+    },
+    "custom_tags": {
+      "type": "object",
+      "description": "Custom taxonomy tags associated with the article.",
+      "additionalProperties": {
+        "type": "array",
+        "items": {"type": "string"}
+      }
+    }
+  },
+  "$defs": {
+    "NlpData": {
+      "type": "object",
+      "description": "Natural Language Processing enrichment data for the article.",
+      "properties": {
+        "theme": {
+          "type": "string",
+          "description": "The themes or categories identified in the article."
+        },
+        "summary": {
+          "type": "string",
+          "description": "A brief AI-generated summary of the article."
+        },
+        "translation_summary": {
+          "type": "string",
+          "description": "A brief AI-generated summary of the article's English translation."
+        },
+        "sentiment": {
+          "$ref": "#/$defs/SentimentScores"
+        },
+        "ner_PER": {
+          "type": "array",
+          "description": "Named entities: persons recognized in the article.",
+          "items": {"type": "string"}
+        },
+        "ner_ORG": {
+          "type": "array",
+          "description": "Named entities: organizations recognized in the article.",
+          "items": {"type": "string"}
+        },
+        "ner_MISC": {
+          "type": "array",
+          "description": "Named entities: miscellaneous entities recognized in the article.",
+          "items": {"type": "string"}
+        },
+        "ner_LOC": {
+          "type": "array",
+          "description": "Named entities: locations recognized in the article.",
+          "items": {"type": "string"}
+        },
+        "iptc_tags": {
+          "type": "array",
+          "description": "IPTC Media Topic tags for content classification.",
+          "items": {"type": "string"}
+        },
+        "iab_tags": {
+          "type": "array",
+          "description": "IAB content category tags.",
+          "items": {"type": "string"}
+        },
+        "embedding": {
+          "type": "array",
+          "description": "Pre-computed vector embedding for the article.",
+          "items": {"type": "number"}
+        }
+      }
+    },
+    "SentimentScores": {
+      "type": "object",
+      "description": "Sentiment scores for the article's title and content.",
+      "properties": {
+        "title": {
+          "type": "number",
+          "format": "float",
+          "description": "Sentiment score for the article title (-1.0 negative to 1.0 positive).",
+          "minimum": -1.0,
+          "maximum": 1.0
+        },
+        "content": {
+          "type": "number",
+          "format": "float",
+          "description": "Sentiment score for the article content (-1.0 negative to 1.0 positive).",
+          "minimum": -1.0,
+          "maximum": 1.0
+        }
+      }
+    }
+  }
+}

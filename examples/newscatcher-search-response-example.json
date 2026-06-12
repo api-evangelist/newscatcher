@@ -1,0 +1,78 @@
+{
+  "status": "ok",
+  "total_hits": 1842,
+  "page": 1,
+  "total_pages": 185,
+  "page_size": 10,
+  "articles": [
+    {
+      "id": "8f3c2a1b4e5d6f7a8b9c0d1e2f3a4b5c",
+      "title": "EU AI Act: What Businesses Need to Know About the New Regulatory Framework",
+      "author": "Jane Smith",
+      "authors": ["Jane Smith"],
+      "published_date": "2025-06-10 14:23:00",
+      "published_date_precision": "full",
+      "updated_date": "2025-06-10 16:00:00",
+      "parse_date": "2025-06-10 15:00:00",
+      "link": "https://www.bbc.com/news/technology/ai-act-explainer",
+      "domain_url": "bbc.com",
+      "full_domain_url": "www.bbc.com",
+      "name_source": "BBC News",
+      "is_headline": true,
+      "paid_content": false,
+      "parent_url": "https://www.bbc.com/news/technology",
+      "country": "GB",
+      "language": "en",
+      "rank": 142,
+      "score": 18.74,
+      "description": "A comprehensive breakdown of the EU AI Act and its implications for global businesses deploying AI systems.",
+      "content": "The European Union's landmark AI Act has entered its final implementation phase, setting strict requirements for high-risk AI applications...",
+      "word_count": 1245,
+      "is_opinion": false,
+      "media": "https://ichef.bbci.co.uk/news/1024/cpsprodpb/ai-act-hero.jpg",
+      "rights": "bbc.com",
+      "twitter_account": "@BBCNews",
+      "all_links": ["https://eur-lex.europa.eu/ai-act", "https://ec.europa.eu/digital-agenda"],
+      "all_domain_links": ["eur-lex.europa.eu", "ec.europa.eu"],
+      "nlp": {
+        "theme": "Politics > Regulation, Technology > Artificial Intelligence",
+        "summary": "The EU AI Act establishes a risk-based regulatory framework for artificial intelligence, requiring high-risk AI systems to meet strict safety and transparency requirements before deployment in EU markets.",
+        "sentiment": {
+          "title": 0.1,
+          "content": 0.05
+        },
+        "ner_PER": ["Thierry Breton", "Ursula von der Leyen"],
+        "ner_ORG": ["European Commission", "European Parliament", "OpenAI", "Google DeepMind"],
+        "ner_LOC": ["European Union", "Brussels", "United States"],
+        "ner_MISC": ["AI Act", "General Purpose AI", "GPAI"],
+        "iptc_tags": ["20000209", "04016010"],
+        "iab_tags": ["Technology & Computing", "Artificial Intelligence"]
+      },
+      "robots_compliant": true,
+      "custom_tags": {}
+    }
+  ],
+  "user_input": {
+    "q": "artificial intelligence regulation",
+    "search_in": ["title", "summary"],
+    "lang": ["en"],
+    "countries": ["US", "GB"],
+    "from": "2025-01-01",
+    "to": "2026-06-12",
+    "sort_by": "relevancy",
+    "page_size": 10,
+    "page": 1,
+    "include_nlp_data": true,
+    "has_nlp": true,
+    "clustering_enabled": true,
+    "clustering_threshold": 0.6
+  },
+  "clusters_count": 3,
+  "clusters": [
+    {
+      "cluster_id": "cluster_eu_ai_act_2025",
+      "cluster_size": 47,
+      "articles": []
+    }
+  ]
+}
