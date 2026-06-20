@@ -12,7 +12,7 @@ description: >
   is backed by Y Combinator (S22) and holds ISO certifications and SOC2 Type II
   compliance.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/newscatcher/refs/heads/main/apis.yml
 created: "2026-06-12"
 modified: "2026-06-12"
@@ -39,7 +39,7 @@ apis:
       author lookup, source directory, aggregation counts, and subscription
       metadata. Authentication uses the x-api-token request header and the API
       targets https://v3-api.newscatcherapi.com/api.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://www.newscatcherapi.com/news-api
     baseURL: https://v3-api.newscatcherapi.com/api
     tags:
@@ -63,7 +63,7 @@ apis:
       max results per call. Plans are credit-based with monthly rollovers and
       optional Deep Search available on Enterprise tiers. Authentication uses API
       keys issued instantly via the self-service platform dashboard.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://www.newscatcherapi.com
     baseURL: https://api.newscatcherapi.com
     tags:
@@ -85,7 +85,7 @@ apis:
       suited for real estate, government, insurance, and compliance applications
       that require precise geographic news filtering at a city, region, or
       country level.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://www.newscatcherapi.com/local-news-api
     baseURL: https://v3-api.newscatcherapi.com/api
     tags:
