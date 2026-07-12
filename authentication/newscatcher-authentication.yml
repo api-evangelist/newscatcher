@@ -1,0 +1,27 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/newscatcher-local-news-api-openapi.yml, openapi/newscatcher-news-api-openapi.yml,
+  openapi/newscatcher-web-search-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: x-api-token
+  description: "API Key to authenticate requests.\n\nTo access the API, include your API key\
+    \ in the `x-api-token` header. \nTo obtain your API key, complete the [form](https://www.newscatcherapi.com/book-a-demo)\
+    \ or contact us directly."
+  sources:
+  - openapi/newscatcher-local-news-api-openapi.yml
+  - openapi/newscatcher-news-api-openapi.yml
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: x-api-key
+  description: API key for authentication.
+  sources:
+  - openapi/newscatcher-web-search-api-openapi.yml
