@@ -98,6 +98,8 @@ apis:
       - type: OpenAPI
         url: openapi/newscatcher-local-news-api-openapi.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/newscatcher-agentic-access.yml
   - type: DomainSecurity
     url: security/newscatcher-domain-security.yml
   - type: Authentication
