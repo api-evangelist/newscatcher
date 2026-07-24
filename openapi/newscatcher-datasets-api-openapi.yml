@@ -1,0 +1,1110 @@
+openapi: 3.0.3
+info:
+  title: Local News AggregationCount Datasets API
+  description: 'The Local News API provides access to local news articles with location-specific filtering capabilities.
+
+
+    ## Standard endpoints
+
+
+    - `/search`: Search articles by keywords with simple location filtering ("City, State" format).
+
+    - `/latest_headlines`: Retrieve recent articles for specified locations and time periods.
+
+    - `/search_by`: Retrieve articles by URL, ID, or RSS GUID.
+
+    - `/sources`: List available news sources.
+
+
+    ## Advanced endpoints
+
+
+    - `/search/advanced`: Search with structured GeoNames filtering.
+
+    - `/latest_headlines/advanced`: Latest headlines with structured GeoNames filtering.
+
+
+    ## Features
+
+
+    - Multiple location detection methods including dedicated sources, proximity analysis, and AI extraction
+
+    - Natural language processing for sentiment analysis and entity recognition on original content and English translations
+
+    - Article clustering for topic analysis
+
+    - English translations for non-English content
+
+    '
+  termsOfService: https://newscatcherapi.com/terms-of-service
+  contact:
+    name: Maksym Sugonyaka
+    email: maksym@newscatcherapi.com
+    url: https://www.newscatcherapi.com/book-a-demo
+  version: 1.2.0
+servers:
+- url: https://local-news.newscatcherapi.com
+  description: Local News API production server
+security:
+- ApiKeyAuth: []
+tags:
+- name: Datasets
+  description: 'Operations to create and manage datasets of entities.
+
+
+    A dataset is a named collection of entities — think of it as a watchlist or
+
+    portfolio. Connect a dataset to a job via `connected_dataset_ids` to activate
+
+    Company Watchlist. Datasets can be reused across multiple jobs and monitors.
+
+    '
+  externalDocs:
+    description: Learn about datasets and Company Watchlist
+    url: https://www.newscatcherapi.com/docs/web-search-api/guides-and-concepts/company-search
+paths:
+  /catchAll/datasets:
+    get:
+      tags:
+      - Datasets
+      summary: List datasets
+      description: 'Returns a paginated list of datasets belonging to the authenticated organization. Supports filtering by status and sorting by name, status, or creation date.
+
+        '
+      operationId: listDatasets
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 100
+          minimum: 1
+          maximum: 500
+        description: Number of datasets per page.
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter datasets by name (case-insensitive substring match).
+        example: Portfolio
+      - name: latest_status
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/DatasetStatus'
+        description: 'Filter by dataset status.
+
+          '
+      - name: sort_by
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/DatasetSortBy'
+      - name: sort_order
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortOrder'
+      - $ref: '#/components/parameters/Ownership'
+      - $ref: '#/components/parameters/ProjectIdQuery'
+      responses:
+        '200':
+          $ref: '#/components/responses/DatasetListResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+    post:
+      tags:
+      - Datasets
+      summary: Create dataset
+      description: 'Creates a new dataset from a list of existing entity IDs.
+
+
+        If any of the provided entity IDs do not exist or do not belong to
+
+        your organization, the request fails with `400`. All entity IDs must
+
+        be valid before the dataset is created.
+
+
+        To create a dataset and entities in one step, use the [`Create dataset from CSV`](https://www.newscatcherapi.com/docs/web-search-api/api-reference/datasets/create-dataset-from-csv)
+
+        endpoint instead.
+
+        '
+      operationId: createDataset
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDatasetRequest'
+            example:
+              name: My Portfolio
+              description: Companies in our investment portfolio
+              entity_ids:
+              - 854198fa-f702-49db-a381-0427fa87f173
+              - a1b2c3d4-e5f6-7890-abcd-ef1234567890
+      responses:
+        '200':
+          $ref: '#/components/responses/DatasetResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /catchAll/datasets/upload:
+    post:
+      tags:
+      - Datasets
+      summary: Create dataset from CSV
+      description: "Creates a new dataset by uploading a CSV file. Each row in the CSV becomes an entity. The `name` and `domain`columns are required; all other columns are optional.\n\n**CSV format:**\n```csv\nname,description,domain,alternative_names,key_persons\nNewsCatcher,\"AI-powered news data provider\",newscatcherapi.com,\"NC;NewsCatcher API\",\"Artem Bugara;Maksym Sugonyaka\"\nOpenAI,\"Artificial intelligence research company\",openai.com,\"Open AI\",\"Sam Altman\"\n```\n\nUse semicolons (`;`) to separate multiple values in `alternative_names` and `key_persons`. Rows with empty `name` are skipped and reported in `validation_report`. \n\n**Note**: The response shape differs from the JSON dataset creation endpoint: it returns `dataset_id` (not `id`) and includes a `validation_report` with details on skipped rows.\n"
+      operationId: createDatasetFromCsv
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              - name
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The CSV file to upload.
+                name:
+                  type: string
+                  description: Name for the new dataset.
+                  example: My Portfolio
+                description:
+                  type: string
+                  description: Optional description for the dataset.
+                  example: Companies from Q1 2026 watchlist
+      responses:
+        '200':
+          $ref: '#/components/responses/CreateDatasetCsvResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /catchAll/datasets/{dataset_id}:
+    get:
+      tags:
+      - Datasets
+      summary: Get dataset
+      description: Returns a single dataset by ID including entity count and current status.
+      operationId: getDataset
+      parameters:
+      - $ref: '#/components/parameters/DatasetId'
+      responses:
+        '200':
+          $ref: '#/components/responses/DatasetResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+    patch:
+      tags:
+      - Datasets
+      summary: Update dataset
+      description: 'Updates the name or description of a dataset.
+
+        '
+      operationId: updateDataset
+      parameters:
+      - $ref: '#/components/parameters/DatasetId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDatasetRequest'
+            example:
+              name: My Portfolio (updated)
+              description: Updated Q1 2026 watchlist
+      responses:
+        '200':
+          $ref: '#/components/responses/DatasetResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    delete:
+      tags:
+      - Datasets
+      summary: Delete dataset
+      description: 'Permanently deletes a dataset. The entities within the dataset are
+
+        not deleted — only the dataset itself. This operation cannot be
+
+        undone.
+
+        '
+      operationId: deleteDataset
+      parameters:
+      - $ref: '#/components/parameters/DatasetId'
+      responses:
+        '204':
+          description: Dataset deleted successfully. No response body.
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+  /catchAll/datasets/{dataset_id}/entities:
+    post:
+      tags:
+      - Datasets
+      summary: Add entities to dataset
+      description: 'Adds one or more existing entities to a dataset. Returns the number of entities added.
+
+        '
+      operationId: addEntitiesToDataset
+      parameters:
+      - $ref: '#/components/parameters/DatasetId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DatasetEntityIdsRequest'
+            example:
+              entity_ids:
+              - 854198fa-f702-49db-a381-0427fa87f173
+      responses:
+        '200':
+          $ref: '#/components/responses/ManageEntitiesResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    delete:
+      tags:
+      - Datasets
+      summary: Remove entities from dataset
+      description: 'Removes one or more entities from a dataset. The entities themselves are not deleted — they are only removed from this dataset. Returns the number of entities removed.
+
+        '
+      operationId: removeEntitiesFromDataset
+      parameters:
+      - $ref: '#/components/parameters/DatasetId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DatasetEntityIdsRequest'
+            example:
+              entity_ids:
+              - 854198fa-f702-49db-a381-0427fa87f173
+      responses:
+        '200':
+          $ref: '#/components/responses/ManageEntitiesResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /catchAll/datasets/{dataset_id}/entities/list:
+    post:
+      tags:
+      - Datasets
+      summary: List entities in dataset
+      description: 'Returns a paginated list of entities in a dataset. Supports filtering by status, entity type, and name search.
+
+        '
+      operationId: listEntitiesInDataset
+      parameters:
+      - $ref: '#/components/parameters/DatasetId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListDatasetEntitiesRequest'
+            example:
+              page: 1
+              page_size: 100
+              search: OpenAI
+              status: ready
+              entity_type: company
+              sort_by: created_at
+              sort_order: desc
+      responses:
+        '200':
+          $ref: '#/components/responses/DatasetEntityListResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /catchAll/datasets/{dataset_id}/status:
+    get:
+      tags:
+      - Datasets
+      summary: Get dataset status history
+      description: 'Returns the full status change history for a dataset, ordered chronologically from oldest to newest.
+
+        '
+      operationId: getDatasetStatusHistory
+      parameters:
+      - $ref: '#/components/parameters/DatasetId'
+      responses:
+        '200':
+          $ref: '#/components/responses/DatasetStatusHistoryResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+  /catchAll/datasets/{dataset_id}/upload:
+    post:
+      tags:
+      - Datasets
+      summary: Add companies to dataset via CSV
+      description: 'Appends new companies to an existing dataset by uploading a CSV file. Uses the same CSV format as the dataset creation endpoint.
+
+
+        The response omits `dataset_name` compared to the create-from-CSV endpoint since the dataset already exists.
+
+        '
+      operationId: uploadCSVToDataset
+      parameters:
+      - $ref: '#/components/parameters/DatasetId'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The CSV file to upload.
+      responses:
+        '200':
+          $ref: '#/components/responses/UploadCsvToDatasetResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  responses:
+    DatasetEntityListResponse:
+      description: Paginated list of entities in a dataset.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DatasetEntityListResponse'
+    NotFoundError:
+      description: Job/monitor not found or results not available
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    DatasetStatusHistoryResponse:
+      description: Dataset status change history.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DatasetStatusHistoryResponse'
+          example:
+            dataset_id: ccabb755-afc2-4047-b84c-78d1f23d49b2
+            history:
+            - status: pending
+              additional_information: null
+              created_at: '2026-04-08T15:21:36.066271'
+            - status: enriching
+              additional_information: null
+              created_at: '2026-04-08T15:21:36.500000'
+            - status: ready
+              additional_information: null
+              created_at: '2026-04-08T15:21:55.000000'
+    ForbiddenError:
+      description: Invalid or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    CreateDatasetCsvResponse:
+      description: Dataset created from CSV successfully.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateDatasetCsvResponse'
+          example:
+            dataset_id: ccabb755-afc2-4047-b84c-78d1f23d49b2
+            dataset_name: My Portfolio
+            entities_created: 3
+            validation_report:
+              total_rows: 4
+              valid_rows: 3
+              skipped_count: 1
+              skipped_rows:
+              - row: 3
+                reason: 'missing required field: name'
+    DatasetListResponse:
+      description: Paginated list of datasets.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DatasetListResponse'
+    ManageEntitiesResponse:
+      description: Entities added or removed successfully.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ManageEntitiesResponse'
+          example:
+            dataset_id: ccabb755-afc2-4047-b84c-78d1f23d49b2
+            affected_count: 1
+    UploadCsvToDatasetResponse:
+      description: Companies added to dataset from CSV successfully.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UploadCsvToDatasetResponse'
+          example:
+            dataset_id: ccabb755-afc2-4047-b84c-78d1f23d49b2
+            entities_created: 3
+            validation_report:
+              total_rows: 3
+              valid_rows: 3
+              skipped_count: 0
+              skipped_rows: []
+    DatasetResponse:
+      description: Full dataset object with metadata and current status.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DatasetResponse'
+          example:
+            id: ccabb755-afc2-4047-b84c-78d1f23d49b2
+            organization_id: e5d9e9b0-e415-4941-8ef0-916c5ee56207
+            name: My Portfolio
+            description: Companies in our investment portfolio
+            entity_count: 4
+            latest_status: ready
+            created_by_user_id: 870e258e-12ec-4a47-8656-e7a43b0265b3
+            created_at: '2026-04-08T15:21:36.026993'
+            updated_at: '2026-04-08T15:21:36.027001'
+    BadRequestError:
+      description: 'Bad request - invalid parameters or constraint violations.
+
+
+        Common causes: date ranges outside plan limits, invalid job state for continuation.
+
+        '
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            date_validation:
+              summary: Date outside plan limit
+              value:
+                detail: start_date must be >= 2025-02-05, your plan limited to lookback 365 days.
+            invalid_continuation:
+              summary: Invalid job continuation
+              value:
+                detail: New limit must be greater than the previous limit for this job.
+    ValidationError:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidationErrorResponse'
+  schemas:
+    ManageEntitiesResponse:
+      type: object
+      required:
+      - dataset_id
+      - affected_count
+      properties:
+        dataset_id:
+          type: string
+          format: uuid
+          description: ID of the dataset that was modified.
+          example: ccabb755-afc2-4047-b84c-78d1f23d49b2
+        affected_count:
+          type: integer
+          description: Number of entities that were added or removed.
+          example: 1
+    DatasetStatus:
+      type: string
+      enum:
+      - pending
+      - enriching
+      - ready
+      - failed
+      description: 'Processing status of a dataset.
+
+
+        - `pending`: Dataset created, entities queued for enrichment.
+
+        - `enriching`: Entities are being enriched.
+
+        - `ready`: All entities enriched and indexed — ready for use in jobs.
+
+        - `failed`: One or more entity enrichments failed.
+
+        '
+    DatasetListResponse:
+      type: object
+      required:
+      - datasets
+      - total
+      - page
+      - page_size
+      properties:
+        datasets:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatasetResponse'
+          description: Array of dataset objects for this page.
+        total:
+          type: integer
+          description: Total number of datasets matching the filter criteria.
+          example: 5
+        page:
+          type: integer
+          description: Current page number.
+          example: 1
+        page_size:
+          type: integer
+          description: Number of datasets per page.
+          example: 100
+    UpdateDatasetRequest:
+      type: object
+      description: 'Updates dataset name or description. At least one field should be
+
+        provided.
+
+        '
+      properties:
+        name:
+          type: string
+          description: Updated dataset name.
+          example: My Portfolio (updated)
+        description:
+          type: string
+          description: Updated description.
+          example: Updated description
+    DatasetSortBy:
+      type: string
+      enum:
+      - name
+      - created_at
+      - status
+      description: Fields available for sorting dataset list results.
+      default: created_at
+    ValidationErrorDetail:
+      type: object
+      properties:
+        loc:
+          type: array
+          items:
+            oneOf:
+            - type: string
+            - type: integer
+          description: Location of the validation error
+        msg:
+          type: string
+          description: Error message
+        type:
+          type: string
+          description: Error type
+    CreateDatasetCsvResponse:
+      type: object
+      required:
+      - dataset_id
+      - dataset_name
+      - entities_created
+      - validation_report
+      properties:
+        dataset_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the created dataset.
+          example: ccabb755-afc2-4047-b84c-78d1f23d49b2
+        dataset_name:
+          type: string
+          description: Name of the created dataset.
+          example: My Portfolio
+        entities_created:
+          type: integer
+          description: Number of entities successfully created from the CSV.
+          example: 3
+        validation_report:
+          $ref: '#/components/schemas/ValidationReport'
+    DatasetResponse:
+      type: object
+      required:
+      - id
+      - organization_id
+      - name
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier of the dataset.
+          example: ccabb755-afc2-4047-b84c-78d1f23d49b2
+        organization_id:
+          type: string
+          format: uuid
+          description: Organization that owns this dataset.
+          example: e5d9e9b0-e415-4941-8ef0-916c5ee56207
+        name:
+          type: string
+          description: Dataset name.
+          example: My Portfolio
+        description:
+          type:
+          - string
+          - 'null'
+          description: Optional description.
+          example: Companies in our investment portfolio
+        entity_count:
+          type: integer
+          description: Total number of entities in this dataset.
+          default: 0
+          example: 4
+        latest_status:
+          $ref: '#/components/schemas/DatasetStatus'
+        created_by_user_id:
+          type: string
+          format: uuid
+          description: ID of the user who created this dataset.
+          example: 870e258e-12ec-4a47-8656-e7a43b0265b3
+        created_at:
+          type: string
+          format: date-time
+          description: 'ISO 8601 timestamp of when the dataset was created. Returned without timezone offset (server-local time).
+
+            '
+          example: '2026-04-08T15:21:36.026993'
+        updated_at:
+          type: string
+          format: date-time
+          description: 'ISO 8601 timestamp of when the dataset was last updated. Returned without timezone offset (server-local time).
+
+            '
+          example: '2026-04-08T15:21:38.401148'
+    DatasetEntityIdsRequest:
+      type: object
+      required:
+      - entity_ids
+      properties:
+        entity_ids:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: List of entity IDs to add or remove.
+          minItems: 1
+          example:
+          - 854198fa-f702-49db-a381-0427fa87f173
+    ValidationErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationErrorDetail'
+    OwnershipFilter:
+      type: string
+      enum:
+      - all
+      - own
+      - shared
+      default: all
+      description: "Controls which resources are returned based on ownership.\n\n- `all`: Returns resources owned by the user and resources shared\n  with them (default, backward compatible).\n- `own`: Returns only resources created by the authenticated user.\n- `shared`: Returns only resources shared with the user by others.\n"
+    DatasetEntityListResponse:
+      type: object
+      required:
+      - entities
+      - total
+      - page
+      - page_size
+      properties:
+        entities:
+          type: array
+          items:
+            $ref: '#/components/schemas/EntitySummary'
+          description: Array of entity summary objects for this page.
+        total:
+          type: integer
+          description: Total number of entities in the dataset.
+          example: 4
+        page:
+          type: integer
+          description: Current page number.
+          example: 1
+        page_size:
+          type: integer
+          description: Number of entities per page.
+          example: 100
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: Error message.
+          example: Invalid API key
+    DatasetStatusHistoryResponse:
+      type: object
+      required:
+      - dataset_id
+      - history
+      properties:
+        dataset_id:
+          type: string
+          format: uuid
+          description: ID of the dataset.
+          example: ccabb755-afc2-4047-b84c-78d1f23d49b2
+        history:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatasetStatusEntry'
+          description: Status change entries, ordered oldest to newest.
+    DatasetStatusEntry:
+      type: object
+      required:
+      - status
+      description: A single status change event in a dataset's history.
+      properties:
+        status:
+          $ref: '#/components/schemas/DatasetStatus'
+        additional_information:
+          type:
+          - object
+          - 'null'
+          description: Additional context about the status change, if available.
+          example: null
+        created_at:
+          type: string
+          format: date-time
+          description: 'ISO 8601 timestamp of when this status was set. Returned without timezone offset (server-local time).
+
+            '
+          example: '2026-04-08T15:21:36.066271'
+    EntitySummary:
+      type: object
+      required:
+      - id
+      - name
+      - entity_type
+      - status
+      description: 'Abbreviated entity object returned when listing entities within a
+
+        dataset. Uses a flat `attributes` key rather than the nested
+
+        `additional_attributes.company_attributes` structure used in
+
+        standalone entity endpoints.
+
+        '
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier of the entity.
+          example: 854198fa-f702-49db-a381-0427fa87f173
+        name:
+          type: string
+          description: Entity name.
+          example: NewsCatcher
+        entity_type:
+          $ref: '#/components/schemas/EntityType'
+        status:
+          $ref: '#/components/schemas/EntityStatus'
+        description:
+          type:
+          - string
+          - 'null'
+          description: Free-text description.
+          example: AI-powered news data provider
+        attributes:
+          $ref: '#/components/schemas/CompanyAttributes'
+    ValidationReport:
+      type: object
+      required:
+      - total_rows
+      - valid_rows
+      - skipped_count
+      - skipped_rows
+      description: Summary of CSV processing results.
+      properties:
+        total_rows:
+          type: integer
+          description: 'Total number of data rows in the uploaded CSV (excluding the
+
+            header row).
+
+            '
+          example: 4
+        valid_rows:
+          type: integer
+          description: Number of rows successfully processed into entities.
+          example: 3
+        skipped_count:
+          type: integer
+          description: Number of rows skipped due to validation errors.
+          example: 1
+        skipped_rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/SkippedRow'
+          description: Details for each skipped row.
+    EntitySortBy:
+      type: string
+      enum:
+      - created_at
+      - name
+      - status
+      description: Fields available for sorting entity list results.
+      default: created_at
+    EntityType:
+      type: string
+      enum:
+      - company
+      - person
+      description: 'The type of entity.
+
+
+        - `company`: A company or organization (default).
+
+        - `person`: An individual person.
+
+        '
+      default: company
+    CreateDatasetRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: Name for the dataset.
+          example: My Portfolio
+        description:
+          type: string
+          description: Optional description.
+          example: Companies in our investment portfolio
+        entity_ids:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: 'IDs of existing entities to include in the dataset. All IDs must belong to the authenticated organization. If any ID is invalid or not found, the request fails with `400`.
+
+            '
+          example:
+          - 854198fa-f702-49db-a381-0427fa87f173
+          - a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    SkippedRow:
+      type: object
+      required:
+      - row
+      - reason
+      description: Details about a CSV row that was skipped during processing.
+      properties:
+        row:
+          type: integer
+          description: '1-based row number in the CSV file (including the header row).
+
+
+            A value of `3` means the third line of the file (second data row).
+
+            '
+          example: 3
+        reason:
+          type: string
+          description: Human-readable explanation of why the row was skipped.
+          example: 'missing required field: name'
+    ListDatasetEntitiesRequest:
+      type: object
+      properties:
+        page:
+          type: integer
+          minimum: 1
+          default: 1
+          description: The page number to retrieve.
+          example: 1
+        page_size:
+          type: integer
+          minimum: 1
+          maximum: 500
+          default: 100
+          description: The number of entities per page.
+          example: 100
+        search:
+          type: string
+          description: Filters entities by name using a case-insensitive substring match.
+          example: OpenAI
+        status:
+          $ref: '#/components/schemas/EntityStatus'
+        entity_type:
+          $ref: '#/components/schemas/EntityType'
+        sort_by:
+          $ref: '#/components/schemas/EntitySortBy'
+        sort_order:
+          $ref: '#/components/schemas/SortOrder'
+    UploadCsvToDatasetResponse:
+      type: object
+      required:
+      - dataset_id
+      - entities_created
+      - validation_report
+      properties:
+        dataset_id:
+          type: string
+          format: uuid
+          description: ID of the dataset that was updated.
+          example: ccabb755-afc2-4047-b84c-78d1f23d49b2
+        entities_created:
+          type: integer
+          description: Number of new entities created from the CSV.
+          example: 3
+        validation_report:
+          $ref: '#/components/schemas/ValidationReport'
+    EntityStatus:
+      type: string
+      enum:
+      - pending
+      - enriching
+      - ready
+      - failed
+      description: 'Processing status of an entity.
+
+
+        - `pending`: Entity has been created and is queued for enrichment.
+
+        - `enriching`: Enrichment is in progress.
+
+        - `ready`: Enrichment complete — entity is indexed and ready for use in jobs.
+
+        - `failed`: Enrichment failed. The entity may still be used but matching quality may be reduced.
+
+        '
+    SortOrder:
+      type: string
+      enum:
+      - asc
+      - desc
+      description: 'Sort direction for list results.
+
+
+        - `asc`: ascending (oldest or smallest first)
+
+        - `desc`: descending (newest or largest first)
+
+        '
+      default: desc
+    CompanyAttributes:
+      type: object
+      description: 'Identifying attributes for a company entity. All fields are optional but improve matching quality.
+
+        '
+      properties:
+        domain:
+          type:
+          - string
+          - 'null'
+          description: 'Company website domain without protocol or trailing slash.
+
+
+            The most reliable identifier — strongly recommended when available.
+
+            '
+          example: newscatcherapi.com
+        description:
+          type:
+          - string
+          - 'null'
+          description: Detailed description of the company used for matching.
+          example: Provider of news and web search APIs for developers
+        key_persons:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: 'Names of key people associated with the company (founders, executives, etc.). Improves matching for articles that mention people rather than the company name.
+
+            '
+          example:
+          - Artem Bugara
+          - Maksym Sugonyaka
+        alternative_names:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: 'Alternative names, abbreviations, or aliases. Helps resolve common variations of the company name.
+
+            '
+          example:
+          - NC
+          - NewsCatcher API
+  parameters:
+    DatasetId:
+      name: dataset_id
+      in: path
+      required: true
+      description: Unique dataset identifier.
+      schema:
+        type: string
+        format: uuid
+      example: ccabb755-afc2-4047-b84c-78d1f23d49b2
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      description: 'Page number to retrieve.
+
+        '
+    Ownership:
+      name: ownership
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/OwnershipFilter'
+    ProjectIdQuery:
+      name: project_id
+      in: query
+      required: false
+      description: Filter results to resources belonging to this project.
+      schema:
+        type: string
+        format: uuid
+      example: 60a85db4-78ec-4b78-876a-bc7d9cdadd04
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-token
+      description: "API Key to authenticate requests.\n\nTo access the API, include your API key in the `x-api-token` header. \nTo obtain your API key, complete the [form](https://www.newscatcherapi.com/book-a-demo) or contact us directly.\n"
+externalDocs:
+  description: Find out more about Local News API
+  url: https://www.newscatcherapi.com/docs/local-news-api/get-started/introduction

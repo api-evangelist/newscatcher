@@ -1,0 +1,1017 @@
+openapi: 3.0.3
+info:
+  title: Local News AggregationCount BreakingNews API
+  description: 'The Local News API provides access to local news articles with location-specific filtering capabilities.
+
+
+    ## Standard endpoints
+
+
+    - `/search`: Search articles by keywords with simple location filtering ("City, State" format).
+
+    - `/latest_headlines`: Retrieve recent articles for specified locations and time periods.
+
+    - `/search_by`: Retrieve articles by URL, ID, or RSS GUID.
+
+    - `/sources`: List available news sources.
+
+
+    ## Advanced endpoints
+
+
+    - `/search/advanced`: Search with structured GeoNames filtering.
+
+    - `/latest_headlines/advanced`: Latest headlines with structured GeoNames filtering.
+
+
+    ## Features
+
+
+    - Multiple location detection methods including dedicated sources, proximity analysis, and AI extraction
+
+    - Natural language processing for sentiment analysis and entity recognition on original content and English translations
+
+    - Article clustering for topic analysis
+
+    - English translations for non-English content
+
+    '
+  termsOfService: https://newscatcherapi.com/terms-of-service
+  contact:
+    name: Maksym Sugonyaka
+    email: maksym@newscatcherapi.com
+    url: https://www.newscatcherapi.com/book-a-demo
+  version: 1.2.0
+servers:
+- url: https://local-news.newscatcherapi.com
+  description: Local News API production server
+security:
+- ApiKeyAuth: []
+tags:
+- name: BreakingNews
+  description: Operations to retrieve breaking news articles.
+  externalDocs:
+    description: Retrieve breaking news articles.
+    url: https://www.newscatcherapi.com/docs/news-api/api-reference/breaking-news/breaking-news-get
+paths:
+  /api/breaking_news:
+    get:
+      x-fern-sdk-group-name: breaking_news
+      x-fern-sdk-method-name: get
+      tags:
+      - BreakingNews
+      summary: Get breaking news
+      description: Retrieves breaking news articles and sorts them based on specified criteria.
+      operationId: breakingNewsGet
+      parameters:
+      - $ref: '#/components/parameters/SortBy'
+      - $ref: '#/components/parameters/RankedOnly'
+      - $ref: '#/components/parameters/FromRank'
+      - $ref: '#/components/parameters/ToRank'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/TopNArticles'
+      - $ref: '#/components/parameters/IncludeTranslationFields'
+      - $ref: '#/components/parameters/IncludeNlpData'
+      - $ref: '#/components/parameters/HasNlp'
+      - $ref: '#/components/parameters/Theme'
+      - $ref: '#/components/parameters/NotTheme'
+      - $ref: '#/components/parameters/OrgEntityName'
+      - $ref: '#/components/parameters/PerEntityName'
+      - $ref: '#/components/parameters/LocEntityName'
+      - $ref: '#/components/parameters/MiscEntityName'
+      - $ref: '#/components/parameters/TitleSentimentMin'
+      - $ref: '#/components/parameters/TitleSentimentMax'
+      - $ref: '#/components/parameters/ContentSentimentMin'
+      - $ref: '#/components/parameters/ContentSentimentMax'
+      responses:
+        '200':
+          $ref: '#/components/responses/BreakingNewsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '408':
+          $ref: '#/components/responses/RequestTimeoutError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '429':
+          $ref: '#/components/responses/RateLimitError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      x-fern-sdk-group-name: breaking_news
+      x-fern-sdk-method-name: post
+      tags:
+      - BreakingNews
+      summary: Get breaking news
+      description: Retrieves breaking news articles and sorts them based on specified criteria.
+      operationId: breakingNewsPost
+      requestBody:
+        $ref: '#/components/requestBodies/BreakingNewsRequestBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/BreakingNewsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '408':
+          $ref: '#/components/responses/RequestTimeoutError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '429':
+          $ref: '#/components/responses/RateLimitError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    TopNArticles:
+      type: integer
+      minimum: 1
+      maximum: 100
+      default: 1
+      description: "Controls the number of top articles to include for each breaking news event.\n\n**Important limitations**: \n- Maximum value is 100.\n- The product of `top_n_articles` x `page_size` must not exceed 1,000 (total articles limit).\n"
+      example: 5
+    RankedOnly:
+      type: boolean
+      default: true
+      description: 'If true, limits the search to sources ranked in the top 1 million online websites. If false, includes unranked sources which are assigned a rank of 999999.
+
+        '
+      example: true
+    ToRank:
+      type: integer
+      minimum: 1
+      maximum: 999999
+      default: 999999
+      format: int32
+      description: 'The highest boundary of the rank of a news website to filter by. A lower rank indicates a more popular source.
+
+        '
+      example: 100
+    UserInputDto:
+      type: object
+      description: The user input parameters for the request.
+      additionalProperties: true
+    LocEntityName:
+      type: string
+      description: "Filters articles that mention specific location names, as identified by NLP analysis.\n\n- To specify multiple locations, use `AND`, `OR`, `NOT` operators, and `\\\"` escape literals for exact matches. \n- To search in translations, combine with the translation options of the `search_in` parameter (e.g., `title_content_translated`).\n\nTo learn more, see [Search by entity](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-entity).\n"
+      example: '"San Francisco" OR "New York City"'
+    FromRank:
+      type: integer
+      minimum: 1
+      maximum: 999999
+      default: 1
+      format: int32
+      description: 'The lowest boundary of the rank of a news website to filter by. A lower rank indicates a more popular source.
+
+        '
+      example: 100
+    NlpDataEntity:
+      type: object
+      default: {}
+      description: Natural Language Processing data for the article.
+      properties:
+        translation_summary:
+          type: string
+          description: 'A brief AI-generated summary of the article''s English translation.
+
+            '
+        theme:
+          type: string
+          description: The themes or categories identified in the article.
+        summary:
+          type: string
+          description: A brief AI-generated summary of the article content.
+        sentiment:
+          $ref: '#/components/schemas/SentimentScores'
+        new_embedding:
+          type: array
+          items:
+            type: number
+            format: float
+          description: 'A dense 1024-dimensional vector representation of the article content, generated using the [multilingual-e5-large](https://huggingface.co/intfloat/multilingual-e5-large) model. Available for articles indexed before January 1, 2026.
+
+
+            **Note**: The `new_embedding` field is only available in the `v3_nlp_embeddings` subscription plan.
+
+            '
+        qwen_embedding:
+          type: array
+          items:
+            type: number
+            format: float
+          description: 'A dense 1024-dimensional vector representation of the article content, generated using the [Qwen3-Embedding-0.6B](https://huggingface.co/Qwen/Qwen3-Embedding) model. Available for articles indexed from January 1, 2026 onward. Embeddings are computed from a combination of the article `title` and `content` fields.
+
+
+            **Note**: The `qwen_embedding` field is only available in the `v3_nlp_embeddings` subscription plan.
+
+            '
+        ner_PER:
+          allOf:
+          - $ref: '#/components/schemas/NamedEntityList'
+          description: Named Entity Recognition for person entities (individuals' names).
+        ner_ORG:
+          allOf:
+          - $ref: '#/components/schemas/NamedEntityList'
+          description: Named Entity Recognition for organization entities (company names, institutions).
+        ner_MISC:
+          allOf:
+          - $ref: '#/components/schemas/NamedEntityList'
+          description: Named Entity Recognition for miscellaneous entities (events, nationalities, products).
+        ner_LOC:
+          allOf:
+          - $ref: '#/components/schemas/NamedEntityList'
+          description: Named Entity Recognition for location entities (cities, countries, geographic features).
+        translation_ner_PER:
+          allOf:
+          - $ref: '#/components/schemas/NamedEntityList'
+          description: 'Named Entity Recognition for person entities (individuals'' names) extracted from the English translation of the article.
+
+            '
+        translation_ner_ORG:
+          allOf:
+          - $ref: '#/components/schemas/NamedEntityList'
+          description: 'Named Entity Recognition for organization entities (company names, institutions) extracted from the English translation of the article.
+
+            '
+        translation_ner_MISC:
+          allOf:
+          - $ref: '#/components/schemas/NamedEntityList'
+          description: 'Named Entity Recognition for miscellaneous entities (events, nationalities, products) extracted from the English translation of the article.
+
+            '
+        translation_ner_LOC:
+          allOf:
+          - $ref: '#/components/schemas/NamedEntityList'
+          description: 'Named Entity Recognition for location entities (cities, countries, geographic features) extracted from the English translation of the article.
+
+            '
+        iptc_tags_name:
+          type: array
+          items:
+            type: string
+          description: 'IPTC media topic taxonomy paths identified in the article content. Each path represents a hierarchical category following the IPTC standard.
+
+
+            **Note**: The `iptc_tags_name` field is only available in the `v3_nlp_iptc_tags` subscription plan.
+
+            '
+        iptc_tags_id:
+          type: array
+          items:
+            type: string
+          description: 'IPTC media topic numeric codes identified in the article content. These codes correspond to the standardized IPTC media topic taxonomy.
+
+
+            **Note**: The `iptc_tags_id` field is only available in the `v3_nlp_iptc_tags` subscription plan.
+
+            '
+        iab_tags_name:
+          type: array
+          items:
+            type: string
+          description: 'IAB content taxonomy paths identified in the article content. Each path represents a hierarchical category following the IAB content standard.
+
+
+            **Note**: The `iab_tags_name` field is only available in the `v3_nlp_iptc_tags` subscription plan.
+
+            '
+    ContentSentimentMax:
+      type: number
+      format: float
+      minimum: -1.0
+      maximum: 1.0
+      description: 'Filters articles based on the maximum sentiment score of their content.
+
+
+        Range is `-1.0` to `1.0`, where:
+
+        - Negative values indicate negative sentiment.
+
+        - Positive values indicate positive sentiment.
+
+        - Values close to 0 indicate neutral sentiment.
+
+
+        To learn more, see [NLP features](https://www.newscatcherapi.com/docs/news-api/guides-and-concepts/nlp-features).
+
+        '
+      example: 0.5
+    Theme:
+      type: string
+      example: Finance,Tech
+      description: 'Filters articles based on their general topic, as determined by NLP analysis. To select multiple themes, use a comma-separated string.
+
+
+        To learn more, see [NLP features](https://www.newscatcherapi.com/docs/news-api/guides-and-concepts/nlp-features).
+
+
+        Available options: `Business`, `Economics`, `Entertainment`, `Finance`, `Health`, `Politics`, `Science`, `Sports`, `Tech`, `Crime`, `Financial Crime`, `Lifestyle`, `Automotive`, `Travel`, `Weather`, `General`.
+
+        '
+    NamedEntityList:
+      type: array
+      description: A list of named entities identified in the article.
+      items:
+        type: object
+        properties:
+          entity_name:
+            type: string
+            description: The name of the entity identified in the article.
+          count:
+            type: integer
+            description: The number of times this entity appears in the article.
+    SentimentScores:
+      type: object
+      description: Sentiment scores for the article's title and content.
+      properties:
+        title:
+          type: number
+          format: float
+          description: The sentiment score for the article title (-1.0 to 1.0).
+        content:
+          type: number
+          format: float
+          description: The sentiment score for the article content (-1.0 to 1.0).
+    PageSize:
+      type: integer
+      minimum: 1
+      maximum: 1000
+      default: 100
+      description: 'The number of articles to return per page.
+
+        '
+      example: 50
+    HasNlp:
+      type: boolean
+      default: false
+      description: 'If true, filters results to include only articles that have NLP data.
+
+
+        **Note**: NLP data is only available for articles indexed from July 2023 onward. Applying this filter to a date range that predates July 2023 returns zero results.
+
+
+        To learn more, see [NLP features](https://www.newscatcherapi.com/docs/news-api/guides-and-concepts/nlp-features).
+
+        '
+      example: true
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A detailed description of the error.
+        status_code:
+          type: integer
+          description: The HTTP status code of the error.
+        status:
+          type: string
+          description: A short description of the status code.
+      required:
+      - message
+      - status_code
+      - status
+    IncludeNlpData:
+      type: boolean
+      default: false
+      description: 'If true, includes an NLP object for each article in the response. This object provides results of NLP analysis, including article theme, summary, sentiment, tags, and named entity recognition if available.
+
+
+        **Note**: NLP data is only available for articles indexed from July 2023 onward. For articles indexed before July 2023, the `nlp` field is returned as an empty object `{}`.
+
+
+        To learn more, see [NLP features](https://www.newscatcherapi.com/docs/news-api/guides-and-concepts/nlp-features).
+
+        '
+      example: true
+    BreakingNewsArticleEntity:
+      title: Breaking News Article Object
+      description: 'The data model representing a single article in the `Breaking news` search results.
+
+        '
+      required:
+      - title
+      - link
+      - domain_url
+      - full_domain_url
+      - parent_url
+      - rank
+      - id
+      - score
+      type: object
+      properties:
+        title:
+          title: Title
+          description: The title of the article.
+          type: string
+        author:
+          title: Author
+          description: The primary author of the article.
+          type: string
+        authors:
+          title: Authors
+          description: A list of authors of the article.
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: string
+        journalists:
+          title: Journalists
+          description: A list of journalists associated with the article.
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: string
+          - type: 'null'
+        published_date:
+          title: Published Date
+          description: The date the article was published.
+          type: string
+        published_date_precision:
+          title: Published Date Precision
+          description: The precision of the published date.
+          type: string
+        updated_date:
+          title: Updated Date
+          description: The date the article was last updated.
+          type:
+          - string
+          - 'null'
+        updated_date_precision:
+          title: Updated Date Precision
+          description: The precision of the updated date.
+          type:
+          - string
+          - 'null'
+        parse_date:
+          title: Parse Date
+          description: The date the article was parsed.
+          type:
+          - string
+          - 'null'
+        link:
+          title: Link
+          description: The URL link to the article.
+          type: string
+        domain_url:
+          title: Domain URL
+          description: The domain URL of the article.
+          type: string
+        full_domain_url:
+          title: Full Domain URL
+          description: The full domain URL of the article.
+          type: string
+        name_source:
+          title: Name Source
+          description: The name of the source where the article was published.
+          type: string
+        is_headline:
+          title: Is Headline
+          description: Indicates if the article is a headline.
+          type: boolean
+        paid_content:
+          title: Paid Content
+          description: Indicates whether the source labels the article as paywalled or requiring a subscription for full access.
+          type: boolean
+        parent_url:
+          title: Parent URL
+          description: The categorical URL of the article.
+          type: string
+        country:
+          title: Country
+          description: The country where the article was published.
+          type: string
+        rights:
+          title: Rights
+          description: The rights information for the article.
+          type: string
+        rank:
+          title: Rank
+          description: The rank of the article's source.
+          type: integer
+        media:
+          title: Media
+          description: The media associated with the article.
+          type: string
+        language:
+          title: Language
+          description: The language in which the article is written.
+          type: string
+        description:
+          title: Description
+          description: A brief description of the article.
+          type: string
+        content:
+          title: Content
+          description: The content of the article.
+          type: string
+        title_translated_en:
+          type:
+          - string
+          - 'null'
+          description: 'English translation of the article title. Available when setting the `include_translation_fields` parameter to `true`.
+
+            '
+        content_translated_en:
+          type:
+          - string
+          - 'null'
+          description: 'English translation of the article content. Available when setting the `include_translation_fields` parameter to `true`.
+
+            '
+        word_count:
+          title: Word Count
+          description: The word count of the article.
+          type: integer
+          default: 0
+        is_opinion:
+          title: Is Opinion
+          description: Indicates if the article is an opinion piece.
+          type: boolean
+        twitter_account:
+          title: Twitter Account
+          description: The Twitter account associated with the article.
+          type:
+          - string
+          - 'null'
+        all_links:
+          title: All Links
+          description: A list of all URLs mentioned in the article.
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: string
+          default: []
+        all_domain_links:
+          title: All Domain Links
+          description: A list of all domain URLs mentioned in the article.
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: string
+          default: []
+        nlp:
+          $ref: '#/components/schemas/NlpDataEntity'
+        id:
+          title: ID
+          description: The unique identifier for the article.
+          type: string
+        score:
+          title: Score
+          description: The relevance score of the article.
+          type: number
+    OrgEntityName:
+      type: string
+      description: "Filters articles that mention specific organization names, as identified by NLP analysis. \n\n- To specify multiple organizations, use `AND`, `OR`, `NOT` operators, and `\\\"` escape literals for exact matches. \n- To search in translations, combine with the translation options of the `search_in` parameter (e.g., `title_content_translated`).\n\nTo learn more, see [Search by entity](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-entity).\n"
+      example: '"Apple Inc" OR Microsoft'
+    IncludeTranslationFields:
+      type: boolean
+      default: false
+      description: 'If true, includes English translation fields in the response (`title_translated_en`, `content_translated_en`, and NLP translation fields).
+
+        '
+      example: true
+    PerEntityName:
+      type: string
+      description: "Filters articles that mention specific person names, as identified by NLP analysis. \n\n- To specify multiple names, use `AND`, `OR`, `NOT` operators, and `\\\"` escape literals for exact matches. \n- To search in translations, combine with the translation options of the `search_in` parameter (e.g., `title_content_translated`).\n\nTo learn more, see [Search by entity](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-entity).\n"
+      example: '"Elon Musk" OR "Jeff Bezos"'
+    SortBy:
+      type: string
+      enum:
+      - relevancy
+      - date
+      - rank
+      default: relevancy
+      description: 'The sorting order of the results. Possible values are:
+
+        - `relevancy`: The most relevant results first.
+
+        - `date`: The most recently published results first.
+
+        - `rank`: The results from the highest-ranked sources first.
+
+        '
+      example: date
+    BreakingNewsEventEntity:
+      title: Breaking News Event Object
+      description: 'The data model representing a breaking news event with its associated articles.
+
+        '
+      required:
+      - event_id
+      - articles_count
+      - articles
+      type: object
+      properties:
+        event_id:
+          title: Event ID
+          description: Unique identifier for the breaking news event/cluster.
+          type: string
+        articles_count:
+          title: Articles Count
+          description: Number of articles in this breaking news cluster.
+          type: integer
+        articles:
+          title: Articles
+          description: The articles associated with this breaking news event.
+          type: array
+          items:
+            $ref: '#/components/schemas/BreakingNewsArticleEntity'
+          default: []
+    MiscEntityName:
+      type: string
+      description: "Filters articles that mention other named entities not falling under person, organization, or location categories. Includes events, nationalities, products, works of art, and more.\n\n- To specify multiple entities, use `AND`, `OR`, `NOT` operators, and `\\\"` escape literals for exact matches. \n- To search in translations, combine with the translation options of the `search_in` parameter (e.g., `title_content_translated`).\n\nTo learn more, see [Search by entity](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-entity).\n"
+      example: AWS OR "Microsoft Azure"
+    ContentSentimentMin:
+      type: number
+      format: float
+      minimum: -1.0
+      maximum: 1.0
+      description: 'Filters articles based on the minimum sentiment score of their content.
+
+
+        Range is `-1.0` to `1.0`, where:
+
+        - Negative values indicate negative sentiment.
+
+        - Positive values indicate positive sentiment.
+
+        - Values close to 0 indicate neutral sentiment.
+
+
+        To learn more, see [NLP features](https://www.newscatcherapi.com/docs/news-api/guides-and-concepts/nlp-features).
+
+        '
+      example: -0.5
+    BaseSearchResponseDto:
+      title: Base Search Response
+      description: The base response model containing common fields for search operations.
+      required:
+      - status
+      - total_hits
+      - page
+      - total_pages
+      - page_size
+      type: object
+      properties:
+        status:
+          title: Status
+          description: The status of the response.
+          type: string
+        total_hits:
+          title: Total Hits
+          description: The total number of articles matching the search criteria.
+          type: integer
+        page:
+          title: Page
+          description: The current page number of the results.
+          type: integer
+        total_pages:
+          title: Total Pages
+          description: The total number of pages available for the given search criteria.
+          type: integer
+        page_size:
+          title: Page Size
+          description: The number of articles per page.
+          type: integer
+    NotTheme:
+      type: string
+      example: Crime,Sports
+      description: 'Inverse of the `theme` parameter. Excludes articles based on their general topic, as determined by NLP analysis. To exclude multiple themes, use a comma-separated string.
+
+
+        To learn more, see [NLP features](https://www.newscatcherapi.com/docs/news-api/guides-and-concepts/nlp-features).
+
+        '
+    Page:
+      type: integer
+      minimum: 1
+      default: 1
+      description: "The page number to scroll through the results. Use for pagination, as a single API response can return up to 1,000 articles. \n\nFor details, see [Retrieve large datasets](https://www.newscatcherapi.com/docs/news-api/how-to/retrieve-more-than-10k-articles)\n"
+      example: 2
+    TitleSentimentMin:
+      type: number
+      format: float
+      minimum: -1.0
+      maximum: 1.0
+      description: 'Filters articles based on the minimum sentiment score of their titles.
+
+
+        Range is `-1.0` to `1.0`, where:
+
+        - Negative values indicate negative sentiment.
+
+        - Positive values indicate positive sentiment.
+
+        - Values close to 0 indicate neutral sentiment.
+
+
+        To learn more, see [NLP features](https://www.newscatcherapi.com/docs/news-api/guides-and-concepts/nlp-features).
+
+        '
+      example: -0.5
+    BreakingNewsResponseDto:
+      title: Breaking News Response
+      description: "The response model for the breaking news requests. Response field behavior:\n- Required fields are guaranteed to be present and non-null. \n- Optional fields may be `null` or `undefined` if the data point is not presented or couldn't be extracted during processing.\n- To access article properties in the `articles` response array, use array index notation. For example, `articles[n].title`, where `n` is the zero-based index of the article object (0, 1, 2, etc.).\n- The `nlp` property within the article object `articles[n].nlp` is only available with NLP-enabled subscription plans.\n"
+      allOf:
+      - $ref: '#/components/schemas/BaseSearchResponseDto'
+      - type: object
+        properties:
+          breaking_news_events:
+            title: Breaking News Events
+            description: A list of breaking news events, each containing relevant articles.
+            type: array
+            items:
+              $ref: '#/components/schemas/BreakingNewsEventEntity'
+            default: []
+          user_input:
+            $ref: '#/components/schemas/UserInputDto'
+    TitleSentimentMax:
+      type: number
+      format: float
+      minimum: -1.0
+      maximum: 1.0
+      description: 'Filters articles based on the maximum sentiment score of their titles.
+
+
+        Range is `-1.0` to `1.0`, where:
+
+        - Negative values indicate negative sentiment.
+
+        - Positive values indicate positive sentiment.
+
+        - Values close to 0 indicate neutral sentiment.
+
+
+        To learn more, see [NLP features](https://www.newscatcherapi.com/docs/news-api/guides-and-concepts/nlp-features).
+
+        '
+      example: 0.5
+  responses:
+    UnauthorizedError:
+      description: Unauthorized - Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: The 'x-api-token' parameter has an invalid value. Please provide a valid API key.
+            status_code: 401
+            status: Unauthorized
+    ForbiddenError:
+      description: Forbidden - Server refuses action
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Your plan request date range cannot be greater than 400 days
+            status_code: 403
+            status: Forbidden
+    RequestTimeoutError:
+      description: Request timeout
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Request timed out after 30 seconds
+            status_code: 408
+            status: Request timeout
+    RateLimitError:
+      description: Too many requests - Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Max API requests concurrency reached
+            status_code: 429
+            status: Too many requests
+    BreakingNewsResponse:
+      description: A successful response containing breaking news articles with additional breaking news event information.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BreakingNewsResponseDto'
+    BadRequestError:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Invalid JSON in request body
+            status_code: 400
+            status: Bad request
+    ValidationError:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Invalid date format
+            status_code: 422
+            status: Validation error
+    InternalServerError:
+      description: Internal server error
+      content:
+        text/plain:
+          schema:
+            type: string
+          example: Internal Server Error
+  parameters:
+    OrgEntityName:
+      name: ORG_entity_name
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/OrgEntityName'
+    TopNArticles:
+      name: top_n_articles
+      in: query
+      schema:
+        $ref: '#/components/schemas/TopNArticles'
+      required: false
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/Page'
+    TitleSentimentMin:
+      name: title_sentiment_min
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/TitleSentimentMin'
+    PerEntityName:
+      name: PER_entity_name
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/PerEntityName'
+    TitleSentimentMax:
+      name: title_sentiment_max
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/TitleSentimentMax'
+    FromRank:
+      name: from_rank
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/FromRank'
+    NotTheme:
+      name: not_theme
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/NotTheme'
+    ContentSentimentMax:
+      name: content_sentiment_max
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/ContentSentimentMax'
+    PageSize:
+      name: page_size
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/PageSize'
+    HasNlp:
+      name: has_nlp
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/HasNlp'
+    MiscEntityName:
+      name: MISC_entity_name
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/MiscEntityName'
+    SortBy:
+      name: sort_by
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/SortBy'
+      example: date
+    LocEntityName:
+      name: LOC_entity_name
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/LocEntityName'
+    ContentSentimentMin:
+      name: content_sentiment_min
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/ContentSentimentMin'
+    Theme:
+      name: theme
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/Theme'
+    RankedOnly:
+      name: ranked_only
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/RankedOnly'
+    IncludeNlpData:
+      name: include_nlp_data
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/IncludeNlpData'
+    IncludeTranslationFields:
+      name: include_translation_fields
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/IncludeTranslationFields'
+    ToRank:
+      name: to_rank
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/ToRank'
+  requestBodies:
+    BreakingNewsRequestBody:
+      description: Request body for retrieving breaking news articles with sorting and filtering options.
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              sort_by:
+                $ref: '#/components/schemas/SortBy'
+              ranked_only:
+                $ref: '#/components/schemas/RankedOnly'
+              from_rank:
+                $ref: '#/components/schemas/FromRank'
+              to_rank:
+                $ref: '#/components/schemas/ToRank'
+              page:
+                $ref: '#/components/schemas/Page'
+              page_size:
+                $ref: '#/components/schemas/PageSize'
+              top_n_articles:
+                $ref: '#/components/schemas/TopNArticles'
+              include_translation_fields:
+                $ref: '#/components/schemas/IncludeTranslationFields'
+              include_nlp_data:
+                $ref: '#/components/schemas/IncludeNlpData'
+              has_nlp:
+                $ref: '#/components/schemas/HasNlp'
+              theme:
+                $ref: '#/components/schemas/Theme'
+              not_theme:
+                $ref: '#/components/schemas/NotTheme'
+              ORG_entity_name:
+                $ref: '#/components/schemas/OrgEntityName'
+              PER_entity_name:
+                $ref: '#/components/schemas/PerEntityName'
+              LOC_entity_name:
+                $ref: '#/components/schemas/LocEntityName'
+              MISC_entity_name:
+                $ref: '#/components/schemas/MiscEntityName'
+              title_sentiment_min:
+                $ref: '#/components/schemas/TitleSentimentMin'
+              title_sentiment_max:
+                $ref: '#/components/schemas/TitleSentimentMax'
+              content_sentiment_min:
+                $ref: '#/components/schemas/ContentSentimentMin'
+              content_sentiment_max:
+                $ref: '#/components/schemas/ContentSentimentMax'
+            example:
+              sort_by: relevancy
+              ranked_only: true
+              top_n_articles: 1
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-token
+      description: "API Key to authenticate requests.\n\nTo access the API, include your API key in the `x-api-token` header. \nTo obtain your API key, complete the [form](https://www.newscatcherapi.com/book-a-demo) or contact us directly.\n"
+externalDocs:
+  description: Find out more about Local News API
+  url: https://www.newscatcherapi.com/docs/local-news-api/get-started/introduction

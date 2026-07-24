@@ -1,0 +1,595 @@
+openapi: 3.0.3
+info:
+  title: Local News AggregationCount Sources API
+  description: 'The Local News API provides access to local news articles with location-specific filtering capabilities.
+
+
+    ## Standard endpoints
+
+
+    - `/search`: Search articles by keywords with simple location filtering ("City, State" format).
+
+    - `/latest_headlines`: Retrieve recent articles for specified locations and time periods.
+
+    - `/search_by`: Retrieve articles by URL, ID, or RSS GUID.
+
+    - `/sources`: List available news sources.
+
+
+    ## Advanced endpoints
+
+
+    - `/search/advanced`: Search with structured GeoNames filtering.
+
+    - `/latest_headlines/advanced`: Latest headlines with structured GeoNames filtering.
+
+
+    ## Features
+
+
+    - Multiple location detection methods including dedicated sources, proximity analysis, and AI extraction
+
+    - Natural language processing for sentiment analysis and entity recognition on original content and English translations
+
+    - Article clustering for topic analysis
+
+    - English translations for non-English content
+
+    '
+  termsOfService: https://newscatcherapi.com/terms-of-service
+  contact:
+    name: Maksym Sugonyaka
+    email: maksym@newscatcherapi.com
+    url: https://www.newscatcherapi.com/book-a-demo
+  version: 1.2.0
+servers:
+- url: https://local-news.newscatcherapi.com
+  description: Local News API production server
+security:
+- ApiKeyAuth: []
+tags:
+- name: Sources
+  description: Operations to retrieve local news sources.
+paths:
+  /api/sources:
+    post:
+      tags:
+      - Sources
+      summary: Retrieve sources
+      description: Retrieves the list of local news sources available in the database. Filterable by language, country, and theme.
+      operationId: Sources_post
+      requestBody:
+        $ref: '#/components/requestBodies/SourceRequestBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/SourcesResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '408':
+          $ref: '#/components/responses/RequestTimeoutError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '429':
+          $ref: '#/components/responses/RateLimitError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    get:
+      x-fern-sdk-group-name: sources
+      x-fern-sdk-method-name: get
+      tags:
+      - Sources
+      summary: Retrieve sources
+      description: Retrieves a list of sources based on specified criteria such as language, country, rank, and more.
+      operationId: sourcesGet
+      parameters:
+      - $ref: '#/components/parameters/Lang'
+      - $ref: '#/components/parameters/Countries'
+      - $ref: '#/components/parameters/PredefinedSources'
+      - $ref: '#/components/parameters/SourceName'
+      - $ref: '#/components/parameters/SourceUrl'
+      - $ref: '#/components/parameters/IncludeAdditionalInfo'
+      - $ref: '#/components/parameters/IsNewsDomain'
+      - $ref: '#/components/parameters/NewsDomainType'
+      - $ref: '#/components/parameters/NewsType'
+      - $ref: '#/components/parameters/FromRank'
+      - $ref: '#/components/parameters/ToRank'
+      responses:
+        '200':
+          $ref: '#/components/responses/SourcesResponse_2'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError_2'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '408':
+          $ref: '#/components/responses/RequestTimeoutError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '429':
+          $ref: '#/components/responses/RateLimitError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  responses:
+    UnauthorizedError:
+      description: Unauthorized - Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: 'Invalid api key: INVALID_API_KEY'
+            status_code: 401
+            status: Unauthorized
+    UnauthorizedError_2:
+      description: Unauthorized - Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: The 'x-api-token' parameter has an invalid value. Please provide a valid API key.
+            status_code: 401
+            status: Unauthorized
+    SourcesResponse_2:
+      description: A successful response containing a list of news sources that match the specified criteria.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SourcesResponseDto_2'
+    ForbiddenError:
+      description: Forbidden - Server refuses action
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Your plan request date range cannot be greater than 400 days
+            status_code: 403
+            status: Forbidden
+    SourcesResponse:
+      description: Successful response containing the list of sources
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SourcesResponseDto'
+    RequestTimeoutError:
+      description: Request timeout
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Request timed out after 30 seconds
+            status_code: 408
+            status: Request timeout
+    RateLimitError:
+      description: Too many requests - Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Max API requests concurrency reached
+            status_code: 429
+            status: Too many requests
+    ValidationError:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Invalid date format
+            status_code: 422
+            status: Validation error
+    BadRequestError:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Invalid JSON in request body
+            status_code: 400
+            status: Bad request
+    InternalServerError:
+      description: Internal server error
+      content:
+        text/plain:
+          schema:
+            type: string
+          example: Internal Server Error
+  parameters:
+    IsNewsDomain:
+      name: is_news_domain
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/IsNewsDomain'
+    SourceUrl:
+      description: "The domain(s) of the news publication to search for. \n\n**Caution**:  When specifying the `source_url` parameter, \nyou can only use `include_additional_info` as an extra parameter.\n"
+      name: source_url
+      in: query
+      required: false
+      schema:
+        type: string
+      example: bbc.com
+    PredefinedSources:
+      description: "Predefined top news sources per country. \n\nFormat: start with the word `top`, followed by the number of desired sources, and then the two-letter country code [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). \n\nMultiple countries with the number of top sources can be specified as a comma-separated string.\n"
+      name: predefined_sources
+      in: query
+      required: false
+      schema:
+        type: string
+        example: top 50 US, top 20 GB
+    NewsType:
+      description: 'Filters results based on the news type. Multiple types can be specified using a comma-separated string.
+
+
+        For a complete list of available news types, see [Enumerated parameters > News type](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#news-type-news-type).
+
+        '
+      name: news_type
+      in: query
+      required: false
+      schema:
+        type: string
+      example: General News Outlets,Tech News and Updates
+    Countries:
+      description: 'The countries where the news publisher is located. The accepted format is the two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code. To select multiple countries, use a comma-separated string.
+
+
+        To learn more, see [Enumerated parameters > Country](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#country-country-and-not-country).
+
+        '
+      name: countries
+      in: query
+      required: false
+      schema:
+        type: string
+        example: US,CA
+    FromRank:
+      name: from_rank
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/FromRank'
+    Lang:
+      description: 'The language(s) of the search. The only accepted format is the two-letter [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) code. To select multiple languages, use a comma-separated string.
+
+
+        To learn more, see [Enumerated parameters > Language](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#language-lang-and-not-lang).
+
+        '
+      name: lang
+      in: query
+      required: false
+      schema:
+        type: string
+        example: en,es
+    NewsDomainType:
+      name: news_domain_type
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/NewsDomainType'
+    SourceName:
+      description: "Word or phrase to search within the source names. To specify multiple values, use a comma-separated string.\n\n**Note**: The search doesn't require an exact match and returns sources containing the specified terms in their names. You can use any word or phrase, like `\"sport\"` or `\"new york times\"`. \n\nFor example, `\"sport\"` returns sources such as `\"Motorsport\"`, `\"Dot Esport\"`, and `\"Tuttosport\"`.\n"
+      name: source_name
+      in: query
+      required: false
+      schema:
+        type: string
+        example: sport,tech
+    IncludeAdditionalInfo:
+      name: include_additional_info
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/IncludeAdditionalInfo'
+    ToRank:
+      name: to_rank
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/ToRank'
+  schemas:
+    ToRank:
+      type: integer
+      minimum: 1
+      maximum: 999999
+      default: 999999
+      format: int32
+      description: 'The highest boundary of the rank of a news website to filter by. A lower rank indicates a more popular source.
+
+        '
+      example: 100
+    Countries:
+      oneOf:
+      - type: string
+      - type: array
+        items:
+          type: string
+      description: 'The countries where the news publisher is located. The accepted format is the two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code. To select multiple countries, use a comma-separated string or an array of strings.
+
+
+        To learn more, see [Enumerated parameters > Country](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#country-country-and-not-country).
+
+        '
+      example:
+      - US
+      - CA
+    FromRank:
+      type: integer
+      minimum: 1
+      maximum: 999999
+      default: 1
+      format: int32
+      description: 'The lowest boundary of the rank of a news website to filter by. A lower rank indicates a more popular source.
+
+        '
+      example: 100
+    Theme:
+      oneOf:
+      - type: string
+      - type: array
+        items:
+          type: string
+      description: "Filters articles based on their general topic, as determined by NLP analysis. To select multiple themes, use a comma-separated string or an array of strings. \n\nTo learn more, see [NLP features](https://www.newscatcherapi.com/docs/news-api/guides-and-concepts/nlp-features).\n\nAvailable options: `Business`, `Economics`, `Entertainment`, `Finance`, `Health`, `Politics`, `Science`, `Sports`, `Tech`, `Crime`, `Financial Crime`, `Lifestyle`, `Automotive`, `Travel`, `Weather`, `General`.\n"
+      example:
+      - Business
+      - Finance
+    NewsDomainType:
+      type: string
+      enum:
+      - Original Content
+      - Aggregator
+      - Press Releases
+      - Republisher
+      - Other
+      description: 'Filters results based on the news domain type. Possible values are:
+
+        - `Original Content`: Sources that produce their own content.
+
+        - `Aggregator`: Sources that collect content from various other sources.
+
+        - `Press Releases`: Sources primarily publishing press releases.
+
+        - `Republisher`: Sources that republish content from other sources.
+
+        - `Other`: Sources that don''t fit into main categories.
+
+        '
+      example: Original Content
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A detailed description of the error.
+        status_code:
+          type: integer
+          description: The HTTP status code of the error.
+        status:
+          type: string
+          description: A short description of the status code.
+      required:
+      - message
+      - status_code
+      - status
+    SourcesRequestDto:
+      type: object
+      properties:
+        lang:
+          $ref: '#/components/schemas/Lang'
+        countries:
+          $ref: '#/components/schemas/Countries'
+        theme:
+          $ref: '#/components/schemas/Theme'
+    SourcesResponseDto_2:
+      title: Sources Response
+      description: "The response model for a successful `Sources` request retrieving news sources matching the specified criteria. Response field behavior:\n- Required fields are guaranteed to be present and non-null. \n- Optional fields may be `null` or `undefined` if the data point is not presented or couldn't be extracted during processing.\n"
+      required:
+      - message
+      - sources
+      - user_input
+      type: object
+      properties:
+        message:
+          title: Message
+          description: A message indicating the result of the request.
+          type: string
+        sources:
+          title: Sources
+          description: A list of news sources that match the specified criteria.
+          type: array
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/SourceInfo'
+            - type: string
+        user_input:
+          title: User Input
+          description: The user input parameters for the request.
+          type: object
+    SourceInfo:
+      title: Source Info
+      description: The data model for information about a news source.
+      required:
+      - domain_url
+      type: object
+      properties:
+        name_source:
+          title: Name Source
+          description: The name of the news source.
+          type: string
+        domain_url:
+          title: Domain Url
+          description: The domain URL of the news source.
+          type: string
+        logo:
+          title: Logo
+          description: The logo of the news source.
+          type: string
+        additional_info:
+          $ref: '#/components/schemas/AdditionalSourceInfo'
+    IsNewsDomain:
+      type: boolean
+      description: 'If true, filters results to include only news domains.
+
+        '
+      example: true
+    IncludeAdditionalInfo:
+      type: boolean
+      description: 'If true, returns the following additional datapoints about each news source:
+
+        - `nb_articles_for_7d`: The number of articles published by the source in the last week.
+
+        - `country`: Source country of origin.
+
+        - `rank`: SEO rank.
+
+        - `is_news_domain`: Boolean indicating if the source is a news domain.
+
+        - `news_domain_type`: Type of news domain (e.g., "Original Content").
+
+        - `news_type`: Category of news (e.g., "General News Outlets").
+
+        - `robots_compliant`: Percentage of domain articles that comply with robots.txt scraping rules (0-100%).
+
+        '
+      example: true
+    Lang:
+      oneOf:
+      - type: string
+      - type: array
+        items:
+          type: string
+      description: 'The language(s) of the search. The only accepted format is the two-letter [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) code. To select multiple languages, use a comma-separated string or an array of strings.
+
+
+        To learn more, see [Enumerated parameters > Language](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#language-lang-and-not-lang).
+
+        '
+      example:
+      - en
+      - es
+    SourcesResponseDto:
+      title: Sources Response
+      description: 'The response model for the `Sources` request.
+
+
+        Response field behavior:
+
+        - Required fields are guaranteed to be present and non-null.
+
+        - Optional fields may be `null`/`undefined` if the data couldn''t be extracted during processing.
+
+        '
+      type: object
+      required:
+      - message
+      - sources
+      - user_input
+      properties:
+        message:
+          type: string
+          description: A message describing the result of the sources request.
+        sources:
+          type: array
+          items:
+            type: string
+          description: A list of available local news sources.
+        user_input:
+          $ref: '#/components/schemas/SourcesUserInputDto'
+    AdditionalSourceInfo:
+      title: Additional Source Info
+      description: The data model for additional information about a news source.
+      type: object
+      properties:
+        nb_articles_for_7d:
+          title: Nb Articles For 7D
+          description: The number of articles published by the source in the last seven days.
+          type: integer
+        country:
+          title: Country
+          description: The country of origin of the news source.
+          type: string
+        rank:
+          title: Rank
+          description: The SEO rank of the news source.
+          type: integer
+        is_news_domain:
+          title: Is News Domain
+          description: Indicates whether the source is a news domain.
+          type: boolean
+        news_domain_type:
+          title: News Domain Type
+          description: The type of news domain.
+          type: string
+        news_type:
+          title: News Type
+          description: The category of news provided by the source.
+          type: string
+        robots_compliant:
+          title: Robots Compliant
+          description: 'Percentage of domain articles that comply with robots.txt scraping rules (0-100%).
+
+            '
+          type: string
+          example: 100%
+      example:
+        nb_articles_for_7d: 153
+        country: US
+        rank: 117
+        is_news_domain: true
+        news_domain_type: Original Content
+        news_type: General News Outlets
+        robots_compliant: 100%
+    SourcesUserInputDto:
+      title: Sources User Input
+      description: The user input parameters used to search local news sources.
+      type: object
+      properties:
+        lang:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          description: The language(s) of the retrieved sources.
+        countries:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          description: The country or countries of the retrieved sources.
+        theme:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          description: The theme(s) of the retrieved sources.
+  requestBodies:
+    SourceRequestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SourcesRequestDto'
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-token
+      description: "API Key to authenticate requests.\n\nTo access the API, include your API key in the `x-api-token` header. \nTo obtain your API key, complete the [form](https://www.newscatcherapi.com/book-a-demo) or contact us directly.\n"
+externalDocs:
+  description: Find out more about Local News API
+  url: https://www.newscatcherapi.com/docs/local-news-api/get-started/introduction

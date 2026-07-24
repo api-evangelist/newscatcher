@@ -1,0 +1,1591 @@
+openapi: 3.0.3
+info:
+  title: Local News AggregationCount Jobs API
+  description: 'The Local News API provides access to local news articles with location-specific filtering capabilities.
+
+
+    ## Standard endpoints
+
+
+    - `/search`: Search articles by keywords with simple location filtering ("City, State" format).
+
+    - `/latest_headlines`: Retrieve recent articles for specified locations and time periods.
+
+    - `/search_by`: Retrieve articles by URL, ID, or RSS GUID.
+
+    - `/sources`: List available news sources.
+
+
+    ## Advanced endpoints
+
+
+    - `/search/advanced`: Search with structured GeoNames filtering.
+
+    - `/latest_headlines/advanced`: Latest headlines with structured GeoNames filtering.
+
+
+    ## Features
+
+
+    - Multiple location detection methods including dedicated sources, proximity analysis, and AI extraction
+
+    - Natural language processing for sentiment analysis and entity recognition on original content and English translations
+
+    - Article clustering for topic analysis
+
+    - English translations for non-English content
+
+    '
+  termsOfService: https://newscatcherapi.com/terms-of-service
+  contact:
+    name: Maksym Sugonyaka
+    email: maksym@newscatcherapi.com
+    url: https://www.newscatcherapi.com/book-a-demo
+  version: 1.2.0
+servers:
+- url: https://local-news.newscatcherapi.com
+  description: Local News API production server
+security:
+- ApiKeyAuth: []
+tags:
+- name: Jobs
+  description: Operations to create, monitor, and retrieve job results.
+  externalDocs:
+    description: Learn about job lifecycle and status tracking
+    url: https://www.newscatcherapi.com/docs/web-search-api/get-started/quickstart
+paths:
+  /catchAll/jobs/user:
+    get:
+      tags:
+      - Jobs
+      summary: List user jobs
+      description: Returns all jobs created by the authenticated user.
+      operationId: getUserJobs
+      externalDocs:
+        description: Learn about job management
+        url: https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/list-user-jobs
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      - $ref: '#/components/parameters/Search'
+      - $ref: '#/components/parameters/Ownership'
+      - $ref: '#/components/parameters/ProjectIdQuery'
+      responses:
+        '200':
+          $ref: '#/components/responses/ListUserJobsResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+  /catchAll/validate:
+    post:
+      tags:
+      - Jobs
+      summary: Validate query
+      description: 'Checks whether a query is well-formed and likely to produce good results before submitting a job.
+
+
+        Returns a quality assessment with a status level, identified issues, and actionable suggestions.
+
+        '
+      operationId: validateQuery
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateQueryRequestDto'
+            example:
+              query: Series B funding rounds for SaaS startups
+      responses:
+        '200':
+          $ref: '#/components/responses/ValidateQueryResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /catchAll/initialize:
+    post:
+      tags:
+      - Jobs
+      summary: Initialize job
+      description: Get suggested validators, enrichments, and date ranges for a query.
+      operationId: initialize
+      externalDocs:
+        description: Learn about validator and enrichment suggestions
+        url: https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/initialize-job
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InitializeRequestDto'
+            example:
+              query: Series B funding rounds for SaaS startups
+              context: Focus on funding amount and company name
+      responses:
+        '200':
+          $ref: '#/components/responses/InitializeResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /catchAll/submit:
+    post:
+      tags:
+      - Jobs
+      summary: Create job
+      description: Submit a query to create a new processing job.
+      operationId: createJob
+      externalDocs:
+        description: Detailed documentation for job creation
+        url: https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/create-job
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitRequestDto'
+            example:
+              query: Series B funding rounds for SaaS startups
+              context: Focus on funding amount and company name
+              start_date: '2026-02-18T00:00:00Z'
+              end_date: '2026-02-23T00:00:00Z'
+              limit: 10
+              mode: base
+      responses:
+        '200':
+          $ref: '#/components/responses/SubmitResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /catchAll/status/{job_id}:
+    get:
+      tags:
+      - Jobs
+      summary: Get job status
+      description: Retrieve the current processing status of a job.
+      operationId: getJobStatus
+      externalDocs:
+        description: Understanding job statuses and polling
+        url: https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/get-job-status
+      parameters:
+      - $ref: '#/components/parameters/JobId'
+      responses:
+        '200':
+          $ref: '#/components/responses/StatusResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+  /catchAll/pull/{job_id}:
+    get:
+      tags:
+      - Jobs
+      summary: Get job results
+      description: Retrieve the final results for a completed job.
+      operationId: getJobResults
+      externalDocs:
+        description: Working with job results and dynamic schemas
+        url: https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/get-job-results
+      parameters:
+      - $ref: '#/components/parameters/JobId'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          $ref: '#/components/responses/PullJobResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+  /catchAll/continue:
+    post:
+      tags:
+      - Jobs
+      summary: Continue job
+      description: Continue an existing job to process more records beyond the initial limit.
+      operationId: continueJob
+      externalDocs:
+        description: Learn about job continuation and limits
+        url: https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/continue-job
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContinueRequestDto'
+            example:
+              job_id: 5f0c9087-85cb-4917-b3c7-e5a5eff73a0c
+              new_limit: 100
+      responses:
+        '200':
+          $ref: '#/components/responses/ContinueResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /catchAll/jobs/{job_id}:
+    delete:
+      tags:
+      - Jobs
+      summary: Delete job
+      description: 'Soft-deletes a job. The job is flagged as deleted and no longer appears in list results. The underlying data is retained.
+
+
+        Only the job owner can delete a job. Returns `404` if the job is not found or does not belong to the authenticated user.
+
+
+        Deleting an already-deleted job returns `200`.
+
+        '
+      operationId: deleteJob
+      parameters:
+      - $ref: '#/components/parameters/JobId'
+      responses:
+        '200':
+          $ref: '#/components/responses/DeleteJobResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+components:
+  schemas:
+    Citation:
+      type: object
+      required:
+      - title
+      - link
+      - published_date
+      properties:
+        title:
+          type: string
+          description: The title of the source document.
+          example: 'Exclusive: VulnCheck raises $25M funding to help companies patch software bugs'
+        link:
+          type: string
+          format: uri
+          description: URL to the source document.
+          example: https://www.msn.com/en-us/money/other/exclusive-vulncheck-raises-25m-funding-to-help-companies-patch-software-bugs/ar-AA1WwdjW
+        published_date:
+          type: string
+          format: date-time
+          description: The publication date of the source document in ISO 8601 format (UTC timezone).
+          example: '2026-02-17T14:01:05Z'
+    StartDate:
+      type: string
+      format: date-time
+      description: 'Start date for web search (ISO 8601 format with UTC timezone).
+
+
+        Defines the start of the search window by web page discovery date, not event date. Web pages discovered within this range may describe events from any time period.
+
+
+        Must be within plan''s allowed search depth. Default is 5 days before current date if not specified.
+
+        '
+      example: '2026-01-30T00:00:00Z'
+    Suggestion:
+      type: object
+      description: Actionable recommendation for improving a query.
+      required:
+      - issue
+      - message
+      properties:
+        issue:
+          $ref: '#/components/schemas/IssueType'
+          description: The issue this suggestion addresses.
+        message:
+          type: string
+          description: Specific guidance for improving the query.
+          example: Add a target sector or geography to narrow the results.
+        example:
+          type: string
+          description: Revised query demonstrating the suggested improvement.
+          example: Series A fundraising for AI startups in healthcare
+    StatusResponseDto:
+      type: object
+      required:
+      - job_id
+      properties:
+        job_id:
+          type: string
+          format: uuid
+          description: Job identifier.
+          example: 5f0c9087-85cb-4917-b3c7-e5a5eff73a0c
+        status:
+          allOf:
+          - $ref: '#/components/schemas/PublicJobStatus'
+          description: Current job processing status.
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/JobStep'
+          description: 'Detailed progress tracking for each processing stage. Steps progress sequentially from order 1 (submitted) through 5 (enriching), ending at order 6 (completed) or 7 (failed).
+
+            '
+    ListUserJobsResponseDto:
+      type: object
+      required:
+      - total
+      - page
+      - page_size
+      - total_pages
+      - jobs
+      properties:
+        total:
+          type: integer
+          description: Total number of jobs for this user.
+          example: 47
+        page:
+          type: integer
+          description: Current page number.
+          example: 1
+        page_size:
+          type: integer
+          description: Number of jobs per page.
+          example: 10
+        total_pages:
+          type: integer
+          description: Total number of pages available.
+          example: 5
+        jobs:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserJob'
+          description: Array of user jobs on this page.
+    EndDate:
+      type: string
+      format: date-time
+      description: 'End date for web search (ISO 8601 format with UTC timezone).
+
+
+        Defines the end of the search window by web page discovery date, not event date. Web pages discovered within this range may describe events from any time period.
+
+
+        Must be within plan''s allowed search depth and after start_date. Default is current date if not specified.
+
+        '
+      example: '2026-02-05T00:00:00Z'
+    BaseRecord:
+      type: object
+      required:
+      - record_id
+      - record_title
+      - enrichment
+      properties:
+        record_id:
+          type: string
+          description: Unique identifier for the record.
+          example: '6983973854314692457'
+        record_title:
+          type: string
+          description: Short title summarizing the record.
+          example: VulnCheck Raises $25M Series B Funding
+        enrichment:
+          type: object
+          description: "Structured data extracted from web pages. Schema is dynamically generated per job. Field names are chosen semantically to match the content.\n\n**Note:** The system always includes the `enrichment_confidence` field within the `enrichment` object, regardless of whether enrichments are generated or specified by you.\n\n For integration guidance, see [Dynamic schemas](https://www.newscatcherapi.com/docs/web-search-api/guides-and-concepts/dynamic-schemas)\n"
+          properties:
+            enrichment_confidence:
+              type:
+              - string
+              - 'null'
+              enum:
+              - low
+              - medium
+              - high
+              - null
+              description: Overall confidence score for the enrichment extraction.
+              example: high
+          additionalProperties: {}
+          example:
+            enrichment_confidence: high
+            funding_amount: 25000000
+            funding_currency: USD
+            funding_date: '2026-02-17'
+            investee_company:
+              source_text: VulnCheck
+              confidence: 0.99
+              metadata:
+                name: VulnCheck
+                domain_url: vulncheck.com
+                domain_url_confidence: high
+            investor_company:
+              source_text: Sorenson Capital
+              confidence: 0.99
+              metadata:
+                name: Sorenson Capital
+                domain_url: null
+                domain_url_confidence: null
+            valuation: 25000000
+            other_investors: National Grid Partners, Ten Eleven Ventures, In-Q-Tel
+    EnrichmentSchema:
+      type: object
+      required:
+      - name
+      - description
+      - type
+      properties:
+        name:
+          type: string
+          description: Enrichment field name (snake_case recommended).
+          example: investee_company
+        description:
+          type: string
+          description: What information this field extracts.
+          example: Extract the name of the SaaS startup receiving the funding
+        type:
+          $ref: '#/components/schemas/EnrichmentType'
+      description: 'Schema for a single enrichment field that extracts structured data.
+
+
+        Enrichments are applied during the enriching stage to extract information from validated clusters.
+
+        '
+    UserJob:
+      type: object
+      required:
+      - job_id
+      - query
+      - created_at
+      - status
+      properties:
+        job_id:
+          type: string
+          format: uuid
+          description: Job identifier.
+          example: 5f0c9087-85cb-4917-b3c7-e5a5eff73a0c
+        query:
+          type: string
+          description: Plain text query for this job.
+          example: Series B funding rounds for SaaS startups
+        created_at:
+          type: string
+          format: date-time
+          description: Job creation timestamp in ISO 8601 format.
+          example: '2026-02-01T14:30:00Z'
+        status:
+          type: string
+          description: Current processing status of the job.
+          example: completed
+        mode:
+          type: string
+          enum:
+          - lite
+          - base
+          default: base
+          description: Processing mode used for this job.
+          example: base
+        sharing_info:
+          allOf:
+          - $ref: '#/components/schemas/SharingInfo'
+          description: 'Present when this job is shared with the authenticated user. Omitted when the user owns the job.
+
+            '
+        user_key:
+          type: string
+          description: Masked API key that created this job.
+          example: '***...a1b2'
+    ValidationErrorDetail:
+      type: object
+      properties:
+        loc:
+          type: array
+          items:
+            oneOf:
+            - type: string
+            - type: integer
+          description: Location of the validation error
+        msg:
+          type: string
+          description: Error message
+        type:
+          type: string
+          description: Error type
+    Context:
+      type: string
+      description: 'Additional context to focus on specific aspects of your query.
+
+        '
+      example: Focus on funding amount and company name
+    Query:
+      type: string
+      description: 'Plain text question describing what to find.
+
+
+        The system analyzes your input to generate search queries, validators, and extractors. More specific queries produce more focused results.
+
+        '
+      example: Series B funding rounds for SaaS startups
+    ContinueResponseDto:
+      type: object
+      required:
+      - job_id
+      - new_limit
+      - status
+      properties:
+        job_id:
+          type: string
+          format: uuid
+          description: Job identifier for the continued job.
+          example: 5f0c9087-85cb-4917-b3c7-e5a5eff73a0c
+        previous_limit:
+          type: integer
+          description: Previous record limit before continuation.
+          example: 10
+        new_limit:
+          type: integer
+          description: New record limit after continuation.
+          example: 100
+        status:
+          type: string
+          description: Confirmation that the continuation request was accepted.
+          default: accepted
+          example: accepted
+    ValidatorSchema:
+      type: object
+      required:
+      - name
+      - description
+      properties:
+        name:
+          type: string
+          description: Validator field name (snake_case recommended).
+          example: is_series_b_funding
+        description:
+          type: string
+          description: What this validator checks for in the web page.
+          example: true if the web page describes a Series B funding round
+        type:
+          type: string
+          enum:
+          - boolean
+          default: boolean
+          description: Validator type (currently only boolean supported).
+      description: 'Schema for a single validator that filters clusters of web pages.
+
+
+        Validators are applied during the enriching stage to determine which clusters are relevant.
+
+        '
+    JobStep:
+      type: object
+      required:
+      - status
+      - order
+      - completed
+      properties:
+        status:
+          $ref: '#/components/schemas/PublicJobStatus'
+        order:
+          type: integer
+          description: Sequential position of this step in the pipeline (1-7).
+          minimum: 1
+          maximum: 7
+          example: 2
+        completed:
+          type: boolean
+          default: false
+          description: True if this step has finished processing; false otherwise.
+    ValidateQueryRequestDto:
+      type: object
+      required:
+      - query
+      properties:
+        query:
+          type: string
+          description: Plain text query to validate.
+          example: Series B funding rounds for SaaS startups
+      example:
+        query: Series B funding rounds for SaaS startups
+    ValidationErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationErrorDetail'
+    PullJobResponseDto:
+      type: object
+      required:
+      - job_id
+      properties:
+        job_id:
+          type: string
+          format: uuid
+          description: Job identifier.
+        query:
+          type: string
+          description: Original plain text query.
+          example: Series B funding rounds for SaaS startups
+        context:
+          type: string
+          description: Context provided with the query.
+          example: Focus on funding amount and company name
+        validators:
+          type: array
+          items:
+            type: object
+          description: Validators applied to filter results.
+          default: []
+          example: []
+        enrichments:
+          type: array
+          items:
+            type: object
+          description: Enrichment fields used for data extraction.
+          default: []
+          example: []
+        status:
+          type: string
+          description: 'Job status.
+
+            '
+          example: completed
+        error:
+          type:
+          - string
+          - 'null'
+          description: Error message if the job failed. Null for successful jobs.
+        limit:
+          type: integer
+          description: Record limit for this job. Reflects the value specified at submit time, or the plan default if no limit was provided.
+          example: 100
+        duration:
+          type: string
+          description: Total time taken to process the job.
+          example: 1m
+        candidate_records:
+          type: integer
+          description: Total number of distinct event clusters identified. Compare with `progress_validated` to estimate how many candidates remain unprocessed for job continuation.
+          example: 4
+        valid_records:
+          type: integer
+          description: Number of validated records extracted.
+          example: 3
+        progress_validated:
+          type:
+          - integer
+          - 'null'
+          description: 'Number of candidate clusters that have been validated during processing.
+
+
+            The system process data in batches. This field tracks how many `candidate_records` have been checked against validation criteria so far.
+
+            '
+          example: 4
+        date_range:
+          type: object
+          properties:
+            start_date:
+              type: string
+              format: date-time
+              example: '2026-02-17T00:00:00Z'
+            end_date:
+              type: string
+              format: date-time
+              example: '2026-02-24T00:00:00Z'
+        page:
+          type: integer
+          minimum: 1
+          default: 1
+          description: The current page number.
+        page_size:
+          type: integer
+          minimum: 1
+          default: 10
+          description: The number of records per page.
+        total_pages:
+          type: integer
+          minimum: 0
+          default: 0
+          description: The total number of pages available.
+        mode:
+          type: string
+          enum:
+          - lite
+          - base
+          default: base
+          description: Processing mode used for this job.
+          example: base
+        sharing_info:
+          oneOf:
+          - $ref: '#/components/schemas/SharingInfo'
+          - type: 'null'
+          description: 'Present when the job was shared with the authenticated user by another organization member. `null` when the user owns the job.
+
+            '
+        all_records:
+          type: array
+          items:
+            $ref: '#/components/schemas/Record'
+          description: Array of extracted records with structured data and citations.
+    SharingInfo:
+      type: object
+      description: 'Present on resources shared with the authenticated user by another
+
+        organization member. Omitted entirely on resources the user owns.
+
+        '
+      required:
+      - shared_at
+      - permission
+      - shared_by
+      properties:
+        shared_at:
+          type: string
+          format: date-time
+          description: When the resource was shared.
+          example: '2026-04-15T12:00:00Z'
+        permission:
+          type: string
+          enum:
+          - view
+          - edit
+          - manage
+          description: Permission level granted to the recipient.
+          example: view
+        shared_by:
+          type: string
+          description: 'Display name of the user who shared the resource (first + last
+
+            name). Falls back to email address, then user ID.
+
+            '
+          example: John Doe
+    InitializeRequestDto:
+      type: object
+      required:
+      - query
+      properties:
+        query:
+          $ref: '#/components/schemas/Query'
+        context:
+          $ref: '#/components/schemas/Context'
+        connected_dataset_ids:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: Optional list of watchlist dataset IDs connected to this job.
+        fetch_all_watchlist_news:
+          type: boolean
+          default: false
+          description: 'When true, returns generic news validators and enrichments suitable for
+
+            watchlist-based article collection instead of query-specific fields.
+
+            '
+      description: Request to get validator, enrichment, and date range suggestions for a query.
+    Record:
+      allOf:
+      - $ref: '#/components/schemas/BaseRecord'
+      - type: object
+        required:
+        - citations
+        properties:
+          citations:
+            type: array
+            items:
+              $ref: '#/components/schemas/Citation'
+            description: Source documents that were used to extract this record.
+          connected_entities:
+            type: array
+            items:
+              $ref: '#/components/schemas/ConnectedEntity'
+            description: 'Entities from the connected dataset that are relevant to this record.
+
+              Only present when the job was submitted with `connected_dataset_ids`.
+
+              '
+    SubmitRequestDto:
+      type: object
+      required:
+      - query
+      properties:
+        query:
+          $ref: '#/components/schemas/Query'
+        context:
+          $ref: '#/components/schemas/Context'
+        limit:
+          $ref: '#/components/schemas/Limit'
+        start_date:
+          $ref: '#/components/schemas/StartDate'
+        end_date:
+          $ref: '#/components/schemas/EndDate'
+        validators:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidatorSchema'
+          description: 'Custom validators for filtering web page clusters.
+
+
+            If not provided, validators are generated automatically based on the query.
+
+            '
+        enrichments:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnrichmentSchema'
+          description: 'Custom enrichment fields for data extraction.
+
+
+            If not provided, enrichments are generated automatically based on the query.
+
+            '
+        mode:
+          type: string
+          enum:
+          - lite
+          - base
+          default: base
+          description: 'Job processing mode.
+
+
+            - `base`: Full pipeline with validation and enrichment.
+
+            - `lite`: Lightweight extraction with faster processing. Returns titles and citations only.
+
+            '
+        connected_dataset_ids:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: 'Dataset IDs to connect to the job. When provided, this enables Company Watchlist mode — the job returns only events relevant to companies in the connected datasets. To set the minimum relevance threshold, use `ed_score_min`.
+
+
+            The dataset must have `latest_status: ready` before the job is submitted. Submitting with a non-existent or inaccessible dataset ID returns `400`.
+
+            '
+          example:
+          - ccabb755-afc2-4047-b84c-78d1f23d49b2
+        ed_score_min:
+          type: integer
+          minimum: 1
+          maximum: 10
+          default: 2
+          description: 'The minimum relevance score a connected entity must reach for its record to be included in results.
+
+
+            Only valid when `connected_dataset_ids` is set; otherwise ignored. Records where no connected entity meets the threshold are excluded entirely.
+
+            '
+          example: 3
+        project_id:
+          type: string
+          format: uuid
+          description: 'Project to assign this job to. The job appears in the project''s resource list immediately after submission.
+
+            '
+          example: 60a85db4-78ec-4b78-876a-bc7d9cdadd04
+        webhook_ids:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: 'IDs of webhooks to notify when the job completes. Maximum 5 per job.
+
+            '
+          example:
+          - a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        fetch_all_watchlist_news:
+          type: boolean
+          default: false
+          description: 'When true, retrieves all news for connected Company Watchlist entities
+
+            without topic filtering. Requires connected_dataset_ids to be set.
+
+            '
+        ed_association_type:
+          allOf:
+          - $ref: '#/components/schemas/EntityAssociationType'
+          description: 'Filter events by entity association type. `event_associated` keeps only
+
+            events where the entity is a direct actor. `mention` keeps only events
+
+            where the entity is merely referenced. Only relevant when
+
+            connected_dataset_ids is set.
+
+            '
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: Error message.
+          example: Invalid API key
+    Limit:
+      type: integer
+      minimum: 10
+      description: 'Maximum number of records to return. If not specified, defaults to your plan limit.
+
+
+        Use [`POST /catchAll/continue`](https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/continue-job) to extend the limit after job completion without reprocessing.
+
+        '
+      example: 10
+    EntityAssociationType:
+      type: string
+      enum:
+      - mention
+      - event_associated
+      description: 'How an entity relates to an event.
+
+
+        - `event_associated`: The entity is a direct actor in the event (primary subject).
+
+        - `mention`: The entity is merely referenced in passing.
+
+        '
+    ConnectedEntity:
+      type: object
+      required:
+      - entity_id
+      - name
+      - type
+      - ed_score
+      - relation
+      description: 'A company entity matched to a record in a Company Watchlist job, with a relevance score and explanation.
+
+
+        Only entities with `ed_score` ≥ 1 appear in results. Entities scored 0 are filtered out before the response is returned. When `ed_score_min` is set at submission time, entities below that threshold are excluded.
+
+        '
+      properties:
+        entity_id:
+          type: string
+          format: uuid
+          description: Unique identifier of the matched entity.
+          example: e1f2a3b4-c5d6-7890-abcd-ef1234567890
+        name:
+          type: string
+          description: Name of the matched entity.
+          example: Tesla
+        ed_score:
+          type: integer
+          minimum: 1
+          maximum: 10
+          description: 'Relevance score indicating how directly the entity is associated with this event.
+
+
+            | Score | Meaning |
+
+            |-------|---------|
+
+            | 10 | Direct mention, critical event (merger, CEO change, major lawsuit) |
+
+            | 7–9 | Major impact (earnings, product launch, senior hire) |
+
+            | 4–6 | Routine update (minor product news, mid-level changes) |
+
+            | 1–3 | Indirect mention (listed with others, stock noise) |
+
+            '
+          example: 8
+        relation:
+          type: string
+          maxLength: 100
+          description: 'Short explanation (up to 100 characters) of why this entity is associated with the event.
+
+            '
+          example: Lucid Gravity is positioned as a direct competitor to the Tesla Model X.
+        association_type:
+          type: string
+          description: 'How the entity relates to the event: `event_associated` if the entity is a direct actor, `mention` if merely referenced.
+
+            '
+          example: event_associated
+        type:
+          type: string
+          description: 'The entity type.
+
+            '
+          example: company
+        company:
+          allOf:
+          - $ref: '#/components/schemas/CompanyAttributes'
+          description: "The stored attributes for this entity. Present only when attributes exist in the database. \n\nThe field name matches the value of `type` — for example, `\"company\"` type entities have a `company`  field.\n"
+    DeleteJobResponseDto:
+      type: object
+      required:
+      - success
+      - message
+      - job_id
+      properties:
+        success:
+          type: boolean
+          description: True if the delete operation succeeded; false otherwise.
+          example: true
+        message:
+          type:
+          - string
+          - 'null'
+          description: Human-readable result message.
+          example: Job deleted successfully.
+        job_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: ID of the deleted job. `null` on failure.
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+    ValidateQueryResponseDto:
+      type: object
+      description: Query quality assessment returned by the validate endpoint.
+      required:
+      - status
+      - title
+      - confidence
+      properties:
+        status:
+          $ref: '#/components/schemas/QueryStatus'
+          description: Overall quality level of the query.
+        title:
+          type: string
+          description: Short headline summarising the assessment.
+          example: Specific event type clear
+        description:
+          type: string
+          description: Plain-language explanation of the assessment result.
+          example: Clear event type and focus; no timeframe needed for a default recent search.
+        issues:
+          type: array
+          items:
+            $ref: '#/components/schemas/IssueType'
+          description: Issues identified in the query. Empty when `status` is `good`.
+          example: []
+        suggestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Suggestion'
+          description: 'Actionable recommendations for each identified issue. Empty when `status` is `good`. Each suggestion corresponds to one entry in `issues`.
+
+            '
+          example: []
+        confidence:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: Confidence score for this assessment.
+          example: 0.98
+    SubmitResponseDto:
+      type: object
+      required:
+      - job_id
+      properties:
+        job_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the created job. Use this to check status and retrieve results.
+          example: 5f0c9087-85cb-4917-b3c7-e5a5eff73a0c
+    QueryStatus:
+      type: string
+      enum:
+      - good
+      - needs_work
+      - critical
+      description: 'Quality level assigned to a query by the validation endpoint.
+
+
+        - `good`: Query is well-formed and likely to produce relevant results.
+
+        - `needs_work`: Query has issues that may reduce result quality. Review `suggestions` for improvements.
+
+        - `critical`: Query is unlikely to produce useful results as written. Address all `issues` before submitting.
+
+        '
+    InitializeResponseDto:
+      type: object
+      required:
+      - query
+      - validators
+      - enrichments
+      properties:
+        query:
+          type: string
+          description: Echo of the query from the request.
+          example: Series B funding rounds for SaaS startups
+        context:
+          type:
+          - string
+          - 'null'
+          description: Echo of the context from the request. Null if not provided.
+          example: Focus on funding amount and company name
+        validators:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidatorSchema'
+          description: Suggested validators for filtering relevant web pages.
+          minItems: 0
+        enrichments:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnrichmentSchema'
+          description: Suggested enrichment fields for data extraction.
+          minItems: 0
+        start_date:
+          $ref: '#/components/schemas/StartDate'
+        end_date:
+          $ref: '#/components/schemas/EndDate'
+        date_modification_message:
+          type: array
+          items:
+            type: string
+          description: 'Messages explaining date adjustments due to plan limits.
+
+
+            Empty array if no modifications were needed. Contains human-readable messages when requested dates exceed plan''s allowed lookback period.
+
+            '
+          default: []
+          example:
+          - start_date must be >= 2025-01-23, your plan limited to lookback 365 days; we modified start_date to 2025-01-23.
+    PublicJobStatus:
+      type: string
+      enum:
+      - submitted
+      - analyzing
+      - fetching
+      - clustering
+      - enriching
+      - completed
+      - failed
+      description: 'Current job processing status. Jobs progress through these stages:
+
+
+        - `submitted`: Job queued, waiting to start processing.
+
+        - `analyzing`: Extracting keywords, generating search queries, and creating validators/extractors.
+
+        - `fetching`: Retrieving web pages.
+
+        - `clustering`: Grouping similar web pages into clusters.
+
+        - `enriching`: Validating clusters and extracting structured data.
+
+        - `completed`: Job finished successfully, results ready.
+
+        - `failed`: Job processing failed.
+
+
+        Poll `/catchAll/status/{job_id}` every 30-60 seconds until status is `completed` (typically 10-15 minutes).
+
+        '
+      example: fetching
+    EnrichmentType:
+      type: string
+      enum:
+      - text
+      - number
+      - date
+      - option
+      - url
+      - company
+      description: "Canonical enrichment types supported by the system.\n\n- `text`: Free-form text strings (names, descriptions, summaries)\n- `number`: Numeric values (amounts, counts, percentages)\n- `date`: ISO format dates (YYYY-MM-DD)\n- `option`: Enum-like fixed values (status, category)\n- `url`: Web URLs\n- `company`: Structured company data. Returns `source_text`, `confidence`, and `metadata`. \n\nSee [Company enrichment](https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/company-enrichment-dto) data model.\n"
+    OwnershipFilter:
+      type: string
+      enum:
+      - all
+      - own
+      - shared
+      default: all
+      description: "Controls which resources are returned based on ownership.\n\n- `all`: Returns resources owned by the user and resources shared\n  with them (default, backward compatible).\n- `own`: Returns only resources created by the authenticated user.\n- `shared`: Returns only resources shared with the user by others.\n"
+    ContinueRequestDto:
+      type: object
+      required:
+      - job_id
+      properties:
+        job_id:
+          type: string
+          format: uuid
+          description: 'Job identifier of the completed job to continue.
+
+            '
+          example: 5f0c9087-85cb-4917-b3c7-e5a5eff73a0c
+        new_limit:
+          type: integer
+          description: 'New record limit for continued processing. Must be greater than the previous limit. If not provided, defaults to the plan maximum.
+
+            '
+          example: 100
+    IssueType:
+      type: string
+      enum:
+      - missing_event_type
+      - too_vague
+      - too_specific
+      - wrong_timeframe
+      - static_content
+      - article_request
+      - multiple_event_types
+      - too_short
+      - too_long
+      description: 'Category of a query issue identified during validation.
+
+
+        - `missing_event_type`: Query does not specify a type of event to find.
+
+        - `too_vague`: Query lacks sufficient focus to return targeted results.
+
+        - `too_specific`: Query is overly constrained and may return no results.
+
+        - `wrong_timeframe`: Requested timeframe exceeds the 30-day maximum window or references a historical period outside the supported range.
+
+        - `static_content`: Query targets static or reference content such as specifications, how-to guides, or historical data rather than events.
+
+        - `article_request`: Query requests articles or news content rather than describing an event to search for.
+
+        - `multiple_event_types`: Query mixes unrelated event types; results may be unfocused.
+
+        - `too_short`: Query is too short to resolve meaningful search intent.
+
+        - `too_long`: Query is excessively long and may confuse the pipeline.
+
+        '
+    CompanyAttributes:
+      type: object
+      description: 'Identifying attributes for a company entity. All fields are optional but improve matching quality.
+
+        '
+      properties:
+        domain:
+          type:
+          - string
+          - 'null'
+          description: 'Company website domain without protocol or trailing slash.
+
+
+            The most reliable identifier — strongly recommended when available.
+
+            '
+          example: newscatcherapi.com
+        description:
+          type:
+          - string
+          - 'null'
+          description: Detailed description of the company used for matching.
+          example: Provider of news and web search APIs for developers
+        key_persons:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: 'Names of key people associated with the company (founders, executives, etc.). Improves matching for articles that mention people rather than the company name.
+
+            '
+          example:
+          - Artem Bugara
+          - Maksym Sugonyaka
+        alternative_names:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: 'Alternative names, abbreviations, or aliases. Helps resolve common variations of the company name.
+
+            '
+          example:
+          - NC
+          - NewsCatcher API
+  responses:
+    UnauthorizedError:
+      description: API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            detail: X-API-Key header is required for this endpoint
+    NotFoundError:
+      description: Job/monitor not found or results not available
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    DeleteJobResponse:
+      description: Job deleted successfully (or already deleted).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DeleteJobResponseDto'
+          example:
+            success: true
+            message: Job deleted successfully.
+            job_id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+    InitializeResponse:
+      description: Suggestions retrieved successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InitializeResponseDto'
+          example:
+            query: Series B funding rounds for SaaS startups
+            context: Focus on funding amount and company name
+            validators:
+            - name: is_series_b_funding
+              description: true if the web page describes a Series B funding round
+              type: boolean
+            - name: is_saas_startup
+              description: true if the company receiving funding is a SaaS startup
+              type: boolean
+            enrichments:
+            - name: funding_amount
+              description: Extract the amount of funding received in the Series B round
+              type: number
+            - name: investee_company
+              description: Extract the name of the SaaS startup receiving the funding
+              type: company
+            - name: investor_company
+              description: Extract the name of the lead investor
+              type: company
+            - name: funding_date
+              description: Extract the date when the funding round was announced
+              type: date
+            start_date: '2026-02-19T00:00:00Z'
+            end_date: '2026-02-24T00:00:00Z'
+            date_modification_message:
+            - No dates were provided; using a default window of 5 days.
+    StatusResponse:
+      description: Status retrieved successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/StatusResponseDto'
+          example:
+            job_id: 5f0c9087-85cb-4917-b3c7-e5a5eff73a0c
+            status: completed
+            steps:
+            - status: submitted
+              order: 1
+              completed: true
+            - status: analyzing
+              order: 2
+              completed: true
+            - status: fetching
+              order: 3
+              completed: true
+            - status: clustering
+              order: 4
+              completed: true
+            - status: enriching
+              order: 5
+              completed: true
+            - status: completed
+              order: 6
+              completed: true
+            - status: failed
+              order: 7
+              completed: false
+    ForbiddenError:
+      description: Invalid or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidateQueryResponse:
+      description: Query validation result.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidateQueryResponseDto'
+          example:
+            status: good
+            title: Specific event type clear
+            description: Clear event type and focus; no timeframe needed for a default recent search.
+            issues: []
+            suggestions: []
+            confidence: 0.98
+    ContinueResponse:
+      description: Job continuation accepted
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ContinueResponseDto'
+          example:
+            job_id: 5f0c9087-85cb-4917-b3c7-e5a5eff73a0c
+            previous_limit: 10
+            new_limit: 100
+            status: accepted
+    ListUserJobsResponse:
+      description: User jobs retrieved successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ListUserJobsResponseDto'
+          example:
+            total: 27
+            page: 1
+            page_size: 2
+            total_pages: 14
+            jobs:
+            - job_id: 5f0c9087-85cb-4917-b3c7-e5a5eff73a0c
+              query: Series B funding rounds for SaaS startups
+              created_at: '2026-02-24T13:57:56Z'
+              status: completed
+              user_key: '***...a1b2'
+              mode: base
+            - job_id: 8d618890-f9f5-4c97-af17-236136a306a7
+              query: Corporate headquarters relocations in the US
+              created_at: '2026-02-18T20:25:20Z'
+              status: completed
+              user_key: '***...a1b2'
+              mode: base
+    PullJobResponse:
+      description: Results retrieved successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PullJobResponseDto'
+          example:
+            job_id: 5f0c9087-85cb-4917-b3c7-e5a5eff73a0c
+            query: Series B funding rounds for SaaS startups
+            context: Focus on funding amount and company name
+            validators: []
+            enrichments: []
+            status: completed
+            error: null
+            duration: 1m
+            candidate_records: 4
+            valid_records: 3
+            progress_validated: 4
+            date_range:
+              start_date: '2026-02-18T00:00:00Z'
+              end_date: '2026-02-23T00:00:00Z'
+            page: 1
+            page_size: 2
+            total_pages: 2
+            limit: 10
+            mode: base
+            all_records:
+            - record_id: '6983973854314692457'
+              record_title: VulnCheck Raises $25M Series B Funding
+              enrichment:
+                enrichment_confidence: high
+                funding_amount: 25000000
+                funding_currency: USD
+                funding_date: '2026-02-17'
+                investee_company:
+                  source_text: VulnCheck
+                  confidence: 0.99
+                  metadata:
+                    name: VulnCheck
+                    domain_url: vulncheck.com
+                    domain_url_confidence: high
+                investor_company:
+                  source_text: Sorenson Capital
+                  confidence: 0.99
+                  metadata:
+                    name: Sorenson Capital
+                    domain_url: null
+                    domain_url_confidence: null
+              citations:
+              - title: VulnCheck raises $25M Series B
+                link: https://www.msn.com/en-us/money/other/exclusive-vulncheck-raises-25m-funding-to-help-companies-patch-software-bugs/ar-AA1WwdjW
+                published_date: '2026-02-17T14:01:05Z'
+    BadRequestError:
+      description: 'Bad request - invalid parameters or constraint violations.
+
+
+        Common causes: date ranges outside plan limits, invalid job state for continuation.
+
+        '
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            date_validation:
+              summary: Date outside plan limit
+              value:
+                detail: start_date must be >= 2025-02-05, your plan limited to lookback 365 days.
+            invalid_continuation:
+              summary: Invalid job continuation
+              value:
+                detail: New limit must be greater than the previous limit for this job.
+    ValidationError:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidationErrorResponse'
+    SubmitResponse:
+      description: Job created successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SubmitResponseDto'
+          example:
+            job_id: 5f0c9087-85cb-4917-b3c7-e5a5eff73a0c
+  parameters:
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      description: 'Page number to retrieve.
+
+        '
+    Ownership:
+      name: ownership
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/OwnershipFilter'
+    Search:
+      name: search
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Filter results by text (case-insensitive substring match).
+    PageSize:
+      name: page_size
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 100
+        minimum: 1
+        maximum: 1000
+      description: 'Number of records per page.
+
+        '
+    ProjectIdQuery:
+      name: project_id
+      in: query
+      required: false
+      description: Filter results to resources belonging to this project.
+      schema:
+        type: string
+        format: uuid
+      example: 60a85db4-78ec-4b78-876a-bc7d9cdadd04
+    JobId:
+      name: job_id
+      in: path
+      required: true
+      description: 'Unique job identifier returned from [`POST /catchAll/submit`](https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/create-job).
+
+        '
+      schema:
+        type: string
+        format: uuid
+      example: 5f0c9087-85cb-4917-b3c7-e5a5eff73a0c
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-token
+      description: "API Key to authenticate requests.\n\nTo access the API, include your API key in the `x-api-token` header. \nTo obtain your API key, complete the [form](https://www.newscatcherapi.com/book-a-demo) or contact us directly.\n"
+externalDocs:
+  description: Find out more about Local News API
+  url: https://www.newscatcherapi.com/docs/local-news-api/get-started/introduction

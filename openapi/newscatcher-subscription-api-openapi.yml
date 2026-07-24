@@ -1,0 +1,244 @@
+openapi: 3.0.3
+info:
+  title: Local News AggregationCount Subscription API
+  description: 'The Local News API provides access to local news articles with location-specific filtering capabilities.
+
+
+    ## Standard endpoints
+
+
+    - `/search`: Search articles by keywords with simple location filtering ("City, State" format).
+
+    - `/latest_headlines`: Retrieve recent articles for specified locations and time periods.
+
+    - `/search_by`: Retrieve articles by URL, ID, or RSS GUID.
+
+    - `/sources`: List available news sources.
+
+
+    ## Advanced endpoints
+
+
+    - `/search/advanced`: Search with structured GeoNames filtering.
+
+    - `/latest_headlines/advanced`: Latest headlines with structured GeoNames filtering.
+
+
+    ## Features
+
+
+    - Multiple location detection methods including dedicated sources, proximity analysis, and AI extraction
+
+    - Natural language processing for sentiment analysis and entity recognition on original content and English translations
+
+    - Article clustering for topic analysis
+
+    - English translations for non-English content
+
+    '
+  termsOfService: https://newscatcherapi.com/terms-of-service
+  contact:
+    name: Maksym Sugonyaka
+    email: maksym@newscatcherapi.com
+    url: https://www.newscatcherapi.com/book-a-demo
+  version: 1.2.0
+servers:
+- url: https://local-news.newscatcherapi.com
+  description: Local News API production server
+security:
+- ApiKeyAuth: []
+tags:
+- name: Subscription
+  description: Operations to get subscription info.
+  externalDocs:
+    description: Retrieve information about your subscription plan.
+    url: https://www.newscatcherapi.com/docs/news-api/api-reference/subscription/retrieve-subscription-plan-information-get
+paths:
+  /api/subscription:
+    get:
+      x-fern-sdk-group-name: subscription
+      x-fern-sdk-method-name: get
+      tags:
+      - Subscription
+      summary: Retrieve subscription plan information
+      description: Retrieves information about your subscription plan.
+      operationId: subscriptionGet
+      responses:
+        '200':
+          $ref: '#/components/responses/SubscriptionResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '408':
+          $ref: '#/components/responses/RequestTimeoutError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '429':
+          $ref: '#/components/responses/RateLimitError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      x-fern-sdk-group-name: subscription
+      x-fern-sdk-method-name: post
+      tags:
+      - Subscription
+      summary: Retrieve subscription plan information
+      description: Retrieves information about your subscription plan.
+      operationId: subscriptionPost
+      responses:
+        '200':
+          $ref: '#/components/responses/SubscriptionResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '408':
+          $ref: '#/components/responses/RequestTimeoutError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '429':
+          $ref: '#/components/responses/RateLimitError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  responses:
+    InternalServerError:
+      description: Internal server error
+      content:
+        text/plain:
+          schema:
+            type: string
+          example: Internal Server Error
+    UnauthorizedError:
+      description: Unauthorized - Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: The 'x-api-token' parameter has an invalid value. Please provide a valid API key.
+            status_code: 401
+            status: Unauthorized
+    BadRequestError:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Invalid JSON in request body
+            status_code: 400
+            status: Bad request
+    ValidationError:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Invalid date format
+            status_code: 422
+            status: Validation error
+    SubscriptionResponse:
+      description: A successful response containing information about the current subscription plan.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SubscriptionResponseDto'
+    RequestTimeoutError:
+      description: Request timeout
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Request timed out after 30 seconds
+            status_code: 408
+            status: Request timeout
+    ForbiddenError:
+      description: Forbidden - Server refuses action
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Your plan request date range cannot be greater than 400 days
+            status_code: 403
+            status: Forbidden
+    RateLimitError:
+      description: Too many requests - Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Max API requests concurrency reached
+            status_code: 429
+            status: Too many requests
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A detailed description of the error.
+        status_code:
+          type: integer
+          description: The HTTP status code of the error.
+        status:
+          type: string
+          description: A short description of the status code.
+      required:
+      - message
+      - status_code
+      - status
+    SubscriptionResponseDto:
+      title: Subscription Response
+      description: "Response model for a successful `Subscription` request retrieving plan information. Response field behavior:\n- Required fields are guaranteed to be present and non-null. \n- Optional fields may be `null`/`undefined` if the data couldn't \nbe extracted during processing.\n"
+      required:
+      - active
+      - concurrent_calls
+      - plan
+      - plan_calls
+      - remaining_calls
+      - historical_days
+      type: object
+      properties:
+        active:
+          title: Active
+          description: Indicates whether the subscription is currently active.
+          type: boolean
+        concurrent_calls:
+          title: Concurrent calls
+          description: The number of API calls allowed per second allowed in the current plan.
+          type: integer
+        plan:
+          title: Plan Name
+          description: The name of the subscription plan.
+          type: string
+        plan_calls:
+          title: Plan Calls
+          description: The total number of API calls assigned to the current subscription.
+          type: integer
+        remaining_calls:
+          title: Remaining Calls
+          description: The number of API calls remaining for the current subscription period.
+          type: integer
+        historical_days:
+          title: Historical Days
+          description: The number of historical days accessible under the current subscription plan.
+          type: integer
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-token
+      description: "API Key to authenticate requests.\n\nTo access the API, include your API key in the `x-api-token` header. \nTo obtain your API key, complete the [form](https://www.newscatcherapi.com/book-a-demo) or contact us directly.\n"
+externalDocs:
+  description: Find out more about Local News API
+  url: https://www.newscatcherapi.com/docs/local-news-api/get-started/introduction

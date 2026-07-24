@@ -1,0 +1,907 @@
+openapi: 3.0.3
+info:
+  title: Local News AggregationCount Projects API
+  description: 'The Local News API provides access to local news articles with location-specific filtering capabilities.
+
+
+    ## Standard endpoints
+
+
+    - `/search`: Search articles by keywords with simple location filtering ("City, State" format).
+
+    - `/latest_headlines`: Retrieve recent articles for specified locations and time periods.
+
+    - `/search_by`: Retrieve articles by URL, ID, or RSS GUID.
+
+    - `/sources`: List available news sources.
+
+
+    ## Advanced endpoints
+
+
+    - `/search/advanced`: Search with structured GeoNames filtering.
+
+    - `/latest_headlines/advanced`: Latest headlines with structured GeoNames filtering.
+
+
+    ## Features
+
+
+    - Multiple location detection methods including dedicated sources, proximity analysis, and AI extraction
+
+    - Natural language processing for sentiment analysis and entity recognition on original content and English translations
+
+    - Article clustering for topic analysis
+
+    - English translations for non-English content
+
+    '
+  termsOfService: https://newscatcherapi.com/terms-of-service
+  contact:
+    name: Maksym Sugonyaka
+    email: maksym@newscatcherapi.com
+    url: https://www.newscatcherapi.com/book-a-demo
+  version: 1.2.0
+servers:
+- url: https://local-news.newscatcherapi.com
+  description: Local News API production server
+security:
+- ApiKeyAuth: []
+tags:
+- name: Projects
+  description: 'Operations to create, organize, and manage projects.
+
+
+    A project is a named container for jobs, monitors, and datasets. Group
+
+    related resources by use case, team, or client, and share them with
+
+    teammates. Resources can be assigned at creation time or post-hoc.
+
+    '
+  externalDocs:
+    description: Learn about projects and resource organization
+    url: https://www.newscatcherapi.com/docs/web-search-api/guides-and-concepts/projects
+paths:
+  /catchAll/projects:
+    post:
+      tags:
+      - Projects
+      summary: Create project
+      description: Creates a new project.
+      operationId: createProject
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjectRequestDto'
+            example:
+              name: AI M&A Tracking
+              description: Tracks AI-related M&A activity for our investment team.
+      responses:
+        '201':
+          $ref: '#/components/responses/CreateProjectResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    get:
+      tags:
+      - Projects
+      summary: List projects
+      description: Returns all projects visible to the authenticated user.
+      operationId: listProjects
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter by project name (case-insensitive substring match).
+        example: M&A
+      - $ref: '#/components/parameters/Ownership'
+      responses:
+        '200':
+          $ref: '#/components/responses/ListProjectsResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /catchAll/projects/{project_id}:
+    get:
+      tags:
+      - Projects
+      summary: Get project
+      description: Returns a single project by ID.
+      operationId: getProject
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      responses:
+        '200':
+          $ref: '#/components/responses/ProjectResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+    patch:
+      tags:
+      - Projects
+      summary: Update project
+      description: Updates the name or description of an existing project.
+      operationId: updateProject
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProjectRequestDto'
+            example:
+              name: AI M&A Tracking (Q2 2026)
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateProjectResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+    delete:
+      tags:
+      - Projects
+      summary: Delete project
+      description: "Deletes a project. By default, assigned resources are unassigned but not deleted. \n"
+      operationId: deleteProject
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - $ref: '#/components/parameters/DeleteResources'
+      responses:
+        '204':
+          description: Project deleted successfully. No response body.
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+  /catchAll/projects/{project_id}/overview:
+    get:
+      tags:
+      - Projects
+      summary: Get project overview
+      description: 'Returns resource counts for a project, grouped by type and status.
+
+
+        For `jobs` and `monitors`, counts are broken down by status (for example, `completed`, `failed`). For `datasets` and `monitor_groups`, only a `total` count is returned.
+
+        '
+      operationId: getProjectOverview
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      responses:
+        '200':
+          $ref: '#/components/responses/ProjectOverviewResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+  /catchAll/projects/{project_id}/resources:
+    post:
+      tags:
+      - Projects
+      summary: Add resources to project
+      description: 'Assigns one or more existing resources to a project in a single request.
+
+        '
+      operationId: addResourceToProject
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddResourceRequestDto'
+            example:
+              resources:
+              - resource_type: job
+                resource_id: 48421e16-1f50-4048-b62c-d3bc0789d30d
+      responses:
+        '200':
+          $ref: '#/components/responses/AddResourceResponse'
+        '201':
+          $ref: '#/components/responses/AddResourceResponse'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+    get:
+      tags:
+      - Projects
+      summary: List project resources
+      description: Returns all resources assigned to a project, with optional filtering by type.
+      operationId: listProjectResources
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - name: resource_type
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/ProjectResourceType'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          $ref: '#/components/responses/ListProjectResourcesResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /catchAll/projects/{project_id}/resources/{resource_type}/{resource_id}:
+    delete:
+      tags:
+      - Projects
+      summary: Remove resource from project
+      description: 'Removes a resource from a project. The resource itself is not
+
+        deleted — it becomes unassigned and continues to exist.
+
+        '
+      operationId: removeResourceFromProject
+      parameters:
+      - $ref: '#/components/parameters/ProjectId'
+      - name: resource_type
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/ProjectResourceType'
+      - name: resource_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+        description: ID of the resource to remove.
+        example: 48421e16-1f50-4048-b62c-d3bc0789d30d
+      responses:
+        '200':
+          $ref: '#/components/responses/RemoveResourceResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+components:
+  responses:
+    NotFoundError:
+      description: Job/monitor not found or results not available
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ProjectOverviewResponse:
+      description: Resource counts for the project, grouped by type and status.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProjectOverviewResponseDto'
+          example:
+            project_id: 60a85db4-78ec-4b78-876a-bc7d9cdadd04
+            overview:
+              jobs: {}
+              monitors: {}
+              datasets:
+                total: 2
+              monitor_groups:
+                total: 0
+    CreateProjectResponse:
+      description: Project created successfully.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateProjectResponseDto'
+          example:
+            success: true
+            message: Project created successfully.
+            project_id: 60a85db4-78ec-4b78-876a-bc7d9cdadd04
+            name: AI M&A Tracking
+    ForbiddenError:
+      description: Invalid or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RemoveResourceResponse:
+      description: Resource removed from the project.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RemoveResourceResponseDto'
+          example:
+            success: true
+            message: Resource removed from project.
+    ListProjectResourcesResponse:
+      description: Paginated list of resources assigned to the project.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProjectResourceListResponseDto'
+          example:
+            total: 1
+            page: 1
+            page_size: 100
+            total_pages: 1
+            resources:
+            - resource_type: job
+              resource_id: 48421e16-1f50-4048-b62c-d3bc0789d30d
+              name: Series B fintech funding rounds
+              created_at: '2026-05-20T14:31:37Z'
+              metadata: {}
+    BadRequestError:
+      description: 'Bad request - invalid parameters or constraint violations.
+
+
+        Common causes: date ranges outside plan limits, invalid job state for continuation.
+
+        '
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            date_validation:
+              summary: Date outside plan limit
+              value:
+                detail: start_date must be >= 2025-02-05, your plan limited to lookback 365 days.
+            invalid_continuation:
+              summary: Invalid job continuation
+              value:
+                detail: New limit must be greater than the previous limit for this job.
+    ValidationError:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidationErrorResponse'
+    UpdateProjectResponse:
+      description: Project updated successfully.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateProjectResponseDto'
+          example:
+            success: true
+            message: Project updated successfully.
+            project_id: 60a85db4-78ec-4b78-876a-bc7d9cdadd04
+    ProjectResponse:
+      description: Project details.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProjectResponseDto'
+          example:
+            success: true
+            message: OK
+            project_id: 60a85db4-78ec-4b78-876a-bc7d9cdadd04
+            name: AI M&A Tracking
+            description: Tracks AI-related M&A activity for our investment team.
+            resources_count: 4
+            created_at: '2026-05-20T14:31:35Z'
+            updated_at: '2026-05-20T14:31:35Z'
+    ListProjectsResponse:
+      description: Paginated list of projects.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ProjectListResponseDto'
+          example:
+            total: 2
+            page: 1
+            page_size: 100
+            total_pages: 1
+            projects:
+            - project_id: 60a85db4-78ec-4b78-876a-bc7d9cdadd04
+              name: AI M&A Tracking
+              description: Tracks AI-related M&A activity.
+              resources_count: 4
+              created_at: '2026-05-20T14:31:35Z'
+              updated_at: '2026-05-20T14:31:35Z'
+    AddResourceResponse:
+      description: 'One or more resources added to the project (`201`), or all were already present (`200`).
+
+        '
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AddResourceResponseDto'
+          example:
+            success: true
+            message: Resources added to project.
+            results:
+            - resource_type: job
+              resource_id: 48421e16-1f50-4048-b62c-d3bc0789d30d
+              success: true
+              message: Resource added to project.
+              already_exists: false
+  schemas:
+    ProjectOverviewResponseDto:
+      type: object
+      required:
+      - project_id
+      - overview
+      properties:
+        project_id:
+          type: string
+          format: uuid
+          description: Project identifier.
+          example: 60a85db4-78ec-4b78-876a-bc7d9cdadd04
+        overview:
+          type: object
+          description: Resource counts grouped by type.
+          required:
+          - jobs
+          - monitors
+          - datasets
+          - monitor_groups
+          properties:
+            jobs:
+              $ref: '#/components/schemas/ProjectOverviewCountsDto'
+            monitors:
+              $ref: '#/components/schemas/ProjectOverviewCountsDto'
+            datasets:
+              $ref: '#/components/schemas/ProjectOverviewCountsDto'
+            monitor_groups:
+              $ref: '#/components/schemas/ProjectOverviewCountsDto'
+    RemoveResourceResponseDto:
+      type: object
+      required:
+      - success
+      - message
+      properties:
+        success:
+          type: boolean
+          description: True if the operation succeeded; false otherwise.
+          example: true
+        message:
+          type: string
+          description: Human-readable result message.
+          example: Resource removed from project.
+    ValidationErrorDetail:
+      type: object
+      properties:
+        loc:
+          type: array
+          items:
+            oneOf:
+            - type: string
+            - type: integer
+          description: Location of the validation error
+        msg:
+          type: string
+          description: Error message
+        type:
+          type: string
+          description: Error type
+    ProjectResponseDto:
+      type: object
+      required:
+      - success
+      - message
+      - project_id
+      - name
+      properties:
+        success:
+          type: boolean
+          description: True if the operation succeeded; false otherwise.
+          example: true
+        message:
+          type: string
+          description: Human-readable result message.
+          example: OK
+        project_id:
+          type: string
+          format: uuid
+          description: Project identifier.
+          example: 60a85db4-78ec-4b78-876a-bc7d9cdadd04
+        name:
+          type: string
+          description: Project name.
+          example: AI M&A Tracking
+        description:
+          type:
+          - string
+          - 'null'
+          description: Project description.
+          example: Tracks AI-related M&A activity for our investment team.
+        resources_count:
+          type: integer
+          description: Number of resources assigned to this project.
+          example: 4
+          default: 0
+        created_at:
+          type: string
+          format: date-time
+          description: Project creation timestamp.
+          example: '2026-05-20T14:31:35Z'
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp of the last update.
+          example: '2026-05-20T14:31:35Z'
+    ResourceResultDto:
+      type: object
+      required:
+      - resource_type
+      - resource_id
+      - success
+      - message
+      properties:
+        resource_type:
+          type: string
+          description: Type of the resource.
+          example: job
+        resource_id:
+          type: string
+          format: uuid
+          description: Resource identifier.
+          example: 48421e16-1f50-4048-b62c-d3bc0789d30d
+        success:
+          type: boolean
+          description: True if this resource was processed successfully.
+          example: true
+        message:
+          type: string
+          description: Per-resource result message.
+          example: Resource added to project.
+        already_exists:
+          type: boolean
+          description: True if the resource is already assigned to this project.
+          default: false
+          example: false
+    ProjectResourceType:
+      type: string
+      enum:
+      - job
+      - monitor
+      - dataset
+      - monitor_group
+      description: 'Resource type for project association.
+
+        '
+    ProjectSummaryDto:
+      type: object
+      description: Abbreviated project object returned in list responses.
+      required:
+      - project_id
+      - name
+      properties:
+        project_id:
+          type: string
+          format: uuid
+          description: Project identifier.
+          example: 60a85db4-78ec-4b78-876a-bc7d9cdadd04
+        name:
+          type: string
+          description: Project name.
+          example: AI M&A Tracking
+        description:
+          type:
+          - string
+          - 'null'
+          description: Project description.
+          example: Tracks AI-related M&A activity for our investment team.
+        resources_count:
+          type: integer
+          description: Number of resources assigned to this project.
+          example: 4
+          default: 0
+        created_at:
+          type: string
+          format: date-time
+          description: Project creation timestamp.
+          example: '2026-05-20T14:31:35Z'
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp of the last update.
+          example: '2026-05-20T14:31:35Z'
+    ResourceItemDto:
+      type: object
+      required:
+      - resource_type
+      - resource_id
+      properties:
+        resource_type:
+          $ref: '#/components/schemas/ProjectResourceType'
+        resource_id:
+          type: string
+          format: uuid
+          description: ID of the resource to add.
+          example: 48421e16-1f50-4048-b62c-d3bc0789d30d
+    ValidationErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationErrorDetail'
+    UpdateProjectRequestDto:
+      type: object
+      description: Updates one or more fields of an existing project. At least one field must be provided.
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: New name for the project.
+          example: AI M&A Tracking (Q2)
+        description:
+          type: string
+          description: New description for the project.
+          example: Updated scope to include private equity.
+    ProjectResourceDto:
+      type: object
+      description: A resource assigned to a project.
+      required:
+      - resource_type
+      - resource_id
+      properties:
+        resource_type:
+          $ref: '#/components/schemas/ProjectResourceType'
+        resource_id:
+          type: string
+          format: uuid
+          description: Resource identifier.
+          example: 48421e16-1f50-4048-b62c-d3bc0789d30d
+        name:
+          type: string
+          description: 'Resource display name. For jobs, this is the original query
+
+            string. For monitors and datasets, this is the resource name.
+
+            '
+          example: Series B fintech funding rounds
+        created_at:
+          type: string
+          format: date-time
+          description: Resource creation timestamp.
+          example: '2026-05-20T14:31:37Z'
+        metadata:
+          type: object
+          description: Additional resource-specific metadata.
+          additionalProperties: true
+          example: {}
+    ProjectResourceListResponseDto:
+      type: object
+      required:
+      - total
+      - page
+      - page_size
+      - total_pages
+      - resources
+      properties:
+        total:
+          type: integer
+          description: Total number of resources assigned to the project.
+          example: 1
+        page:
+          type: integer
+          description: Current page number.
+          example: 1
+        page_size:
+          type: integer
+          description: Number of resources per page.
+          example: 100
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 1
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectResourceDto'
+          description: Resources on this page.
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: Error message.
+          example: Invalid API key
+    CreateProjectRequestDto:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: Name for the project.
+          example: AI M&A Tracking
+        description:
+          type: string
+          description: Optional description.
+          example: Tracks AI-related M&A activity for our investment team.
+    ProjectListResponseDto:
+      type: object
+      required:
+      - total
+      - page
+      - page_size
+      - total_pages
+      - projects
+      properties:
+        total:
+          type: integer
+          description: Total number of projects matching the filter criteria.
+          example: 2
+        page:
+          type: integer
+          description: Current page number.
+          example: 1
+        page_size:
+          type: integer
+          description: Number of projects per page.
+          example: 100
+        total_pages:
+          type: integer
+          description: Total number of pages.
+          example: 1
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectSummaryDto'
+          description: Projects on this page.
+    UpdateProjectResponseDto:
+      type: object
+      required:
+      - success
+      - message
+      - project_id
+      properties:
+        success:
+          type: boolean
+          description: True if the operation succeeded; false otherwise.
+          example: true
+        message:
+          type: string
+          description: Human-readable result message.
+          example: Project updated successfully.
+        project_id:
+          type: string
+          format: uuid
+          description: Project identifier.
+          example: 60a85db4-78ec-4b78-876a-bc7d9cdadd04
+    ProjectOverviewCountsDto:
+      type: object
+      description: 'Status breakdown for a single resource type.
+
+        '
+      additionalProperties: true
+    AddResourceRequestDto:
+      type: object
+      required:
+      - resources
+      properties:
+        resources:
+          type: array
+          minItems: 1
+          description: Resources to assign to the project.
+          items:
+            $ref: '#/components/schemas/ResourceItemDto'
+    CreateProjectResponseDto:
+      type: object
+      required:
+      - success
+      - message
+      - project_id
+      - name
+      properties:
+        success:
+          type: boolean
+          description: True if the operation succeeded; false otherwise.
+          example: true
+        message:
+          type: string
+          description: Human-readable result message.
+          example: Project created successfully.
+        project_id:
+          type: string
+          format: uuid
+          description: Project identifier.
+          example: 60a85db4-78ec-4b78-876a-bc7d9cdadd04
+        name:
+          type: string
+          description: Name of the created project.
+          example: AI M&A Tracking
+    AddResourceResponseDto:
+      type: object
+      required:
+      - success
+      - message
+      - results
+      properties:
+        success:
+          type: boolean
+          description: True if the overall operation succeeded.
+          example: true
+        message:
+          type: string
+          description: Top-level result message.
+          example: Resources added to project.
+        results:
+          type: array
+          description: Per-resource outcome, one entry per submitted resource.
+          items:
+            $ref: '#/components/schemas/ResourceResultDto'
+    OwnershipFilter:
+      type: string
+      enum:
+      - all
+      - own
+      - shared
+      default: all
+      description: "Controls which resources are returned based on ownership.\n\n- `all`: Returns resources owned by the user and resources shared\n  with them (default, backward compatible).\n- `own`: Returns only resources created by the authenticated user.\n- `shared`: Returns only resources shared with the user by others.\n"
+  parameters:
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      description: 'Page number to retrieve.
+
+        '
+    ProjectId:
+      name: project_id
+      in: path
+      required: true
+      description: Unique project identifier.
+      schema:
+        type: string
+        format: uuid
+      example: 60a85db4-78ec-4b78-876a-bc7d9cdadd04
+    Ownership:
+      name: ownership
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/OwnershipFilter'
+    DeleteResources:
+      name: delete_resources
+      in: query
+      required: false
+      description: 'If true, permanently deletes all resources (jobs, monitors, datasets) assigned to the project. If false, the project is deleted and its resources are unassigned but not deleted.
+
+        '
+      schema:
+        type: boolean
+        default: false
+    PageSize:
+      name: page_size
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 100
+        minimum: 1
+        maximum: 1000
+      description: 'Number of records per page.
+
+        '
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-token
+      description: "API Key to authenticate requests.\n\nTo access the API, include your API key in the `x-api-token` header. \nTo obtain your API key, complete the [form](https://www.newscatcherapi.com/book-a-demo) or contact us directly.\n"
+externalDocs:
+  description: Find out more about Local News API
+  url: https://www.newscatcherapi.com/docs/local-news-api/get-started/introduction

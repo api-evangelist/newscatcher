@@ -1,0 +1,192 @@
+openapi: 3.0.3
+info:
+  title: Local News AggregationCount Meta API
+  description: 'The Local News API provides access to local news articles with location-specific filtering capabilities.
+
+
+    ## Standard endpoints
+
+
+    - `/search`: Search articles by keywords with simple location filtering ("City, State" format).
+
+    - `/latest_headlines`: Retrieve recent articles for specified locations and time periods.
+
+    - `/search_by`: Retrieve articles by URL, ID, or RSS GUID.
+
+    - `/sources`: List available news sources.
+
+
+    ## Advanced endpoints
+
+
+    - `/search/advanced`: Search with structured GeoNames filtering.
+
+    - `/latest_headlines/advanced`: Latest headlines with structured GeoNames filtering.
+
+
+    ## Features
+
+
+    - Multiple location detection methods including dedicated sources, proximity analysis, and AI extraction
+
+    - Natural language processing for sentiment analysis and entity recognition on original content and English translations
+
+    - Article clustering for topic analysis
+
+    - English translations for non-English content
+
+    '
+  termsOfService: https://newscatcherapi.com/terms-of-service
+  contact:
+    name: Maksym Sugonyaka
+    email: maksym@newscatcherapi.com
+    url: https://www.newscatcherapi.com/book-a-demo
+  version: 1.2.0
+servers:
+- url: https://local-news.newscatcherapi.com
+  description: Local News API production server
+security:
+- ApiKeyAuth: []
+tags:
+- name: Meta
+  description: Operations to check API health and version.
+paths:
+  /health:
+    get:
+      tags:
+      - Meta
+      summary: Check health
+      description: Check API availability.
+      operationId: healthCheck
+      security: []
+      responses:
+        '200':
+          $ref: '#/components/responses/HealthCheckResponse'
+  /version:
+    get:
+      tags:
+      - Meta
+      summary: Get version
+      description: Returns current API version.
+      operationId: getVersion
+      security: []
+      responses:
+        '200':
+          $ref: '#/components/responses/VersionResponse'
+  /catchAll/user/limits:
+    post:
+      tags:
+      - Meta
+      summary: Get plan limits
+      description: 'Returns plan features and current usage for the authenticated organization.
+
+        '
+      operationId: getPlanLimits
+      responses:
+        '200':
+          $ref: '#/components/responses/GetPlanLimitsResponse'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+components:
+  responses:
+    HealthCheckResponse:
+      description: API is healthy
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              healthy:
+                type: boolean
+                example: true
+    GetPlanLimitsResponse:
+      description: Plan limits retrieved successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetPlanLimitsResponseDto'
+          example:
+            features:
+            - name: Jobs Concurrency
+              code: Jobs_Concurrency
+              value_type: integer
+              value: 20
+              current_usage: 1
+            - name: Max Results
+              code: Job_Max_Results
+              value_type: integer
+              value: 100000
+              current_usage: 0
+            - name: Monthly Granted Credits
+              code: monthly_free_credits
+              value_type: integer
+              value: 200000
+              current_usage: 0
+    VersionResponse:
+      description: API version
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              version:
+                type: string
+                example: 1.3.1
+    ForbiddenError:
+      description: Invalid or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    PlanFeature:
+      type: object
+      required:
+      - name
+      - code
+      properties:
+        name:
+          type: string
+          description: Human-readable feature name.
+          example: Jobs Concurrency
+        code:
+          type: string
+          description: Machine-readable feature identifier.
+          example: Jobs_Concurrency
+        value_type:
+          type: string
+          description: Data type of the feature value.
+          example: integer
+        value:
+          description: Feature limit. Type depends on `value_type`.
+          example: 20
+        current_usage:
+          type: number
+          description: Current usage count for this feature.
+          example: 1
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: Error message.
+          example: Invalid API key
+    GetPlanLimitsResponseDto:
+      type: object
+      required:
+      - features
+      properties:
+        features:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanFeature'
+          description: Plan features with current usage.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-token
+      description: "API Key to authenticate requests.\n\nTo access the API, include your API key in the `x-api-token` header. \nTo obtain your API key, complete the [form](https://www.newscatcherapi.com/book-a-demo) or contact us directly.\n"
+externalDocs:
+  description: Find out more about Local News API
+  url: https://www.newscatcherapi.com/docs/local-news-api/get-started/introduction
