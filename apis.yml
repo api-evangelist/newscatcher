@@ -12,7 +12,20 @@ description: >
   is backed by Y Combinator (S22) and holds ISO certifications and SOC2 Type II
   compliance.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/newscatcher.png
 url: https://raw.githubusercontent.com/api-evangelist/newscatcher/refs/heads/main/apis.yml
 created: "2026-06-12"
 modified: "2026-06-12"
@@ -29,74 +42,270 @@ tags:
   - AI
   - Enterprise
 apis:
-  - aid: newscatcher:news-api
-    name: Newscatcher News API
-    description: >
-      The News API provides structured access to 120,000+ global news sources
-      with advanced search, NLP enrichment, named entity recognition, sentiment
-      scoring, IPTC tagging, pre-computed embeddings, and article clustering.
-      Endpoints cover keyword/boolean search, latest headlines, breaking news,
-      author lookup, source directory, aggregation counts, and subscription
-      metadata. Authentication uses the x-api-token request header and the API
-      targets https://v3-api.newscatcherapi.com/api.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.newscatcherapi.com/news-api
-    baseURL: https://v3-api.newscatcherapi.com/api
-    tags:
-      - News
-      - NLP
-      - Search
-      - Entity Extraction
-      - Sentiment Analysis
-    properties:
-      - type: Documentation
-        url: https://www.newscatcherapi.com/docs/v3/api-reference/overview/introduction
-      - type: OpenAPI
-        url: openapi/newscatcher-news-api-openapi.yml
-  - aid: newscatcher:web-search-api
-    name: Newscatcher CatchAll Web Search API
-    description: >
-      CatchAll is a recall-first web search API designed for AI agents and
-      enterprise workflows requiring comprehensive information coverage. It
-      supports Lite and Base retrieval modes, monitor slots for scheduled
-      queries, configurable search depth up to a full archive, and up to 1,000
-      max results per call. Plans are credit-based with monthly rollovers and
-      optional Deep Search available on Enterprise tiers. Authentication uses API
-      keys issued instantly via the self-service platform dashboard.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.newscatcherapi.com
-    baseURL: https://api.newscatcherapi.com
-    tags:
-      - Web Search
-      - AI
-      - Recall
-      - Agents
-    properties:
-      - type: Documentation
-        url: https://www.newscatcherapi.com/docs
-      - type: OpenAPI
-        url: openapi/newscatcher-web-search-api-openapi.yml
-  - aid: newscatcher:local-news-api
-    name: Newscatcher Local News API
-    description: >
-      The Local News API specializes in hyper-local geographic news coverage
-      with location-based detection and NLP capabilities, enabling developers to
-      retrieve location-specific news signals with enriched metadata. The API is
-      suited for real estate, government, insurance, and compliance applications
-      that require precise geographic news filtering at a city, region, or
-      country level.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://www.newscatcherapi.com/local-news-api
-    baseURL: https://v3-api.newscatcherapi.com/api
-    tags:
-      - Local News
-      - Geographic
-      - NLP
-    properties:
-      - type: Documentation
-        url: https://www.newscatcherapi.com/docs
-      - type: OpenAPI
-        url: openapi/newscatcher-local-news-api-openapi.yml
+- aid: newscatcher:newscatcher-aggregationcount-api
+  name: Newscatcher AggregationCount API
+  description: Operations to aggregate news counts.
+  humanURL: https://www.newscatcherapi.com/news-api
+  baseURL: https://v3-api.newscatcherapi.com/api
+  tags:
+  - AggregationCount
+  properties:
+  - type: OpenAPI
+    url: openapi/newscatcher-aggregationcount-api-openapi.yml
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs/v3/api-reference/overview/introduction
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs
+- aid: newscatcher:newscatcher-authors-api
+  name: Newscatcher Authors API
+  description: Operations to search by author.
+  humanURL: https://www.newscatcherapi.com/news-api
+  baseURL: https://v3-api.newscatcherapi.com/api
+  tags:
+  - Authors
+  properties:
+  - type: OpenAPI
+    url: openapi/newscatcher-authors-api-openapi.yml
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs/v3/api-reference/overview/introduction
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs
+- aid: newscatcher:newscatcher-breakingnews-api
+  name: Newscatcher BreakingNews API
+  description: Operations to retrieve breaking news articles.
+  humanURL: https://www.newscatcherapi.com/news-api
+  baseURL: https://v3-api.newscatcherapi.com/api
+  tags:
+  - BreakingNews
+  properties:
+  - type: OpenAPI
+    url: openapi/newscatcher-breakingnews-api-openapi.yml
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs/v3/api-reference/overview/introduction
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs
+- aid: newscatcher:newscatcher-datasets-api
+  name: Newscatcher Datasets API
+  description: >-
+    Operations to create and manage datasets of entities.
+
+
+    A dataset is a named collection of entities — think of it as a watchlist or
+
+    portfolio. Connect a dataset to a job via `connected_dataset_ids` to activate
+
+    Company Watchlist. Datasets can be reused across multiple jobs and monitors.
+  humanURL: https://www.newscatcherapi.com/news-api
+  baseURL: https://v3-api.newscatcherapi.com/api
+  tags:
+  - Datasets
+  properties:
+  - type: OpenAPI
+    url: openapi/newscatcher-datasets-api-openapi.yml
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs/v3/api-reference/overview/introduction
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs
+- aid: newscatcher:newscatcher-entities-api
+  name: Newscatcher Entities API
+  description: >-
+    Operations to create, update, and delete company entities.
+
+
+    Entities are the building blocks of Company Watchlist. Each entity represents
+
+    a company (or person) you want to track. Add identifying information such as
+
+    domain, alternative names, and key persons to improve matching quality.
+  humanURL: https://www.newscatcherapi.com/news-api
+  baseURL: https://v3-api.newscatcherapi.com/api
+  tags:
+  - Entities
+  properties:
+  - type: OpenAPI
+    url: openapi/newscatcher-entities-api-openapi.yml
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs/v3/api-reference/overview/introduction
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs
+- aid: newscatcher:newscatcher-jobs-api
+  name: Newscatcher Jobs API
+  description: Operations to create, monitor, and retrieve job results.
+  humanURL: https://www.newscatcherapi.com/news-api
+  baseURL: https://v3-api.newscatcherapi.com/api
+  tags:
+  - Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/newscatcher-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs/v3/api-reference/overview/introduction
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs
+- aid: newscatcher:newscatcher-latestheadlines-api
+  name: Newscatcher LatestHeadlines API
+  description: >-
+    Operations to retrieve local news latest headlines. Includes both standard location filtering and
+    advanced GeoNames filtering.
+  humanURL: https://www.newscatcherapi.com/news-api
+  baseURL: https://v3-api.newscatcherapi.com/api
+  tags:
+  - LatestHeadlines
+  properties:
+  - type: OpenAPI
+    url: openapi/newscatcher-latestheadlines-api-openapi.yml
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs/v3/api-reference/overview/introduction
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs
+- aid: newscatcher:newscatcher-meta-api
+  name: Newscatcher Meta API
+  description: Operations to check API health and version.
+  humanURL: https://www.newscatcherapi.com/news-api
+  baseURL: https://v3-api.newscatcherapi.com/api
+  tags:
+  - Meta
+  properties:
+  - type: OpenAPI
+    url: openapi/newscatcher-meta-api-openapi.yml
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs/v3/api-reference/overview/introduction
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs
+- aid: newscatcher:newscatcher-monitors-api
+  name: Newscatcher Monitors API
+  description: Operations to create, operate and retrieve monitor results.
+  humanURL: https://www.newscatcherapi.com/news-api
+  baseURL: https://v3-api.newscatcherapi.com/api
+  tags:
+  - Monitors
+  properties:
+  - type: OpenAPI
+    url: openapi/newscatcher-monitors-api-openapi.yml
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs/v3/api-reference/overview/introduction
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs
+- aid: newscatcher:newscatcher-projects-api
+  name: Newscatcher Projects API
+  description: >-
+    Operations to create, organize, and manage projects.
+
+
+    A project is a named container for jobs, monitors, and datasets. Group
+
+    related resources by use case, team, or client, and share them with
+
+    teammates. Resources can be assigned at creation time or post-hoc.
+  humanURL: https://www.newscatcherapi.com/news-api
+  baseURL: https://v3-api.newscatcherapi.com/api
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/newscatcher-projects-api-openapi.yml
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs/v3/api-reference/overview/introduction
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs
+- aid: newscatcher:newscatcher-search-api
+  name: Newscatcher Search API
+  description: >-
+    Operations to search for local news articles. Includes both standard location filtering and advanced
+    GeoNames filtering.
+  humanURL: https://www.newscatcherapi.com/news-api
+  baseURL: https://v3-api.newscatcherapi.com/api
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/newscatcher-search-api-openapi.yml
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs/v3/api-reference/overview/introduction
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs
+- aid: newscatcher:newscatcher-searchby-api
+  name: Newscatcher SearchBy API
+  description: Operations to search local news by link, ID or RSS GUID.
+  humanURL: https://www.newscatcherapi.com/news-api
+  baseURL: https://v3-api.newscatcherapi.com/api
+  tags:
+  - SearchBy
+  properties:
+  - type: OpenAPI
+    url: openapi/newscatcher-searchby-api-openapi.yml
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs/v3/api-reference/overview/introduction
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs
+- aid: newscatcher:newscatcher-searchbylink-api
+  name: Newscatcher SearchByLink API
+  description: Operations to search by link or ID.
+  humanURL: https://www.newscatcherapi.com/news-api
+  baseURL: https://v3-api.newscatcherapi.com/api
+  tags:
+  - SearchByLink
+  properties:
+  - type: OpenAPI
+    url: openapi/newscatcher-searchbylink-api-openapi.yml
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs/v3/api-reference/overview/introduction
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs
+- aid: newscatcher:newscatcher-sources-api
+  name: Newscatcher Sources API
+  description: Operations to retrieve local news sources.
+  humanURL: https://www.newscatcherapi.com/news-api
+  baseURL: https://v3-api.newscatcherapi.com/api
+  tags:
+  - Sources
+  properties:
+  - type: OpenAPI
+    url: openapi/newscatcher-sources-api-openapi.yml
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs/v3/api-reference/overview/introduction
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs
+- aid: newscatcher:newscatcher-subscription-api
+  name: Newscatcher Subscription API
+  description: Operations to get subscription info.
+  humanURL: https://www.newscatcherapi.com/news-api
+  baseURL: https://v3-api.newscatcherapi.com/api
+  tags:
+  - Subscription
+  properties:
+  - type: OpenAPI
+    url: openapi/newscatcher-subscription-api-openapi.yml
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs/v3/api-reference/overview/introduction
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs
+- aid: newscatcher:newscatcher-webhooks-api
+  name: Newscatcher Webhooks API
+  description: >-
+    Operations to create and manage reusable webhook endpoints.
+
+
+    A webhook is a named HTTP endpoint that receives a POST notification
+
+    when a job or monitor completes. Create webhooks once at the organization
+
+    level and attach them to any number of jobs or monitors via `webhook_ids`.
+
+    Supports Slack, Microsoft Teams, and generic HTTP targets with configurable
+
+    delivery modes, authentication, and headers.
+  humanURL: https://www.newscatcherapi.com/news-api
+  baseURL: https://v3-api.newscatcherapi.com/api
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/newscatcher-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs/v3/api-reference/overview/introduction
+  - type: Documentation
+    url: https://www.newscatcherapi.com/docs
 common:
   - type: AgenticAccess
     url: agentic-access/newscatcher-agentic-access.yml
