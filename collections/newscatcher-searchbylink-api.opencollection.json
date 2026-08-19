@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Local News AggregationCount SearchByLink API",
+    "version": "1.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-token",
+      "value": "{{x-api-token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SearchByLink",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search articles by links or IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/api/search_by_link",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "The Newscatcher article ID (corresponds to the `_id` field in API response) or a list of article IDs to search for. To specify multiple IDs, use a comma-separated string. \n\n**Caution**: You can use either the `links` or the `ids` parameter, but not both at the same time.\n"
+              },
+              {
+                "name": "links",
+                "value": "",
+                "type": "query",
+                "description": "The article link or list of article links to search for. To specify multiple links, use a comma-separated string.\n\n**Caution**: You can use either the `links` or the `ids` parameter, but not both at the same time.\n"
+              },
+              {
+                "name": "from_",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "to_",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "robots_compliant",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Searches for articles based on specified links or IDs. You can filter results by date range."
+        },
+        {
+          "info": {
+            "name": "Search articles by links or IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/api/search_by_link",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Searches for articles using their ID(s) or link(s)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

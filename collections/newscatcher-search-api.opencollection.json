@@ -1,0 +1,373 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Local News AggregationCount Search API",
+    "version": "1.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-token",
+      "value": "{{x-api-token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search articles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/api/search",
+            "params": [
+              {
+                "name": "q",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search_in",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_translation_fields",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "predefined_sources",
+                "value": "",
+                "type": "query",
+                "description": "Predefined top news sources per country. \n\nFormat: start with the word `top`, followed by the number of desired sources, and then the two-letter country code [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). \n\nMultiple countries with the number of top sources can be specified as a comma-separated string.\n"
+              },
+              {
+                "name": "source_name",
+                "value": "",
+                "type": "query",
+                "description": "Word or phrase to search within the source names. To specify multiple values, use a comma-separated string.\n\n**Note**: The search doesn't require an exact match and returns sources containing the specified terms in their names. You can use any word or phrase, like `\"sport\"` or `\"new york times\"`. \n\nFor example, `\"sport\"` returns sources such as `\"Motorsport\"`, `\"Dot Esport\"`, and `\"Tuttosport\"`.\n"
+              },
+              {
+                "name": "sources",
+                "value": "",
+                "type": "query",
+                "description": "One or more news sources to narrow down the search. The format must be a domain URL. Subdomains, such as `finance.yahoo.com`, are also acceptable.To specify multiple sources, use a comma-separated string.\n"
+              },
+              {
+                "name": "not_sources",
+                "value": "",
+                "type": "query",
+                "description": "The news sources to exclude from the search. To exclude multiple sources, use a comma-separated string.\n"
+              },
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "The language(s) of the search. The only accepted format is the two-letter [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) code. To select multiple languages, use a comma-separated string.\n\nTo learn more, see [Enumerated parameters > Language](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#language-lang-and-not-lang).\n"
+              },
+              {
+                "name": "not_lang",
+                "value": "",
+                "type": "query",
+                "description": "The language(s) to exclude from the search. The accepted format is the two-letter [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) code. To exclude multiple languages, use a comma-separated string. \n\nTo learn more, see [Enumerated parameters > Language](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#language-lang-and-not-lang).\n"
+              },
+              {
+                "name": "countries",
+                "value": "",
+                "type": "query",
+                "description": "The countries where the news publisher is located. The accepted format is the two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code. To select multiple countries, use a comma-separated string.\n\nTo learn more, see [Enumerated parameters > Country](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#country-country-and-not-country).\n"
+              },
+              {
+                "name": "not_countries",
+                "value": "",
+                "type": "query",
+                "description": "The publisher location countries to exclude from the search. The accepted format is the two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code. To exclude multiple countries, use a comma-separated string. \n\nTo learn more, see [Enumerated parameters > Country](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#country-country-and-not-country).\n"
+              },
+              {
+                "name": "not_author_name",
+                "value": "",
+                "type": "query",
+                "description": "The list of author names to exclude from your search. To exclude articles by specific authors, use a comma-separated string.\n"
+              },
+              {
+                "name": "from_",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "to_",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "published_date_precision",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "by_parse_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "date",
+                "type": "query"
+              },
+              {
+                "name": "ranked_only",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "from_rank",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "to_rank",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "is_headline",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "is_opinion",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "is_paid_content",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "parent_url",
+                "value": "",
+                "type": "query",
+                "description": "The categorical URL(s) to filter your search. To filter your search by multiple categorical URLs, use a comma-separated string.\n"
+              },
+              {
+                "name": "all_links",
+                "value": "",
+                "type": "query",
+                "description": "The complete URL(s) mentioned in the article. For multiple URLs, use a comma-separated string.\n\nFor more details, see [Search by URL](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-url).\n"
+              },
+              {
+                "name": "all_domain_links",
+                "value": "",
+                "type": "query",
+                "description": "The domain(s) mentioned in the article. For multiple domains, use a comma-separated string.\n\nFor more details, see [Search by URL](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-url).\n"
+              },
+              {
+                "name": "all_links_text",
+                "value": "",
+                "type": "query",
+                "description": "The text content of links mentioned in the article. Searches for links where the anchor text contains the specified terms. For multiple terms, use a comma-separated string.\n\n**Note**: When this parameter is used, the response includes the `all_links_data` field with detailed link information.\n\nTo learn more, see [Search by URL](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-url).\n"
+              },
+              {
+                "name": "additional_domain_info",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "is_news_domain",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "news_domain_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "news_type",
+                "value": "General News Outlets,Tech News and Updates",
+                "type": "query",
+                "description": "Filters results based on the news type. Multiple types can be specified using a comma-separated string.\n\nFor a complete list of available news types, see [Enumerated parameters > News type](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#news-type-news-type).\n"
+              },
+              {
+                "name": "word_count_min",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "word_count_max",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "clustering_enabled",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "clustering_variable",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "clustering_threshold",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_nlp_data",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "has_nlp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "theme",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "not_theme",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ORG_entity_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "PER_entity_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "LOC_entity_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "MISC_entity_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "title_sentiment_min",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "title_sentiment_max",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "content_sentiment_min",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "content_sentiment_max",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "iptc_tags",
+                "value": "",
+                "type": "query",
+                "description": "Filters articles based on International Press Telecommunications Council (IPTC) media topic tags. To specify multiple IPTC tags, use a comma-separated string of tag IDs. \n\n**Note**: The `iptc_tags` parameter is only available in the `v3_nlp_iptc_tags` subscription plan.\n\nTo learn more, see [IPTC Media Topic NewsCodes](https://www.iptc.org/std/NewsCodes/treeview/mediatopic/mediatopic-en-GB.html).\n"
+              },
+              {
+                "name": "not_iptc_tags",
+                "value": "",
+                "type": "query",
+                "description": "Inverse of the `iptc_tags` parameter. Excludes articles based on International Press Telecommunications Council (IPTC) media topic tags. To specify multiple IPTC tags to exclude, use a comma-separated string of tag IDs.\n\n**Note**: The `not_iptc_tags` parameter is only available in the `v3_nlp_iptc_tags` subscription plan.\n\nTo learn more, see [IPTC Media Topic NewsCodes](https://www.iptc.org/std/NewsCodes/treeview/mediatopic/mediatopic-en-GB.html).\n"
+              },
+              {
+                "name": "iab_tags",
+                "value": "",
+                "type": "query",
+                "description": "Filters articles based on Interactive Advertising Bureau (IAB) content categories. These tags provide a standardized taxonomy for digital advertising content categorization. To specify multiple IAB categories, use a comma-separated string.\n\n**Note**: The `iab_tags` parameter is only available in the `v3_nlp_iptc_tags` subscription plan.\n\nTo learn more, see the [IAB Content taxonomy](https://iabtechlab.com/standards/content-taxonomy/).\n"
+              },
+              {
+                "name": "not_iab_tags",
+                "value": "",
+                "type": "query",
+                "description": "Inverse of the `iab_tags` parameter. Excludes articles based on Interactive Advertising Bureau (IAB) content categories. These tags provide a standardized taxonomy for digital advertising content categorization. To specify multiple IAB categories to exclude, use a comma-separated string.\n\n**Note**: The `not_iab_tags` parameter is only available in the `v3_nlp_iptc_tags` subscription plan.\n\nTo learn more, see the [IAB Content taxonomy](https://iabtechlab.com/standards/content-taxonomy/).\n"
+              },
+              {
+                "name": "custom_tags",
+                "value": "",
+                "type": "query",
+                "description": "Filters articles based on provided taxonomy that is tailored to your specific needs and is accessible only with your API key. To specify tags, use the following pattern: \n\n- `custom_tags.taxonomy=Tag1,Tag2`, where `taxonomy` is the taxonomy name and `Tag1,Tag2` is a comma-separated list of tag names.\n\nExample: `custom_tags.industry=\"Manufacturing,Logistics\"`\n\nTo learn more, see the [Custom tags](https://www.newscatcherapi.com/docs/news-api/guides-and-concepts/custom-tags).\n"
+              },
+              {
+                "name": "exclude_duplicates",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "robots_compliant",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Searches for articles based on specified criteria such as keywords, language, country, source, and more."
+        },
+        {
+          "info": {
+            "name": "Search articles",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/api/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Searches for local news based on specified criteria such as keywords, geographic locations, language, country, source, and more."
+        },
+        {
+          "info": {
+            "name": "Search articles with GeoNames filtering",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/api/search/advanced",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Searches for local news using structured GeoNames filtering with administrative hierarchy, coordinates, localization and confidence scores.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Local News AggregationCount Subscription API",
+    "version": "1.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-token",
+      "value": "{{x-api-token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subscription",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve subscription plan information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/api/subscription"
+          },
+          "docs": "Retrieves information about your subscription plan."
+        },
+        {
+          "info": {
+            "name": "Retrieve subscription plan information",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/api/subscription"
+          },
+          "docs": "Retrieves information about your subscription plan."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

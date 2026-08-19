@@ -1,0 +1,154 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Local News AggregationCount BreakingNews API",
+    "version": "1.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-token",
+      "value": "{{x-api-token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "BreakingNews",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get breaking news",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/api/breaking_news",
+            "params": [
+              {
+                "name": "sort_by",
+                "value": "date",
+                "type": "query"
+              },
+              {
+                "name": "ranked_only",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "from_rank",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "to_rank",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "top_n_articles",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_translation_fields",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_nlp_data",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "has_nlp",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "theme",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "not_theme",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ORG_entity_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "PER_entity_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "LOC_entity_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "MISC_entity_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "title_sentiment_min",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "title_sentiment_max",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "content_sentiment_min",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "content_sentiment_max",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves breaking news articles and sorts them based on specified criteria."
+        },
+        {
+          "info": {
+            "name": "Get breaking news",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/api/breaking_news",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves breaking news articles and sorts them based on specified criteria."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

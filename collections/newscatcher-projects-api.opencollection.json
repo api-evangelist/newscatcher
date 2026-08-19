@@ -1,0 +1,252 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Local News AggregationCount Projects API",
+    "version": "1.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-token",
+      "value": "{{x-api-token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/catchAll/projects",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve.\n"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page.\n"
+              },
+              {
+                "name": "search",
+                "value": "M&A",
+                "type": "query",
+                "description": "Filter by project name (case-insensitive substring match)."
+              },
+              {
+                "name": "ownership",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all projects visible to the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Create project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/catchAll/projects",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new project."
+        },
+        {
+          "info": {
+            "name": "Get project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/catchAll/projects/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "60a85db4-78ec-4b78-876a-bc7d9cdadd04",
+                "type": "path",
+                "description": "Unique project identifier."
+              }
+            ]
+          },
+          "docs": "Returns a single project by ID."
+        },
+        {
+          "info": {
+            "name": "Update project",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://local-news.newscatcherapi.com/catchAll/projects/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "60a85db4-78ec-4b78-876a-bc7d9cdadd04",
+                "type": "path",
+                "description": "Unique project identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the name or description of an existing project."
+        },
+        {
+          "info": {
+            "name": "Delete project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://local-news.newscatcherapi.com/catchAll/projects/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "60a85db4-78ec-4b78-876a-bc7d9cdadd04",
+                "type": "path",
+                "description": "Unique project identifier."
+              },
+              {
+                "name": "delete_resources",
+                "value": "",
+                "type": "query",
+                "description": "If true, permanently deletes all resources (jobs, monitors, datasets) assigned to the project. If false, the project is deleted and its resources are unassigned but not deleted.\n"
+              }
+            ]
+          },
+          "docs": "Deletes a project. By default, assigned resources are unassigned but not deleted. \n"
+        },
+        {
+          "info": {
+            "name": "Get project overview",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/catchAll/projects/:project_id/overview",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "60a85db4-78ec-4b78-876a-bc7d9cdadd04",
+                "type": "path",
+                "description": "Unique project identifier."
+              }
+            ]
+          },
+          "docs": "Returns resource counts for a project, grouped by type and status.\n\nFor `jobs` and `monitors`, counts are broken down by status (for example, `completed`, `failed`). For `datasets` and `monitor_groups`, only a `total` count is returned.\n"
+        },
+        {
+          "info": {
+            "name": "List project resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/catchAll/projects/:project_id/resources",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "60a85db4-78ec-4b78-876a-bc7d9cdadd04",
+                "type": "path",
+                "description": "Unique project identifier."
+              },
+              {
+                "name": "resource_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve.\n"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page.\n"
+              }
+            ]
+          },
+          "docs": "Returns all resources assigned to a project, with optional filtering by type."
+        },
+        {
+          "info": {
+            "name": "Add resources to project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/catchAll/projects/:project_id/resources",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "60a85db4-78ec-4b78-876a-bc7d9cdadd04",
+                "type": "path",
+                "description": "Unique project identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assigns one or more existing resources to a project in a single request.\n"
+        },
+        {
+          "info": {
+            "name": "Remove resource from project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://local-news.newscatcherapi.com/catchAll/projects/:project_id/resources/:resource_type/:resource_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "60a85db4-78ec-4b78-876a-bc7d9cdadd04",
+                "type": "path",
+                "description": "Unique project identifier."
+              },
+              {
+                "name": "resource_type",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "resource_id",
+                "value": "48421e16-1f50-4048-b62c-d3bc0789d30d",
+                "type": "path",
+                "description": "ID of the resource to remove."
+              }
+            ]
+          },
+          "docs": "Removes a resource from a project. The resource itself is not\ndeleted — it becomes unassigned and continues to exist.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

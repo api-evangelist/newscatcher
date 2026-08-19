@@ -1,0 +1,324 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Local News AggregationCount Webhooks API",
+    "version": "1.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-token",
+      "value": "{{x-api-token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/catchAll/webhooks",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve.\n"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of webhooks per page."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by text (case-insensitive substring match)."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of webhooks belonging to the organization."
+        },
+        {
+          "info": {
+            "name": "Create webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/catchAll/webhooks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new webhook endpoint for the organization.\n"
+        },
+        {
+          "info": {
+            "name": "Get webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/catchAll/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "Unique webhook identifier."
+              }
+            ]
+          },
+          "docs": "Returns the full configuration of a single webhook by ID."
+        },
+        {
+          "info": {
+            "name": "Update webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://local-news.newscatcherapi.com/catchAll/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "Unique webhook identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates one or more fields of an existing webhook.\n"
+        },
+        {
+          "info": {
+            "name": "Delete webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://local-news.newscatcherapi.com/catchAll/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "Unique webhook identifier."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a webhook and removes all resource assignments. \n\nAssigned jobs and monitors no longer trigger delivery to this webhook. This operation cannot be undone.\n"
+        },
+        {
+          "info": {
+            "name": "Test webhook delivery",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/catchAll/webhooks/:webhook_id/test",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "Unique webhook identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a test HTTP request to the webhook URL using the webhook's configured method, headers, and auth. Returns the response from the target endpoint.\n\nUse this to verify URL reachability and authentication before attaching the webhook to a live job or monitor.\n"
+        },
+        {
+          "info": {
+            "name": "List webhook resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/catchAll/webhooks/:webhook_id/resources",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "Unique webhook identifier."
+              },
+              {
+                "name": "resource_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve.\n"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of assignments per page."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of resources currently assigned to this webhook.\n"
+        },
+        {
+          "info": {
+            "name": "Assign resource to webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/catchAll/webhooks/:webhook_id/resources",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "Unique webhook identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attaches a job, monitor, or monitor group to the webhook. When the\nresource completes, the webhook receives a delivery.\n\nA single webhook can be assigned to multiple resources. Each resource\ncan have up to 5 webhooks assigned.\n"
+        },
+        {
+          "info": {
+            "name": "Remove resource from webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://local-news.newscatcherapi.com/catchAll/webhooks/:webhook_id/resources/:resource_type/:resource_id",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                "type": "path",
+                "description": "Unique webhook identifier."
+              },
+              {
+                "name": "resource_type",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "resource_id",
+                "value": "3fec5b07-8786-46d7-9486-d43ff67eccd4",
+                "type": "path",
+                "description": "Unique resource identifier."
+              }
+            ]
+          },
+          "docs": "Detaches a resource from this webhook. Completions of the resource no longer trigger delivery to this webhook.\n\nThe webhook and the resource itself are not deleted.\n"
+        },
+        {
+          "info": {
+            "name": "List webhooks for resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/catchAll/resources/:resource_type/:resource_id/webhooks",
+            "params": [
+              {
+                "name": "resource_type",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "resource_id",
+                "value": "3fec5b07-8786-46d7-9486-d43ff67eccd4",
+                "type": "path",
+                "description": "Unique resource identifier."
+              },
+              {
+                "name": "is_active",
+                "value": "",
+                "type": "query",
+                "description": "Filter by active status. Omit to return webhooks regardless of status."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve.\n"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of webhooks per page."
+              }
+            ]
+          },
+          "docs": "Returns all webhooks currently assigned to the given resource.\n"
+        },
+        {
+          "info": {
+            "name": "Get delivery history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/catchAll/webhook-history",
+            "params": [
+              {
+                "name": "resource_type",
+                "value": "",
+                "type": "query",
+                "description": "Type of the resource to retrieve delivery history for."
+              },
+              {
+                "name": "resource_id",
+                "value": "3fec5b07-8786-46d7-9486-d43ff67eccd4",
+                "type": "query",
+                "description": "Identifier of the resource to retrieve delivery history for."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve.\n"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page."
+              }
+            ]
+          },
+          "docs": "Returns a paginated delivery log for a given resource, ordered by timestamp descending. \n\nEach record shows the webhook dispatched, the HTTP status code returned, delivery outcome, and any error or warning messages. Use this to debug failed deliveries or audit dispatch activity.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

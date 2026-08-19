@@ -1,0 +1,1824 @@
+{
+  "item": [
+    {
+      "id": "451ed299-522c-484c-865e-9948e99cc700",
+      "name": "Jobs",
+      "description": {
+        "content": "Operations to create, monitor, and retrieve job results.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "76ddabcc-c2ce-4535-ae71-35e9700677eb",
+          "name": "List user jobs",
+          "request": {
+            "name": "List user jobs",
+            "description": {
+              "content": "Returns all jobs created by the authenticated user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "jobs",
+                "user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number to retrieve.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "100",
+                  "description": "Number of records per page.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Filter results by text (case-insensitive substring match)."
+                },
+                {
+                  "disabled": false,
+                  "key": "ownership",
+                  "value": "all"
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<uuid>",
+                  "description": "Filter results to resources belonging to this project."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6d722be3-c62e-43c5-9dc5-65d17f37a21b",
+              "name": "User jobs retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "jobs",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ownership",
+                      "value": "all"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "60a85db4-78ec-4b78-876a-bc7d9cdadd04"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 27,\n  \"page\": 1,\n  \"page_size\": 2,\n  \"total_pages\": 14,\n  \"jobs\": [\n    {\n      \"job_id\": \"5f0c9087-85cb-4917-b3c7-e5a5eff73a0c\",\n      \"query\": \"Series B funding rounds for SaaS startups\",\n      \"created_at\": \"2026-02-24T13:57:56Z\",\n      \"status\": \"completed\",\n      \"user_key\": \"***...a1b2\",\n      \"mode\": \"base\"\n    },\n    {\n      \"job_id\": \"8d618890-f9f5-4c97-af17-236136a306a7\",\n      \"query\": \"Corporate headquarters relocations in the US\",\n      \"created_at\": \"2026-02-18T20:25:20Z\",\n      \"status\": \"completed\",\n      \"user_key\": \"***...a1b2\",\n      \"mode\": \"base\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a07cbbd3-8959-4d03-9341-523fa5f6319b",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "jobs",
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ownership",
+                      "value": "all"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "60a85db4-78ec-4b78-876a-bc7d9cdadd04"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a617d22-fc69-4903-bd69-c8ae9b546973",
+          "name": "Validate query",
+          "request": {
+            "name": "Validate query",
+            "description": {
+              "content": "Checks whether a query is well-formed and likely to produce good results before submitting a job.\n\nReturns a quality assessment with a status level, identified issues, and actionable suggestions.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "validate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7159d0bf-25ac-4b43-bc5b-96681ad46bbe",
+              "name": "Query validation result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"Series B funding rounds for SaaS startups\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"good\",\n  \"title\": \"Specific event type clear\",\n  \"description\": \"Clear event type and focus; no timeframe needed for a default recent search.\",\n  \"issues\": [],\n  \"suggestions\": [],\n  \"confidence\": 0.98\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a58a015-2f8f-49d7-84ae-04e336a57bbc",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"Series B funding rounds for SaaS startups\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9fa5988f-2a7c-4876-b948-3b63f24bb5e3",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "validate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"Series B funding rounds for SaaS startups\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b5fa545d-1df6-4aea-b07e-d17092f9cfb1",
+          "name": "Initialize job",
+          "request": {
+            "name": "Initialize job",
+            "description": {
+              "content": "Get suggested validators, enrichments, and date ranges for a query.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "initialize"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"context\": \"<string>\",\n  \"connected_dataset_ids\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"fetch_all_watchlist_news\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aae89e7c-8fa4-455c-a4e6-1871460792c0",
+              "name": "Suggestions retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "initialize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"Series B funding rounds for SaaS startups\",\n  \"context\": \"Focus on funding amount and company name\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"query\": \"Series B funding rounds for SaaS startups\",\n  \"context\": \"Focus on funding amount and company name\",\n  \"validators\": [\n    {\n      \"name\": \"is_series_b_funding\",\n      \"description\": \"true if the web page describes a Series B funding round\",\n      \"type\": \"boolean\"\n    },\n    {\n      \"name\": \"is_saas_startup\",\n      \"description\": \"true if the company receiving funding is a SaaS startup\",\n      \"type\": \"boolean\"\n    }\n  ],\n  \"enrichments\": [\n    {\n      \"name\": \"funding_amount\",\n      \"description\": \"Extract the amount of funding received in the Series B round\",\n      \"type\": \"number\"\n    },\n    {\n      \"name\": \"investee_company\",\n      \"description\": \"Extract the name of the SaaS startup receiving the funding\",\n      \"type\": \"company\"\n    },\n    {\n      \"name\": \"investor_company\",\n      \"description\": \"Extract the name of the lead investor\",\n      \"type\": \"company\"\n    },\n    {\n      \"name\": \"funding_date\",\n      \"description\": \"Extract the date when the funding round was announced\",\n      \"type\": \"date\"\n    }\n  ],\n  \"start_date\": \"2026-02-19T00:00:00Z\",\n  \"end_date\": \"2026-02-24T00:00:00Z\",\n  \"date_modification_message\": [\n    \"No dates were provided; using a default window of 5 days.\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad785e44-6316-40f3-b92f-6f4a8acdd56e",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "initialize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"Series B funding rounds for SaaS startups\",\n  \"context\": \"Focus on funding amount and company name\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66cb5043-92fe-48ea-9b33-c0ffe895b53a",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "initialize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"Series B funding rounds for SaaS startups\",\n  \"context\": \"Focus on funding amount and company name\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4dc8882d-b2a4-4531-af54-73457ec1a471",
+          "name": "Create job",
+          "request": {
+            "name": "Create job",
+            "description": {
+              "content": "Submit a query to create a new processing job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "submit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"context\": \"<string>\",\n  \"limit\": \"<integer>\",\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\",\n  \"validators\": [\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"type\": \"boolean\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"type\": \"boolean\"\n    }\n  ],\n  \"enrichments\": [\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"mode\": \"base\",\n  \"connected_dataset_ids\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"ed_score_min\": 2,\n  \"project_id\": \"<uuid>\",\n  \"webhook_ids\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"fetch_all_watchlist_news\": false,\n  \"ed_association_type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9fcb875a-7ab1-4c7f-8150-0d41c9ffc3e1",
+              "name": "Job created successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"Series B funding rounds for SaaS startups\",\n  \"context\": \"Focus on funding amount and company name\",\n  \"start_date\": \"2026-02-18T00:00:00Z\",\n  \"end_date\": \"2026-02-23T00:00:00Z\",\n  \"limit\": 10,\n  \"mode\": \"base\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job_id\": \"5f0c9087-85cb-4917-b3c7-e5a5eff73a0c\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a503b2d-25c3-4c13-bca7-b0c4f5627606",
+              "name": "Bad request - invalid parameters or constraint violations.\n\nCommon causes: date ranges outside plan limits, invalid job state for continuation.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"Series B funding rounds for SaaS startups\",\n  \"context\": \"Focus on funding amount and company name\",\n  \"start_date\": \"2026-02-18T00:00:00Z\",\n  \"end_date\": \"2026-02-23T00:00:00Z\",\n  \"limit\": 10,\n  \"mode\": \"base\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"start_date must be >= 2025-02-05, your plan limited to lookback 365 days.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4f1a118-d551-484e-a63b-1545b893091e",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"Series B funding rounds for SaaS startups\",\n  \"context\": \"Focus on funding amount and company name\",\n  \"start_date\": \"2026-02-18T00:00:00Z\",\n  \"end_date\": \"2026-02-23T00:00:00Z\",\n  \"limit\": 10,\n  \"mode\": \"base\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7efc11b-d78a-4d7b-b705-5175f62c6fc8",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "submit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"Series B funding rounds for SaaS startups\",\n  \"context\": \"Focus on funding amount and company name\",\n  \"start_date\": \"2026-02-18T00:00:00Z\",\n  \"end_date\": \"2026-02-23T00:00:00Z\",\n  \"limit\": 10,\n  \"mode\": \"base\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1cb9695b-040b-4f02-b5eb-82e723c4dffb",
+          "name": "Get job status",
+          "request": {
+            "name": "Get job status",
+            "description": {
+              "content": "Retrieve the current processing status of a job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "status",
+                ":job_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "job_id",
+                  "description": "(Required) Unique job identifier returned from [`POST /catchAll/submit`](https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/create-job).\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5ed260bb-19f4-4534-b12f-b073ca383f35",
+              "name": "Status retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "status",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "job_id",
+                      "description": "(Required) Unique job identifier returned from [`POST /catchAll/submit`](https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/create-job).\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job_id\": \"5f0c9087-85cb-4917-b3c7-e5a5eff73a0c\",\n  \"status\": \"completed\",\n  \"steps\": [\n    {\n      \"status\": \"submitted\",\n      \"order\": 1,\n      \"completed\": true\n    },\n    {\n      \"status\": \"analyzing\",\n      \"order\": 2,\n      \"completed\": true\n    },\n    {\n      \"status\": \"fetching\",\n      \"order\": 3,\n      \"completed\": true\n    },\n    {\n      \"status\": \"clustering\",\n      \"order\": 4,\n      \"completed\": true\n    },\n    {\n      \"status\": \"enriching\",\n      \"order\": 5,\n      \"completed\": true\n    },\n    {\n      \"status\": \"completed\",\n      \"order\": 6,\n      \"completed\": true\n    },\n    {\n      \"status\": \"failed\",\n      \"order\": 7,\n      \"completed\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e756d0c3-6d84-43ca-b4a0-95236477c846",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "status",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "job_id",
+                      "description": "(Required) Unique job identifier returned from [`POST /catchAll/submit`](https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/create-job).\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "af23dd18-8e83-4411-973e-2800ba6324a1",
+              "name": "Job/monitor not found or results not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "status",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "job_id",
+                      "description": "(Required) Unique job identifier returned from [`POST /catchAll/submit`](https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/create-job).\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8afd8622-8e28-4cbe-b261-f760a41c72cf",
+          "name": "Get job results",
+          "request": {
+            "name": "Get job results",
+            "description": {
+              "content": "Retrieve the final results for a completed job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "pull",
+                ":job_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number to retrieve.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "100",
+                  "description": "Number of records per page.\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "job_id",
+                  "description": "(Required) Unique job identifier returned from [`POST /catchAll/submit`](https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/create-job).\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "64841f31-5d9a-425a-b84c-753c8611ce4e",
+              "name": "Results retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "pull",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "job_id",
+                      "description": "(Required) Unique job identifier returned from [`POST /catchAll/submit`](https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/create-job).\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job_id\": \"5f0c9087-85cb-4917-b3c7-e5a5eff73a0c\",\n  \"query\": \"Series B funding rounds for SaaS startups\",\n  \"context\": \"Focus on funding amount and company name\",\n  \"validators\": [],\n  \"enrichments\": [],\n  \"status\": \"completed\",\n  \"error\": null,\n  \"duration\": \"1m\",\n  \"candidate_records\": 4,\n  \"valid_records\": 3,\n  \"progress_validated\": 4,\n  \"date_range\": {\n    \"start_date\": \"2026-02-18T00:00:00Z\",\n    \"end_date\": \"2026-02-23T00:00:00Z\"\n  },\n  \"page\": 1,\n  \"page_size\": 2,\n  \"total_pages\": 2,\n  \"limit\": 10,\n  \"mode\": \"base\",\n  \"all_records\": [\n    {\n      \"record_id\": \"6983973854314692457\",\n      \"record_title\": \"VulnCheck Raises $25M Series B Funding\",\n      \"enrichment\": {\n        \"enrichment_confidence\": \"high\",\n        \"funding_amount\": 25000000,\n        \"funding_currency\": \"USD\",\n        \"funding_date\": \"2026-02-17\",\n        \"investee_company\": {\n          \"source_text\": \"VulnCheck\",\n          \"confidence\": 0.99,\n          \"metadata\": {\n            \"name\": \"VulnCheck\",\n            \"domain_url\": \"vulncheck.com\",\n            \"domain_url_confidence\": \"high\"\n          }\n        },\n        \"investor_company\": {\n          \"source_text\": \"Sorenson Capital\",\n          \"confidence\": 0.99,\n          \"metadata\": {\n            \"name\": \"Sorenson Capital\",\n            \"domain_url\": null,\n            \"domain_url_confidence\": null\n          }\n        }\n      },\n      \"citations\": [\n        {\n          \"title\": \"VulnCheck raises $25M Series B\",\n          \"link\": \"https://www.msn.com/en-us/money/other/exclusive-vulncheck-raises-25m-funding-to-help-companies-patch-software-bugs/ar-AA1WwdjW\",\n          \"published_date\": \"2026-02-17T14:01:05Z\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7a7096d-2786-44fc-a3bf-2f03b65e2052",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "pull",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "job_id",
+                      "description": "(Required) Unique job identifier returned from [`POST /catchAll/submit`](https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/create-job).\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7eac1842-4333-42ba-853c-98b02915a954",
+              "name": "Job/monitor not found or results not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "pull",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "job_id",
+                      "description": "(Required) Unique job identifier returned from [`POST /catchAll/submit`](https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/create-job).\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "66972e7f-ccab-4073-8134-ee6b20de55da",
+          "name": "Continue job",
+          "request": {
+            "name": "Continue job",
+            "description": {
+              "content": "Continue an existing job to process more records beyond the initial limit.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "continue"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"job_id\": \"<uuid>\",\n  \"new_limit\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7c4ac925-0fe7-427a-88a1-9dedee79bb93",
+              "name": "Job continuation accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "continue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"job_id\": \"5f0c9087-85cb-4917-b3c7-e5a5eff73a0c\",\n  \"new_limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"job_id\": \"5f0c9087-85cb-4917-b3c7-e5a5eff73a0c\",\n  \"previous_limit\": 10,\n  \"new_limit\": 100,\n  \"status\": \"accepted\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b74fc2c0-ec14-44ee-95bb-9a0bcfd44335",
+              "name": "Bad request - invalid parameters or constraint violations.\n\nCommon causes: date ranges outside plan limits, invalid job state for continuation.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "continue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"job_id\": \"5f0c9087-85cb-4917-b3c7-e5a5eff73a0c\",\n  \"new_limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"start_date must be >= 2025-02-05, your plan limited to lookback 365 days.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "411f0327-c017-4d51-9b9f-63cf72ffd47e",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "continue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"job_id\": \"5f0c9087-85cb-4917-b3c7-e5a5eff73a0c\",\n  \"new_limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aaff89ae-61d0-42ba-84cc-f8e62232aad5",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "continue"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"job_id\": \"5f0c9087-85cb-4917-b3c7-e5a5eff73a0c\",\n  \"new_limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "52dd9e3d-516f-4d41-b01f-75e806eff60f",
+          "name": "Delete job",
+          "request": {
+            "name": "Delete job",
+            "description": {
+              "content": "Soft-deletes a job. The job is flagged as deleted and no longer appears in list results. The underlying data is retained.\n\nOnly the job owner can delete a job. Returns `404` if the job is not found or does not belong to the authenticated user.\n\nDeleting an already-deleted job returns `200`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "jobs",
+                ":job_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "job_id",
+                  "description": "(Required) Unique job identifier returned from [`POST /catchAll/submit`](https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/create-job).\n"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1f12e516-0f8e-4c7f-a194-a7ef4c7a09e3",
+              "name": "Job deleted successfully (or already deleted).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "jobs",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "job_id",
+                      "description": "(Required) Unique job identifier returned from [`POST /catchAll/submit`](https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/create-job).\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"Job deleted successfully.\",\n  \"job_id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cbb56b8f-8318-4c25-9603-d79c74d4f0b2",
+              "name": "API key is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "jobs",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "job_id",
+                      "description": "(Required) Unique job identifier returned from [`POST /catchAll/submit`](https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/create-job).\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"X-API-Key header is required for this endpoint\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "258d2129-98a1-4999-a8e1-032de67315e9",
+              "name": "Job/monitor not found or results not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "jobs",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "job_id",
+                      "description": "(Required) Unique job identifier returned from [`POST /catchAll/submit`](https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/create-job).\n"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://local-news.newscatcherapi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d47bd106-1f0a-4b01-9aaf-9926a77c439f",
+    "name": "Local News AggregationCount Jobs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Local News API provides access to local news articles with location-specific filtering capabilities.\n\n## Standard endpoints\n\n- `/search`: Search articles by keywords with simple location filtering (\"City, State\" format).\n- `/latest_headlines`: Retrieve recent articles for specified locations and time periods.\n- `/search_by`: Retrieve articles by URL, ID, or RSS GUID.\n- `/sources`: List available news sources.\n\n## Advanced endpoints\n\n- `/search/advanced`: Search with structured GeoNames filtering.\n- `/latest_headlines/advanced`: Latest headlines with structured GeoNames filtering.\n\n## Features\n\n- Multiple location detection methods including dedicated sources, proximity analysis, and AI extraction\n- Natural language processing for sentiment analysis and entity recognition on original content and English translations\n- Article clustering for topic analysis\n- English translations for non-English content\n\n\nContact Support:\n Name: Maksym Sugonyaka\n Email: maksym@newscatcherapi.com",
+      "type": "text/plain"
+    }
+  }
+}

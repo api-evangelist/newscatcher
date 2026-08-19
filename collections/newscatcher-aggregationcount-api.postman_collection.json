@@ -1,0 +1,2527 @@
+{
+  "item": [
+    {
+      "id": "43806232-5a9b-459e-bc4e-2a963f30a027",
+      "name": "AggregationCount",
+      "description": {
+        "content": "Operations to aggregate news counts.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f5e0f801-47fc-4a78-8d7d-a2d4a8b40c19",
+          "name": "Get aggregation count by interval",
+          "request": {
+            "name": "Get aggregation count by interval",
+            "description": {
+              "content": "Retrieves the count of articles aggregated by day or hour based on various search criteria, such as keyword, language, country, and source.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "aggregation_count"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "aggregation_by",
+                  "value": "day"
+                },
+                {
+                  "disabled": false,
+                  "key": "search_in",
+                  "value": "title_content"
+                },
+                {
+                  "disabled": false,
+                  "key": "predefined_sources",
+                  "value": "<string>",
+                  "description": "Predefined top news sources per country. \n\nFormat: start with the word `top`, followed by the number of desired sources, and then the two-letter country code [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). \n\nMultiple countries with the number of top sources can be specified as a comma-separated string.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "sources",
+                  "value": "<string>",
+                  "description": "One or more news sources to narrow down the search. The format must be a domain URL. Subdomains, such as `finance.yahoo.com`, are also acceptable.To specify multiple sources, use a comma-separated string.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "not_sources",
+                  "value": "<string>",
+                  "description": "The news sources to exclude from the search. To exclude multiple sources, use a comma-separated string.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "<string>",
+                  "description": "The language(s) of the search. The only accepted format is the two-letter [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) code. To select multiple languages, use a comma-separated string.\n\nTo learn more, see [Enumerated parameters > Language](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#language-lang-and-not-lang).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "not_lang",
+                  "value": "<string>",
+                  "description": "The language(s) to exclude from the search. The accepted format is the two-letter [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) code. To exclude multiple languages, use a comma-separated string. \n\nTo learn more, see [Enumerated parameters > Language](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#language-lang-and-not-lang).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "countries",
+                  "value": "<string>",
+                  "description": "The countries where the news publisher is located. The accepted format is the two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code. To select multiple countries, use a comma-separated string.\n\nTo learn more, see [Enumerated parameters > Country](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#country-country-and-not-country).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "not_countries",
+                  "value": "<string>",
+                  "description": "The publisher location countries to exclude from the search. The accepted format is the two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code. To exclude multiple countries, use a comma-separated string. \n\nTo learn more, see [Enumerated parameters > Country](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#country-country-and-not-country).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "not_author_name",
+                  "value": "<string>",
+                  "description": "The list of author names to exclude from your search. To exclude articles by specific authors, use a comma-separated string.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "from_",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "published_date_precision",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "by_parse_date",
+                  "value": "false"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "relevancy"
+                },
+                {
+                  "disabled": false,
+                  "key": "ranked_only",
+                  "value": "true"
+                },
+                {
+                  "disabled": false,
+                  "key": "from_rank",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_rank",
+                  "value": "999999"
+                },
+                {
+                  "disabled": false,
+                  "key": "is_headline",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "is_opinion",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "is_paid_content",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "parent_url",
+                  "value": "<string>",
+                  "description": "The categorical URL(s) to filter your search. To filter your search by multiple categorical URLs, use a comma-separated string.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "all_links",
+                  "value": "<string>",
+                  "description": "The complete URL(s) mentioned in the article. For multiple URLs, use a comma-separated string.\n\nFor more details, see [Search by URL](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-url).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "all_domain_links",
+                  "value": "<string>",
+                  "description": "The domain(s) mentioned in the article. For multiple domains, use a comma-separated string.\n\nFor more details, see [Search by URL](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-url).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "all_links_text",
+                  "value": "<string>",
+                  "description": "The text content of links mentioned in the article. Searches for links where the anchor text contains the specified terms. For multiple terms, use a comma-separated string.\n\n**Note**: When this parameter is used, the response includes the `all_links_data` field with detailed link information.\n\nTo learn more, see [Search by URL](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-url).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "word_count_min",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "word_count_max",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_nlp_data",
+                  "value": "false"
+                },
+                {
+                  "disabled": false,
+                  "key": "has_nlp",
+                  "value": "false"
+                },
+                {
+                  "disabled": false,
+                  "key": "theme",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "not_theme",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "ORG_entity_name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "PER_entity_name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "LOC_entity_name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "MISC_entity_name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "title_sentiment_min",
+                  "value": "<float>"
+                },
+                {
+                  "disabled": false,
+                  "key": "title_sentiment_max",
+                  "value": "<float>"
+                },
+                {
+                  "disabled": false,
+                  "key": "content_sentiment_min",
+                  "value": "<float>"
+                },
+                {
+                  "disabled": false,
+                  "key": "content_sentiment_max",
+                  "value": "<float>"
+                },
+                {
+                  "disabled": false,
+                  "key": "iptc_tags",
+                  "value": "<string>",
+                  "description": "Filters articles based on International Press Telecommunications Council (IPTC) media topic tags. To specify multiple IPTC tags, use a comma-separated string of tag IDs. \n\n**Note**: The `iptc_tags` parameter is only available in the `v3_nlp_iptc_tags` subscription plan.\n\nTo learn more, see [IPTC Media Topic NewsCodes](https://www.iptc.org/std/NewsCodes/treeview/mediatopic/mediatopic-en-GB.html).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "not_iptc_tags",
+                  "value": "<string>",
+                  "description": "Inverse of the `iptc_tags` parameter. Excludes articles based on International Press Telecommunications Council (IPTC) media topic tags. To specify multiple IPTC tags to exclude, use a comma-separated string of tag IDs.\n\n**Note**: The `not_iptc_tags` parameter is only available in the `v3_nlp_iptc_tags` subscription plan.\n\nTo learn more, see [IPTC Media Topic NewsCodes](https://www.iptc.org/std/NewsCodes/treeview/mediatopic/mediatopic-en-GB.html).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "robots_compliant",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c7b2e707-1b02-4ef7-8c00-2ab0ef199d73",
+              "name": "A successful response containing aggregation count results that match the search criteria. If no matches, returns a failed aggregation response according to the defined schema.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "aggregation_count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "\"supply chain\" AND Amazon NOT China"
+                    },
+                    {
+                      "key": "aggregation_by",
+                      "value": "day"
+                    },
+                    {
+                      "key": "search_in",
+                      "value": "title_content, title_content_translated"
+                    },
+                    {
+                      "key": "predefined_sources",
+                      "value": "top 50 US, top 20 GB"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "nytimes.com,finance.yahoo.com"
+                    },
+                    {
+                      "key": "not_sources",
+                      "value": "cnn.com,wsj.com"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "en,es"
+                    },
+                    {
+                      "key": "not_lang",
+                      "value": "fr,de"
+                    },
+                    {
+                      "key": "countries",
+                      "value": "US,CA"
+                    },
+                    {
+                      "key": "not_countries",
+                      "value": "UK,FR"
+                    },
+                    {
+                      "key": "not_author_name",
+                      "value": "John Doe, Jane Doe"
+                    },
+                    {
+                      "key": "from_",
+                      "value": "2024-07-01 00:00:00"
+                    },
+                    {
+                      "key": "to_",
+                      "value": "now"
+                    },
+                    {
+                      "key": "published_date_precision",
+                      "value": "full"
+                    },
+                    {
+                      "key": "by_parse_date",
+                      "value": "true"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "date"
+                    },
+                    {
+                      "key": "ranked_only",
+                      "value": "true"
+                    },
+                    {
+                      "key": "from_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "to_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "is_headline",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_opinion",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_paid_content",
+                      "value": "false"
+                    },
+                    {
+                      "key": "parent_url",
+                      "value": "wsj.com/politics,wsj.com/tech"
+                    },
+                    {
+                      "key": "all_links",
+                      "value": "https://aiindex.stanford.edu/report,https://www.stateof.ai"
+                    },
+                    {
+                      "key": "all_domain_links",
+                      "value": "who.int,nih.gov"
+                    },
+                    {
+                      "key": "all_links_text",
+                      "value": "Nvidia,Tesla"
+                    },
+                    {
+                      "key": "word_count_min",
+                      "value": "300"
+                    },
+                    {
+                      "key": "word_count_max",
+                      "value": "1000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "2"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "include_nlp_data",
+                      "value": "true"
+                    },
+                    {
+                      "key": "has_nlp",
+                      "value": "true"
+                    },
+                    {
+                      "key": "theme",
+                      "value": "Finance,Tech"
+                    },
+                    {
+                      "key": "not_theme",
+                      "value": "Crime,Sports"
+                    },
+                    {
+                      "key": "ORG_entity_name",
+                      "value": "\"Apple Inc\" OR Microsoft"
+                    },
+                    {
+                      "key": "PER_entity_name",
+                      "value": "\"Elon Musk\" OR \"Jeff Bezos\""
+                    },
+                    {
+                      "key": "LOC_entity_name",
+                      "value": "\"San Francisco\" OR \"New York City\""
+                    },
+                    {
+                      "key": "MISC_entity_name",
+                      "value": "AWS OR \"Microsoft Azure\""
+                    },
+                    {
+                      "key": "title_sentiment_min",
+                      "value": "-0.5"
+                    },
+                    {
+                      "key": "title_sentiment_max",
+                      "value": "0.5"
+                    },
+                    {
+                      "key": "content_sentiment_min",
+                      "value": "-0.5"
+                    },
+                    {
+                      "key": "content_sentiment_max",
+                      "value": "0.5"
+                    },
+                    {
+                      "key": "iptc_tags",
+                      "value": "20000199,20000209"
+                    },
+                    {
+                      "key": "not_iptc_tags",
+                      "value": "20000205,20000209"
+                    },
+                    {
+                      "key": "robots_compliant",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"total_hits\": 591,\n  \"page\": 9516,\n  \"total_pages\": 2605,\n  \"page_size\": 7054,\n  \"aggregations\": {\n    \"aggregation_count\": [\n      {\n        \"time_frame\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"article_count\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      {\n        \"time_frame\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"article_count\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    ]\n  },\n  \"user_input\": {\n    \"key_0\": 4369.596831769233,\n    \"key_1\": \"string\",\n    \"key_2\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c48854fa-929a-4b66-89eb-a94971ad8291",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "aggregation_count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "\"supply chain\" AND Amazon NOT China"
+                    },
+                    {
+                      "key": "aggregation_by",
+                      "value": "day"
+                    },
+                    {
+                      "key": "search_in",
+                      "value": "title_content, title_content_translated"
+                    },
+                    {
+                      "key": "predefined_sources",
+                      "value": "top 50 US, top 20 GB"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "nytimes.com,finance.yahoo.com"
+                    },
+                    {
+                      "key": "not_sources",
+                      "value": "cnn.com,wsj.com"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "en,es"
+                    },
+                    {
+                      "key": "not_lang",
+                      "value": "fr,de"
+                    },
+                    {
+                      "key": "countries",
+                      "value": "US,CA"
+                    },
+                    {
+                      "key": "not_countries",
+                      "value": "UK,FR"
+                    },
+                    {
+                      "key": "not_author_name",
+                      "value": "John Doe, Jane Doe"
+                    },
+                    {
+                      "key": "from_",
+                      "value": "2024-07-01 00:00:00"
+                    },
+                    {
+                      "key": "to_",
+                      "value": "now"
+                    },
+                    {
+                      "key": "published_date_precision",
+                      "value": "full"
+                    },
+                    {
+                      "key": "by_parse_date",
+                      "value": "true"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "date"
+                    },
+                    {
+                      "key": "ranked_only",
+                      "value": "true"
+                    },
+                    {
+                      "key": "from_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "to_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "is_headline",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_opinion",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_paid_content",
+                      "value": "false"
+                    },
+                    {
+                      "key": "parent_url",
+                      "value": "wsj.com/politics,wsj.com/tech"
+                    },
+                    {
+                      "key": "all_links",
+                      "value": "https://aiindex.stanford.edu/report,https://www.stateof.ai"
+                    },
+                    {
+                      "key": "all_domain_links",
+                      "value": "who.int,nih.gov"
+                    },
+                    {
+                      "key": "all_links_text",
+                      "value": "Nvidia,Tesla"
+                    },
+                    {
+                      "key": "word_count_min",
+                      "value": "300"
+                    },
+                    {
+                      "key": "word_count_max",
+                      "value": "1000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "2"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "include_nlp_data",
+                      "value": "true"
+                    },
+                    {
+                      "key": "has_nlp",
+                      "value": "true"
+                    },
+                    {
+                      "key": "theme",
+                      "value": "Finance,Tech"
+                    },
+                    {
+                      "key": "not_theme",
+                      "value": "Crime,Sports"
+                    },
+                    {
+                      "key": "ORG_entity_name",
+                      "value": "\"Apple Inc\" OR Microsoft"
+                    },
+                    {
+                      "key": "PER_entity_name",
+                      "value": "\"Elon Musk\" OR \"Jeff Bezos\""
+                    },
+                    {
+                      "key": "LOC_entity_name",
+                      "value": "\"San Francisco\" OR \"New York City\""
+                    },
+                    {
+                      "key": "MISC_entity_name",
+                      "value": "AWS OR \"Microsoft Azure\""
+                    },
+                    {
+                      "key": "title_sentiment_min",
+                      "value": "-0.5"
+                    },
+                    {
+                      "key": "title_sentiment_max",
+                      "value": "0.5"
+                    },
+                    {
+                      "key": "content_sentiment_min",
+                      "value": "-0.5"
+                    },
+                    {
+                      "key": "content_sentiment_max",
+                      "value": "0.5"
+                    },
+                    {
+                      "key": "iptc_tags",
+                      "value": "20000199,20000209"
+                    },
+                    {
+                      "key": "not_iptc_tags",
+                      "value": "20000205,20000209"
+                    },
+                    {
+                      "key": "robots_compliant",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid JSON in request body\",\n  \"status_code\": 400,\n  \"status\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63477978-7b23-4592-9b08-8d07cc1fd24f",
+              "name": "Unauthorized - Authentication failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "aggregation_count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "\"supply chain\" AND Amazon NOT China"
+                    },
+                    {
+                      "key": "aggregation_by",
+                      "value": "day"
+                    },
+                    {
+                      "key": "search_in",
+                      "value": "title_content, title_content_translated"
+                    },
+                    {
+                      "key": "predefined_sources",
+                      "value": "top 50 US, top 20 GB"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "nytimes.com,finance.yahoo.com"
+                    },
+                    {
+                      "key": "not_sources",
+                      "value": "cnn.com,wsj.com"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "en,es"
+                    },
+                    {
+                      "key": "not_lang",
+                      "value": "fr,de"
+                    },
+                    {
+                      "key": "countries",
+                      "value": "US,CA"
+                    },
+                    {
+                      "key": "not_countries",
+                      "value": "UK,FR"
+                    },
+                    {
+                      "key": "not_author_name",
+                      "value": "John Doe, Jane Doe"
+                    },
+                    {
+                      "key": "from_",
+                      "value": "2024-07-01 00:00:00"
+                    },
+                    {
+                      "key": "to_",
+                      "value": "now"
+                    },
+                    {
+                      "key": "published_date_precision",
+                      "value": "full"
+                    },
+                    {
+                      "key": "by_parse_date",
+                      "value": "true"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "date"
+                    },
+                    {
+                      "key": "ranked_only",
+                      "value": "true"
+                    },
+                    {
+                      "key": "from_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "to_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "is_headline",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_opinion",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_paid_content",
+                      "value": "false"
+                    },
+                    {
+                      "key": "parent_url",
+                      "value": "wsj.com/politics,wsj.com/tech"
+                    },
+                    {
+                      "key": "all_links",
+                      "value": "https://aiindex.stanford.edu/report,https://www.stateof.ai"
+                    },
+                    {
+                      "key": "all_domain_links",
+                      "value": "who.int,nih.gov"
+                    },
+                    {
+                      "key": "all_links_text",
+                      "value": "Nvidia,Tesla"
+                    },
+                    {
+                      "key": "word_count_min",
+                      "value": "300"
+                    },
+                    {
+                      "key": "word_count_max",
+                      "value": "1000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "2"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "include_nlp_data",
+                      "value": "true"
+                    },
+                    {
+                      "key": "has_nlp",
+                      "value": "true"
+                    },
+                    {
+                      "key": "theme",
+                      "value": "Finance,Tech"
+                    },
+                    {
+                      "key": "not_theme",
+                      "value": "Crime,Sports"
+                    },
+                    {
+                      "key": "ORG_entity_name",
+                      "value": "\"Apple Inc\" OR Microsoft"
+                    },
+                    {
+                      "key": "PER_entity_name",
+                      "value": "\"Elon Musk\" OR \"Jeff Bezos\""
+                    },
+                    {
+                      "key": "LOC_entity_name",
+                      "value": "\"San Francisco\" OR \"New York City\""
+                    },
+                    {
+                      "key": "MISC_entity_name",
+                      "value": "AWS OR \"Microsoft Azure\""
+                    },
+                    {
+                      "key": "title_sentiment_min",
+                      "value": "-0.5"
+                    },
+                    {
+                      "key": "title_sentiment_max",
+                      "value": "0.5"
+                    },
+                    {
+                      "key": "content_sentiment_min",
+                      "value": "-0.5"
+                    },
+                    {
+                      "key": "content_sentiment_max",
+                      "value": "0.5"
+                    },
+                    {
+                      "key": "iptc_tags",
+                      "value": "20000199,20000209"
+                    },
+                    {
+                      "key": "not_iptc_tags",
+                      "value": "20000205,20000209"
+                    },
+                    {
+                      "key": "robots_compliant",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The 'x-api-token' parameter has an invalid value. Please provide a valid API key.\",\n  \"status_code\": 401,\n  \"status\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c572840-2683-4d22-81a2-8d82fe3e4b59",
+              "name": "Forbidden - Server refuses action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "aggregation_count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "\"supply chain\" AND Amazon NOT China"
+                    },
+                    {
+                      "key": "aggregation_by",
+                      "value": "day"
+                    },
+                    {
+                      "key": "search_in",
+                      "value": "title_content, title_content_translated"
+                    },
+                    {
+                      "key": "predefined_sources",
+                      "value": "top 50 US, top 20 GB"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "nytimes.com,finance.yahoo.com"
+                    },
+                    {
+                      "key": "not_sources",
+                      "value": "cnn.com,wsj.com"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "en,es"
+                    },
+                    {
+                      "key": "not_lang",
+                      "value": "fr,de"
+                    },
+                    {
+                      "key": "countries",
+                      "value": "US,CA"
+                    },
+                    {
+                      "key": "not_countries",
+                      "value": "UK,FR"
+                    },
+                    {
+                      "key": "not_author_name",
+                      "value": "John Doe, Jane Doe"
+                    },
+                    {
+                      "key": "from_",
+                      "value": "2024-07-01 00:00:00"
+                    },
+                    {
+                      "key": "to_",
+                      "value": "now"
+                    },
+                    {
+                      "key": "published_date_precision",
+                      "value": "full"
+                    },
+                    {
+                      "key": "by_parse_date",
+                      "value": "true"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "date"
+                    },
+                    {
+                      "key": "ranked_only",
+                      "value": "true"
+                    },
+                    {
+                      "key": "from_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "to_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "is_headline",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_opinion",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_paid_content",
+                      "value": "false"
+                    },
+                    {
+                      "key": "parent_url",
+                      "value": "wsj.com/politics,wsj.com/tech"
+                    },
+                    {
+                      "key": "all_links",
+                      "value": "https://aiindex.stanford.edu/report,https://www.stateof.ai"
+                    },
+                    {
+                      "key": "all_domain_links",
+                      "value": "who.int,nih.gov"
+                    },
+                    {
+                      "key": "all_links_text",
+                      "value": "Nvidia,Tesla"
+                    },
+                    {
+                      "key": "word_count_min",
+                      "value": "300"
+                    },
+                    {
+                      "key": "word_count_max",
+                      "value": "1000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "2"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "include_nlp_data",
+                      "value": "true"
+                    },
+                    {
+                      "key": "has_nlp",
+                      "value": "true"
+                    },
+                    {
+                      "key": "theme",
+                      "value": "Finance,Tech"
+                    },
+                    {
+                      "key": "not_theme",
+                      "value": "Crime,Sports"
+                    },
+                    {
+                      "key": "ORG_entity_name",
+                      "value": "\"Apple Inc\" OR Microsoft"
+                    },
+                    {
+                      "key": "PER_entity_name",
+                      "value": "\"Elon Musk\" OR \"Jeff Bezos\""
+                    },
+                    {
+                      "key": "LOC_entity_name",
+                      "value": "\"San Francisco\" OR \"New York City\""
+                    },
+                    {
+                      "key": "MISC_entity_name",
+                      "value": "AWS OR \"Microsoft Azure\""
+                    },
+                    {
+                      "key": "title_sentiment_min",
+                      "value": "-0.5"
+                    },
+                    {
+                      "key": "title_sentiment_max",
+                      "value": "0.5"
+                    },
+                    {
+                      "key": "content_sentiment_min",
+                      "value": "-0.5"
+                    },
+                    {
+                      "key": "content_sentiment_max",
+                      "value": "0.5"
+                    },
+                    {
+                      "key": "iptc_tags",
+                      "value": "20000199,20000209"
+                    },
+                    {
+                      "key": "not_iptc_tags",
+                      "value": "20000205,20000209"
+                    },
+                    {
+                      "key": "robots_compliant",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Your plan request date range cannot be greater than 400 days\",\n  \"status_code\": 403,\n  \"status\": \"Forbidden\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ac5e8c3-c50a-4683-800c-89bce1904e87",
+              "name": "Request timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "aggregation_count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "\"supply chain\" AND Amazon NOT China"
+                    },
+                    {
+                      "key": "aggregation_by",
+                      "value": "day"
+                    },
+                    {
+                      "key": "search_in",
+                      "value": "title_content, title_content_translated"
+                    },
+                    {
+                      "key": "predefined_sources",
+                      "value": "top 50 US, top 20 GB"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "nytimes.com,finance.yahoo.com"
+                    },
+                    {
+                      "key": "not_sources",
+                      "value": "cnn.com,wsj.com"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "en,es"
+                    },
+                    {
+                      "key": "not_lang",
+                      "value": "fr,de"
+                    },
+                    {
+                      "key": "countries",
+                      "value": "US,CA"
+                    },
+                    {
+                      "key": "not_countries",
+                      "value": "UK,FR"
+                    },
+                    {
+                      "key": "not_author_name",
+                      "value": "John Doe, Jane Doe"
+                    },
+                    {
+                      "key": "from_",
+                      "value": "2024-07-01 00:00:00"
+                    },
+                    {
+                      "key": "to_",
+                      "value": "now"
+                    },
+                    {
+                      "key": "published_date_precision",
+                      "value": "full"
+                    },
+                    {
+                      "key": "by_parse_date",
+                      "value": "true"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "date"
+                    },
+                    {
+                      "key": "ranked_only",
+                      "value": "true"
+                    },
+                    {
+                      "key": "from_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "to_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "is_headline",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_opinion",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_paid_content",
+                      "value": "false"
+                    },
+                    {
+                      "key": "parent_url",
+                      "value": "wsj.com/politics,wsj.com/tech"
+                    },
+                    {
+                      "key": "all_links",
+                      "value": "https://aiindex.stanford.edu/report,https://www.stateof.ai"
+                    },
+                    {
+                      "key": "all_domain_links",
+                      "value": "who.int,nih.gov"
+                    },
+                    {
+                      "key": "all_links_text",
+                      "value": "Nvidia,Tesla"
+                    },
+                    {
+                      "key": "word_count_min",
+                      "value": "300"
+                    },
+                    {
+                      "key": "word_count_max",
+                      "value": "1000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "2"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "include_nlp_data",
+                      "value": "true"
+                    },
+                    {
+                      "key": "has_nlp",
+                      "value": "true"
+                    },
+                    {
+                      "key": "theme",
+                      "value": "Finance,Tech"
+                    },
+                    {
+                      "key": "not_theme",
+                      "value": "Crime,Sports"
+                    },
+                    {
+                      "key": "ORG_entity_name",
+                      "value": "\"Apple Inc\" OR Microsoft"
+                    },
+                    {
+                      "key": "PER_entity_name",
+                      "value": "\"Elon Musk\" OR \"Jeff Bezos\""
+                    },
+                    {
+                      "key": "LOC_entity_name",
+                      "value": "\"San Francisco\" OR \"New York City\""
+                    },
+                    {
+                      "key": "MISC_entity_name",
+                      "value": "AWS OR \"Microsoft Azure\""
+                    },
+                    {
+                      "key": "title_sentiment_min",
+                      "value": "-0.5"
+                    },
+                    {
+                      "key": "title_sentiment_max",
+                      "value": "0.5"
+                    },
+                    {
+                      "key": "content_sentiment_min",
+                      "value": "-0.5"
+                    },
+                    {
+                      "key": "content_sentiment_max",
+                      "value": "0.5"
+                    },
+                    {
+                      "key": "iptc_tags",
+                      "value": "20000199,20000209"
+                    },
+                    {
+                      "key": "not_iptc_tags",
+                      "value": "20000205,20000209"
+                    },
+                    {
+                      "key": "robots_compliant",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Request timed out after 30 seconds\",\n  \"status_code\": 408,\n  \"status\": \"Request timeout\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c3dae6f-0ea3-47bd-abbf-d9f21fba99ad",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "aggregation_count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "\"supply chain\" AND Amazon NOT China"
+                    },
+                    {
+                      "key": "aggregation_by",
+                      "value": "day"
+                    },
+                    {
+                      "key": "search_in",
+                      "value": "title_content, title_content_translated"
+                    },
+                    {
+                      "key": "predefined_sources",
+                      "value": "top 50 US, top 20 GB"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "nytimes.com,finance.yahoo.com"
+                    },
+                    {
+                      "key": "not_sources",
+                      "value": "cnn.com,wsj.com"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "en,es"
+                    },
+                    {
+                      "key": "not_lang",
+                      "value": "fr,de"
+                    },
+                    {
+                      "key": "countries",
+                      "value": "US,CA"
+                    },
+                    {
+                      "key": "not_countries",
+                      "value": "UK,FR"
+                    },
+                    {
+                      "key": "not_author_name",
+                      "value": "John Doe, Jane Doe"
+                    },
+                    {
+                      "key": "from_",
+                      "value": "2024-07-01 00:00:00"
+                    },
+                    {
+                      "key": "to_",
+                      "value": "now"
+                    },
+                    {
+                      "key": "published_date_precision",
+                      "value": "full"
+                    },
+                    {
+                      "key": "by_parse_date",
+                      "value": "true"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "date"
+                    },
+                    {
+                      "key": "ranked_only",
+                      "value": "true"
+                    },
+                    {
+                      "key": "from_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "to_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "is_headline",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_opinion",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_paid_content",
+                      "value": "false"
+                    },
+                    {
+                      "key": "parent_url",
+                      "value": "wsj.com/politics,wsj.com/tech"
+                    },
+                    {
+                      "key": "all_links",
+                      "value": "https://aiindex.stanford.edu/report,https://www.stateof.ai"
+                    },
+                    {
+                      "key": "all_domain_links",
+                      "value": "who.int,nih.gov"
+                    },
+                    {
+                      "key": "all_links_text",
+                      "value": "Nvidia,Tesla"
+                    },
+                    {
+                      "key": "word_count_min",
+                      "value": "300"
+                    },
+                    {
+                      "key": "word_count_max",
+                      "value": "1000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "2"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "include_nlp_data",
+                      "value": "true"
+                    },
+                    {
+                      "key": "has_nlp",
+                      "value": "true"
+                    },
+                    {
+                      "key": "theme",
+                      "value": "Finance,Tech"
+                    },
+                    {
+                      "key": "not_theme",
+                      "value": "Crime,Sports"
+                    },
+                    {
+                      "key": "ORG_entity_name",
+                      "value": "\"Apple Inc\" OR Microsoft"
+                    },
+                    {
+                      "key": "PER_entity_name",
+                      "value": "\"Elon Musk\" OR \"Jeff Bezos\""
+                    },
+                    {
+                      "key": "LOC_entity_name",
+                      "value": "\"San Francisco\" OR \"New York City\""
+                    },
+                    {
+                      "key": "MISC_entity_name",
+                      "value": "AWS OR \"Microsoft Azure\""
+                    },
+                    {
+                      "key": "title_sentiment_min",
+                      "value": "-0.5"
+                    },
+                    {
+                      "key": "title_sentiment_max",
+                      "value": "0.5"
+                    },
+                    {
+                      "key": "content_sentiment_min",
+                      "value": "-0.5"
+                    },
+                    {
+                      "key": "content_sentiment_max",
+                      "value": "0.5"
+                    },
+                    {
+                      "key": "iptc_tags",
+                      "value": "20000199,20000209"
+                    },
+                    {
+                      "key": "not_iptc_tags",
+                      "value": "20000205,20000209"
+                    },
+                    {
+                      "key": "robots_compliant",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid date format\",\n  \"status_code\": 422,\n  \"status\": \"Validation error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e5b4fa5-87db-433b-aea0-68b810c56fc4",
+              "name": "Too many requests - Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "aggregation_count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "\"supply chain\" AND Amazon NOT China"
+                    },
+                    {
+                      "key": "aggregation_by",
+                      "value": "day"
+                    },
+                    {
+                      "key": "search_in",
+                      "value": "title_content, title_content_translated"
+                    },
+                    {
+                      "key": "predefined_sources",
+                      "value": "top 50 US, top 20 GB"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "nytimes.com,finance.yahoo.com"
+                    },
+                    {
+                      "key": "not_sources",
+                      "value": "cnn.com,wsj.com"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "en,es"
+                    },
+                    {
+                      "key": "not_lang",
+                      "value": "fr,de"
+                    },
+                    {
+                      "key": "countries",
+                      "value": "US,CA"
+                    },
+                    {
+                      "key": "not_countries",
+                      "value": "UK,FR"
+                    },
+                    {
+                      "key": "not_author_name",
+                      "value": "John Doe, Jane Doe"
+                    },
+                    {
+                      "key": "from_",
+                      "value": "2024-07-01 00:00:00"
+                    },
+                    {
+                      "key": "to_",
+                      "value": "now"
+                    },
+                    {
+                      "key": "published_date_precision",
+                      "value": "full"
+                    },
+                    {
+                      "key": "by_parse_date",
+                      "value": "true"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "date"
+                    },
+                    {
+                      "key": "ranked_only",
+                      "value": "true"
+                    },
+                    {
+                      "key": "from_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "to_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "is_headline",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_opinion",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_paid_content",
+                      "value": "false"
+                    },
+                    {
+                      "key": "parent_url",
+                      "value": "wsj.com/politics,wsj.com/tech"
+                    },
+                    {
+                      "key": "all_links",
+                      "value": "https://aiindex.stanford.edu/report,https://www.stateof.ai"
+                    },
+                    {
+                      "key": "all_domain_links",
+                      "value": "who.int,nih.gov"
+                    },
+                    {
+                      "key": "all_links_text",
+                      "value": "Nvidia,Tesla"
+                    },
+                    {
+                      "key": "word_count_min",
+                      "value": "300"
+                    },
+                    {
+                      "key": "word_count_max",
+                      "value": "1000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "2"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "include_nlp_data",
+                      "value": "true"
+                    },
+                    {
+                      "key": "has_nlp",
+                      "value": "true"
+                    },
+                    {
+                      "key": "theme",
+                      "value": "Finance,Tech"
+                    },
+                    {
+                      "key": "not_theme",
+                      "value": "Crime,Sports"
+                    },
+                    {
+                      "key": "ORG_entity_name",
+                      "value": "\"Apple Inc\" OR Microsoft"
+                    },
+                    {
+                      "key": "PER_entity_name",
+                      "value": "\"Elon Musk\" OR \"Jeff Bezos\""
+                    },
+                    {
+                      "key": "LOC_entity_name",
+                      "value": "\"San Francisco\" OR \"New York City\""
+                    },
+                    {
+                      "key": "MISC_entity_name",
+                      "value": "AWS OR \"Microsoft Azure\""
+                    },
+                    {
+                      "key": "title_sentiment_min",
+                      "value": "-0.5"
+                    },
+                    {
+                      "key": "title_sentiment_max",
+                      "value": "0.5"
+                    },
+                    {
+                      "key": "content_sentiment_min",
+                      "value": "-0.5"
+                    },
+                    {
+                      "key": "content_sentiment_max",
+                      "value": "0.5"
+                    },
+                    {
+                      "key": "iptc_tags",
+                      "value": "20000199,20000209"
+                    },
+                    {
+                      "key": "not_iptc_tags",
+                      "value": "20000205,20000209"
+                    },
+                    {
+                      "key": "robots_compliant",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Max API requests concurrency reached\",\n  \"status_code\": 429,\n  \"status\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b0fd4cd-a260-4383-99fa-04f772e6488e",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "aggregation_count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "\"supply chain\" AND Amazon NOT China"
+                    },
+                    {
+                      "key": "aggregation_by",
+                      "value": "day"
+                    },
+                    {
+                      "key": "search_in",
+                      "value": "title_content, title_content_translated"
+                    },
+                    {
+                      "key": "predefined_sources",
+                      "value": "top 50 US, top 20 GB"
+                    },
+                    {
+                      "key": "sources",
+                      "value": "nytimes.com,finance.yahoo.com"
+                    },
+                    {
+                      "key": "not_sources",
+                      "value": "cnn.com,wsj.com"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "en,es"
+                    },
+                    {
+                      "key": "not_lang",
+                      "value": "fr,de"
+                    },
+                    {
+                      "key": "countries",
+                      "value": "US,CA"
+                    },
+                    {
+                      "key": "not_countries",
+                      "value": "UK,FR"
+                    },
+                    {
+                      "key": "not_author_name",
+                      "value": "John Doe, Jane Doe"
+                    },
+                    {
+                      "key": "from_",
+                      "value": "2024-07-01 00:00:00"
+                    },
+                    {
+                      "key": "to_",
+                      "value": "now"
+                    },
+                    {
+                      "key": "published_date_precision",
+                      "value": "full"
+                    },
+                    {
+                      "key": "by_parse_date",
+                      "value": "true"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "date"
+                    },
+                    {
+                      "key": "ranked_only",
+                      "value": "true"
+                    },
+                    {
+                      "key": "from_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "to_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "is_headline",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_opinion",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_paid_content",
+                      "value": "false"
+                    },
+                    {
+                      "key": "parent_url",
+                      "value": "wsj.com/politics,wsj.com/tech"
+                    },
+                    {
+                      "key": "all_links",
+                      "value": "https://aiindex.stanford.edu/report,https://www.stateof.ai"
+                    },
+                    {
+                      "key": "all_domain_links",
+                      "value": "who.int,nih.gov"
+                    },
+                    {
+                      "key": "all_links_text",
+                      "value": "Nvidia,Tesla"
+                    },
+                    {
+                      "key": "word_count_min",
+                      "value": "300"
+                    },
+                    {
+                      "key": "word_count_max",
+                      "value": "1000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "2"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    },
+                    {
+                      "key": "include_nlp_data",
+                      "value": "true"
+                    },
+                    {
+                      "key": "has_nlp",
+                      "value": "true"
+                    },
+                    {
+                      "key": "theme",
+                      "value": "Finance,Tech"
+                    },
+                    {
+                      "key": "not_theme",
+                      "value": "Crime,Sports"
+                    },
+                    {
+                      "key": "ORG_entity_name",
+                      "value": "\"Apple Inc\" OR Microsoft"
+                    },
+                    {
+                      "key": "PER_entity_name",
+                      "value": "\"Elon Musk\" OR \"Jeff Bezos\""
+                    },
+                    {
+                      "key": "LOC_entity_name",
+                      "value": "\"San Francisco\" OR \"New York City\""
+                    },
+                    {
+                      "key": "MISC_entity_name",
+                      "value": "AWS OR \"Microsoft Azure\""
+                    },
+                    {
+                      "key": "title_sentiment_min",
+                      "value": "-0.5"
+                    },
+                    {
+                      "key": "title_sentiment_max",
+                      "value": "0.5"
+                    },
+                    {
+                      "key": "content_sentiment_min",
+                      "value": "-0.5"
+                    },
+                    {
+                      "key": "content_sentiment_max",
+                      "value": "0.5"
+                    },
+                    {
+                      "key": "iptc_tags",
+                      "value": "20000199,20000209"
+                    },
+                    {
+                      "key": "not_iptc_tags",
+                      "value": "20000205,20000209"
+                    },
+                    {
+                      "key": "robots_compliant",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Internal Server Error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8d843ff1-61a1-472c-b28b-2ba3259ed68d",
+          "name": "Get aggregation count by interval",
+          "request": {
+            "name": "Get aggregation count by interval",
+            "description": {
+              "content": "Retrieves the count of articles aggregated by day or hour based on various search criteria, such as keyword, language, country, and source.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "aggregation_count"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"q\": \"<string>\",\n  \"aggregation_by\": \"day\",\n  \"search_in\": \"title_content\",\n  \"predefined_sources\": \"<string>\",\n  \"sources\": \"<string>\",\n  \"not_sources\": \"<string>\",\n  \"lang\": \"<string>\",\n  \"not_lang\": \"<string>\",\n  \"countries\": \"<string>\",\n  \"not_countries\": \"<string>\",\n  \"not_author_name\": \"<string>\",\n  \"from_\": \"<dateTime>\",\n  \"to_\": \"<string>\",\n  \"published_date_precision\": \"<string>\",\n  \"by_parse_date\": false,\n  \"sort_by\": \"relevancy\",\n  \"ranked_only\": true,\n  \"from_rank\": 1,\n  \"to_rank\": 999999,\n  \"is_headline\": \"<boolean>\",\n  \"is_opinion\": \"<boolean>\",\n  \"is_paid_content\": \"<boolean>\",\n  \"parent_url\": \"<string>\",\n  \"all_links\": \"<string>\",\n  \"all_domain_links\": \"<string>\",\n  \"all_links_text\": \"<string>\",\n  \"word_count_min\": \"<integer>\",\n  \"word_count_max\": \"<integer>\",\n  \"page\": 1,\n  \"page_size\": 100,\n  \"include_nlp_data\": false,\n  \"has_nlp\": false,\n  \"theme\": \"<string>\",\n  \"not_theme\": \"<string>\",\n  \"ORG_entity_name\": \"<string>\",\n  \"PER_entity_name\": \"<string>\",\n  \"LOC_entity_name\": \"<string>\",\n  \"MISC_entity_name\": \"<string>\",\n  \"title_sentiment_min\": \"<float>\",\n  \"title_sentiment_max\": \"<float>\",\n  \"content_sentiment_min\": \"<float>\",\n  \"content_sentiment_max\": \"<float>\",\n  \"iptc_tags\": \"<string>\",\n  \"not_iptc_tags\": \"<string>\",\n  \"robots_compliant\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ecdb237e-d2e6-4d8e-9e67-062d8cc53c3d",
+              "name": "A successful response containing aggregation count results that match the search criteria. If no matches, returns a failed aggregation response according to the defined schema.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "aggregation_count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"total_hits\": 3314,\n  \"page\": 3968,\n  \"total_pages\": 2980,\n  \"page_size\": 8972,\n  \"aggregations\": {\n    \"aggregation_count\": [\n      {\n        \"time_frame\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"article_count\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      {\n        \"time_frame\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"article_count\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    ]\n  },\n  \"user_input\": {\n    \"key_0\": 6943\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d30aba5-cc35-43a1-b6af-0a65372b1660",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "aggregation_count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid JSON in request body\",\n  \"status_code\": 400,\n  \"status\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aec78a8e-0797-4622-99f1-1565bfc3d145",
+              "name": "Unauthorized - Authentication failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "aggregation_count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The 'x-api-token' parameter has an invalid value. Please provide a valid API key.\",\n  \"status_code\": 401,\n  \"status\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0e8c7526-8293-44ca-9a00-1e545f4b6124",
+              "name": "Forbidden - Server refuses action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "aggregation_count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Your plan request date range cannot be greater than 400 days\",\n  \"status_code\": 403,\n  \"status\": \"Forbidden\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97d2c0eb-5e54-4d5a-81e4-d6bd0d832819",
+              "name": "Request timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "aggregation_count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Request timed out after 30 seconds\",\n  \"status_code\": 408,\n  \"status\": \"Request timeout\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91530a5b-8be0-4a12-8140-699c8cac76e6",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "aggregation_count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid date format\",\n  \"status_code\": 422,\n  \"status\": \"Validation error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "955cefce-b608-477d-8f14-a1ef183e6de7",
+              "name": "Too many requests - Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "aggregation_count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Max API requests concurrency reached\",\n  \"status_code\": 429,\n  \"status\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad82f23e-8988-4c79-8ad2-8893bd5aa98b",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "aggregation_count"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Internal Server Error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://local-news.newscatcherapi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0d3dd774-6b9e-44d6-8e7b-bec6d26399da",
+    "name": "Local News AggregationCount API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Local News API provides access to local news articles with location-specific filtering capabilities.\n\n## Standard endpoints\n\n- `/search`: Search articles by keywords with simple location filtering (\"City, State\" format).\n- `/latest_headlines`: Retrieve recent articles for specified locations and time periods.\n- `/search_by`: Retrieve articles by URL, ID, or RSS GUID.\n- `/sources`: List available news sources.\n\n## Advanced endpoints\n\n- `/search/advanced`: Search with structured GeoNames filtering.\n- `/latest_headlines/advanced`: Latest headlines with structured GeoNames filtering.\n\n## Features\n\n- Multiple location detection methods including dedicated sources, proximity analysis, and AI extraction\n- Natural language processing for sentiment analysis and entity recognition on original content and English translations\n- Article clustering for topic analysis\n- English translations for non-English content\n\n\nContact Support:\n Name: Maksym Sugonyaka\n Email: maksym@newscatcherapi.com",
+      "type": "text/plain"
+    }
+  }
+}

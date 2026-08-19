@@ -1,0 +1,3001 @@
+{
+  "item": [
+    {
+      "id": "d13094e6-5d98-41fc-9632-b5d87bb4eea3",
+      "name": "Datasets",
+      "description": {
+        "content": "Operations to create and manage datasets of entities.\n\nA dataset is a named collection of entities — think of it as a watchlist or\nportfolio. Connect a dataset to a job via `connected_dataset_ids` to activate\nCompany Watchlist. Datasets can be reused across multiple jobs and monitors.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "18071f44-9a1d-4467-a0fc-426148f838db",
+          "name": "List datasets",
+          "request": {
+            "name": "List datasets",
+            "description": {
+              "content": "Returns a paginated list of datasets belonging to the authenticated organization. Supports filtering by status and sorting by name, status, or creation date.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "datasets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number to retrieve.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "100",
+                  "description": "Number of datasets per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Filter datasets by name (case-insensitive substring match)."
+                },
+                {
+                  "disabled": false,
+                  "key": "latest_status",
+                  "value": "<string>",
+                  "description": "Filter by dataset status.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "created_at"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_order",
+                  "value": "desc"
+                },
+                {
+                  "disabled": false,
+                  "key": "ownership",
+                  "value": "all"
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<uuid>",
+                  "description": "Filter results to resources belonging to this project."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6dff3825-e39d-458c-93e0-c4fd83b7e767",
+              "name": "Paginated list of datasets.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    },
+                    {
+                      "key": "search",
+                      "value": "Portfolio"
+                    },
+                    {
+                      "key": "latest_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "ownership",
+                      "value": "all"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "60a85db4-78ec-4b78-876a-bc7d9cdadd04"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"datasets\": [\n    {\n      \"id\": \"ccabb755-afc2-4047-b84c-78d1f23d49b2\",\n      \"organization_id\": \"e5d9e9b0-e415-4941-8ef0-916c5ee56207\",\n      \"name\": \"My Portfolio\",\n      \"description\": \"Companies in our investment portfolio\",\n      \"entity_count\": 4,\n      \"latest_status\": \"<string>\",\n      \"created_by_user_id\": \"870e258e-12ec-4a47-8656-e7a43b0265b3\",\n      \"created_at\": \"2026-04-08T15:21:36.026993\",\n      \"updated_at\": \"2026-04-08T15:21:38.401148\"\n    },\n    {\n      \"id\": \"ccabb755-afc2-4047-b84c-78d1f23d49b2\",\n      \"organization_id\": \"e5d9e9b0-e415-4941-8ef0-916c5ee56207\",\n      \"name\": \"My Portfolio\",\n      \"description\": \"Companies in our investment portfolio\",\n      \"entity_count\": 4,\n      \"latest_status\": \"<string>\",\n      \"created_by_user_id\": \"870e258e-12ec-4a47-8656-e7a43b0265b3\",\n      \"created_at\": \"2026-04-08T15:21:36.026993\",\n      \"updated_at\": \"2026-04-08T15:21:38.401148\"\n    }\n  ],\n  \"total\": 5,\n  \"page\": 1,\n  \"page_size\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "60e95f7f-029c-43f5-aed0-4e991ee99375",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    },
+                    {
+                      "key": "search",
+                      "value": "Portfolio"
+                    },
+                    {
+                      "key": "latest_status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "ownership",
+                      "value": "all"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "60a85db4-78ec-4b78-876a-bc7d9cdadd04"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3377516b-94a8-467d-9c2e-c5086883e832",
+          "name": "Create dataset",
+          "request": {
+            "name": "Create dataset",
+            "description": {
+              "content": "Creates a new dataset from a list of existing entity IDs.\n\nIf any of the provided entity IDs do not exist or do not belong to\nyour organization, the request fails with `400`. All entity IDs must\nbe valid before the dataset is created.\n\nTo create a dataset and entities in one step, use the [`Create dataset from CSV`](https://www.newscatcherapi.com/docs/web-search-api/api-reference/datasets/create-dataset-from-csv)\nendpoint instead.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "datasets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"entity_ids\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "65027245-f962-4b00-9202-72c977f3b774",
+              "name": "Full dataset object with metadata and current status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Portfolio\",\n  \"description\": \"Companies in our investment portfolio\",\n  \"entity_ids\": [\n    \"854198fa-f702-49db-a381-0427fa87f173\",\n    \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"ccabb755-afc2-4047-b84c-78d1f23d49b2\",\n  \"organization_id\": \"e5d9e9b0-e415-4941-8ef0-916c5ee56207\",\n  \"name\": \"My Portfolio\",\n  \"description\": \"Companies in our investment portfolio\",\n  \"entity_count\": 4,\n  \"latest_status\": \"ready\",\n  \"created_by_user_id\": \"870e258e-12ec-4a47-8656-e7a43b0265b3\",\n  \"created_at\": \"2026-04-08T15:21:36.026993\",\n  \"updated_at\": \"2026-04-08T15:21:36.027001\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c8e65f71-7c6d-4d15-ba1d-23c38aab8712",
+              "name": "Bad request - invalid parameters or constraint violations.\n\nCommon causes: date ranges outside plan limits, invalid job state for continuation.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Portfolio\",\n  \"description\": \"Companies in our investment portfolio\",\n  \"entity_ids\": [\n    \"854198fa-f702-49db-a381-0427fa87f173\",\n    \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"start_date must be >= 2025-02-05, your plan limited to lookback 365 days.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a55a1d8b-e463-44b8-8c3d-c2f7974fca58",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Portfolio\",\n  \"description\": \"Companies in our investment portfolio\",\n  \"entity_ids\": [\n    \"854198fa-f702-49db-a381-0427fa87f173\",\n    \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "16df07dc-bf68-4d32-88b0-593ffc0c0c66",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Portfolio\",\n  \"description\": \"Companies in our investment portfolio\",\n  \"entity_ids\": [\n    \"854198fa-f702-49db-a381-0427fa87f173\",\n    \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9324c099-5ce2-4795-806e-9f3d0a4cc511",
+          "name": "Create dataset from CSV",
+          "request": {
+            "name": "Create dataset from CSV",
+            "description": {
+              "content": "Creates a new dataset by uploading a CSV file. Each row in the CSV becomes an entity. The `name` and `domain`columns are required; all other columns are optional.\n\n**CSV format:**\n```csv\nname,description,domain,alternative_names,key_persons\nNewsCatcher,\"AI-powered news data provider\",newscatcherapi.com,\"NC;NewsCatcher API\",\"Artem Bugara;Maksym Sugonyaka\"\nOpenAI,\"Artificial intelligence research company\",openai.com,\"Open AI\",\"Sam Altman\"\n```\n\nUse semicolons (`;`) to separate multiple values in `alternative_names` and `key_persons`. Rows with empty `name` are skipped and reported in `validation_report`. \n\n**Note**: The response shape differs from the JSON dataset creation endpoint: it returns `dataset_id` (not `id`) and includes a `validation_report` with details on skipped rows.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "datasets",
+                "upload"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) The CSV file to upload."
+                },
+                {
+                  "key": "name",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Name for the new dataset."
+                },
+                {
+                  "key": "description",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Optional description for the dataset."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7cd01a66-b359-4714-a48a-3ee8662518e8",
+              "name": "Dataset created from CSV successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The CSV file to upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Name for the new dataset.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "My Portfolio",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Optional description for the dataset.",
+                        "type": "text/plain"
+                      },
+                      "key": "description",
+                      "value": "Companies from Q1 2026 watchlist",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dataset_id\": \"ccabb755-afc2-4047-b84c-78d1f23d49b2\",\n  \"dataset_name\": \"My Portfolio\",\n  \"entities_created\": 3,\n  \"validation_report\": {\n    \"total_rows\": 4,\n    \"valid_rows\": 3,\n    \"skipped_count\": 1,\n    \"skipped_rows\": [\n      {\n        \"row\": 3,\n        \"reason\": \"missing required field: name\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7dd51700-d646-48b3-be58-07061936c8ae",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The CSV file to upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Name for the new dataset.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "My Portfolio",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Optional description for the dataset.",
+                        "type": "text/plain"
+                      },
+                      "key": "description",
+                      "value": "Companies from Q1 2026 watchlist",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2422ac14-6bbe-4582-bad9-1c3bc7d70eac",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The CSV file to upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Name for the new dataset.",
+                        "type": "text/plain"
+                      },
+                      "key": "name",
+                      "value": "My Portfolio",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Optional description for the dataset.",
+                        "type": "text/plain"
+                      },
+                      "key": "description",
+                      "value": "Companies from Q1 2026 watchlist",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c3c18f18-162a-483e-a607-994c92360186",
+          "name": "Get dataset",
+          "request": {
+            "name": "Get dataset",
+            "description": {
+              "content": "Returns a single dataset by ID including entity count and current status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "datasets",
+                ":dataset_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "dataset_id",
+                  "description": "(Required) Unique dataset identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8d3837b1-0a86-4646-b06f-8e44521215c0",
+              "name": "Full dataset object with metadata and current status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"ccabb755-afc2-4047-b84c-78d1f23d49b2\",\n  \"organization_id\": \"e5d9e9b0-e415-4941-8ef0-916c5ee56207\",\n  \"name\": \"My Portfolio\",\n  \"description\": \"Companies in our investment portfolio\",\n  \"entity_count\": 4,\n  \"latest_status\": \"ready\",\n  \"created_by_user_id\": \"870e258e-12ec-4a47-8656-e7a43b0265b3\",\n  \"created_at\": \"2026-04-08T15:21:36.026993\",\n  \"updated_at\": \"2026-04-08T15:21:36.027001\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e23766ca-9747-4e6b-9846-4b607966d9ab",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fa6eee86-2c3e-460d-a479-2598372d0520",
+              "name": "Job/monitor not found or results not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ed61429-f64b-4600-b2c1-7ad8d17e513b",
+          "name": "Update dataset",
+          "request": {
+            "name": "Update dataset",
+            "description": {
+              "content": "Updates the name or description of a dataset.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "datasets",
+                ":dataset_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "dataset_id",
+                  "description": "(Required) Unique dataset identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "464b3f5e-2436-4b21-aeb7-e3a699aa33b7",
+              "name": "Full dataset object with metadata and current status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Portfolio (updated)\",\n  \"description\": \"Updated Q1 2026 watchlist\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"ccabb755-afc2-4047-b84c-78d1f23d49b2\",\n  \"organization_id\": \"e5d9e9b0-e415-4941-8ef0-916c5ee56207\",\n  \"name\": \"My Portfolio\",\n  \"description\": \"Companies in our investment portfolio\",\n  \"entity_count\": 4,\n  \"latest_status\": \"ready\",\n  \"created_by_user_id\": \"870e258e-12ec-4a47-8656-e7a43b0265b3\",\n  \"created_at\": \"2026-04-08T15:21:36.026993\",\n  \"updated_at\": \"2026-04-08T15:21:36.027001\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e455af19-4475-4ca3-987f-a2bbaded6907",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Portfolio (updated)\",\n  \"description\": \"Updated Q1 2026 watchlist\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "084b0eb5-fb3f-478c-ac12-89d54811aa3e",
+              "name": "Job/monitor not found or results not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Portfolio (updated)\",\n  \"description\": \"Updated Q1 2026 watchlist\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89aa734b-e6f2-4e1c-ac9c-9d4f204c9425",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"My Portfolio (updated)\",\n  \"description\": \"Updated Q1 2026 watchlist\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f91d090f-bd97-477c-b91b-aa9673cdce3e",
+          "name": "Delete dataset",
+          "request": {
+            "name": "Delete dataset",
+            "description": {
+              "content": "Permanently deletes a dataset. The entities within the dataset are\nnot deleted — only the dataset itself. This operation cannot be\nundone.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "datasets",
+                ":dataset_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "dataset_id",
+                  "description": "(Required) Unique dataset identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0dcaf0ae-a519-428f-bd11-e29210879faa",
+              "name": "Dataset deleted successfully. No response body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bfb7278b-fed4-4f5b-8bf4-40753fe1647e",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "13f24dd1-a9dd-4d31-bc9e-0550bc4bed4d",
+              "name": "Job/monitor not found or results not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0720517f-68e2-42de-95b6-d2e33a257426",
+          "name": "Add entities to dataset",
+          "request": {
+            "name": "Add entities to dataset",
+            "description": {
+              "content": "Adds one or more existing entities to a dataset. Returns the number of entities added.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "datasets",
+                ":dataset_id",
+                "entities"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "dataset_id",
+                  "description": "(Required) Unique dataset identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entity_ids\": [\n    \"<uuid>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2fd0d7a1-5caa-4986-9a28-dba9b2dd21d3",
+              "name": "Entities added or removed successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id",
+                    "entities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity_ids\": [\n    \"854198fa-f702-49db-a381-0427fa87f173\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dataset_id\": \"ccabb755-afc2-4047-b84c-78d1f23d49b2\",\n  \"affected_count\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "426eb6f6-9d88-4897-936c-82bf99f642ad",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id",
+                    "entities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity_ids\": [\n    \"854198fa-f702-49db-a381-0427fa87f173\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "41ce79f0-8447-48de-9b61-d4063400e413",
+              "name": "Job/monitor not found or results not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id",
+                    "entities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity_ids\": [\n    \"854198fa-f702-49db-a381-0427fa87f173\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73acb21d-0b28-4d87-b691-d9cdf85e97e8",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id",
+                    "entities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity_ids\": [\n    \"854198fa-f702-49db-a381-0427fa87f173\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4143ba89-95f6-4bae-90f2-ceb513b4d018",
+          "name": "Remove entities from dataset",
+          "request": {
+            "name": "Remove entities from dataset",
+            "description": {
+              "content": "Removes one or more entities from a dataset. The entities themselves are not deleted — they are only removed from this dataset. Returns the number of entities removed.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "datasets",
+                ":dataset_id",
+                "entities"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "dataset_id",
+                  "description": "(Required) Unique dataset identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entity_ids\": [\n    \"<uuid>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "57867bf5-d977-4196-9a29-38f6ba5ea4ef",
+              "name": "Entities added or removed successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id",
+                    "entities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity_ids\": [\n    \"854198fa-f702-49db-a381-0427fa87f173\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dataset_id\": \"ccabb755-afc2-4047-b84c-78d1f23d49b2\",\n  \"affected_count\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "82012c9e-8233-432e-b31d-be7a9accf074",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id",
+                    "entities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity_ids\": [\n    \"854198fa-f702-49db-a381-0427fa87f173\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9fdde53f-3e30-48fe-b5b1-88d5ecb15ba0",
+              "name": "Job/monitor not found or results not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id",
+                    "entities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity_ids\": [\n    \"854198fa-f702-49db-a381-0427fa87f173\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "120caa23-783b-4ef9-b375-ffda56ef59d7",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id",
+                    "entities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity_ids\": [\n    \"854198fa-f702-49db-a381-0427fa87f173\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f2f96892-24cb-41d7-9a4b-3f6afa76d0e4",
+          "name": "List entities in dataset",
+          "request": {
+            "name": "List entities in dataset",
+            "description": {
+              "content": "Returns a paginated list of entities in a dataset. Supports filtering by status, entity type, and name search.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "datasets",
+                ":dataset_id",
+                "entities",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "dataset_id",
+                  "description": "(Required) Unique dataset identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"page\": 1,\n  \"page_size\": 100,\n  \"search\": \"<string>\",\n  \"status\": \"<string>\",\n  \"entity_type\": \"company\",\n  \"sort_by\": \"created_at\",\n  \"sort_order\": \"desc\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2d25d7e0-67a1-4485-a4b2-85e45a38782d",
+              "name": "Paginated list of entities in a dataset.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id",
+                    "entities",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"page\": 1,\n  \"page_size\": 100,\n  \"search\": \"OpenAI\",\n  \"status\": \"ready\",\n  \"entity_type\": \"company\",\n  \"sort_by\": \"created_at\",\n  \"sort_order\": \"desc\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"entities\": [\n    {\n      \"id\": \"854198fa-f702-49db-a381-0427fa87f173\",\n      \"name\": \"NewsCatcher\",\n      \"entity_type\": \"company\",\n      \"status\": \"<string>\",\n      \"description\": \"AI-powered news data provider\",\n      \"attributes\": {\n        \"domain\": \"newscatcherapi.com\",\n        \"description\": \"Provider of news and web search APIs for developers\",\n        \"key_persons\": [\n          \"Artem Bugara\",\n          \"Maksym Sugonyaka\"\n        ],\n        \"alternative_names\": [\n          \"NC\",\n          \"NewsCatcher API\"\n        ]\n      }\n    },\n    {\n      \"id\": \"854198fa-f702-49db-a381-0427fa87f173\",\n      \"name\": \"NewsCatcher\",\n      \"entity_type\": \"company\",\n      \"status\": \"<string>\",\n      \"description\": \"AI-powered news data provider\",\n      \"attributes\": {\n        \"domain\": \"newscatcherapi.com\",\n        \"description\": \"Provider of news and web search APIs for developers\",\n        \"key_persons\": [\n          \"Artem Bugara\",\n          \"Maksym Sugonyaka\"\n        ],\n        \"alternative_names\": [\n          \"NC\",\n          \"NewsCatcher API\"\n        ]\n      }\n    }\n  ],\n  \"total\": 4,\n  \"page\": 1,\n  \"page_size\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ea550d5-c530-48dc-8521-bd5546d6facc",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id",
+                    "entities",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"page\": 1,\n  \"page_size\": 100,\n  \"search\": \"OpenAI\",\n  \"status\": \"ready\",\n  \"entity_type\": \"company\",\n  \"sort_by\": \"created_at\",\n  \"sort_order\": \"desc\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6b7e9d4-71fd-411f-8894-44f2fddfe4cf",
+              "name": "Job/monitor not found or results not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id",
+                    "entities",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"page\": 1,\n  \"page_size\": 100,\n  \"search\": \"OpenAI\",\n  \"status\": \"ready\",\n  \"entity_type\": \"company\",\n  \"sort_by\": \"created_at\",\n  \"sort_order\": \"desc\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10380426-1f27-409f-a3de-90f84aaf036e",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id",
+                    "entities",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"page\": 1,\n  \"page_size\": 100,\n  \"search\": \"OpenAI\",\n  \"status\": \"ready\",\n  \"entity_type\": \"company\",\n  \"sort_by\": \"created_at\",\n  \"sort_order\": \"desc\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "97cb27cb-8d83-4d9f-be0f-54b83b86baac",
+          "name": "Get dataset status history",
+          "request": {
+            "name": "Get dataset status history",
+            "description": {
+              "content": "Returns the full status change history for a dataset, ordered chronologically from oldest to newest.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "datasets",
+                ":dataset_id",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "dataset_id",
+                  "description": "(Required) Unique dataset identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bc69a611-3790-4f70-ab6b-1e26f23ec804",
+              "name": "Dataset status change history.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dataset_id\": \"ccabb755-afc2-4047-b84c-78d1f23d49b2\",\n  \"history\": [\n    {\n      \"status\": \"pending\",\n      \"additional_information\": null,\n      \"created_at\": \"2026-04-08T15:21:36.066271\"\n    },\n    {\n      \"status\": \"enriching\",\n      \"additional_information\": null,\n      \"created_at\": \"2026-04-08T15:21:36.500000\"\n    },\n    {\n      \"status\": \"ready\",\n      \"additional_information\": null,\n      \"created_at\": \"2026-04-08T15:21:55.000000\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c53ae2f-8747-497f-ab9c-773a31e5db63",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8e3ef99-5386-4e83-a3cd-956b5106f2e9",
+              "name": "Job/monitor not found or results not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f044700d-d174-4486-a016-e2c3a26afd73",
+          "name": "Add companies to dataset via CSV",
+          "request": {
+            "name": "Add companies to dataset via CSV",
+            "description": {
+              "content": "Appends new companies to an existing dataset by uploading a CSV file. Uses the same CSV format as the dataset creation endpoint.\n\nThe response omits `dataset_name` compared to the create-from-CSV endpoint since the dataset already exists.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "datasets",
+                ":dataset_id",
+                "upload"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "dataset_id",
+                  "description": "(Required) Unique dataset identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) The CSV file to upload."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c6e47cba-e5dc-4d9f-bf02-b795d5c5be7d",
+              "name": "Companies added to dataset from CSV successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The CSV file to upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dataset_id\": \"ccabb755-afc2-4047-b84c-78d1f23d49b2\",\n  \"entities_created\": 3,\n  \"validation_report\": {\n    \"total_rows\": 3,\n    \"valid_rows\": 3,\n    \"skipped_count\": 0,\n    \"skipped_rows\": []\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2333a96-9257-490d-b2f9-8e27a5617a43",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The CSV file to upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a0f8d61-422f-4bf5-805d-c1b866e4aaa3",
+              "name": "Job/monitor not found or results not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The CSV file to upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70d60f8b-9bcb-40e9-8e44-a0697de74860",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "datasets",
+                    ":dataset_id",
+                    "upload"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "dataset_id",
+                      "description": "(Required) Unique dataset identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The CSV file to upload.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://local-news.newscatcherapi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4a7a8efe-69f8-4736-bc08-2c82b34fdf6f",
+    "name": "Local News AggregationCount Datasets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Local News API provides access to local news articles with location-specific filtering capabilities.\n\n## Standard endpoints\n\n- `/search`: Search articles by keywords with simple location filtering (\"City, State\" format).\n- `/latest_headlines`: Retrieve recent articles for specified locations and time periods.\n- `/search_by`: Retrieve articles by URL, ID, or RSS GUID.\n- `/sources`: List available news sources.\n\n## Advanced endpoints\n\n- `/search/advanced`: Search with structured GeoNames filtering.\n- `/latest_headlines/advanced`: Latest headlines with structured GeoNames filtering.\n\n## Features\n\n- Multiple location detection methods including dedicated sources, proximity analysis, and AI extraction\n- Natural language processing for sentiment analysis and entity recognition on original content and English translations\n- Article clustering for topic analysis\n- English translations for non-English content\n\n\nContact Support:\n Name: Maksym Sugonyaka\n Email: maksym@newscatcherapi.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,1390 @@
+{
+  "item": [
+    {
+      "id": "0a9e320a-cc9f-4fcb-9ce9-209d7fd55f46",
+      "name": "Entities",
+      "description": {
+        "content": "Operations to create, update, and delete company entities.\n\nEntities are the building blocks of Company Watchlist. Each entity represents\na company (or person) you want to track. Add identifying information such as\ndomain, alternative names, and key persons to improve matching quality.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c49d64c3-ffe7-4705-8794-19cc69fb624b",
+          "name": "List entities",
+          "request": {
+            "name": "List entities",
+            "description": {
+              "content": "Returns a paginated list of entities belonging to the authenticated organization. Supports filtering by status and entity type, and sorting by name, status, or creation date.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "entities"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number to retrieve.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "100",
+                  "description": "Number of entities per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Filter entities by name (case-insensitive substring match)."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "entity_type",
+                  "value": "company"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "created_at"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_order",
+                  "value": "desc"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2fb57717-caf8-4fd8-9b3d-e5694a487a5b",
+              "name": "Paginated list of entities.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "entities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    },
+                    {
+                      "key": "search",
+                      "value": "NewsCatcher"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entity_type",
+                      "value": "company"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"entities\": [\n    {\n      \"id\": \"854198fa-f702-49db-a381-0427fa87f173\",\n      \"entity_type\": \"company\",\n      \"organization_id\": \"e5d9e9b0-e415-4941-8ef0-916c5ee56207\",\n      \"name\": \"NewsCatcher\",\n      \"status\": \"<string>\",\n      \"description\": \"AI-powered news data provider\",\n      \"additional_attributes\": {\n        \"company_attributes\": {\n          \"domain\": \"newscatcherapi.com\",\n          \"description\": \"Provider of news and web search APIs for developers\",\n          \"key_persons\": [\n            \"Artem Bugara\",\n            \"Maksym Sugonyaka\"\n          ],\n          \"alternative_names\": [\n            \"NC\",\n            \"NewsCatcher API\"\n          ]\n        }\n      },\n      \"created_by_user_id\": \"870e258e-12ec-4a47-8656-e7a43b0265b3\",\n      \"created_at\": \"2026-04-08T15:21:17.272139\",\n      \"updated_at\": \"2026-04-08T15:21:18.248316\"\n    },\n    {\n      \"id\": \"854198fa-f702-49db-a381-0427fa87f173\",\n      \"entity_type\": \"company\",\n      \"organization_id\": \"e5d9e9b0-e415-4941-8ef0-916c5ee56207\",\n      \"name\": \"NewsCatcher\",\n      \"status\": \"<string>\",\n      \"description\": \"AI-powered news data provider\",\n      \"additional_attributes\": {\n        \"company_attributes\": {\n          \"domain\": \"newscatcherapi.com\",\n          \"description\": \"Provider of news and web search APIs for developers\",\n          \"key_persons\": [\n            \"Artem Bugara\",\n            \"Maksym Sugonyaka\"\n          ],\n          \"alternative_names\": [\n            \"NC\",\n            \"NewsCatcher API\"\n          ]\n        }\n      },\n      \"created_by_user_id\": \"870e258e-12ec-4a47-8656-e7a43b0265b3\",\n      \"created_at\": \"2026-04-08T15:21:17.272139\",\n      \"updated_at\": \"2026-04-08T15:21:18.248316\"\n    }\n  ],\n  \"total\": 17,\n  \"page\": 1,\n  \"page_size\": 100\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f1b4a75-0c0a-4c9b-9f0d-6d8daa142b3a",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "entities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    },
+                    {
+                      "key": "search",
+                      "value": "NewsCatcher"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "entity_type",
+                      "value": "company"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ff52bb20-4cac-42f2-a57f-eb506e051d3d",
+          "name": "Create entity",
+          "request": {
+            "name": "Create entity",
+            "description": {
+              "content": "Creates a new company entity and begins background enrichment.\n\nThe entity status starts as `pending` and transitions to `ready` once\nenrichment completes. Provide as much identifying information as\npossible — `domain` is the highest-signal field because it is\nunambiguous.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "entities"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"entity_type\": \"company\",\n  \"description\": \"<string>\",\n  \"additional_attributes\": {\n    \"company_attributes\": {\n      \"domain\": \"<string,null>\",\n      \"description\": \"<string,null>\",\n      \"key_persons\": \"<array,null>\",\n      \"alternative_names\": \"<array,null>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "146a7ad9-109e-4df9-b3a8-08e85cb46c28",
+              "name": "Entity created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "entities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"NewsCatcher\",\n  \"entity_type\": \"company\",\n  \"description\": \"AI-powered news data provider\",\n  \"additional_attributes\": {\n    \"company_attributes\": {\n      \"domain\": \"newscatcherapi.com\",\n      \"alternative_names\": [\n        \"NC\",\n        \"NewsCatcher API\"\n      ],\n      \"key_persons\": [\n        \"Artem Bugara\",\n        \"Maksym Sugonyaka\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"854198fa-f702-49db-a381-0427fa87f173\",\n  \"status\": \"pending\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3dba2194-4612-4496-acc3-5e5c97f5a00f",
+              "name": "Validation error in entity field values.\n\nReturned when required fields are missing or field values are invalid\n(for example, an unrecognised `entity_type` value). The response body\nuses a `message`/`status`/`status_code` structure, distinct from the\nstandard `detail`-based error format used elsewhere in the API.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "entities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"NewsCatcher\",\n  \"entity_type\": \"company\",\n  \"description\": \"AI-powered news data provider\",\n  \"additional_attributes\": {\n    \"company_attributes\": {\n      \"domain\": \"newscatcherapi.com\",\n      \"alternative_names\": [\n        \"NC\",\n        \"NewsCatcher API\"\n      ],\n      \"key_persons\": [\n        \"Artem Bugara\",\n        \"Maksym Sugonyaka\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Validation Error with the following fields: [{'field': 'body.name', 'message': 'field required', 'type': 'value_error.missing'}]\",\n  \"status\": \"Bad Request\",\n  \"status_code\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "534354a8-2410-4cfa-b286-18593612cb75",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "entities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"NewsCatcher\",\n  \"entity_type\": \"company\",\n  \"description\": \"AI-powered news data provider\",\n  \"additional_attributes\": {\n    \"company_attributes\": {\n      \"domain\": \"newscatcherapi.com\",\n      \"alternative_names\": [\n        \"NC\",\n        \"NewsCatcher API\"\n      ],\n      \"key_persons\": [\n        \"Artem Bugara\",\n        \"Maksym Sugonyaka\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c66c8042-fd7c-41e8-92dc-c0226671d1e5",
+          "name": "Create entities in batch",
+          "request": {
+            "name": "Create entities in batch",
+            "description": {
+              "content": "Creates multiple entities in a single request. Each entity is processed independently — a failure in one does not affect others.\n\nReturns an array of `{id, status}` objects in the same order as the input array.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "entities",
+                "batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entities\": [\n    {\n      \"name\": \"<string>\",\n      \"entity_type\": \"company\",\n      \"description\": \"<string>\",\n      \"additional_attributes\": {\n        \"company_attributes\": {\n          \"domain\": \"<string,null>\",\n          \"description\": \"<string,null>\",\n          \"key_persons\": \"<array,null>\",\n          \"alternative_names\": \"<array,null>\"\n        }\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6c1fb215-1d46-4c90-bcfb-b4660c7f6ef8",
+              "name": "Batch of entities created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "entities",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entities\": [\n    {\n      \"name\": \"OpenAI\",\n      \"entity_type\": \"company\",\n      \"description\": \"Artificial intelligence research company\",\n      \"additional_attributes\": {\n        \"company_attributes\": {\n          \"domain\": \"openai.com\",\n          \"alternative_names\": [\n            \"Open AI\"\n          ],\n          \"key_persons\": [\n            \"Sam Altman\"\n          ]\n        }\n      }\n    },\n    {\n      \"name\": \"Stripe\",\n      \"entity_type\": \"company\",\n      \"description\": \"Online payment processing platform\",\n      \"additional_attributes\": {\n        \"company_attributes\": {\n          \"domain\": \"stripe.com\",\n          \"key_persons\": [\n            \"Patrick Collison\",\n            \"John Collison\"\n          ]\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"entities\": [\n    {\n      \"id\": \"88430468-d784-485d-84d5-6964a29ccd1e\",\n      \"status\": \"pending\"\n    },\n    {\n      \"id\": \"ad4908fe-6db5-4237-a137-68dd8fc9fedc\",\n      \"status\": \"pending\"\n    }\n  ],\n  \"count\": 2\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ba7c9bac-5d0d-4571-8e90-643e28842cfa",
+              "name": "Validation error in entity field values.\n\nReturned when required fields are missing or field values are invalid\n(for example, an unrecognised `entity_type` value). The response body\nuses a `message`/`status`/`status_code` structure, distinct from the\nstandard `detail`-based error format used elsewhere in the API.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "entities",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entities\": [\n    {\n      \"name\": \"OpenAI\",\n      \"entity_type\": \"company\",\n      \"description\": \"Artificial intelligence research company\",\n      \"additional_attributes\": {\n        \"company_attributes\": {\n          \"domain\": \"openai.com\",\n          \"alternative_names\": [\n            \"Open AI\"\n          ],\n          \"key_persons\": [\n            \"Sam Altman\"\n          ]\n        }\n      }\n    },\n    {\n      \"name\": \"Stripe\",\n      \"entity_type\": \"company\",\n      \"description\": \"Online payment processing platform\",\n      \"additional_attributes\": {\n        \"company_attributes\": {\n          \"domain\": \"stripe.com\",\n          \"key_persons\": [\n            \"Patrick Collison\",\n            \"John Collison\"\n          ]\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Validation Error with the following fields: [{'field': 'body.name', 'message': 'field required', 'type': 'value_error.missing'}]\",\n  \"status\": \"Bad Request\",\n  \"status_code\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0adaf7ef-ddc4-49d7-8538-ad03ba3d17ae",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "entities",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entities\": [\n    {\n      \"name\": \"OpenAI\",\n      \"entity_type\": \"company\",\n      \"description\": \"Artificial intelligence research company\",\n      \"additional_attributes\": {\n        \"company_attributes\": {\n          \"domain\": \"openai.com\",\n          \"alternative_names\": [\n            \"Open AI\"\n          ],\n          \"key_persons\": [\n            \"Sam Altman\"\n          ]\n        }\n      }\n    },\n    {\n      \"name\": \"Stripe\",\n      \"entity_type\": \"company\",\n      \"description\": \"Online payment processing platform\",\n      \"additional_attributes\": {\n        \"company_attributes\": {\n          \"domain\": \"stripe.com\",\n          \"key_persons\": [\n            \"Patrick Collison\",\n            \"John Collison\"\n          ]\n        }\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7658056c-adc2-4c39-b613-4907f12b6592",
+          "name": "Get entity",
+          "request": {
+            "name": "Get entity",
+            "description": {
+              "content": "Returns a single entity by ID with all attributes and current status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "entities",
+                ":entity_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "entity_id",
+                  "description": "(Required) Unique entity identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4f69bfb3-0e2b-42f8-87f9-9b4e8a0731e0",
+              "name": "Full entity object with all attributes and metadata.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "entities",
+                    ":entity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entity_id",
+                      "description": "(Required) Unique entity identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"854198fa-f702-49db-a381-0427fa87f173\",\n  \"entity_type\": \"company\",\n  \"organization_id\": \"e5d9e9b0-e415-4941-8ef0-916c5ee56207\",\n  \"name\": \"NewsCatcher\",\n  \"description\": \"AI-powered news data provider\",\n  \"additional_attributes\": {\n    \"company_attributes\": {\n      \"domain\": \"newscatcherapi.com\",\n      \"description\": \"Provider of news and web search APIs for developers\",\n      \"key_persons\": [\n        \"Artem Bugara\",\n        \"Maksym Sugonyaka\"\n      ],\n      \"alternative_names\": [\n        \"NC\",\n        \"NewsCatcher API\"\n      ]\n    }\n  },\n  \"status\": \"ready\",\n  \"created_by_user_id\": \"870e258e-12ec-4a47-8656-e7a43b0265b3\",\n  \"created_at\": \"2026-04-08T15:21:17.272139\",\n  \"updated_at\": \"2026-04-08T15:21:18.248316\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c490abf0-c65d-4a3f-8596-3a85575e8040",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "entities",
+                    ":entity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entity_id",
+                      "description": "(Required) Unique entity identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b77091d2-ec1b-46c1-8631-92f36a5277cf",
+              "name": "Job/monitor not found or results not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "entities",
+                    ":entity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entity_id",
+                      "description": "(Required) Unique entity identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "60bc9ab4-1cd0-4ac6-a6da-6efe7fded3dd",
+          "name": "Update entity",
+          "request": {
+            "name": "Update entity",
+            "description": {
+              "content": "Updates one or more fields of an existing entity.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "entities",
+                ":entity_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "entity_id",
+                  "description": "(Required) Unique entity identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"additional_attributes\": {\n    \"company_attributes\": {\n      \"domain\": \"<string,null>\",\n      \"description\": \"<string,null>\",\n      \"key_persons\": \"<array,null>\",\n      \"alternative_names\": \"<array,null>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fc35593d-a7c7-43c9-a973-ffb27d13d54e",
+              "name": "Full entity object with all attributes and metadata.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "entities",
+                    ":entity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entity_id",
+                      "description": "(Required) Unique entity identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"Updated description\",\n  \"additional_attributes\": {\n    \"company_attributes\": {\n      \"alternative_names\": [\n        \"NC\",\n        \"NewsCatcher API\",\n        \"NCA\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"854198fa-f702-49db-a381-0427fa87f173\",\n  \"entity_type\": \"company\",\n  \"organization_id\": \"e5d9e9b0-e415-4941-8ef0-916c5ee56207\",\n  \"name\": \"NewsCatcher\",\n  \"description\": \"AI-powered news data provider\",\n  \"additional_attributes\": {\n    \"company_attributes\": {\n      \"domain\": \"newscatcherapi.com\",\n      \"description\": \"Provider of news and web search APIs for developers\",\n      \"key_persons\": [\n        \"Artem Bugara\",\n        \"Maksym Sugonyaka\"\n      ],\n      \"alternative_names\": [\n        \"NC\",\n        \"NewsCatcher API\"\n      ]\n    }\n  },\n  \"status\": \"ready\",\n  \"created_by_user_id\": \"870e258e-12ec-4a47-8656-e7a43b0265b3\",\n  \"created_at\": \"2026-04-08T15:21:17.272139\",\n  \"updated_at\": \"2026-04-08T15:21:18.248316\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5adb4955-dd73-4b70-8f15-4f23fa159254",
+              "name": "Validation error in entity field values.\n\nReturned when required fields are missing or field values are invalid\n(for example, an unrecognised `entity_type` value). The response body\nuses a `message`/`status`/`status_code` structure, distinct from the\nstandard `detail`-based error format used elsewhere in the API.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "entities",
+                    ":entity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entity_id",
+                      "description": "(Required) Unique entity identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"Updated description\",\n  \"additional_attributes\": {\n    \"company_attributes\": {\n      \"alternative_names\": [\n        \"NC\",\n        \"NewsCatcher API\",\n        \"NCA\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Validation Error with the following fields: [{'field': 'body.name', 'message': 'field required', 'type': 'value_error.missing'}]\",\n  \"status\": \"Bad Request\",\n  \"status_code\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f0ade9d-f5f3-4078-827b-cfbdce3b575c",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "entities",
+                    ":entity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entity_id",
+                      "description": "(Required) Unique entity identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"Updated description\",\n  \"additional_attributes\": {\n    \"company_attributes\": {\n      \"alternative_names\": [\n        \"NC\",\n        \"NewsCatcher API\",\n        \"NCA\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c636bb56-6fe2-4fc0-8f25-9b21fe1d708f",
+              "name": "Job/monitor not found or results not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "entities",
+                    ":entity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entity_id",
+                      "description": "(Required) Unique entity identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"Updated description\",\n  \"additional_attributes\": {\n    \"company_attributes\": {\n      \"alternative_names\": [\n        \"NC\",\n        \"NewsCatcher API\",\n        \"NCA\"\n      ]\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9e95d22c-ba26-4a20-8e55-3922ea3eb45d",
+          "name": "Delete entity",
+          "request": {
+            "name": "Delete entity",
+            "description": {
+              "content": "Permanently deletes an entity. The entity is removed from all\ndatasets and the search index. This operation cannot be undone.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "entities",
+                ":entity_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "entity_id",
+                  "description": "(Required) Unique entity identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2b0bb886-f58e-4687-8349-45fa2b64cf7b",
+              "name": "Entity deleted successfully. No response body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "entities",
+                    ":entity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entity_id",
+                      "description": "(Required) Unique entity identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "015ebefc-0473-422d-9a29-76bd7368ed16",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "entities",
+                    ":entity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entity_id",
+                      "description": "(Required) Unique entity identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a6a69519-d51d-4ce1-beee-7e579b85f9ee",
+              "name": "Job/monitor not found or results not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "entities",
+                    ":entity_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "entity_id",
+                      "description": "(Required) Unique entity identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://local-news.newscatcherapi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b6032c01-cc6c-491d-a43d-d01c4d461264",
+    "name": "Local News AggregationCount Entities API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Local News API provides access to local news articles with location-specific filtering capabilities.\n\n## Standard endpoints\n\n- `/search`: Search articles by keywords with simple location filtering (\"City, State\" format).\n- `/latest_headlines`: Retrieve recent articles for specified locations and time periods.\n- `/search_by`: Retrieve articles by URL, ID, or RSS GUID.\n- `/sources`: List available news sources.\n\n## Advanced endpoints\n\n- `/search/advanced`: Search with structured GeoNames filtering.\n- `/latest_headlines/advanced`: Latest headlines with structured GeoNames filtering.\n\n## Features\n\n- Multiple location detection methods including dedicated sources, proximity analysis, and AI extraction\n- Natural language processing for sentiment analysis and entity recognition on original content and English translations\n- Article clustering for topic analysis\n- English translations for non-English content\n\n\nContact Support:\n Name: Maksym Sugonyaka\n Email: maksym@newscatcherapi.com",
+      "type": "text/plain"
+    }
+  }
+}

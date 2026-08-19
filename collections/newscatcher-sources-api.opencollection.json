@@ -1,0 +1,115 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Local News AggregationCount Sources API",
+    "version": "1.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-token",
+      "value": "{{x-api-token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sources",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/api/sources",
+            "params": [
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "The language(s) of the search. The only accepted format is the two-letter [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) code. To select multiple languages, use a comma-separated string.\n\nTo learn more, see [Enumerated parameters > Language](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#language-lang-and-not-lang).\n"
+              },
+              {
+                "name": "countries",
+                "value": "",
+                "type": "query",
+                "description": "The countries where the news publisher is located. The accepted format is the two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code. To select multiple countries, use a comma-separated string.\n\nTo learn more, see [Enumerated parameters > Country](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#country-country-and-not-country).\n"
+              },
+              {
+                "name": "predefined_sources",
+                "value": "",
+                "type": "query",
+                "description": "Predefined top news sources per country. \n\nFormat: start with the word `top`, followed by the number of desired sources, and then the two-letter country code [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). \n\nMultiple countries with the number of top sources can be specified as a comma-separated string.\n"
+              },
+              {
+                "name": "source_name",
+                "value": "",
+                "type": "query",
+                "description": "Word or phrase to search within the source names. To specify multiple values, use a comma-separated string.\n\n**Note**: The search doesn't require an exact match and returns sources containing the specified terms in their names. You can use any word or phrase, like `\"sport\"` or `\"new york times\"`. \n\nFor example, `\"sport\"` returns sources such as `\"Motorsport\"`, `\"Dot Esport\"`, and `\"Tuttosport\"`.\n"
+              },
+              {
+                "name": "source_url",
+                "value": "bbc.com",
+                "type": "query",
+                "description": "The domain(s) of the news publication to search for. \n\n**Caution**:  When specifying the `source_url` parameter, \nyou can only use `include_additional_info` as an extra parameter.\n"
+              },
+              {
+                "name": "include_additional_info",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "is_news_domain",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "news_domain_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "news_type",
+                "value": "General News Outlets,Tech News and Updates",
+                "type": "query",
+                "description": "Filters results based on the news type. Multiple types can be specified using a comma-separated string.\n\nFor a complete list of available news types, see [Enumerated parameters > News type](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#news-type-news-type).\n"
+              },
+              {
+                "name": "from_rank",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "to_rank",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of sources based on specified criteria such as language, country, rank, and more."
+        },
+        {
+          "info": {
+            "name": "Retrieve sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/api/sources",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves the list of local news sources available in the database. Filterable by language, country, and theme."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

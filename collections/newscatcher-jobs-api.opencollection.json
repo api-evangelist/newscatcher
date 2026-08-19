@@ -1,0 +1,197 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Local News AggregationCount Jobs API",
+    "version": "1.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-token",
+      "value": "{{x-api-token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List user jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/catchAll/jobs/user",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve.\n"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page.\n"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by text (case-insensitive substring match)."
+              },
+              {
+                "name": "ownership",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "project_id",
+                "value": "60a85db4-78ec-4b78-876a-bc7d9cdadd04",
+                "type": "query",
+                "description": "Filter results to resources belonging to this project."
+              }
+            ]
+          },
+          "docs": "Returns all jobs created by the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Validate query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/catchAll/validate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Checks whether a query is well-formed and likely to produce good results before submitting a job.\n\nReturns a quality assessment with a status level, identified issues, and actionable suggestions.\n"
+        },
+        {
+          "info": {
+            "name": "Initialize job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/catchAll/initialize",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get suggested validators, enrichments, and date ranges for a query."
+        },
+        {
+          "info": {
+            "name": "Create job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/catchAll/submit",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submit a query to create a new processing job."
+        },
+        {
+          "info": {
+            "name": "Get job status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/catchAll/status/:job_id",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "5f0c9087-85cb-4917-b3c7-e5a5eff73a0c",
+                "type": "path",
+                "description": "Unique job identifier returned from [`POST /catchAll/submit`](https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/create-job).\n"
+              }
+            ]
+          },
+          "docs": "Retrieve the current processing status of a job."
+        },
+        {
+          "info": {
+            "name": "Get job results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/catchAll/pull/:job_id",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "5f0c9087-85cb-4917-b3c7-e5a5eff73a0c",
+                "type": "path",
+                "description": "Unique job identifier returned from [`POST /catchAll/submit`](https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/create-job).\n"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve.\n"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page.\n"
+              }
+            ]
+          },
+          "docs": "Retrieve the final results for a completed job."
+        },
+        {
+          "info": {
+            "name": "Continue job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/catchAll/continue",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Continue an existing job to process more records beyond the initial limit."
+        },
+        {
+          "info": {
+            "name": "Delete job",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://local-news.newscatcherapi.com/catchAll/jobs/:job_id",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "5f0c9087-85cb-4917-b3c7-e5a5eff73a0c",
+                "type": "path",
+                "description": "Unique job identifier returned from [`POST /catchAll/submit`](https://www.newscatcherapi.com/docs/web-search-api/api-reference/jobs/create-job).\n"
+              }
+            ]
+          },
+          "docs": "Soft-deletes a job. The job is flagged as deleted and no longer appears in list results. The underlying data is retained.\n\nOnly the job owner can delete a job. Returns `404` if the job is not found or does not belong to the authenticated user.\n\nDeleting an already-deleted job returns `200`.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

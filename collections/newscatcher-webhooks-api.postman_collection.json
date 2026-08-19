@@ -1,0 +1,3193 @@
+{
+  "item": [
+    {
+      "id": "1df10716-1070-40c3-a3b4-d9051f88312f",
+      "name": "Webhooks",
+      "description": {
+        "content": "Operations to create and manage reusable webhook endpoints.\n\nA webhook is a named HTTP endpoint that receives a POST notification\nwhen a job or monitor completes. Create webhooks once at the organization\nlevel and attach them to any number of jobs or monitors via `webhook_ids`.\nSupports Slack, Microsoft Teams, and generic HTTP targets with configurable\ndelivery modes, authentication, and headers.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "871fc1a2-9648-4c2f-9a29-d30bff7a4452",
+          "name": "Create webhook",
+          "request": {
+            "name": "Create webhook",
+            "description": {
+              "content": "Creates a new webhook endpoint for the organization.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "webhooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"type\": \"<string>\",\n  \"delivery_mode\": \"<string>\",\n  \"method\": \"<string>\",\n  \"headers\": {},\n  \"params\": {},\n  \"auth\": {\n    \"type\": \"<string>\",\n    \"token\": \"<string>\"\n  },\n  \"formatter_config\": \"<object,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "be1c9ea2-4f50-484e-a15e-a0a144be0c6c",
+              "name": "Webhook created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Layoffs Alert\",\n  \"url\": \"https://hooks.slack.com/services/T000/B000/xxx\",\n  \"type\": \"slack\",\n  \"delivery_mode\": \"full\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"Webhook created successfully.\",\n  \"webhook\": {\n    \"id\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n    \"name\": \"Layoffs Alert\",\n    \"url\": \"https://hooks.slack.com/services/T000/B000/xxx\",\n    \"type\": \"slack\",\n    \"delivery_mode\": \"full\",\n    \"method\": \"POST\",\n    \"headers\": {},\n    \"params\": {},\n    \"formatter_config\": null,\n    \"is_active\": true,\n    \"organization_id\": \"org-uuid-here\",\n    \"created_by_user_id\": \"user-uuid-here\",\n    \"created_at\": \"2026-05-18T10:00:00Z\",\n    \"updated_at\": \"2026-05-18T10:00:00Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2bc685c-0713-4d67-bc0b-f6d96ce20b0d",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Layoffs Alert\",\n  \"url\": \"https://hooks.slack.com/services/T000/B000/xxx\",\n  \"type\": \"slack\",\n  \"delivery_mode\": \"full\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8ef4994-0a25-436f-8b21-ca4333e418c5",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Layoffs Alert\",\n  \"url\": \"https://hooks.slack.com/services/T000/B000/xxx\",\n  \"type\": \"slack\",\n  \"delivery_mode\": \"full\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4df84301-c409-417a-a2d6-94cb6ffbcc70",
+          "name": "List webhooks",
+          "request": {
+            "name": "List webhooks",
+            "description": {
+              "content": "Returns a paginated list of webhooks belonging to the organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "webhooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number to retrieve.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "100",
+                  "description": "Number of webhooks per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Filter results by text (case-insensitive substring match)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "64cd4673-a15e-460d-b758-afb129d9538e",
+              "name": "Webhooks retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 2,\n  \"page\": 1,\n  \"page_size\": 100,\n  \"total_pages\": 1,\n  \"webhooks\": [\n    {\n      \"id\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"name\": \"Layoffs Alert\",\n      \"url\": \"https://hooks.slack.com/services/T000/B000/xxx\",\n      \"type\": \"slack\",\n      \"delivery_mode\": \"full\",\n      \"method\": \"POST\",\n      \"headers\": {},\n      \"params\": {},\n      \"formatter_config\": null,\n      \"is_active\": true,\n      \"organization_id\": \"org-uuid-here\",\n      \"created_by_user_id\": \"user-uuid-here\",\n      \"created_at\": \"2026-05-18T10:00:00Z\",\n      \"updated_at\": \"2026-05-18T10:00:00Z\"\n    },\n    {\n      \"id\": \"b2c3d4e5-f6a7-8901-bcde-f12345678901\",\n      \"name\": \"M&A Tracker\",\n      \"url\": \"https://my-service.example.com/catchall-hook\",\n      \"type\": \"generic\",\n      \"delivery_mode\": \"per_record\",\n      \"method\": \"POST\",\n      \"headers\": {\n        \"Authorization\": \"Bearer token123\"\n      },\n      \"params\": {},\n      \"formatter_config\": null,\n      \"is_active\": true,\n      \"organization_id\": \"org-uuid-here\",\n      \"created_by_user_id\": \"user-uuid-here\",\n      \"created_at\": \"2026-05-19T09:00:00Z\",\n      \"updated_at\": \"2026-05-19T09:00:00Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "57a78ddc-3e22-439e-84fc-bb7b055e64fc",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79ed7717-2a42-4398-9224-6f213d739130",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "98f79aed-77f2-497c-b09b-61288e6b3dc4",
+          "name": "Get webhook",
+          "request": {
+            "name": "Get webhook",
+            "description": {
+              "content": "Returns the full configuration of a single webhook by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "webhooks",
+                ":webhook_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "webhook_id",
+                  "description": "(Required) Unique webhook identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "83d4ddbb-17f6-426a-86e4-188302828ed7",
+              "name": "Webhook retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"Webhook retrieved successfully.\",\n  \"webhook\": {\n    \"id\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n    \"name\": \"Layoffs Alert\",\n    \"url\": \"https://hooks.slack.com/services/T000/B000/xxx\",\n    \"type\": \"slack\",\n    \"delivery_mode\": \"full\",\n    \"method\": \"POST\",\n    \"headers\": {},\n    \"params\": {},\n    \"formatter_config\": null,\n    \"is_active\": true,\n    \"organization_id\": \"org-uuid-here\",\n    \"created_by_user_id\": \"user-uuid-here\",\n    \"created_at\": \"2026-05-18T10:00:00Z\",\n    \"updated_at\": \"2026-05-18T10:00:00Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c2218f2c-0d61-44f2-82df-72479ccd4e9a",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73dfcad3-4892-428e-b598-21c6ecd3f2a4",
+              "name": "Job/monitor not found or results not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b16539bc-7213-48b7-a14a-2182726c7a52",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f5d90780-31f6-47db-a1c2-6b93f401c4d8",
+          "name": "Update webhook",
+          "request": {
+            "name": "Update webhook",
+            "description": {
+              "content": "Updates one or more fields of an existing webhook.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "webhooks",
+                ":webhook_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "webhook_id",
+                  "description": "(Required) Unique webhook identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"type\": \"<string>\",\n  \"delivery_mode\": \"<string>\",\n  \"method\": \"<string>\",\n  \"headers\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"params\": {\n    \"key_0\": \"<string>\"\n  },\n  \"auth\": {\n    \"type\": \"<string>\",\n    \"token\": \"<string>\"\n  },\n  \"formatter_config\": \"<object,null>\",\n  \"is_active\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "eed9e0ff-1980-4a78-b90f-69630384f30d",
+              "name": "Webhook updated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Layoffs Alert (EU)\",\n  \"is_active\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"Webhook updated successfully.\",\n  \"webhook\": {\n    \"id\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n    \"name\": \"Layoffs Alert (EU)\",\n    \"url\": \"https://hooks.slack.com/services/T000/B111/yyyy\",\n    \"type\": \"slack\",\n    \"delivery_mode\": \"full\",\n    \"method\": \"POST\",\n    \"headers\": {},\n    \"params\": {},\n    \"formatter_config\": null,\n    \"is_active\": true,\n    \"organization_id\": \"org-uuid-here\",\n    \"created_by_user_id\": \"user-uuid-here\",\n    \"created_at\": \"2026-05-18T10:00:00Z\",\n    \"updated_at\": \"2026-05-19T08:30:00Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a6c4104-2a04-4c83-8400-703c15843b68",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Layoffs Alert (EU)\",\n  \"is_active\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bbd74576-2d4e-4b5a-8af3-ddb97709548d",
+              "name": "Job/monitor not found or results not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Layoffs Alert (EU)\",\n  \"is_active\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ff494fe-3b8a-4ba3-8c0d-a55684d2e6c5",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Layoffs Alert (EU)\",\n  \"is_active\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ff5716f5-a67f-48c8-a09c-89749d5306ed",
+          "name": "Delete webhook",
+          "request": {
+            "name": "Delete webhook",
+            "description": {
+              "content": "Permanently deletes a webhook and removes all resource assignments. \n\nAssigned jobs and monitors no longer trigger delivery to this webhook. This operation cannot be undone.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "webhooks",
+                ":webhook_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "webhook_id",
+                  "description": "(Required) Unique webhook identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6b529276-9166-4b34-903d-41d063762b82",
+              "name": "Webhook deleted successfully. No response body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9c2eeadf-9222-4199-8490-6c00dd92bebb",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c9dce03-cd8c-4eb9-9739-980499d2837a",
+              "name": "Job/monitor not found or results not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0a01c1ad-d8ad-4ade-9b0e-8e324d5f0230",
+          "name": "Test webhook delivery",
+          "request": {
+            "name": "Test webhook delivery",
+            "description": {
+              "content": "Sends a test HTTP request to the webhook URL using the webhook's configured method, headers, and auth. Returns the response from the target endpoint.\n\nUse this to verify URL reachability and authentication before attaching the webhook to a live job or monitor.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "webhooks",
+                ":webhook_id",
+                "test"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "webhook_id",
+                  "description": "(Required) Unique webhook identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payload\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bf17ef90-215a-4c46-b5eb-c958d5b032bd",
+              "name": "Test delivery attempted. Check `success` and `http_status_code` for the outcome.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id",
+                    "test"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payload\": {\n    \"test\": true,\n    \"message\": \"CatchAll webhook test\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"Test delivery succeeded.\",\n  \"http_status_code\": 200,\n  \"response_body\": \"ok\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c4ddc62-4fac-4cb1-b355-035403aedfa1",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id",
+                    "test"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payload\": {\n    \"test\": true,\n    \"message\": \"CatchAll webhook test\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "37a5ca36-9146-4591-95dc-7f62d5c23410",
+              "name": "Job/monitor not found or results not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id",
+                    "test"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payload\": {\n    \"test\": true,\n    \"message\": \"CatchAll webhook test\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e32d8fd-0b02-4847-827d-2246a875d750",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id",
+                    "test"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payload\": {\n    \"test\": true,\n    \"message\": \"CatchAll webhook test\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "40e2d191-728b-4147-8eef-db743c95862d",
+          "name": "Assign resource to webhook",
+          "request": {
+            "name": "Assign resource to webhook",
+            "description": {
+              "content": "Attaches a job, monitor, or monitor group to the webhook. When the\nresource completes, the webhook receives a delivery.\n\nA single webhook can be assigned to multiple resources. Each resource\ncan have up to 5 webhooks assigned.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "webhooks",
+                ":webhook_id",
+                "resources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "webhook_id",
+                  "description": "(Required) Unique webhook identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resource_type\": \"<string>\",\n  \"resource_id\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "390924bd-de4b-4af7-99e1-7137b41bc1b6",
+              "name": "Resource assigned to webhook.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resource_type\": \"monitor\",\n  \"resource_id\": \"3fec5b07-8786-46d7-9486-d43ff67eccd4\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"Resource assigned to webhook.\",\n  \"already_existed\": false,\n  \"mapping\": {\n    \"id\": \"f1e2d3c4-b5a6-7890-abcd-ef1234567890\",\n    \"webhook_id\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n    \"resource_type\": \"monitor\",\n    \"resource_id\": \"3fec5b07-8786-46d7-9486-d43ff67eccd4\",\n    \"assigned_at\": \"2026-05-18T10:00:00Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b18bf7bd-63e3-4802-83a5-e08bf9bf23a0",
+              "name": "Bad request - invalid parameters or constraint violations.\n\nCommon causes: date ranges outside plan limits, invalid job state for continuation.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resource_type\": \"monitor\",\n  \"resource_id\": \"3fec5b07-8786-46d7-9486-d43ff67eccd4\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"start_date must be >= 2025-02-05, your plan limited to lookback 365 days.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "024bd0ea-ff3e-4b72-acb7-c4fcbd088750",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resource_type\": \"monitor\",\n  \"resource_id\": \"3fec5b07-8786-46d7-9486-d43ff67eccd4\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a557257-80f9-46c3-90bf-e18c66b5acc3",
+              "name": "Job/monitor not found or results not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resource_type\": \"monitor\",\n  \"resource_id\": \"3fec5b07-8786-46d7-9486-d43ff67eccd4\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27803a8e-74ce-4dc4-b812-e18aa58def4f",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"resource_type\": \"monitor\",\n  \"resource_id\": \"3fec5b07-8786-46d7-9486-d43ff67eccd4\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a4532761-c44a-4584-a82d-47254476a757",
+          "name": "List webhook resources",
+          "request": {
+            "name": "List webhook resources",
+            "description": {
+              "content": "Returns a paginated list of resources currently assigned to this webhook.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "webhooks",
+                ":webhook_id",
+                "resources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "resource_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number to retrieve.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "100",
+                  "description": "Number of assignments per page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "webhook_id",
+                  "description": "(Required) Unique webhook identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "946cb4bc-8f1e-4649-80c5-53f5ce2d66b1",
+              "name": "Webhook resource assignments retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 1,\n  \"page\": 1,\n  \"page_size\": 100,\n  \"total_pages\": 1,\n  \"resources\": [\n    {\n      \"id\": \"f1e2d3c4-b5a6-7890-abcd-ef1234567890\",\n      \"webhook_id\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"resource_type\": \"monitor\",\n      \"resource_id\": \"3fec5b07-8786-46d7-9486-d43ff67eccd4\",\n      \"assigned_at\": \"2026-05-18T10:00:00Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8957416a-a300-4af0-98d4-3d9caa8c0961",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7afe1c2d-df82-4805-b981-9ae5932a4db1",
+              "name": "Job/monitor not found or results not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c079f451-b4d6-4d08-a086-39499605c0b9",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id",
+                    "resources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c2201739-e237-489c-bdf7-14056cc91aac",
+          "name": "Remove resource from webhook",
+          "request": {
+            "name": "Remove resource from webhook",
+            "description": {
+              "content": "Detaches a resource from this webhook. Completions of the resource no longer trigger delivery to this webhook.\n\nThe webhook and the resource itself are not deleted.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "webhooks",
+                ":webhook_id",
+                "resources",
+                ":resource_type",
+                ":resource_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "webhook_id",
+                  "description": "(Required) Unique webhook identifier."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "resource_type",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "resource_id",
+                  "description": "(Required) Unique resource identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a94ec982-f055-4391-ba53-e1f38e38ccde",
+              "name": "Resource removed from webhook. No response body.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id",
+                    "resources",
+                    ":resource_type",
+                    ":resource_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resource_type",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "resource_id",
+                      "description": "(Required) Unique resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "52e3f4b9-caaf-47b6-9a97-0bead0a99add",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id",
+                    "resources",
+                    ":resource_type",
+                    ":resource_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resource_type",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "resource_id",
+                      "description": "(Required) Unique resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dd081034-bba7-49f7-b43a-9f2da5944e86",
+              "name": "Job/monitor not found or results not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhooks",
+                    ":webhook_id",
+                    "resources",
+                    ":resource_type",
+                    ":resource_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) Unique webhook identifier."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resource_type",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "resource_id",
+                      "description": "(Required) Unique resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c577c418-5749-4837-a372-1230855a2043",
+          "name": "List webhooks for resource",
+          "request": {
+            "name": "List webhooks for resource",
+            "description": {
+              "content": "Returns all webhooks currently assigned to the given resource.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "resources",
+                ":resource_type",
+                ":resource_id",
+                "webhooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "is_active",
+                  "value": "<boolean>",
+                  "description": "Filter by active status. Omit to return webhooks regardless of status."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number to retrieve.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "100",
+                  "description": "Number of webhooks per page."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "resource_type",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "resource_id",
+                  "description": "(Required) Unique resource identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "41b4900c-134d-4486-8dcf-6c2ea1abaff7",
+              "name": "Webhooks for resource retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "resources",
+                    ":resource_type",
+                    ":resource_id",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "is_active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resource_type",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "resource_id",
+                      "description": "(Required) Unique resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 1,\n  \"page\": 1,\n  \"page_size\": 100,\n  \"total_pages\": 1,\n  \"webhooks\": [\n    {\n      \"id\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"name\": \"Layoffs Alert\",\n      \"url\": \"https://hooks.slack.com/services/T000/B000/xxx\",\n      \"type\": \"slack\",\n      \"delivery_mode\": \"full\",\n      \"method\": \"POST\",\n      \"headers\": {},\n      \"params\": {},\n      \"formatter_config\": null,\n      \"is_active\": true,\n      \"organization_id\": \"org-uuid-here\",\n      \"created_by_user_id\": \"user-uuid-here\",\n      \"created_at\": \"2026-05-18T10:00:00Z\",\n      \"updated_at\": \"2026-05-18T10:00:00Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f34e43e-00b8-4d21-8fc2-2d4b59dc4293",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "resources",
+                    ":resource_type",
+                    ":resource_id",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "is_active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resource_type",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "resource_id",
+                      "description": "(Required) Unique resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ac7d2d4-00b1-4ec5-99df-42756a50e39f",
+              "name": "Job/monitor not found or results not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "resources",
+                    ":resource_type",
+                    ":resource_id",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "is_active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resource_type",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "resource_id",
+                      "description": "(Required) Unique resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9635ffe9-efaa-40a3-ad04-4e7c2e4e8ad5",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "resources",
+                    ":resource_type",
+                    ":resource_id",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "is_active",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "resource_type",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "resource_id",
+                      "description": "(Required) Unique resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a09623cd-bffb-4ce9-a328-416c5d50a408",
+          "name": "Get delivery history",
+          "request": {
+            "name": "Get delivery history",
+            "description": {
+              "content": "Returns a paginated delivery log for a given resource, ordered by timestamp descending. \n\nEach record shows the webhook dispatched, the HTTP status code returned, delivery outcome, and any error or warning messages. Use this to debug failed deliveries or audit dispatch activity.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catchAll",
+                "webhook-history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "resource_type",
+                  "value": "<string>",
+                  "description": "(Required) Type of the resource to retrieve delivery history for."
+                },
+                {
+                  "disabled": false,
+                  "key": "resource_id",
+                  "value": "<uuid>",
+                  "description": "(Required) Identifier of the resource to retrieve delivery history for."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number to retrieve.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "50",
+                  "description": "Number of records per page."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "efb57d4a-3b0b-4feb-a641-f48aeb7da9f5",
+              "name": "Webhook delivery history retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhook-history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resource_id",
+                      "value": "3fec5b07-8786-46d7-9486-d43ff67eccd4"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"resource_type\": \"monitor\",\n  \"resource_id\": \"3fec5b07-8786-46d7-9486-d43ff67eccd4\",\n  \"total\": 2,\n  \"page\": 1,\n  \"page_size\": 50,\n  \"total_pages\": 1,\n  \"items\": [\n    {\n      \"id\": 42,\n      \"webhook_id\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"resource_type\": \"monitor\",\n      \"resource_id\": \"3fec5b07-8786-46d7-9486-d43ff67eccd4\",\n      \"additional_info\": {},\n      \"status_code\": 200,\n      \"attempt_number\": 1,\n      \"timestamp\": \"2026-05-18T10:00:00Z\",\n      \"delivery_status\": \"SUCCESS\",\n      \"error_message\": null,\n      \"warning_message\": null\n    },\n    {\n      \"id\": 41,\n      \"webhook_id\": \"a1b2c3d4-e5f6-7890-abcd-ef1234567890\",\n      \"resource_type\": \"monitor\",\n      \"resource_id\": \"3fec5b07-8786-46d7-9486-d43ff67eccd4\",\n      \"additional_info\": {},\n      \"status_code\": 503,\n      \"attempt_number\": 1,\n      \"timestamp\": \"2026-05-17T10:00:00Z\",\n      \"delivery_status\": \"FAILED\",\n      \"error_message\": \"Service unavailable\",\n      \"warning_message\": null\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d757ff96-fe45-42b8-b515-d51be6f7ea4a",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhook-history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resource_id",
+                      "value": "3fec5b07-8786-46d7-9486-d43ff67eccd4"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b480706f-460a-4ef4-8a4d-6010d4387f88",
+              "name": "Job/monitor not found or results not available",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhook-history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resource_id",
+                      "value": "3fec5b07-8786-46d7-9486-d43ff67eccd4"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Invalid API key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cb879355-ae38-4f6e-b260-fc044947ee65",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catchAll",
+                    "webhook-history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "resource_type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resource_id",
+                      "value": "3fec5b07-8786-46d7-9486-d43ff67eccd4"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://local-news.newscatcherapi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c56439dc-1971-4d0a-8f3d-aacc631d2726",
+    "name": "Local News AggregationCount Webhooks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Local News API provides access to local news articles with location-specific filtering capabilities.\n\n## Standard endpoints\n\n- `/search`: Search articles by keywords with simple location filtering (\"City, State\" format).\n- `/latest_headlines`: Retrieve recent articles for specified locations and time periods.\n- `/search_by`: Retrieve articles by URL, ID, or RSS GUID.\n- `/sources`: List available news sources.\n\n## Advanced endpoints\n\n- `/search/advanced`: Search with structured GeoNames filtering.\n- `/latest_headlines/advanced`: Latest headlines with structured GeoNames filtering.\n\n## Features\n\n- Multiple location detection methods including dedicated sources, proximity analysis, and AI extraction\n- Natural language processing for sentiment analysis and entity recognition on original content and English translations\n- Article clustering for topic analysis\n- English translations for non-English content\n\n\nContact Support:\n Name: Maksym Sugonyaka\n Email: maksym@newscatcherapi.com",
+      "type": "text/plain"
+    }
+  }
+}

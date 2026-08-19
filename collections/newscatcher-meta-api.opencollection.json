@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Local News AggregationCount Meta API",
+    "version": "1.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-token",
+      "value": "{{x-api-token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Meta",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Check health",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/health"
+          },
+          "docs": "Check API availability."
+        },
+        {
+          "info": {
+            "name": "Get version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/version"
+          },
+          "docs": "Returns current API version."
+        },
+        {
+          "info": {
+            "name": "Get plan limits",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/catchAll/user/limits"
+          },
+          "docs": "Returns plan features and current usage for the authenticated organization.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

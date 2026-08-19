@@ -1,0 +1,1260 @@
+{
+  "item": [
+    {
+      "id": "92b28669-5d15-4d47-b1c5-ee0087acfc8a",
+      "name": "Sources",
+      "description": {
+        "content": "Operations to retrieve local news sources.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "93fa893a-15a7-433f-8c39-09386a1225ba",
+          "name": "Retrieve sources",
+          "request": {
+            "name": "Retrieve sources",
+            "description": {
+              "content": "Retrieves the list of local news sources available in the database. Filterable by language, country, and theme.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "sources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"lang\": \"<string>\",\n  \"countries\": \"<string>\",\n  \"theme\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b3babbf7-e6ba-4715-8bc0-d190b89b68c1",
+              "name": "Successful response containing the list of sources",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"sources\": [\n    \"string\",\n    \"string\"\n  ],\n  \"user_input\": {\n    \"lang\": \"string\",\n    \"countries\": \"string\",\n    \"theme\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8cf46b3e-7d1a-468d-b653-5300616c0774",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid JSON in request body\",\n  \"status_code\": 400,\n  \"status\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5fabf319-a776-43c0-b45e-d8abdfbb725e",
+              "name": "Unauthorized - Authentication failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid api key: INVALID_API_KEY\",\n  \"status_code\": 401,\n  \"status\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8e406d6-558a-4aec-8741-0f48190fd38c",
+              "name": "Forbidden - Server refuses action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Your plan request date range cannot be greater than 400 days\",\n  \"status_code\": 403,\n  \"status\": \"Forbidden\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df0979c5-318a-47de-92f9-b51f7b23fbd2",
+              "name": "Request timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Request timed out after 30 seconds\",\n  \"status_code\": 408,\n  \"status\": \"Request timeout\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a7ac969-9d1a-44f1-abf9-6025644f6573",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid date format\",\n  \"status_code\": 422,\n  \"status\": \"Validation error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bdd05bb6-6def-497b-9cb4-089ce9d7768a",
+              "name": "Too many requests - Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Max API requests concurrency reached\",\n  \"status_code\": 429,\n  \"status\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df449ba1-e0ac-4292-a4c0-485f22b9a529",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Internal Server Error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c41aef3b-4c40-4b84-acb8-d55720e9e8e3",
+          "name": "Retrieve sources",
+          "request": {
+            "name": "Retrieve sources",
+            "description": {
+              "content": "Retrieves a list of sources based on specified criteria such as language, country, rank, and more.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "sources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "lang",
+                  "value": "<string>",
+                  "description": "The language(s) of the search. The only accepted format is the two-letter [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) code. To select multiple languages, use a comma-separated string.\n\nTo learn more, see [Enumerated parameters > Language](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#language-lang-and-not-lang).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "countries",
+                  "value": "<string>",
+                  "description": "The countries where the news publisher is located. The accepted format is the two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code. To select multiple countries, use a comma-separated string.\n\nTo learn more, see [Enumerated parameters > Country](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#country-country-and-not-country).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "predefined_sources",
+                  "value": "<string>",
+                  "description": "Predefined top news sources per country. \n\nFormat: start with the word `top`, followed by the number of desired sources, and then the two-letter country code [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). \n\nMultiple countries with the number of top sources can be specified as a comma-separated string.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "source_name",
+                  "value": "<string>",
+                  "description": "Word or phrase to search within the source names. To specify multiple values, use a comma-separated string.\n\n**Note**: The search doesn't require an exact match and returns sources containing the specified terms in their names. You can use any word or phrase, like `\"sport\"` or `\"new york times\"`. \n\nFor example, `\"sport\"` returns sources such as `\"Motorsport\"`, `\"Dot Esport\"`, and `\"Tuttosport\"`.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "source_url",
+                  "value": "<string>",
+                  "description": "The domain(s) of the news publication to search for. \n\n**Caution**:  When specifying the `source_url` parameter, \nyou can only use `include_additional_info` as an extra parameter.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_additional_info",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "is_news_domain",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "news_domain_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "news_type",
+                  "value": "<string>",
+                  "description": "Filters results based on the news type. Multiple types can be specified using a comma-separated string.\n\nFor a complete list of available news types, see [Enumerated parameters > News type](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#news-type-news-type).\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "from_rank",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "to_rank",
+                  "value": "999999"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "928f2493-1562-4bda-90ee-235ba874947a",
+              "name": "A successful response containing a list of news sources that match the specified criteria.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en,es"
+                    },
+                    {
+                      "key": "countries",
+                      "value": "US,CA"
+                    },
+                    {
+                      "key": "predefined_sources",
+                      "value": "top 50 US, top 20 GB"
+                    },
+                    {
+                      "key": "source_name",
+                      "value": "sport,tech"
+                    },
+                    {
+                      "key": "source_url",
+                      "value": "bbc.com"
+                    },
+                    {
+                      "key": "include_additional_info",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_news_domain",
+                      "value": "true"
+                    },
+                    {
+                      "key": "news_domain_type",
+                      "value": "Original Content"
+                    },
+                    {
+                      "key": "news_type",
+                      "value": "General News Outlets,Tech News and Updates"
+                    },
+                    {
+                      "key": "from_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "to_rank",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"sources\": [\n    {\n      \"domain_url\": \"string\",\n      \"name_source\": \"string\",\n      \"logo\": \"string\",\n      \"additional_info\": {\n        \"nb_articles_for_7d\": 153,\n        \"country\": \"US\",\n        \"rank\": 117,\n        \"is_news_domain\": true,\n        \"news_domain_type\": \"Original Content\",\n        \"news_type\": \"General News Outlets\",\n        \"robots_compliant\": \"100%\"\n      }\n    },\n    {\n      \"domain_url\": \"string\",\n      \"name_source\": \"string\",\n      \"logo\": \"string\",\n      \"additional_info\": {\n        \"nb_articles_for_7d\": 153,\n        \"country\": \"US\",\n        \"rank\": 117,\n        \"is_news_domain\": true,\n        \"news_domain_type\": \"Original Content\",\n        \"news_type\": \"General News Outlets\",\n        \"robots_compliant\": \"100%\"\n      }\n    }\n  ],\n  \"user_input\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18f11b07-f8d6-479e-b288-8029926d3597",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en,es"
+                    },
+                    {
+                      "key": "countries",
+                      "value": "US,CA"
+                    },
+                    {
+                      "key": "predefined_sources",
+                      "value": "top 50 US, top 20 GB"
+                    },
+                    {
+                      "key": "source_name",
+                      "value": "sport,tech"
+                    },
+                    {
+                      "key": "source_url",
+                      "value": "bbc.com"
+                    },
+                    {
+                      "key": "include_additional_info",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_news_domain",
+                      "value": "true"
+                    },
+                    {
+                      "key": "news_domain_type",
+                      "value": "Original Content"
+                    },
+                    {
+                      "key": "news_type",
+                      "value": "General News Outlets,Tech News and Updates"
+                    },
+                    {
+                      "key": "from_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "to_rank",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid JSON in request body\",\n  \"status_code\": 400,\n  \"status\": \"Bad request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2327907e-308e-49e6-82b8-c080f7468436",
+              "name": "Unauthorized - Authentication failed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en,es"
+                    },
+                    {
+                      "key": "countries",
+                      "value": "US,CA"
+                    },
+                    {
+                      "key": "predefined_sources",
+                      "value": "top 50 US, top 20 GB"
+                    },
+                    {
+                      "key": "source_name",
+                      "value": "sport,tech"
+                    },
+                    {
+                      "key": "source_url",
+                      "value": "bbc.com"
+                    },
+                    {
+                      "key": "include_additional_info",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_news_domain",
+                      "value": "true"
+                    },
+                    {
+                      "key": "news_domain_type",
+                      "value": "Original Content"
+                    },
+                    {
+                      "key": "news_type",
+                      "value": "General News Outlets,Tech News and Updates"
+                    },
+                    {
+                      "key": "from_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "to_rank",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"The 'x-api-token' parameter has an invalid value. Please provide a valid API key.\",\n  \"status_code\": 401,\n  \"status\": \"Unauthorized\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3d1ec41-5783-4769-bce7-b5ed696854f6",
+              "name": "Forbidden - Server refuses action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en,es"
+                    },
+                    {
+                      "key": "countries",
+                      "value": "US,CA"
+                    },
+                    {
+                      "key": "predefined_sources",
+                      "value": "top 50 US, top 20 GB"
+                    },
+                    {
+                      "key": "source_name",
+                      "value": "sport,tech"
+                    },
+                    {
+                      "key": "source_url",
+                      "value": "bbc.com"
+                    },
+                    {
+                      "key": "include_additional_info",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_news_domain",
+                      "value": "true"
+                    },
+                    {
+                      "key": "news_domain_type",
+                      "value": "Original Content"
+                    },
+                    {
+                      "key": "news_type",
+                      "value": "General News Outlets,Tech News and Updates"
+                    },
+                    {
+                      "key": "from_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "to_rank",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Your plan request date range cannot be greater than 400 days\",\n  \"status_code\": 403,\n  \"status\": \"Forbidden\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d092c11a-0cb3-484e-9cef-153fee702c3f",
+              "name": "Request timeout",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en,es"
+                    },
+                    {
+                      "key": "countries",
+                      "value": "US,CA"
+                    },
+                    {
+                      "key": "predefined_sources",
+                      "value": "top 50 US, top 20 GB"
+                    },
+                    {
+                      "key": "source_name",
+                      "value": "sport,tech"
+                    },
+                    {
+                      "key": "source_url",
+                      "value": "bbc.com"
+                    },
+                    {
+                      "key": "include_additional_info",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_news_domain",
+                      "value": "true"
+                    },
+                    {
+                      "key": "news_domain_type",
+                      "value": "Original Content"
+                    },
+                    {
+                      "key": "news_type",
+                      "value": "General News Outlets,Tech News and Updates"
+                    },
+                    {
+                      "key": "from_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "to_rank",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Request Timeout",
+              "code": 408,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Request timed out after 30 seconds\",\n  \"status_code\": 408,\n  \"status\": \"Request timeout\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b6ebd9f-cc09-49a0-a2ed-65d362d58426",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en,es"
+                    },
+                    {
+                      "key": "countries",
+                      "value": "US,CA"
+                    },
+                    {
+                      "key": "predefined_sources",
+                      "value": "top 50 US, top 20 GB"
+                    },
+                    {
+                      "key": "source_name",
+                      "value": "sport,tech"
+                    },
+                    {
+                      "key": "source_url",
+                      "value": "bbc.com"
+                    },
+                    {
+                      "key": "include_additional_info",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_news_domain",
+                      "value": "true"
+                    },
+                    {
+                      "key": "news_domain_type",
+                      "value": "Original Content"
+                    },
+                    {
+                      "key": "news_type",
+                      "value": "General News Outlets,Tech News and Updates"
+                    },
+                    {
+                      "key": "from_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "to_rank",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Invalid date format\",\n  \"status_code\": 422,\n  \"status\": \"Validation error\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a551aa3-b08d-4bc7-9f1c-cfcb195ffbca",
+              "name": "Too many requests - Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en,es"
+                    },
+                    {
+                      "key": "countries",
+                      "value": "US,CA"
+                    },
+                    {
+                      "key": "predefined_sources",
+                      "value": "top 50 US, top 20 GB"
+                    },
+                    {
+                      "key": "source_name",
+                      "value": "sport,tech"
+                    },
+                    {
+                      "key": "source_url",
+                      "value": "bbc.com"
+                    },
+                    {
+                      "key": "include_additional_info",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_news_domain",
+                      "value": "true"
+                    },
+                    {
+                      "key": "news_domain_type",
+                      "value": "Original Content"
+                    },
+                    {
+                      "key": "news_type",
+                      "value": "General News Outlets,Tech News and Updates"
+                    },
+                    {
+                      "key": "from_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "to_rank",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Max API requests concurrency reached\",\n  \"status_code\": 429,\n  \"status\": \"Too many requests\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dd0f2cde-3673-4f4d-af2c-c108fbfc60b0",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "sources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "en,es"
+                    },
+                    {
+                      "key": "countries",
+                      "value": "US,CA"
+                    },
+                    {
+                      "key": "predefined_sources",
+                      "value": "top 50 US, top 20 GB"
+                    },
+                    {
+                      "key": "source_name",
+                      "value": "sport,tech"
+                    },
+                    {
+                      "key": "source_url",
+                      "value": "bbc.com"
+                    },
+                    {
+                      "key": "include_additional_info",
+                      "value": "true"
+                    },
+                    {
+                      "key": "is_news_domain",
+                      "value": "true"
+                    },
+                    {
+                      "key": "news_domain_type",
+                      "value": "Original Content"
+                    },
+                    {
+                      "key": "news_type",
+                      "value": "General News Outlets,Tech News and Updates"
+                    },
+                    {
+                      "key": "from_rank",
+                      "value": "100"
+                    },
+                    {
+                      "key": "to_rank",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Internal Server Error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://local-news.newscatcherapi.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "x-api-token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8fd4fd37-ad73-46b4-9c9b-ede3d600f3c2",
+    "name": "Local News AggregationCount Sources API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Local News API provides access to local news articles with location-specific filtering capabilities.\n\n## Standard endpoints\n\n- `/search`: Search articles by keywords with simple location filtering (\"City, State\" format).\n- `/latest_headlines`: Retrieve recent articles for specified locations and time periods.\n- `/search_by`: Retrieve articles by URL, ID, or RSS GUID.\n- `/sources`: List available news sources.\n\n## Advanced endpoints\n\n- `/search/advanced`: Search with structured GeoNames filtering.\n- `/latest_headlines/advanced`: Latest headlines with structured GeoNames filtering.\n\n## Features\n\n- Multiple location detection methods including dedicated sources, proximity analysis, and AI extraction\n- Natural language processing for sentiment analysis and entity recognition on original content and English translations\n- Article clustering for topic analysis\n- English translations for non-English content\n\n\nContact Support:\n Name: Maksym Sugonyaka\n Email: maksym@newscatcherapi.com",
+      "type": "text/plain"
+    }
+  }
+}

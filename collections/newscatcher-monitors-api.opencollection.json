@@ -1,0 +1,230 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Local News AggregationCount Monitors API",
+    "version": "1.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-token",
+      "value": "{{x-api-token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Monitors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List monitors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/catchAll/monitors",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve.\n"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page.\n"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by text (case-insensitive substring match)."
+              },
+              {
+                "name": "ownership",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "project_id",
+                "value": "60a85db4-78ec-4b78-876a-bc7d9cdadd04",
+                "type": "query",
+                "description": "Filter results to resources belonging to this project."
+              }
+            ]
+          },
+          "docs": "Returns all monitors created by the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Create monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/catchAll/monitors/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a scheduled monitor based on a reference job."
+        },
+        {
+          "info": {
+            "name": "Get monitor results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/catchAll/monitors/pull/:monitor_id",
+            "params": [
+              {
+                "name": "monitor_id",
+                "value": "",
+                "type": "path",
+                "description": "Monitor identifier."
+              }
+            ]
+          },
+          "docs": "Retrieve aggregated results from all jobs executed by a monitor."
+        },
+        {
+          "info": {
+            "name": "List monitor jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/catchAll/monitors/:monitor_id/jobs",
+            "params": [
+              {
+                "name": "monitor_id",
+                "value": "",
+                "type": "path",
+                "description": "Monitor identifier."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort by start_date (asc or desc)."
+              }
+            ]
+          },
+          "docs": "Return all jobs executed by a monitor."
+        },
+        {
+          "info": {
+            "name": "Get monitor status history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/catchAll/monitors/:monitor_id/status",
+            "params": [
+              {
+                "name": "monitor_id",
+                "value": "",
+                "type": "path",
+                "description": "Monitor identifier."
+              }
+            ]
+          },
+          "docs": "Returns the full execution history of a monitor as a list of status entries, ordered from newest to oldest.\n"
+        },
+        {
+          "info": {
+            "name": "Enable monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/catchAll/monitors/:monitor_id/enable",
+            "params": [
+              {
+                "name": "monitor_id",
+                "value": "",
+                "type": "path",
+                "description": "Monitor identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Resume scheduled job execution for a monitor."
+        },
+        {
+          "info": {
+            "name": "Disable monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/catchAll/monitors/:monitor_id/disable",
+            "params": [
+              {
+                "name": "monitor_id",
+                "value": "",
+                "type": "path",
+                "description": "Monitor identifier."
+              }
+            ]
+          },
+          "docs": "Stop scheduled job execution for a monitor."
+        },
+        {
+          "info": {
+            "name": "Update monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://local-news.newscatcherapi.com/catchAll/monitors/:monitor_id",
+            "params": [
+              {
+                "name": "monitor_id",
+                "value": "",
+                "type": "path",
+                "description": "Monitor identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the webhook configuration for an existing monitor."
+        },
+        {
+          "info": {
+            "name": "Delete monitor",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://local-news.newscatcherapi.com/catchAll/monitors/:monitor_id",
+            "params": [
+              {
+                "name": "monitor_id",
+                "value": "",
+                "type": "path",
+                "description": "Monitor identifier."
+              }
+            ]
+          },
+          "docs": "Soft-deletes a monitor. The monitor is flagged as deleted, stops\nexecuting scheduled jobs immediately, and no longer appears in list\nresults.\n\nOnly the monitor owner can delete a monitor. Returns `404` if the\nmonitor is not found or does not belong to the authenticated user.\n\nDeleting an already-deleted monitor returns `200`.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

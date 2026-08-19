@@ -1,0 +1,308 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Local News AggregationCount Datasets API",
+    "version": "1.2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "x-api-token",
+      "value": "{{x-api-token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Datasets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List datasets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/catchAll/datasets",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number to retrieve.\n"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of datasets per page."
+              },
+              {
+                "name": "search",
+                "value": "Portfolio",
+                "type": "query",
+                "description": "Filter datasets by name (case-insensitive substring match)."
+              },
+              {
+                "name": "latest_status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by dataset status.\n"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ownership",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "project_id",
+                "value": "60a85db4-78ec-4b78-876a-bc7d9cdadd04",
+                "type": "query",
+                "description": "Filter results to resources belonging to this project."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of datasets belonging to the authenticated organization. Supports filtering by status and sorting by name, status, or creation date.\n"
+        },
+        {
+          "info": {
+            "name": "Create dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/catchAll/datasets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new dataset from a list of existing entity IDs.\n\nIf any of the provided entity IDs do not exist or do not belong to\nyour organization, the request fails with `400`. All entity IDs must\nbe valid before the dataset is created.\n\nTo create a dataset and entities in one step, use the [`Create dataset from CSV`](https://www.newscatcherapi.com/docs/web-search-api/api-reference/datasets/create-dataset-from-csv)\nendpoint instead.\n"
+        },
+        {
+          "info": {
+            "name": "Create dataset from CSV",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/catchAll/datasets/upload",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "name",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "description",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Creates a new dataset by uploading a CSV file. Each row in the CSV becomes an entity. The `name` and `domain`columns are required; all other columns are optional.\n\n**CSV format:**\n```csv\nname,description,domain,alternative_names,key_persons\nNewsCatcher,\"AI-powered news data provider\",newscatcherapi.com,\"NC;NewsCatcher API\",\"Artem Bugara;Maksym Sugonyaka\"\nOpenAI,\"Artificial intelligence research company\",openai.com,\"Open AI\",\"Sam Altman\"\n```\n\nUse semicolons (`;`) to separate multiple values in `a"
+        },
+        {
+          "info": {
+            "name": "Get dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/catchAll/datasets/:dataset_id",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "ccabb755-afc2-4047-b84c-78d1f23d49b2",
+                "type": "path",
+                "description": "Unique dataset identifier."
+              }
+            ]
+          },
+          "docs": "Returns a single dataset by ID including entity count and current status."
+        },
+        {
+          "info": {
+            "name": "Update dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://local-news.newscatcherapi.com/catchAll/datasets/:dataset_id",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "ccabb755-afc2-4047-b84c-78d1f23d49b2",
+                "type": "path",
+                "description": "Unique dataset identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the name or description of a dataset.\n"
+        },
+        {
+          "info": {
+            "name": "Delete dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://local-news.newscatcherapi.com/catchAll/datasets/:dataset_id",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "ccabb755-afc2-4047-b84c-78d1f23d49b2",
+                "type": "path",
+                "description": "Unique dataset identifier."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a dataset. The entities within the dataset are\nnot deleted — only the dataset itself. This operation cannot be\nundone.\n"
+        },
+        {
+          "info": {
+            "name": "Add entities to dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/catchAll/datasets/:dataset_id/entities",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "ccabb755-afc2-4047-b84c-78d1f23d49b2",
+                "type": "path",
+                "description": "Unique dataset identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds one or more existing entities to a dataset. Returns the number of entities added.\n"
+        },
+        {
+          "info": {
+            "name": "Remove entities from dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://local-news.newscatcherapi.com/catchAll/datasets/:dataset_id/entities",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "ccabb755-afc2-4047-b84c-78d1f23d49b2",
+                "type": "path",
+                "description": "Unique dataset identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes one or more entities from a dataset. The entities themselves are not deleted — they are only removed from this dataset. Returns the number of entities removed.\n"
+        },
+        {
+          "info": {
+            "name": "List entities in dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/catchAll/datasets/:dataset_id/entities/list",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "ccabb755-afc2-4047-b84c-78d1f23d49b2",
+                "type": "path",
+                "description": "Unique dataset identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns a paginated list of entities in a dataset. Supports filtering by status, entity type, and name search.\n"
+        },
+        {
+          "info": {
+            "name": "Get dataset status history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://local-news.newscatcherapi.com/catchAll/datasets/:dataset_id/status",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "ccabb755-afc2-4047-b84c-78d1f23d49b2",
+                "type": "path",
+                "description": "Unique dataset identifier."
+              }
+            ]
+          },
+          "docs": "Returns the full status change history for a dataset, ordered chronologically from oldest to newest.\n"
+        },
+        {
+          "info": {
+            "name": "Add companies to dataset via CSV",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://local-news.newscatcherapi.com/catchAll/datasets/:dataset_id/upload",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "ccabb755-afc2-4047-b84c-78d1f23d49b2",
+                "type": "path",
+                "description": "Unique dataset identifier."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Appends new companies to an existing dataset by uploading a CSV file. Uses the same CSV format as the dataset creation endpoint.\n\nThe response omits `dataset_name` compared to the create-from-CSV endpoint since the dataset already exists.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
