@@ -39,6 +39,17 @@ tags:
   - Clustering
   - Media Intelligence
   - Financial Intelligence
+  - Artificial Intelligence
+  - Enterprise
+tags_raw:
+  - News
+  - Search
+  - NLP
+  - Sentiment Analysis
+  - Entity Extraction
+  - Clustering
+  - Media Intelligence
+  - Financial Intelligence
   - AI
   - Enterprise
 apis:
@@ -134,6 +145,8 @@ apis:
   humanURL: https://www.newscatcherapi.com/news-api
   baseURL: https://v3-api.newscatcherapi.com/api
   tags:
+  - Job
+  tags_raw:
   - Jobs
   properties:
   - type: OpenAPI
@@ -200,6 +213,8 @@ apis:
   humanURL: https://www.newscatcherapi.com/news-api
   baseURL: https://v3-api.newscatcherapi.com/api
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
@@ -298,6 +313,8 @@ apis:
   humanURL: https://www.newscatcherapi.com/news-api
   baseURL: https://v3-api.newscatcherapi.com/api
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
