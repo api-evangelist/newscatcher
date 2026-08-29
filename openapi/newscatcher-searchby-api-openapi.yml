@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Local News AggregationCount SearchBy API
+  title: Local News Search By API
   description: 'The Local News API provides access to local news articles with location-specific filtering capabilities.
 
 
@@ -78,86 +78,6 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
-  responses:
-    SearchByResponse:
-      description: 'A successful response containing articles that match the
-
-        specified search criteria.
-
-        '
-      content:
-        application/json:
-          schema:
-            allOf:
-            - $ref: '#/components/schemas/ArticleSearchAdvancedResponseDto'
-            title: Search By Response
-    UnauthorizedError:
-      description: Unauthorized - Authentication failed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: 'Invalid api key: INVALID_API_KEY'
-            status_code: 401
-            status: Unauthorized
-    ForbiddenError:
-      description: Forbidden - Server refuses action
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: Your plan request date range cannot be greater than 400 days
-            status_code: 403
-            status: Forbidden
-    RequestTimeoutError:
-      description: Request timeout
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: Request timed out after 30 seconds
-            status_code: 408
-            status: Request timeout
-    RateLimitError:
-      description: Too many requests - Rate limit exceeded
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: Max API requests concurrency reached
-            status_code: 429
-            status: Too many requests
-    BadRequestError:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: Invalid JSON in request body
-            status_code: 400
-            status: Bad request
-    ValidationError:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: Invalid date format
-            status_code: 422
-            status: Validation error
-    InternalServerError:
-      description: Internal server error
-      content:
-        text/plain:
-          schema:
-            type: string
-          example: Internal Server Error
   schemas:
     ArticleAdvancedResultEntity:
       title: Article Result (Advanced)
@@ -172,203 +92,70 @@ components:
             description: 'A list of locations identified in the article, including detection methods, confidence, and localization scores. The location data adheres to the GeoNames format.
 
               '
-    GeoNamesLocationAdminEntity:
-      type: object
-      properties:
-        geonames_id:
-          type: string
-          description: GeoNames ID for the administrative division.
-        name:
-          type: string
-          description: 'Administrative division name. Use leading minus `-` to exclude the name.
-
-            '
-        code:
-          type: string
-          description: Administrative division code.
-    BaseArticleEntity:
-      title: Article Result
-      description: The data model representing the commont properties of the article object in the search results. Required fields are always non-null. Optional fields may be `null`/`undefined` if data extraction is unsuccessful.
-      type: object
+    To:
+      oneOf:
+      - type: string
+        format: date-time
+        example: 2024-09-25 00:00:00
+      - type: string
+        example: 1 day ago
+      default: now
+      description: "The ending point in time to search up to. Accepts date-time strings in ISO 8601 format and plain text strings. The default time zone is UTC. \n\nFormats with examples:\n- YYYY-mm-ddTHH:MM:SS: `2024-09-25T00:00:00`\n- YYYY-MM-dd: `2024-09-25`\n- YYYY/mm/dd HH:MM:SS: `2024/09/25 00:00:00`\n- YYYY/mm/dd: `2024/09/25`\n- English phrases: `1 day ago`, `today`, `now`\n\n**Note**: By default, applied to the publication date of the article. \nTo use the article's parse date instead, set the `by_parse_date` parameter to `true`.\n"
+      example: 2024/09/25
+    SearchResponseDto:
+      title: Base Search Response
       required:
-      - id
-      - title
-      - link
-      - content
-      - domain_url
-      - published_date_precision
-      - published_date
-      - is_opinion
-      - rank
-      properties:
-        id:
-          type: string
-          description: The unique identifier for the article.
-        score:
-          type: number
-          format: float
-          description: The relevance score of the article.
-        title:
-          type: string
-          description: The title of the article.
-        author:
-          type: string
-          description: The primary author of the article.
-        link:
-          type: string
-          description: The URL link to the article.
-        description:
-          type: string
-          description: A brief description of the article.
-        media:
-          type: string
-          description: The URL of the media associated with the article, typically an image.
-        content:
-          type: string
-          description: A snippet or summary of the article's content.
-        authors:
-          type: array
-          items:
-            type: string
-          description: A list of authors of the article.
-        published_date:
-          type: string
-          format: date-time
-          description: The date and time the article was published.
-        published_date_precision:
-          type: string
-          description: The precision of the published date.
-        updated_date:
-          type: string
-          format: date-time
-          description: The date and time the article was last updated.
-        updated_date_precision:
-          type: string
-          description: The precision of the updated date.
-        is_opinion:
-          type: boolean
-          description: Indicates if the article is an opinion piece.
-        twitter_account:
-          type: string
-          nullable: true
-          description: The Twitter account associated with the article. Can be `null`.
-        domain_url:
-          type: string
-          description: The domain URL of the article's source.
-        parent_url:
-          type: string
-          description: The parent URL of the article, typically representing the homepage of the source.
-        word_count:
-          type: integer
-          description: The word count of the article.
-        rank:
-          type: integer
-          description: The rank of the article's source.
-        country:
-          type: string
-          description: The country code where the article was published.
-        rights:
-          type: string
-          description: The rights information for the article, typically the domain name.
-        language:
-          type: string
-          description: The language code in which the article is written.
-        nlp:
-          $ref: '#/components/schemas/NlpDataEntity'
-        paid_content:
-          type: boolean
-          description: Indicates whether the source labels the article as paywalled or requiring a subscription for full access.
-        title_translated_en:
-          type: string
-          description: 'English translation of the article title. Available when using the `search_in` parameter with the `title_translated` option or by setting the `include_translation_fields` parameter to `true`.
-
-            '
-          nullable: true
-        content_translated_en:
-          type: string
-          description: 'English translation of the article content. Available when using the `search_in` parameter with the `content_translated` option or by setting the `include_translation_fields` parameter to `true`.
-
-            '
-          nullable: true
-    ArticleSearchAdvancedResponseDto:
-      title: Advanced Search Response
-      description: "The response model for the `Search advanced`, `Latest headlines advanced`, and `Search by` requests.\n\nResponse field behavior:\n- Required fields are guaranteed to be present and non-null. \n- Optional fields may be `null`/`undefined` if the data couldn't be extracted during processing.\n- To access article properties in the `articles` response array, use array index notation. For example, `articles[n].title`, where `n` is the zero-based index of the article object (0, 1, 2, etc.).\n"
-      allOf:
-      - $ref: '#/components/schemas/SearchResponseDto'
-      - type: object
-        properties:
-          articles:
-            type: array
-            items:
-              $ref: '#/components/schemas/ArticleAdvancedResultEntity'
-            default: []
-          user_input:
-            type: object
-    NlpDataEntity:
+      - status
+      - total_hits
+      - page
+      - total_pages
+      - page_size
       type: object
-      description: Natural Language Processing data for the article.
       properties:
-        theme:
-          type: array
-          items:
-            type: string
-          description: The themes or categories identified in the article.
-        summary:
+        status:
+          title: Status
+          description: The status of the response.
           type: string
-          description: A brief AI-generated summary of the article content.
-        sentiment:
-          $ref: '#/components/schemas/SentimentScores'
-        new_embedding:
-          type: array
-          items:
-            type: number
-            format: float
-          description: 'A dense 1024-dimensional vector representation of the article content, generated using the [multilingual-e5-large](https://huggingface.co/intfloat/multilingual-e5-large) model.
-
-
-            **Note**: The `new_embedding` field is only available in the `v3_local_news_nlp_embeddings` subscription plan.
-
-            '
-        ner_PER:
-          allOf:
-          - $ref: '#/components/schemas/NamedEntityList'
-          description: Named Entity Recognition for person entities (individuals' names).
-        ner_ORG:
-          allOf:
-          - $ref: '#/components/schemas/NamedEntityList'
-          description: Named Entity Recognition for organization entities (company names, institutions).
-        ner_MISC:
-          allOf:
-          - $ref: '#/components/schemas/NamedEntityList'
-          description: Named Entity Recognition for miscellaneous entities (events, nationalities, products).
-        ner_LOC:
-          allOf:
-          - $ref: '#/components/schemas/NamedEntityList'
-          description: Named Entity Recognition for location entities (cities, countries, geographic features).
-        translation_ner_PER:
-          allOf:
-          - $ref: '#/components/schemas/NamedEntityList'
-          description: 'Named Entity Recognition for person entities (individuals'' names) extracted from the English translation of the article.
-
-            '
-        translation_ner_ORG:
-          allOf:
-          - $ref: '#/components/schemas/NamedEntityList'
-          description: 'Named Entity Recognition for organization entities (company names, institutions) extracted from the English translation of the article.
-
-            '
-        translation_ner_MISC:
-          allOf:
-          - $ref: '#/components/schemas/NamedEntityList'
-          description: 'Named Entity Recognition for miscellaneous entities (events, nationalities, products) extracted from the English translation of the article.
-
-            '
-        translation_ner_LOC:
-          allOf:
-          - $ref: '#/components/schemas/NamedEntityList'
-          description: 'Named Entity Recognition for location entities (cities, countries, geographic features) extracted from the English translation of the article.
-
-            '
+          default: ok
+        total_hits:
+          title: Total Hits
+          description: The total number of articles matching the search criteria.
+          type: integer
+        page:
+          title: Page
+          description: The current page number of the results.
+          type: integer
+        total_pages:
+          title: Total Pages
+          description: The total number of pages available for the given search criteria.
+          type: integer
+        page_size:
+          title: Page Size
+          description: The number of articles per page.
+          type: integer
+    Coordinates:
+      type: object
+      description: Geographic coordinates for a location.
+      properties:
+        lat:
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: -90
+          maximum: 90
+          description: The latitude coordinate.
+        lon:
+          type:
+          - number
+          - 'null'
+          format: float
+          minimum: -180
+          maximum: 180
+          description: The longitude coordinate.
+      example:
+        lat: 40.71427
+        lon: -74.00597
     Ids:
       oneOf:
       - type: string
@@ -384,16 +171,52 @@ components:
       example:
       - 5f8d0d55b6e45e00179c6e7e
       - 5f8d0d55b6e45e00179c6e7f
-    To:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A detailed description of the error.
+        status_code:
+          type: integer
+          description: The HTTP status code of the error.
+        status:
+          type: string
+          description: A short description of the status code.
+      required:
+      - message
+      - status_code
+      - status
+    SearchByRequestDto:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/Links'
+        ids:
+          $ref: '#/components/schemas/Ids'
+        rss_guids:
+          $ref: '#/components/schemas/RssGuids'
+        from_:
+          $ref: '#/components/schemas/From'
+        to_:
+          $ref: '#/components/schemas/To'
+        page:
+          $ref: '#/components/schemas/Page'
+        page_size:
+          $ref: '#/components/schemas/PageSize'
+    Links:
       oneOf:
       - type: string
-        format: date-time
-        example: 2024-09-25 00:00:00
-      - type: string
-        example: 1 day ago
-      default: now
-      description: "The ending point in time to search up to. Accepts date-time strings in ISO 8601 format and plain text strings. The default time zone is UTC. \n\nFormats with examples:\n- YYYY-mm-ddTHH:MM:SS: `2024-09-25T00:00:00`\n- YYYY-MM-dd: `2024-09-25`\n- YYYY/mm/dd HH:MM:SS: `2024/09/25 00:00:00`\n- YYYY/mm/dd: `2024/09/25`\n- English phrases: `1 day ago`, `today`, `now`\n\n**Note**: By default, applied to the publication date of the article. \nTo use the article's parse date instead, set the `by_parse_date` parameter to `true`.\n"
-      example: 2024/09/25
+      - type: array
+        items:
+          type: string
+      description: 'The article link or list of article links to search for. To specify multiple links, use a comma-separated string or an array of strings.
+
+
+        **Note**: You can use the `links` parameter in combination with `ids` or `rss_guids`, but at least one of these parameters must be provided.
+
+        '
+      example: https://nytimes.com/article1
     NamedEntityList:
       type: array
       description: A list of named entities identified in the article.
@@ -422,79 +245,6 @@ components:
           minimum: -1.0
           maximum: 1.0
           description: The sentiment score for the article content (-1.0 to 1.0).
-    RssGuids:
-      oneOf:
-      - type: string
-      - type: array
-        items:
-          type: string
-      description: "The RSS GUID (Globally Unique Identifier) or list of GUIDs to search for. To specify multiple GUIDs, use a comma-separated string or an array of strings. \n\nGUIDs are unique identifiers assigned to RSS feed items. They are often URLs or other unique strings.\n\n**Note**: You can use the `rss_guids` parameter in combination with `links` or `ids`, but at least one of these parameters must be provided.\n"
-      example:
-      - https://example.com/article1
-      - https://example.com/article2
-    PageSize:
-      type: integer
-      minimum: 1
-      maximum: 1000
-      default: 100
-      description: 'The number of articles to return per page. Range: `1` to `1000`.
-
-        '
-      example: 100
-    SearchByRequestDto:
-      type: object
-      properties:
-        links:
-          $ref: '#/components/schemas/Links'
-        ids:
-          $ref: '#/components/schemas/Ids'
-        rss_guids:
-          $ref: '#/components/schemas/RssGuids'
-        from_:
-          $ref: '#/components/schemas/From'
-        to_:
-          $ref: '#/components/schemas/To'
-        page:
-          $ref: '#/components/schemas/Page'
-        page_size:
-          $ref: '#/components/schemas/PageSize'
-    Coordinates:
-      type: object
-      description: Geographic coordinates for a location.
-      properties:
-        lat:
-          type: number
-          format: float
-          nullable: true
-          minimum: -90
-          maximum: 90
-          description: The latitude coordinate.
-        lon:
-          type: number
-          format: float
-          nullable: true
-          minimum: -180
-          maximum: 180
-          description: The longitude coordinate.
-      example:
-        lat: 40.71427
-        lon: -74.00597
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A detailed description of the error.
-        status_code:
-          type: integer
-          description: The HTTP status code of the error.
-        status:
-          type: string
-          description: A short description of the status code.
-      required:
-      - message
-      - status_code
-      - status
     GeoNamesResponseEntity:
       type: object
       description: 'Represents a geographic location identified in an article using GeoNames structured data, including detection confidence and localization scores.
@@ -595,6 +345,49 @@ components:
 
             '
           example: 10.0
+    GeoNamesLocationAdminEntity:
+      type: object
+      properties:
+        geonames_id:
+          type: string
+          description: GeoNames ID for the administrative division.
+        name:
+          type: string
+          description: 'Administrative division name. Use leading minus `-` to exclude the name.
+
+            '
+        code:
+          type: string
+          description: Administrative division code.
+    RssGuids:
+      oneOf:
+      - type: string
+      - type: array
+        items:
+          type: string
+      description: "The RSS GUID (Globally Unique Identifier) or list of GUIDs to search for. To specify multiple GUIDs, use a comma-separated string or an array of strings. \n\nGUIDs are unique identifiers assigned to RSS feed items. They are often URLs or other unique strings.\n\n**Note**: You can use the `rss_guids` parameter in combination with `links` or `ids`, but at least one of these parameters must be provided.\n"
+      example:
+      - https://example.com/article1
+      - https://example.com/article2
+    PageSize:
+      type: integer
+      minimum: 1
+      maximum: 1000
+      default: 100
+      description: 'The number of articles to return per page. Range: `1` to `1000`.
+
+        '
+      example: 100
+    From:
+      oneOf:
+      - type: string
+        format: date-time
+        example: 2024-09-24 00:00:00
+      - type: string
+        example: 1 day ago
+      default: 7 days ago
+      description: "The starting point in time to search from. Accepts date-time strings in ISO 8601 format and plain text strings. The default time zone is UTC. \n\nFormats with examples:\n- YYYY-mm-ddTHH:MM:SS: `2024-09-24T00:00:00`\n- YYYY-MM-dd: `2024-09-24`\n- YYYY/mm/dd HH:MM:SS: `2024/09/24 00:00:00`\n- YYYY/mm/dd: `2024/09/24`\n- English phrases: `1 day ago`, `today`\n\n**Note**: By default, applied to the publication date of the article. \nTo use the article's parse date instead, set the `by_parse_date` parameter to `true`.\n"
+      example: 2024/09/24
     DetectionMethods:
       type: array
       items:
@@ -628,47 +421,113 @@ components:
       - dedicated_source
       - proximity_mention
       - ai_extracted
-    SearchResponseDto:
-      title: Base Search Response
-      required:
-      - status
-      - total_hits
-      - page
-      - total_pages
-      - page_size
+    BaseArticleEntity:
+      title: Article Result
+      description: The data model representing the commont properties of the article object in the search results. Required fields are always non-null. Optional fields may be `null`/`undefined` if data extraction is unsuccessful.
       type: object
+      required:
+      - id
+      - title
+      - link
+      - content
+      - domain_url
+      - published_date_precision
+      - published_date
+      - is_opinion
+      - rank
       properties:
-        status:
-          title: Status
-          description: The status of the response.
+        id:
           type: string
-          default: ok
-        total_hits:
-          title: Total Hits
-          description: The total number of articles matching the search criteria.
+          description: The unique identifier for the article.
+        score:
+          type: number
+          format: float
+          description: The relevance score of the article.
+        title:
+          type: string
+          description: The title of the article.
+        author:
+          type: string
+          description: The primary author of the article.
+        link:
+          type: string
+          description: The URL link to the article.
+        description:
+          type: string
+          description: A brief description of the article.
+        media:
+          type: string
+          description: The URL of the media associated with the article, typically an image.
+        content:
+          type: string
+          description: A snippet or summary of the article's content.
+        authors:
+          type: array
+          items:
+            type: string
+          description: A list of authors of the article.
+        published_date:
+          type: string
+          format: date-time
+          description: The date and time the article was published.
+        published_date_precision:
+          type: string
+          description: The precision of the published date.
+        updated_date:
+          type: string
+          format: date-time
+          description: The date and time the article was last updated.
+        updated_date_precision:
+          type: string
+          description: The precision of the updated date.
+        is_opinion:
+          type: boolean
+          description: Indicates if the article is an opinion piece.
+        twitter_account:
+          type:
+          - string
+          - 'null'
+          description: The Twitter account associated with the article. Can be `null`.
+        domain_url:
+          type: string
+          description: The domain URL of the article's source.
+        parent_url:
+          type: string
+          description: The parent URL of the article, typically representing the homepage of the source.
+        word_count:
           type: integer
-        page:
-          title: Page
-          description: The current page number of the results.
+          description: The word count of the article.
+        rank:
           type: integer
-        total_pages:
-          title: Total Pages
-          description: The total number of pages available for the given search criteria.
-          type: integer
-        page_size:
-          title: Page Size
-          description: The number of articles per page.
-          type: integer
-    From:
-      oneOf:
-      - type: string
-        format: date-time
-        example: 2024-09-24 00:00:00
-      - type: string
-        example: 1 day ago
-      default: 7 days ago
-      description: "The starting point in time to search from. Accepts date-time strings in ISO 8601 format and plain text strings. The default time zone is UTC. \n\nFormats with examples:\n- YYYY-mm-ddTHH:MM:SS: `2024-09-24T00:00:00`\n- YYYY-MM-dd: `2024-09-24`\n- YYYY/mm/dd HH:MM:SS: `2024/09/24 00:00:00`\n- YYYY/mm/dd: `2024/09/24`\n- English phrases: `1 day ago`, `today`\n\n**Note**: By default, applied to the publication date of the article. \nTo use the article's parse date instead, set the `by_parse_date` parameter to `true`.\n"
-      example: 2024/09/24
+          description: The rank of the article's source.
+        country:
+          type: string
+          description: The country code where the article was published.
+        rights:
+          type: string
+          description: The rights information for the article, typically the domain name.
+        language:
+          type: string
+          description: The language code in which the article is written.
+        nlp:
+          $ref: '#/components/schemas/NlpDataEntity'
+        paid_content:
+          type: boolean
+          description: Indicates whether the source labels the article as paywalled or requiring a subscription for full access.
+        title_translated_en:
+          type:
+          - string
+          - 'null'
+          description: 'English translation of the article title. Available when using the `search_in` parameter with the `title_translated` option or by setting the `include_translation_fields` parameter to `true`.
+
+            '
+        content_translated_en:
+          type:
+          - string
+          - 'null'
+          description: 'English translation of the article content. Available when using the `search_in` parameter with the `content_translated` option or by setting the `include_translation_fields` parameter to `true`.
+
+            '
     Page:
       type: integer
       minimum: 1
@@ -677,19 +536,165 @@ components:
 
         '
       example: 2
-    Links:
-      oneOf:
-      - type: string
-      - type: array
-        items:
+    ArticleSearchAdvancedResponseDto:
+      title: Advanced Search Response
+      description: "The response model for the `Search advanced`, `Latest headlines advanced`, and `Search by` requests.\n\nResponse field behavior:\n- Required fields are guaranteed to be present and non-null. \n- Optional fields may be `null`/`undefined` if the data couldn't be extracted during processing.\n- To access article properties in the `articles` response array, use array index notation. For example, `articles[n].title`, where `n` is the zero-based index of the article object (0, 1, 2, etc.).\n"
+      allOf:
+      - $ref: '#/components/schemas/SearchResponseDto'
+      - type: object
+        properties:
+          articles:
+            type: array
+            items:
+              $ref: '#/components/schemas/ArticleAdvancedResultEntity'
+            default: []
+          user_input:
+            type: object
+    NlpDataEntity:
+      type: object
+      description: Natural Language Processing data for the article.
+      properties:
+        theme:
+          type: array
+          items:
+            type: string
+          description: The themes or categories identified in the article.
+        summary:
           type: string
-      description: 'The article link or list of article links to search for. To specify multiple links, use a comma-separated string or an array of strings.
+          description: A brief AI-generated summary of the article content.
+        sentiment:
+          $ref: '#/components/schemas/SentimentScores'
+        new_embedding:
+          type: array
+          items:
+            type: number
+            format: float
+          description: 'A dense 1024-dimensional vector representation of the article content, generated using the [multilingual-e5-large](https://huggingface.co/intfloat/multilingual-e5-large) model.
 
 
-        **Note**: You can use the `links` parameter in combination with `ids` or `rss_guids`, but at least one of these parameters must be provided.
+            **Note**: The `new_embedding` field is only available in the `v3_local_news_nlp_embeddings` subscription plan.
+
+            '
+        ner_PER:
+          allOf:
+          - $ref: '#/components/schemas/NamedEntityList'
+          description: Named Entity Recognition for person entities (individuals' names).
+        ner_ORG:
+          allOf:
+          - $ref: '#/components/schemas/NamedEntityList'
+          description: Named Entity Recognition for organization entities (company names, institutions).
+        ner_MISC:
+          allOf:
+          - $ref: '#/components/schemas/NamedEntityList'
+          description: Named Entity Recognition for miscellaneous entities (events, nationalities, products).
+        ner_LOC:
+          allOf:
+          - $ref: '#/components/schemas/NamedEntityList'
+          description: Named Entity Recognition for location entities (cities, countries, geographic features).
+        translation_ner_PER:
+          allOf:
+          - $ref: '#/components/schemas/NamedEntityList'
+          description: 'Named Entity Recognition for person entities (individuals'' names) extracted from the English translation of the article.
+
+            '
+        translation_ner_ORG:
+          allOf:
+          - $ref: '#/components/schemas/NamedEntityList'
+          description: 'Named Entity Recognition for organization entities (company names, institutions) extracted from the English translation of the article.
+
+            '
+        translation_ner_MISC:
+          allOf:
+          - $ref: '#/components/schemas/NamedEntityList'
+          description: 'Named Entity Recognition for miscellaneous entities (events, nationalities, products) extracted from the English translation of the article.
+
+            '
+        translation_ner_LOC:
+          allOf:
+          - $ref: '#/components/schemas/NamedEntityList'
+          description: 'Named Entity Recognition for location entities (cities, countries, geographic features) extracted from the English translation of the article.
+
+            '
+  responses:
+    ValidationError:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Invalid date format
+            status_code: 422
+            status: Validation error
+    BadRequestError:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Invalid JSON in request body
+            status_code: 400
+            status: Bad request
+    SearchByResponse:
+      description: 'A successful response containing articles that match the
+
+        specified search criteria.
 
         '
-      example: https://nytimes.com/article1
+      content:
+        application/json:
+          schema:
+            allOf:
+            - $ref: '#/components/schemas/ArticleSearchAdvancedResponseDto'
+            title: Search By Response
+    UnauthorizedError:
+      description: Unauthorized - Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: 'Invalid api key: INVALID_API_KEY'
+            status_code: 401
+            status: Unauthorized
+    ForbiddenError:
+      description: Forbidden - Server refuses action
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Your plan request date range cannot be greater than 400 days
+            status_code: 403
+            status: Forbidden
+    RequestTimeoutError:
+      description: Request timeout
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Request timed out after 30 seconds
+            status_code: 408
+            status: Request timeout
+    InternalServerError:
+      description: Internal server error
+      content:
+        text/plain:
+          schema:
+            type: string
+          example: Internal Server Error
+    RateLimitError:
+      description: Too many requests - Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Max API requests concurrency reached
+            status_code: 429
+            status: Too many requests
   requestBodies:
     SearchByRequestBody:
       required: true

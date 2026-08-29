@@ -1,50 +1,15 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Local News AggregationCount Meta API
-  description: 'The Local News API provides access to local news articles with location-specific filtering capabilities.
-
-
-    ## Standard endpoints
-
-
-    - `/search`: Search articles by keywords with simple location filtering ("City, State" format).
-
-    - `/latest_headlines`: Retrieve recent articles for specified locations and time periods.
-
-    - `/search_by`: Retrieve articles by URL, ID, or RSS GUID.
-
-    - `/sources`: List available news sources.
-
-
-    ## Advanced endpoints
-
-
-    - `/search/advanced`: Search with structured GeoNames filtering.
-
-    - `/latest_headlines/advanced`: Latest headlines with structured GeoNames filtering.
-
-
-    ## Features
-
-
-    - Multiple location detection methods including dedicated sources, proximity analysis, and AI extraction
-
-    - Natural language processing for sentiment analysis and entity recognition on original content and English translations
-
-    - Article clustering for topic analysis
-
-    - English translations for non-English content
-
-    '
-  termsOfService: https://newscatcherapi.com/terms-of-service
+  title: NewsCatcher CatchAll Meta API
+  version: 1.6.1
+  description: "CatchAll is a web search API that generates unique datasets that don't exist anywhere else on the web. Built on NewsCatcher's proprietary real-world event index, it delivers state-of-the-art recall—finding all relevant events, not just top results.\n\n### Authentication\n\nAll endpoints except /health and /version require `x-api-key` header. If the key is invalid or missing, the API returns the `403 Forbidden` error.\n\n### Job workflow\n\n1. (Optional) Get suggestions via /catchAll/initialize\n2. Submit a query via /catchAll/submit with optional date ranges and custom validators/enrichments\n3. Poll /catchAll/status/{job_id} until completed (10-15 minutes)\n4. Retrieve results via /catchAll/pull/{job_id}\n\n### Monitor workflow\n\n1. Create successful job via /catchAll/submit\n2. Create monitor via /catchAll/monitors/create with schedule\n3. Retrieve aggregated results via /catchAll/monitors/pull/{monitor_id}\n\n### Webhook workflow\n\n1. Create a webhook via `POST /catchAll/webhooks`\n2. Attach it to a job or monitor via `POST /catchAll/webhooks/{webhook_id}/resources`,\n   or pass `webhook_ids` at job or monitor creation time\n3. Receive HTTP notifications at the configured URL when each job completes\n\n### Company search workflow\n\n1. Create a dataset via `POST /catchAll/datasets/` or `POST /catchAll/datasets/upload`\n2. Wait for the dataset `latest_status` to reach `ready`\n3. Submit a job with `connected_dataset_ids` pointing to your dataset\n4. Retrieve results — each record includes a `connected_entities` array\n   with relevance scores per matched company\n\n### Important notes\n\n**Dynamic schemas**: Response schemas are generated dynamically by LLMs. Field names in the `enrichment` object may vary and are not deterministic across jobs unless explicitly specified.\n"
   contact:
-    name: Maksym Sugonyaka
-    email: maksym@newscatcherapi.com
-    url: https://www.newscatcherapi.com/book-a-demo
-  version: 1.2.0
+    name: NewsCatcher
+    url: https://newscatcherapi.com
+    email: support@newscatcherapi.com
 servers:
-- url: https://local-news.newscatcherapi.com
-  description: Local News API production server
+- url: https://catchall.newscatcherapi.com
+  description: Production server
 security:
 - ApiKeyAuth: []
 tags:
@@ -99,6 +64,22 @@ components:
               healthy:
                 type: boolean
                 example: true
+    ForbiddenError:
+      description: Invalid or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    VersionResponse:
+      description: API version
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              version:
+                type: string
+                example: 1.3.1
     GetPlanLimitsResponse:
       description: Plan limits retrieved successfully
       content:
@@ -122,22 +103,6 @@ components:
               value_type: integer
               value: 200000
               current_usage: 0
-    VersionResponse:
-      description: API version
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              version:
-                type: string
-                example: 1.3.1
-    ForbiddenError:
-      description: Invalid or missing API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     PlanFeature:
       type: object
@@ -185,8 +150,8 @@ components:
     ApiKeyAuth:
       type: apiKey
       in: header
-      name: x-api-token
-      description: "API Key to authenticate requests.\n\nTo access the API, include your API key in the `x-api-token` header. \nTo obtain your API key, complete the [form](https://www.newscatcherapi.com/book-a-demo) or contact us directly.\n"
+      name: x-api-key
+      description: API key for authentication.
 externalDocs:
-  description: Find out more about Local News API
-  url: https://www.newscatcherapi.com/docs/local-news-api/get-started/introduction
+  description: Find out more about NewsCatcher CatchAll API
+  url: https://www.newscatcherapi.com/docs/web-search-api/get-started/introduction

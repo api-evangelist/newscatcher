@@ -1,50 +1,34 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Local News AggregationCount Subscription API
-  description: 'The Local News API provides access to local news articles with location-specific filtering capabilities.
+  title: NewsCatcher News Subscription API
+  description: 'NewsCatcher News API provides programmatic access to a continuously updated global news index. It includes endpoints for article search, latest headlines, breaking news, author search, aggregation counts, and source discovery.
 
 
-    ## Standard endpoints
+    ## Key features
 
 
-    - `/search`: Search articles by keywords with simple location filtering ("City, State" format).
+    - **Full-text search**: Query articles by keyword, phrase, language, country, source, publication date, sentiment, and more using Boolean operators and advanced filters.
 
-    - `/latest_headlines`: Retrieve recent articles for specified locations and time periods.
+    - **NLP enrichment**: Articles include theme classification, sentiment scores, and named entity recognition (people, organizations, locations).
 
-    - `/search_by`: Retrieve articles by URL, ID, or RSS GUID.
+    - **Article clustering**: Group similar articles into clusters to reduce noise and surface unique stories.
 
-    - `/sources`: List available news sources.
+    - **Deduplication**: Exclude duplicate articles from results to keep datasets clean and relevant.
 
-
-    ## Advanced endpoints
-
-
-    - `/search/advanced`: Search with structured GeoNames filtering.
-
-    - `/latest_headlines/advanced`: Latest headlines with structured GeoNames filtering.
+    - **Source intelligence**: Discover and filter news sources by domain, type, rank, and geographic origin.
 
 
-    ## Features
-
-
-    - Multiple location detection methods including dedicated sources, proximity analysis, and AI extraction
-
-    - Natural language processing for sentiment analysis and entity recognition on original content and English translations
-
-    - Article clustering for topic analysis
-
-    - English translations for non-English content
+    For documentation, integration guides, and SDKs, visit the [developer portal](https://wwwnewscatcherapi.com/docs).
 
     '
   termsOfService: https://newscatcherapi.com/terms-of-service
   contact:
     name: Maksym Sugonyaka
     email: maksym@newscatcherapi.com
-    url: https://www.newscatcherapi.com/book-a-demo
-  version: 1.2.0
+  version: 3.24.0
 servers:
-- url: https://local-news.newscatcherapi.com
-  description: Local News API production server
+- url: https://v3-api.newscatcherapi.com
+  description: News API production server
 security:
 - ApiKeyAuth: []
 tags:
@@ -106,80 +90,6 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
-  responses:
-    InternalServerError:
-      description: Internal server error
-      content:
-        text/plain:
-          schema:
-            type: string
-          example: Internal Server Error
-    UnauthorizedError:
-      description: Unauthorized - Authentication failed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: The 'x-api-token' parameter has an invalid value. Please provide a valid API key.
-            status_code: 401
-            status: Unauthorized
-    BadRequestError:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: Invalid JSON in request body
-            status_code: 400
-            status: Bad request
-    ValidationError:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: Invalid date format
-            status_code: 422
-            status: Validation error
-    SubscriptionResponse:
-      description: A successful response containing information about the current subscription plan.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SubscriptionResponseDto'
-    RequestTimeoutError:
-      description: Request timeout
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: Request timed out after 30 seconds
-            status_code: 408
-            status: Request timeout
-    ForbiddenError:
-      description: Forbidden - Server refuses action
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: Your plan request date range cannot be greater than 400 days
-            status_code: 403
-            status: Forbidden
-    RateLimitError:
-      description: Too many requests - Rate limit exceeded
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: Max API requests concurrency reached
-            status_code: 429
-            status: Too many requests
   schemas:
     Error:
       type: object
@@ -233,6 +143,80 @@ components:
           title: Historical Days
           description: The number of historical days accessible under the current subscription plan.
           type: integer
+  responses:
+    ForbiddenError:
+      description: Forbidden - Server refuses action
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Your plan request date range cannot be greater than 400 days
+            status_code: 403
+            status: Forbidden
+    RequestTimeoutError:
+      description: Request timeout
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Request timed out after 30 seconds
+            status_code: 408
+            status: Request timeout
+    ValidationError:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Invalid date format
+            status_code: 422
+            status: Validation error
+    InternalServerError:
+      description: Internal server error
+      content:
+        text/plain:
+          schema:
+            type: string
+          example: Internal Server Error
+    SubscriptionResponse:
+      description: A successful response containing information about the current subscription plan.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SubscriptionResponseDto'
+    BadRequestError:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Invalid JSON in request body
+            status_code: 400
+            status: Bad request
+    RateLimitError:
+      description: Too many requests - Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Max API requests concurrency reached
+            status_code: 429
+            status: Too many requests
+    UnauthorizedError:
+      description: Unauthorized - Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: The 'x-api-token' parameter has an invalid value. Please provide a valid API key.
+            status_code: 401
+            status: Unauthorized
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
@@ -240,5 +224,5 @@ components:
       name: x-api-token
       description: "API Key to authenticate requests.\n\nTo access the API, include your API key in the `x-api-token` header. \nTo obtain your API key, complete the [form](https://www.newscatcherapi.com/book-a-demo) or contact us directly.\n"
 externalDocs:
-  description: Find out more about Local News API
-  url: https://www.newscatcherapi.com/docs/local-news-api/get-started/introduction
+  description: Find out more about NewsCatcher News API
+  url: https://www.newscatcherapi.com/docs
