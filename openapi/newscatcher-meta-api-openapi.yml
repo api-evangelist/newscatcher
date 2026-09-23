@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: NewsCatcher CatchAll Meta API
   version: 1.6.1
-  description: "CatchAll is a web search API that generates unique datasets that don't exist anywhere else on the web. Built on NewsCatcher's proprietary real-world event index, it delivers state-of-the-art recall—finding all relevant events, not just top results.\n\n### Authentication\n\nAll endpoints except /health and /version require `x-api-key` header. If the key is invalid or missing, the API returns the `403 Forbidden` error.\n\n### Job workflow\n\n1. (Optional) Get suggestions via /catchAll/initialize\n2. Submit a query via /catchAll/submit with optional date ranges and custom validators/enrichments\n3. Poll /catchAll/status/{job_id} until completed (10-15 minutes)\n4. Retrieve results via /catchAll/pull/{job_id}\n\n### Monitor workflow\n\n1. Create successful job via /catchAll/submit\n2. Create monitor via /catchAll/monitors/create with schedule\n3. Retrieve aggregated results via /catchAll/monitors/pull/{monitor_id}\n\n### Webhook workflow\n\n1. Create a webhook via `POST /catchAll/webhooks`\n2. Attach it to a job or monitor via `POST /catchAll/webhooks/{webhook_id}/resources`,\n   or pass `webhook_ids` at job or monitor creation time\n3. Receive HTTP notifications at the configured URL when each job completes\n\n### Company search workflow\n\n1. Create a dataset via `POST /catchAll/datasets/` or `POST /catchAll/datasets/upload`\n2. Wait for the dataset `latest_status` to reach `ready`\n3. Submit a job with `connected_dataset_ids` pointing to your dataset\n4. Retrieve results — each record includes a `connected_entities` array\n   with relevance scores per matched company\n\n### Important notes\n\n**Dynamic schemas**: Response schemas are generated dynamically by LLMs. Field names in the `enrichment` object may vary and are not deterministic across jobs unless explicitly specified.\n"
+  description: CatchAll is a web search API that generates unique datasets that don't exist anywhere else on the web.
   contact:
     name: NewsCatcher
     url: https://newscatcherapi.com
@@ -43,9 +43,7 @@ paths:
       tags:
       - Meta
       summary: Get plan limits
-      description: 'Returns plan features and current usage for the authenticated organization.
-
-        '
+      description: Returns plan features and current usage for the authenticated organization.
       operationId: getPlanLimits
       responses:
         '200':
@@ -54,22 +52,6 @@ paths:
           $ref: '#/components/responses/ForbiddenError'
 components:
   responses:
-    HealthCheckResponse:
-      description: API is healthy
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              healthy:
-                type: boolean
-                example: true
-    ForbiddenError:
-      description: Invalid or missing API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     VersionResponse:
       description: API version
       content:
@@ -103,6 +85,22 @@ components:
               value_type: integer
               value: 200000
               current_usage: 0
+    ForbiddenError:
+      description: Invalid or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    HealthCheckResponse:
+      description: API is healthy
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              healthy:
+                type: boolean
+                example: true
   schemas:
     PlanFeature:
       type: object

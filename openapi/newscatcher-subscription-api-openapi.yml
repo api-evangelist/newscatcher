@@ -1,26 +1,7 @@
 openapi: 3.2.0
 info:
   title: NewsCatcher News Subscription API
-  description: 'NewsCatcher News API provides programmatic access to a continuously updated global news index. It includes endpoints for article search, latest headlines, breaking news, author search, aggregation counts, and source discovery.
-
-
-    ## Key features
-
-
-    - **Full-text search**: Query articles by keyword, phrase, language, country, source, publication date, sentiment, and more using Boolean operators and advanced filters.
-
-    - **NLP enrichment**: Articles include theme classification, sentiment scores, and named entity recognition (people, organizations, locations).
-
-    - **Article clustering**: Group similar articles into clusters to reduce noise and surface unique stories.
-
-    - **Deduplication**: Exclude duplicate articles from results to keep datasets clean and relevant.
-
-    - **Source intelligence**: Discover and filter news sources by domain, type, rank, and geographic origin.
-
-
-    For documentation, integration guides, and SDKs, visit the [developer portal](https://wwwnewscatcherapi.com/docs).
-
-    '
+  description: NewsCatcher News API provides programmatic access to a continuously updated global news index.
   termsOfService: https://newscatcherapi.com/terms-of-service
   contact:
     name: Maksym Sugonyaka
@@ -90,23 +71,81 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
+  responses:
+    ValidationError:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Invalid date format
+            status_code: 422
+            status: Validation error
+    RequestTimeoutError:
+      description: Request timeout
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Request timed out after 30 seconds
+            status_code: 408
+            status: Request timeout
+    RateLimitError:
+      description: Too many requests - Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Max API requests concurrency reached
+            status_code: 429
+            status: Too many requests
+    UnauthorizedError:
+      description: Unauthorized - Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: The 'x-api-token' parameter has an invalid value. Please provide a valid API key.
+            status_code: 401
+            status: Unauthorized
+    BadRequestError:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Invalid JSON in request body
+            status_code: 400
+            status: Bad request
+    ForbiddenError:
+      description: Forbidden - Server refuses action
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Your plan request date range cannot be greater than 400 days
+            status_code: 403
+            status: Forbidden
+    InternalServerError:
+      description: Internal server error
+      content:
+        text/plain:
+          schema:
+            type: string
+          example: Internal Server Error
+    SubscriptionResponse:
+      description: A successful response containing information about the current subscription plan.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SubscriptionResponseDto'
   schemas:
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A detailed description of the error.
-        status_code:
-          type: integer
-          description: The HTTP status code of the error.
-        status:
-          type: string
-          description: A short description of the status code.
-      required:
-      - message
-      - status_code
-      - status
     SubscriptionResponseDto:
       title: Subscription Response
       description: "Response model for a successful `Subscription` request retrieving plan information. Response field behavior:\n- Required fields are guaranteed to be present and non-null. \n- Optional fields may be `null`/`undefined` if the data couldn't \nbe extracted during processing.\n"
@@ -143,80 +182,22 @@ components:
           title: Historical Days
           description: The number of historical days accessible under the current subscription plan.
           type: integer
-  responses:
-    ForbiddenError:
-      description: Forbidden - Server refuses action
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: Your plan request date range cannot be greater than 400 days
-            status_code: 403
-            status: Forbidden
-    RequestTimeoutError:
-      description: Request timeout
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: Request timed out after 30 seconds
-            status_code: 408
-            status: Request timeout
-    ValidationError:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: Invalid date format
-            status_code: 422
-            status: Validation error
-    InternalServerError:
-      description: Internal server error
-      content:
-        text/plain:
-          schema:
-            type: string
-          example: Internal Server Error
-    SubscriptionResponse:
-      description: A successful response containing information about the current subscription plan.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SubscriptionResponseDto'
-    BadRequestError:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: Invalid JSON in request body
-            status_code: 400
-            status: Bad request
-    RateLimitError:
-      description: Too many requests - Rate limit exceeded
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: Max API requests concurrency reached
-            status_code: 429
-            status: Too many requests
-    UnauthorizedError:
-      description: Unauthorized - Authentication failed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: The 'x-api-token' parameter has an invalid value. Please provide a valid API key.
-            status_code: 401
-            status: Unauthorized
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A detailed description of the error.
+        status_code:
+          type: integer
+          description: The HTTP status code of the error.
+        status:
+          type: string
+          description: A short description of the status code.
+      required:
+      - message
+      - status_code
+      - status
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

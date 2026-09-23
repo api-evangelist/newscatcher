@@ -33,7 +33,8 @@
     "newscatcher-web-search-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "tag 'LatestHeadlines' spans 2 source specs (newscatcher-local-news-api-openapi.yml, newscatcher-news-api-openapi.yml): per-path servers applied",
     "tag 'Search' spans 2 source specs (newscatcher-local-news-api-openapi.yml, newscatcher-news-api-openapi.yml): per-path servers applied",
-    "tag 'Sources' spans 2 source specs (newscatcher-local-news-api-openapi.yml, newscatcher-news-api-openapi.yml): per-path servers applied"
+    "tag 'Sources' spans 2 source specs (newscatcher-local-news-api-openapi.yml, newscatcher-news-api-openapi.yml): per-path servers applied",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "newscatcher-aggregationcount-api-openapi.yml: previously refined output, superseded by openapi/_original/",
