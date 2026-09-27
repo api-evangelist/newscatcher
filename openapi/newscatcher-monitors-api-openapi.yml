@@ -310,39 +310,181 @@ paths:
           $ref: '#/components/responses/NotFoundError'
 components:
   schemas:
-    SharingInfo:
+    UpdateMonitorResponseDto:
       type: object
-      description: 'Present on resources shared with the authenticated user by another
-
-        organization member. Omitted entirely on resources the user owns.
-
-        '
       required:
-      - shared_at
-      - permission
-      - shared_by
+      - monitor_id
+      - status
       properties:
-        shared_at:
+        monitor_id:
           type: string
-          format: date-time
-          description: When the resource was shared.
-          example: '2026-04-15T12:00:00Z'
-        permission:
+          format: uuid
+          description: Monitor identifier.
+          example: 3fec5b07-8786-46d7-9486-d43ff67eccd4
+        status:
+          type: string
+          description: Confirmation message.
+          default: Monitor updated Successfully
+          example: Monitor updated Successfully
+    WebhookDto:
+      type: object
+      required:
+      - url
+      properties:
+        url:
+          type: string
+          format: uri
+          description: Webhook endpoint URL.
+        method:
           type: string
           enum:
-          - view
-          - edit
-          - manage
-          description: Permission level granted to the recipient.
-          example: view
-        shared_by:
+          - POST
+          - PUT
+          default: POST
+          description: HTTP method to use.
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+          description: HTTP headers to include in request.
+        params:
+          type: object
+          description: Query string parameters.
+        auth:
+          type: array
+          items:
+            type: string
+          minItems: 2
+          maxItems: 2
+          description: Basic auth credentials [username, password].
+    ValidationErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationErrorDetail'
+    MonitorJobItem:
+      type: object
+      required:
+      - job_id
+      - start_date
+      - end_date
+      properties:
+        job_id:
           type: string
-          description: 'Display name of the user who shared the resource (first + last
+          format: uuid
+          description: Unique identifier for this job execution.
+        start_date:
+          type: string
+          format: date-time
+          description: Start of the data collection time window for this job execution (based on monitor schedule) in ISO 8601 format with UTC timezone.
+          example: '2025-11-14T21:00:00Z'
+        end_date:
+          type: string
+          format: date-time
+          description: End of the data collection time window for this job execution (based on monitor schedule) in ISO 8601 format with UTC timezone.
+          example: '2025-11-15T00:00:00Z'
+    MonitorCitation:
+      allOf:
+      - $ref: '#/components/schemas/Citation'
+      - type: object
+        required:
+        - id
+        - job_id
+        - added_on
+        properties:
+          id:
+            type: string
+            description: Unique identifier of the document in the search index.
+            example: 8760624448e9815f9fb4abd114c75e76
+          job_id:
+            type: string
+            format: uuid
+            description: Job ID that found this citation.
+            example: 6269aa54-c332-4fff-8a65-0d4e82a365e8
+          added_on:
+            type: string
+            format: date-time
+            description: The date when the citation was added to the record in ISO 8601 format with UTC timezone.
+            example: '2025-11-14T21:00:00Z'
+      description: 'Citation with monitor-specific metadata. Used in monitor results and webhook payloads.
 
-            name). Falls back to email address, then user ID.
+        Extends base citation with tracking information for job_id and timestamps.
 
-            '
-          example: John Doe
+        '
+    ReferenceJob:
+      type: object
+      properties:
+        query:
+          type: string
+          description: Plain text query from the reference job.
+          example: Series B funding rounds for SaaS startups
+        context:
+          type: string
+          description: Context provided with the reference job query.
+          example: Focus on funding amount and company name
+    OwnershipFilter:
+      type: string
+      enum:
+      - all
+      - own
+      - shared
+      default: all
+      description: "Controls which resources are returned based on ownership.\n\n- `all`: Returns resources owned by the user and resources shared\n  with them (default, backward compatible).\n- `own`: Returns only resources created by the authenticated user.\n- `shared`: Returns only resources shared with the user by others.\n"
+    MonitorStatusEntry:
+      type: object
+      required:
+      - status
+      - created_at
+      properties:
+        status:
+          type: string
+          enum:
+          - created
+          - enable
+          - disable
+          - scheduled
+          - dump
+          description: "Type of lifecycle event.\n\n- `created`: Monitor was created.\n- `enable`: Monitor was enabled.\n- `disable`: Monitor was disabled.\n- `scheduled`: A job was triggered for execution.\n  `additional_information` contains `job_id`, `start_date`,\n  and `end_date`.\n- `dump`: Results were collected after a job completed.\n  `additional_information` contains `nb_existing_records`,\n  `nb_final_records`, and optionally `webhook`.\n"
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp of this event in ISO 8601 format with UTC timezone.
+          example: '2026-02-05T12:04:00Z'
+        additional_information:
+          type:
+          - object
+          - 'null'
+          description: "Event-specific metadata. `null` for `created`, `enable`, and `disable` events.\n\nFor `scheduled`:\n```json\n{\n  \"job_id\": \"c3d4e5f6-a7b8-9012-cdef-345678901234\",\n  \"start_date\": \"2026-02-04T12:00:00\",\n  \"end_date\": \"2026-02-05T12:00:00\"\n}\n```\n\nFor `dump`:\n```json\n{\n  \"nb_existing_records\": 408,\n  \"nb_final_records\": 28,\n  \"webhook\": {\n    \"success\": true,\n    \"status_code\": 200,\n    \"error_message\": null\n  }\n}\n```\nThe `webhook` key is only present if the monitor has a webhook configured.\n"
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: Error message.
+          example: Invalid API key
+    Citation:
+      type: object
+      required:
+      - title
+      - link
+      - published_date
+      properties:
+        title:
+          type: string
+          description: The title of the source document.
+          example: 'Exclusive: VulnCheck raises $25M funding to help companies patch software bugs'
+        link:
+          type: string
+          format: uri
+          description: URL to the source document.
+          example: https://www.msn.com/en-us/money/other/exclusive-vulncheck-raises-25m-funding-to-help-companies-patch-software-bugs/ar-AA1WwdjW
+        published_date:
+          type: string
+          format: date-time
+          description: The publication date of the source document in ISO 8601 format (UTC timezone).
+          example: '2026-02-17T14:01:05Z'
     MonitorListItemDto:
       type: object
       required:
@@ -401,113 +543,37 @@ components:
           description: 'Present when this monitor was shared with the authenticated user. Omitted when the user owns the monitor.
 
             '
-    ReferenceJob:
+    ValidationErrorDetail:
       type: object
       properties:
-        query:
-          type: string
-          description: Plain text query from the reference job.
-          example: Series B funding rounds for SaaS startups
-        context:
-          type: string
-          description: Context provided with the reference job query.
-          example: Focus on funding amount and company name
-    ValidationErrorResponse:
-      type: object
-      properties:
-        detail:
+        loc:
           type: array
           items:
-            $ref: '#/components/schemas/ValidationErrorDetail'
-    Citation:
+            oneOf:
+            - type: string
+            - type: integer
+          description: Location of the validation error
+        msg:
+          type: string
+          description: Error message
+        type:
+          type: string
+          description: Error type
+    UpdateMonitorRequestDto:
       type: object
-      required:
-      - title
-      - link
-      - published_date
       properties:
-        title:
-          type: string
-          description: The title of the source document.
-          example: 'Exclusive: VulnCheck raises $25M funding to help companies patch software bugs'
-        link:
-          type: string
-          format: uri
-          description: URL to the source document.
-          example: https://www.msn.com/en-us/money/other/exclusive-vulncheck-raises-25m-funding-to-help-companies-patch-software-bugs/ar-AA1WwdjW
-        published_date:
-          type: string
-          format: date-time
-          description: The publication date of the source document in ISO 8601 format (UTC timezone).
-          example: '2026-02-17T14:01:05Z'
-    MonitorStatusHistoryResponseDto:
-      type: object
-      required:
-      - success
-      - monitor_id
-      - total_statuses
-      - statuses
-      properties:
-        success:
-          type: boolean
-          description: True if the request succeeded; false otherwise.
-          example: true
-        message:
-          type:
-          - string
-          - 'null'
-          description: Optional message. `null` on success.
-        monitor_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: Monitor identifier. `null` on failure.
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        total_statuses:
-          type:
-          - integer
-          - 'null'
-          description: Total number of status entries in the history.
-          example: 39
-        statuses:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/MonitorStatusEntry'
-          description: Full status history, ordered newest to oldest.
-    WebhookDto:
-      type: object
-      required:
-      - url
-      properties:
-        url:
-          type: string
-          format: uri
-          description: Webhook endpoint URL.
-        method:
-          type: string
-          enum:
-          - POST
-          - PUT
-          default: POST
-          description: HTTP method to use.
-        headers:
-          type: object
-          additionalProperties:
-            type: string
-          description: HTTP headers to include in request.
-        params:
-          type: object
-          description: Query string parameters.
-        auth:
+        webhook_ids:
           type: array
           items:
             type: string
-          minItems: 2
-          maxItems: 2
-          description: Basic auth credentials [username, password].
+            format: uuid
+          description: "Updated list of centralized webhook IDs for this monitor. \n\nReplaces all existing webhook assignments. Pass an empty array `[]` to clear all assignments. Omit to leave existing assignments unchanged.\n"
+          example:
+          - a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        limit:
+          type: integer
+          minimum: 10
+          description: Updated maximum number of records per monitor run.
     ListMonitorsResponseDto:
       type: object
       required:
@@ -538,31 +604,89 @@ components:
           items:
             $ref: '#/components/schemas/MonitorListItemDto'
           description: Array of monitor summaries.
-    MonitorStatusEntry:
+    CreateMonitorRequestDto:
       type: object
       required:
-      - status
-      - created_at
+      - reference_job_id
+      - schedule
       properties:
-        status:
+        reference_job_id:
           type: string
-          enum:
-          - created
-          - enable
-          - disable
-          - scheduled
-          - dump
-          description: "Type of lifecycle event.\n\n- `created`: Monitor was created.\n- `enable`: Monitor was enabled.\n- `disable`: Monitor was disabled.\n- `scheduled`: A job was triggered for execution.\n  `additional_information` contains `job_id`, `start_date`,\n  and `end_date`.\n- `dump`: Results were collected after a job completed.\n  `additional_information` contains `nb_existing_records`,\n  `nb_final_records`, and optionally `webhook`.\n"
-        created_at:
+          format: uuid
+          description: 'Job ID to use as template for scheduled runs. Defines the query, validators, and enrichments used for each scheduled run.
+
+
+            If [`backfill`](https://www.newscatcherapi.com/docs/web-search-api/api-reference/monitors/create-monitor#body-backfill) is true, the job''s `end_date` must be within the last 7 days.
+
+            '
+        schedule:
           type: string
-          format: date-time
-          description: Timestamp of this event in ISO 8601 format with UTC timezone.
-          example: '2026-02-05T12:04:00Z'
-        additional_information:
+          description: 'Monitor schedule in plain text format. Minimum frequency depends on your plan.
+
+            '
+          example: every day at 12 PM UTC
+        timezone:
+          type: string
+          description: "The IANA timezone identifier used as the fallback when the `schedule` string does not include an explicit timezone.\n\nIf the schedule includes a timezone abbreviation (for example, `\"every day at 9am EST\"`), the parsed timezone takes priority and this value is ignored. \n"
+          example: America/New_York
+          default: UTC
+        webhook_ids:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: 'IDs of centralized webhooks to notify on each run completion.
+
+            Passing IDs here is equivalent to calling
+
+            `POST /catchAll/webhooks/{webhook_id}/resources` for each ID after creation.
+
+            Maximum 5 per monitor.
+
+            '
+          example:
+          - a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        limit:
+          type: integer
+          minimum: 10
+          description: 'Maximum number of records per monitor run. If not provided, defaults to the plan limit.
+
+            '
+        backfill:
+          type: boolean
+          default: true
+          description: "If true, fills the data gap between the reference job's `end_date` and the first scheduled run. The reference job's `end_date` must be within the last 7 days. \n\nIf false, no gap filling occurs and the first run uses the current cron window only — the reference job's age does not matter.\n"
+        project_id:
+          type: string
+          format: uuid
+          description: 'Project to assign this monitor to. The monitor appears in the project''s resource list after creation.
+
+            '
+          example: 60a85db4-78ec-4b78-876a-bc7d9cdadd04
+    DeleteMonitorResponseDto:
+      type: object
+      required:
+      - success
+      - message
+      - monitor_id
+      properties:
+        success:
+          type: boolean
+          description: True if the delete operation succeeded; false otherwise.
+          example: true
+        message:
           type:
-          - object
+          - string
           - 'null'
-          description: "Event-specific metadata. `null` for `created`, `enable`, and `disable` events.\n\nFor `scheduled`:\n```json\n{\n  \"job_id\": \"c3d4e5f6-a7b8-9012-cdef-345678901234\",\n  \"start_date\": \"2026-02-04T12:00:00\",\n  \"end_date\": \"2026-02-05T12:00:00\"\n}\n```\n\nFor `dump`:\n```json\n{\n  \"nb_existing_records\": 408,\n  \"nb_final_records\": 28,\n  \"webhook\": {\n    \"success\": true,\n    \"status_code\": 200,\n    \"error_message\": null\n  }\n}\n```\nThe `webhook` key is only present if the monitor has a webhook configured.\n"
+          description: Human-readable result message.
+          example: Monitor deleted successfully.
+        monitor_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: ID of the deleted monitor. `null` on failure.
+          example: 7f3a8b2c-1e4d-4a5b-9c8d-6e7f8a9b0c1d
     CreateMonitorResponseDto:
       type: object
       required:
@@ -578,6 +702,34 @@ components:
           type: string
           description: Creation status or error message
           example: Monitor Created Successfully
+    MonitorRecord:
+      allOf:
+      - $ref: '#/components/schemas/BaseRecord'
+      - type: object
+        required:
+        - citations
+        properties:
+          citations:
+            type: array
+            items:
+              $ref: '#/components/schemas/MonitorCitation'
+            description: Source documents with monitor-specific metadata (job_id, added_on timestamps).
+          added_on:
+            type: string
+            format: date-time
+            description: The date when this record was first added to monitor results in ISO 8601 format with UTC timezone.
+            example: '2025-11-14T21:00:00Z'
+          updated_on:
+            type: string
+            format: date-time
+            description: The date when this record was last updated in monitor results in ISO 8601 format with UTC timezone.
+            example: '2025-11-14T21:00:00Z'
+      description: 'Record with monitor-specific metadata. Used in monitor results and webhook payloads.
+
+
+        Includes timestamps tracking when records were added and updated, and citations include job tracking.
+
+        '
     EnableMonitorRequestDto:
       type: object
       description: Optional request body for enabling a monitor.
@@ -649,6 +801,76 @@ components:
           - 'null'
           description: Record limit applied to this monitor's jobs.
           example: 100
+    MonitorStatusHistoryResponseDto:
+      type: object
+      required:
+      - success
+      - monitor_id
+      - total_statuses
+      - statuses
+      properties:
+        success:
+          type: boolean
+          description: True if the request succeeded; false otherwise.
+          example: true
+        message:
+          type:
+          - string
+          - 'null'
+          description: Optional message. `null` on success.
+        monitor_id:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          description: Monitor identifier. `null` on failure.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        total_statuses:
+          type:
+          - integer
+          - 'null'
+          description: Total number of status entries in the history.
+          example: 39
+        statuses:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/MonitorStatusEntry'
+          description: Full status history, ordered newest to oldest.
+    SharingInfo:
+      type: object
+      description: 'Present on resources shared with the authenticated user by another
+
+        organization member. Omitted entirely on resources the user owns.
+
+        '
+      required:
+      - shared_at
+      - permission
+      - shared_by
+      properties:
+        shared_at:
+          type: string
+          format: date-time
+          description: When the resource was shared.
+          example: '2026-04-15T12:00:00Z'
+        permission:
+          type: string
+          enum:
+          - view
+          - edit
+          - manage
+          description: Permission level granted to the recipient.
+          example: view
+        shared_by:
+          type: string
+          description: 'Display name of the user who shared the resource (first + last
+
+            name). Falls back to email address, then user ID.
+
+            '
+          example: John Doe
     BaseRecord:
       type: object
       required:
@@ -701,284 +923,65 @@ components:
                 domain_url_confidence: null
             valuation: 25000000
             other_investors: National Grid Partners, Ten Eleven Ventures, In-Q-Tel
-    ValidationErrorDetail:
-      type: object
-      properties:
-        loc:
-          type: array
-          items:
-            oneOf:
-            - type: string
-            - type: integer
-          description: Location of the validation error
-        msg:
-          type: string
-          description: Error message
-        type:
-          type: string
-          description: Error type
-    MonitorJobItem:
-      type: object
-      required:
-      - job_id
-      - start_date
-      - end_date
-      properties:
-        job_id:
-          type: string
-          format: uuid
-          description: Unique identifier for this job execution.
-        start_date:
-          type: string
-          format: date-time
-          description: Start of the data collection time window for this job execution (based on monitor schedule) in ISO 8601 format with UTC timezone.
-          example: '2025-11-14T21:00:00Z'
-        end_date:
-          type: string
-          format: date-time
-          description: End of the data collection time window for this job execution (based on monitor schedule) in ISO 8601 format with UTC timezone.
-          example: '2025-11-15T00:00:00Z'
-    UpdateMonitorRequestDto:
-      type: object
-      properties:
-        webhook_ids:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: "Updated list of centralized webhook IDs for this monitor. \n\nReplaces all existing webhook assignments. Pass an empty array `[]` to clear all assignments. Omit to leave existing assignments unchanged.\n"
-          example:
-          - a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        limit:
-          type: integer
-          minimum: 10
-          description: Updated maximum number of records per monitor run.
-    CreateMonitorRequestDto:
-      type: object
-      required:
-      - reference_job_id
-      - schedule
-      properties:
-        reference_job_id:
-          type: string
-          format: uuid
-          description: 'Job ID to use as template for scheduled runs. Defines the query, validators, and enrichments used for each scheduled run.
-
-
-            If [`backfill`](https://www.newscatcherapi.com/docs/web-search-api/api-reference/monitors/create-monitor#body-backfill) is true, the job''s `end_date` must be within the last 7 days.
-
-            '
-        schedule:
-          type: string
-          description: 'Monitor schedule in plain text format. Minimum frequency depends on your plan.
-
-            '
-          example: every day at 12 PM UTC
-        timezone:
-          type: string
-          description: "The IANA timezone identifier used as the fallback when the `schedule` string does not include an explicit timezone.\n\nIf the schedule includes a timezone abbreviation (for example, `\"every day at 9am EST\"`), the parsed timezone takes priority and this value is ignored. \n"
-          example: America/New_York
-          default: UTC
-        webhook_ids:
-          type: array
-          items:
-            type: string
-            format: uuid
-          description: 'IDs of centralized webhooks to notify on each run completion.
-
-            Passing IDs here is equivalent to calling
-
-            `POST /catchAll/webhooks/{webhook_id}/resources` for each ID after creation.
-
-            Maximum 5 per monitor.
-
-            '
-          example:
-          - a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        limit:
-          type: integer
-          minimum: 10
-          description: 'Maximum number of records per monitor run. If not provided, defaults to the plan limit.
-
-            '
-        backfill:
-          type: boolean
-          default: true
-          description: "If true, fills the data gap between the reference job's `end_date` and the first scheduled run. The reference job's `end_date` must be within the last 7 days. \n\nIf false, no gap filling occurs and the first run uses the current cron window only — the reference job's age does not matter.\n"
-        project_id:
-          type: string
-          format: uuid
-          description: 'Project to assign this monitor to. The monitor appears in the project''s resource list after creation.
-
-            '
-          example: 60a85db4-78ec-4b78-876a-bc7d9cdadd04
-    OwnershipFilter:
-      type: string
-      enum:
-      - all
-      - own
-      - shared
-      default: all
-      description: "Controls which resources are returned based on ownership.\n\n- `all`: Returns resources owned by the user and resources shared\n  with them (default, backward compatible).\n- `own`: Returns only resources created by the authenticated user.\n- `shared`: Returns only resources shared with the user by others.\n"
-    MonitorRecord:
-      allOf:
-      - $ref: '#/components/schemas/BaseRecord'
-      - type: object
-        required:
-        - citations
-        properties:
-          citations:
-            type: array
-            items:
-              $ref: '#/components/schemas/MonitorCitation'
-            description: Source documents with monitor-specific metadata (job_id, added_on timestamps).
-          added_on:
-            type: string
-            format: date-time
-            description: The date when this record was first added to monitor results in ISO 8601 format with UTC timezone.
-            example: '2025-11-14T21:00:00Z'
-          updated_on:
-            type: string
-            format: date-time
-            description: The date when this record was last updated in monitor results in ISO 8601 format with UTC timezone.
-            example: '2025-11-14T21:00:00Z'
-      description: 'Record with monitor-specific metadata. Used in monitor results and webhook payloads.
-
-
-        Includes timestamps tracking when records were added and updated, and citations include job tracking.
-
-        '
-    MonitorCitation:
-      allOf:
-      - $ref: '#/components/schemas/Citation'
-      - type: object
-        required:
-        - id
-        - job_id
-        - added_on
-        properties:
-          id:
-            type: string
-            description: Unique identifier of the document in the search index.
-            example: 8760624448e9815f9fb4abd114c75e76
-          job_id:
-            type: string
-            format: uuid
-            description: Job ID that found this citation.
-            example: 6269aa54-c332-4fff-8a65-0d4e82a365e8
-          added_on:
-            type: string
-            format: date-time
-            description: The date when the citation was added to the record in ISO 8601 format with UTC timezone.
-            example: '2025-11-14T21:00:00Z'
-      description: 'Citation with monitor-specific metadata. Used in monitor results and webhook payloads.
-
-        Extends base citation with tracking information for job_id and timestamps.
-
-        '
-    Error:
-      type: object
-      properties:
-        detail:
-          type: string
-          description: Error message.
-          example: Invalid API key
-    DeleteMonitorResponseDto:
-      type: object
-      required:
-      - success
-      - message
-      - monitor_id
-      properties:
-        success:
-          type: boolean
-          description: True if the delete operation succeeded; false otherwise.
-          example: true
-        message:
-          type:
-          - string
-          - 'null'
-          description: Human-readable result message.
-          example: Monitor deleted successfully.
-        monitor_id:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          description: ID of the deleted monitor. `null` on failure.
-          example: 7f3a8b2c-1e4d-4a5b-9c8d-6e7f8a9b0c1d
-    UpdateMonitorResponseDto:
-      type: object
-      required:
-      - monitor_id
-      - status
-      properties:
-        monitor_id:
-          type: string
-          format: uuid
-          description: Monitor identifier.
-          example: 3fec5b07-8786-46d7-9486-d43ff67eccd4
-        status:
-          type: string
-          description: Confirmation message.
-          default: Monitor updated Successfully
-          example: Monitor updated Successfully
-  parameters:
-    PageSize:
-      name: page_size
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 100
-        minimum: 1
-        maximum: 1000
-      description: 'Number of records per page.
-
-        '
-    Search:
-      name: search
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Filter results by text (case-insensitive substring match).
-    Ownership:
-      name: ownership
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/OwnershipFilter'
-    ProjectIdQuery:
-      name: project_id
-      in: query
-      required: false
-      description: Filter results to resources belonging to this project.
-      schema:
-        type: string
-        format: uuid
-      example: 60a85db4-78ec-4b78-876a-bc7d9cdadd04
-    Page:
-      name: page
-      in: query
-      required: false
-      schema:
-        type: integer
-        default: 1
-        minimum: 1
-      description: 'Page number to retrieve.
-
-        '
   responses:
-    CreateMonitorResponse:
-      description: Monitor created successfully
+    MonitorStatusHistoryResponse:
+      description: Monitor status history retrieved successfully.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/CreateMonitorResponseDto'
+            $ref: '#/components/schemas/MonitorStatusHistoryResponseDto'
           example:
-            monitor_id: 7f3a8b2c-1e4d-4a5b-9c8d-6e7f8a9b0c1d
-            status: Monitor Created Successfully
+            success: true
+            message: null
+            monitor_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+            total_statuses: 39
+            statuses:
+            - status: disable
+              created_at: '2026-02-06T00:42:00Z'
+              additional_information: null
+            - status: dump
+              created_at: '2026-02-05T12:04:00Z'
+              additional_information:
+                nb_existing_records: 408
+                nb_final_records: 28
+            - status: scheduled
+              created_at: '2026-02-05T12:00:00Z'
+              additional_information:
+                job_id: c3d4e5f6-a7b8-9012-cdef-345678901234
+                start_date: '2026-02-04T12:00:00'
+                end_date: '2026-02-05T12:00:00'
+            - status: created
+              created_at: '2026-01-19T16:28:00Z'
+              additional_information: null
+    PullMonitorResponse:
+      description: Monitor results retrieved successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PullMonitorResponseDto'
+    UnauthorizedError:
+      description: API key is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            detail: X-API-Key header is required for this endpoint
+    UpdateMonitorResponse:
+      description: Monitor updated successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateMonitorResponseDto'
+          example:
+            monitor_id: 3fec5b07-8786-46d7-9486-d43ff67eccd4
+            status: Monitor updated Successfully
+    NotFoundError:
+      description: Job/monitor not found or results not available
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     ListMonitorJobsResponse:
       description: List of monitor jobs
       content:
@@ -1009,77 +1012,21 @@ components:
                 items:
                   $ref: '#/components/schemas/MonitorJobItem'
                 description: Array of job executions for this monitor.
-    NotFoundError:
-      description: Job/monitor not found or results not available
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    PullMonitorResponse:
-      description: Monitor results retrieved successfully
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/PullMonitorResponseDto'
     ValidationError:
       description: Validation error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ValidationErrorResponse'
-    MonitorStatusHistoryResponse:
-      description: Monitor status history retrieved successfully.
+    CreateMonitorResponse:
+      description: Monitor created successfully
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/MonitorStatusHistoryResponseDto'
+            $ref: '#/components/schemas/CreateMonitorResponseDto'
           example:
-            success: true
-            message: null
-            monitor_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-            total_statuses: 39
-            statuses:
-            - status: disable
-              created_at: '2026-02-06T00:42:00Z'
-              additional_information: null
-            - status: dump
-              created_at: '2026-02-05T12:04:00Z'
-              additional_information:
-                nb_existing_records: 408
-                nb_final_records: 28
-            - status: scheduled
-              created_at: '2026-02-05T12:00:00Z'
-              additional_information:
-                job_id: c3d4e5f6-a7b8-9012-cdef-345678901234
-                start_date: '2026-02-04T12:00:00'
-                end_date: '2026-02-05T12:00:00'
-            - status: created
-              created_at: '2026-01-19T16:28:00Z'
-              additional_information: null
-    ForbiddenError:
-      description: Invalid or missing API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    DeleteMonitorResponse:
-      description: Monitor deleted successfully (or already deleted).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/DeleteMonitorResponseDto'
-          example:
-            success: true
-            message: Monitor deleted successfully.
             monitor_id: 7f3a8b2c-1e4d-4a5b-9c8d-6e7f8a9b0c1d
-    UnauthorizedError:
-      description: API key is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            detail: X-API-Key header is required for this endpoint
+            status: Monitor Created Successfully
     ListMonitorsResponse:
       description: List of user monitors
       content:
@@ -1104,15 +1051,68 @@ components:
                 url: https://example.com/webhook
                 method: POST
               user_key: '***...a1b2'
-    UpdateMonitorResponse:
-      description: Monitor updated successfully
+    DeleteMonitorResponse:
+      description: Monitor deleted successfully (or already deleted).
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/UpdateMonitorResponseDto'
+            $ref: '#/components/schemas/DeleteMonitorResponseDto'
           example:
-            monitor_id: 3fec5b07-8786-46d7-9486-d43ff67eccd4
-            status: Monitor updated Successfully
+            success: true
+            message: Monitor deleted successfully.
+            monitor_id: 7f3a8b2c-1e4d-4a5b-9c8d-6e7f8a9b0c1d
+    ForbiddenError:
+      description: Invalid or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    Ownership:
+      name: ownership
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/OwnershipFilter'
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+      description: 'Page number to retrieve.
+
+        '
+    PageSize:
+      name: page_size
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 100
+        minimum: 1
+        maximum: 1000
+      description: 'Number of records per page.
+
+        '
+    Search:
+      name: search
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Filter results by text (case-insensitive substring match).
+    ProjectIdQuery:
+      name: project_id
+      in: query
+      required: false
+      description: Filter results to resources belonging to this project.
+      schema:
+        type: string
+        format: uuid
+      example: 60a85db4-78ec-4b78-876a-bc7d9cdadd04
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

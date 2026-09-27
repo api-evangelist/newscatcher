@@ -342,7 +342,321 @@ paths:
         '422':
           $ref: '#/components/responses/ValidationError'
 components:
+  responses:
+    CreateWebhookResponse:
+      description: Webhook created successfully.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreateWebhookResponseDto'
+          example:
+            success: true
+            message: Webhook created successfully.
+            webhook:
+              id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+              name: Layoffs Alert
+              url: https://hooks.slack.com/services/T000/B000/xxx
+              type: slack
+              delivery_mode: full
+              method: POST
+              headers: {}
+              params: {}
+              formatter_config: null
+              is_active: true
+              organization_id: org-uuid-here
+              created_by_user_id: user-uuid-here
+              created_at: '2026-05-18T10:00:00Z'
+              updated_at: '2026-05-18T10:00:00Z'
+    AssignWebhookResourceResponse:
+      description: Resource assigned to webhook.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AssignWebhookResourceResponseDto'
+          example:
+            success: true
+            message: Resource assigned to webhook.
+            already_existed: false
+            mapping:
+              id: f1e2d3c4-b5a6-7890-abcd-ef1234567890
+              webhook_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+              resource_type: monitor
+              resource_id: 3fec5b07-8786-46d7-9486-d43ff67eccd4
+              assigned_at: '2026-05-18T10:00:00Z'
+    DeliveryHistoryResponse:
+      description: Webhook delivery history retrieved successfully.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DeliveryHistoryResponseDto'
+          example:
+            resource_type: monitor
+            resource_id: 3fec5b07-8786-46d7-9486-d43ff67eccd4
+            total: 2
+            page: 1
+            page_size: 50
+            total_pages: 1
+            items:
+            - id: 42
+              webhook_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+              resource_type: monitor
+              resource_id: 3fec5b07-8786-46d7-9486-d43ff67eccd4
+              additional_info: {}
+              status_code: 200
+              attempt_number: 1
+              timestamp: '2026-05-18T10:00:00Z'
+              delivery_status: SUCCESS
+              error_message: null
+              warning_message: null
+            - id: 41
+              webhook_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+              resource_type: monitor
+              resource_id: 3fec5b07-8786-46d7-9486-d43ff67eccd4
+              additional_info: {}
+              status_code: 503
+              attempt_number: 1
+              timestamp: '2026-05-17T10:00:00Z'
+              delivery_status: FAILED
+              error_message: Service unavailable
+              warning_message: null
+    ListResourceWebhooksResponse:
+      description: Webhooks for resource retrieved successfully.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ListWebhooksResponseDto'
+          example:
+            total: 1
+            page: 1
+            page_size: 100
+            total_pages: 1
+            webhooks:
+            - id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+              name: Layoffs Alert
+              url: https://hooks.slack.com/services/T000/B000/xxx
+              type: slack
+              delivery_mode: full
+              method: POST
+              headers: {}
+              params: {}
+              formatter_config: null
+              is_active: true
+              organization_id: org-uuid-here
+              created_by_user_id: user-uuid-here
+              created_at: '2026-05-18T10:00:00Z'
+              updated_at: '2026-05-18T10:00:00Z'
+    BadRequestError:
+      description: 'Bad request - invalid parameters or constraint violations.
+
+
+        Common causes: date ranges outside plan limits, invalid job state for continuation.
+
+        '
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          examples:
+            date_validation:
+              summary: Date outside plan limit
+              value:
+                detail: start_date must be >= 2025-02-05, your plan limited to lookback 365 days.
+            invalid_continuation:
+              summary: Invalid job continuation
+              value:
+                detail: New limit must be greater than the previous limit for this job.
+    GetWebhookResponse:
+      description: Webhook retrieved successfully.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/GetWebhookResponseDto'
+          example:
+            success: true
+            message: Webhook retrieved successfully.
+            webhook:
+              id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+              name: Layoffs Alert
+              url: https://hooks.slack.com/services/T000/B000/xxx
+              type: slack
+              delivery_mode: full
+              method: POST
+              headers: {}
+              params: {}
+              formatter_config: null
+              is_active: true
+              organization_id: org-uuid-here
+              created_by_user_id: user-uuid-here
+              created_at: '2026-05-18T10:00:00Z'
+              updated_at: '2026-05-18T10:00:00Z'
+    ListWebhooksResponse:
+      description: Webhooks retrieved successfully.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ListWebhooksResponseDto'
+          example:
+            total: 2
+            page: 1
+            page_size: 100
+            total_pages: 1
+            webhooks:
+            - id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+              name: Layoffs Alert
+              url: https://hooks.slack.com/services/T000/B000/xxx
+              type: slack
+              delivery_mode: full
+              method: POST
+              headers: {}
+              params: {}
+              formatter_config: null
+              is_active: true
+              organization_id: org-uuid-here
+              created_by_user_id: user-uuid-here
+              created_at: '2026-05-18T10:00:00Z'
+              updated_at: '2026-05-18T10:00:00Z'
+            - id: b2c3d4e5-f6a7-8901-bcde-f12345678901
+              name: M&A Tracker
+              url: https://my-service.example.com/catchall-hook
+              type: generic
+              delivery_mode: per_record
+              method: POST
+              headers:
+                Authorization: Bearer token123
+              params: {}
+              formatter_config: null
+              is_active: true
+              organization_id: org-uuid-here
+              created_by_user_id: user-uuid-here
+              created_at: '2026-05-19T09:00:00Z'
+              updated_at: '2026-05-19T09:00:00Z'
+    TestWebhookResponse:
+      description: Test delivery attempted. Check `success` and `http_status_code` for the outcome.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TestWebhookResponseDto'
+          example:
+            success: true
+            message: Test delivery succeeded.
+            http_status_code: 200
+            response_body: ok
+    NotFoundError:
+      description: Job/monitor not found or results not available
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ListWebhookResourcesResponse:
+      description: Webhook resource assignments retrieved successfully.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ListWebhookResourcesResponseDto'
+          example:
+            total: 1
+            page: 1
+            page_size: 100
+            total_pages: 1
+            resources:
+            - id: f1e2d3c4-b5a6-7890-abcd-ef1234567890
+              webhook_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+              resource_type: monitor
+              resource_id: 3fec5b07-8786-46d7-9486-d43ff67eccd4
+              assigned_at: '2026-05-18T10:00:00Z'
+    UpdateWebhookResponse:
+      description: Webhook updated successfully.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdateWebhookResponseDto'
+          example:
+            success: true
+            message: Webhook updated successfully.
+            webhook:
+              id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+              name: Layoffs Alert (EU)
+              url: https://hooks.slack.com/services/T000/B111/yyyy
+              type: slack
+              delivery_mode: full
+              method: POST
+              headers: {}
+              params: {}
+              formatter_config: null
+              is_active: true
+              organization_id: org-uuid-here
+              created_by_user_id: user-uuid-here
+              created_at: '2026-05-18T10:00:00Z'
+              updated_at: '2026-05-19T08:30:00Z'
+    ValidationError:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidationErrorResponse'
+    ForbiddenError:
+      description: Invalid or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    ValidationErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationErrorDetail'
+    WebhookResourceMappingResponseDto:
+      type: object
+      required:
+      - id
+      - webhook_id
+      - resource_type
+      - resource_id
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Mapping identifier.
+          example: f1e2d3c4-b5a6-7890-abcd-ef1234567890
+        webhook_id:
+          type: string
+          format: uuid
+          description: Webhook identifier.
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        resource_type:
+          type: string
+          description: Type of the assigned resource.
+          example: monitor
+        resource_id:
+          type: string
+          format: uuid
+          description: Identifier of the assigned resource.
+          example: 3fec5b07-8786-46d7-9486-d43ff67eccd4
+        assigned_at:
+          type: string
+          format: date-time
+          description: Timestamp when the resource was assigned in ISO 8601 format with UTC timezone.
+          example: '2026-05-18T10:00:00Z'
+    CreateWebhookResponseDto:
+      type: object
+      required:
+      - success
+      - message
+      properties:
+        success:
+          type: boolean
+          description: True if the webhook was created; false otherwise.
+          example: true
+        message:
+          type: string
+          description: Human-readable result message.
+          example: Webhook created successfully.
+        webhook:
+          $ref: '#/components/schemas/WebhookResponseDto'
+          description: The created webhook object.
     DeliveryHistoryItemDto:
       type: object
       required:
@@ -404,56 +718,6 @@ components:
           - 'null'
           description: Non-fatal warning, such as payload truncation notices. Null when no warnings occurred.
           example: null
-    HttpMethod:
-      type: string
-      enum:
-      - GET
-      - POST
-      - PUT
-      - PATCH
-      - DELETE
-      description: HTTP method used for webhook delivery.
-    DeliveryMode:
-      type: string
-      enum:
-      - full
-      - per_record
-      description: 'Delivery mode for webhook payloads.
-
-
-        - `full`: Sends all records in a single request on each trigger.
-
-        - `per_record`: Sends one request per record. For large result sets, this may generate many requests.
-
-        '
-    ValidationErrorResponse:
-      type: object
-      properties:
-        detail:
-          type: array
-          items:
-            $ref: '#/components/schemas/ValidationErrorDetail'
-    TestWebhookResponseDto:
-      type: object
-      required:
-      - success
-      - message
-      properties:
-        success:
-          type: boolean
-          description: True if the test delivery received a 2xx response; false otherwise.
-          example: true
-        message:
-          type: string
-          description: Human-readable result message.
-          example: Test delivery succeeded.
-        http_status_code:
-          type: integer
-          description: HTTP status code returned by the webhook endpoint.
-          example: 200
-        response_body:
-          description: Response body returned by the webhook endpoint. Type varies by target.
-          example: ok
     CreateWebhookRequestDto:
       type: object
       required:
@@ -533,30 +797,13 @@ components:
         url: https://hooks.slack.com/services/T000/B000/xxx
         type: slack
         delivery_mode: full
-    MappableResourceType:
-      type: string
-      enum:
-      - job
-      - monitor
-      - monitor_group
-      description: Resource types that can be assigned to a webhook.
-    GetWebhookResponseDto:
+    Error:
       type: object
-      required:
-      - success
-      - message
       properties:
-        success:
-          type: boolean
-          description: True if the operation succeeded; false otherwise.
-          example: true
-        message:
+        detail:
           type: string
-          description: Human-readable result message.
-          example: Webhook retrieved successfully.
-        webhook:
-          $ref: '#/components/schemas/WebhookResponseDto'
-          description: The retrieved webhook object.
+          description: Error message.
+          example: Invalid API key
     DeliveryHistoryResponseDto:
       type: object
       required:
@@ -597,40 +844,15 @@ components:
           items:
             $ref: '#/components/schemas/DeliveryHistoryItemDto'
           description: Delivery records on this page, ordered by timestamp descending.
-    UpdateWebhookResponseDto:
-      type: object
-      required:
-      - success
-      - message
-      properties:
-        success:
-          type: boolean
-          description: True if the webhook was updated; false otherwise.
-          example: true
-        message:
-          type: string
-          description: Human-readable result message.
-          example: Webhook updated successfully.
-        webhook:
-          $ref: '#/components/schemas/WebhookResponseDto'
-          description: The updated webhook object.
-    CreateWebhookResponseDto:
-      type: object
-      required:
-      - success
-      - message
-      properties:
-        success:
-          type: boolean
-          description: True if the webhook was created; false otherwise.
-          example: true
-        message:
-          type: string
-          description: Human-readable result message.
-          example: Webhook created successfully.
-        webhook:
-          $ref: '#/components/schemas/WebhookResponseDto'
-          description: The created webhook object.
+    HttpMethod:
+      type: string
+      enum:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      description: HTTP method used for webhook delivery.
     WebhookResponseDto:
       type: object
       required:
@@ -703,6 +925,64 @@ components:
           format: date-time
           description: Timestamp of the last update in ISO 8601 format with UTC timezone.
           example: '2026-05-18T10:00:00Z'
+    WebhookType:
+      type: string
+      enum:
+      - generic
+      - slack
+      - teams
+      - custom
+      description: 'Webhook target type.
+
+
+        - `generic`: Sends the raw result payload to any HTTPS endpoint.
+
+        - `slack`: Sends a formatted Slack Block Kit message. URL must start with `https://hooks.slack.com/`.
+
+        - `teams`: Sends a formatted Microsoft Teams Adaptive Card. URL hostname must match `*webhook.office.com` or `*.webhook.office365.com`.
+
+        - `custom`: Sends a transformed payload using the configuration in `formatter_config`. Requires `formatter_config` to be set.
+
+
+        When `type` is omitted, it is auto-detected from the URL.
+
+        '
+    TestWebhookResponseDto:
+      type: object
+      required:
+      - success
+      - message
+      properties:
+        success:
+          type: boolean
+          description: True if the test delivery received a 2xx response; false otherwise.
+          example: true
+        message:
+          type: string
+          description: Human-readable result message.
+          example: Test delivery succeeded.
+        http_status_code:
+          type: integer
+          description: HTTP status code returned by the webhook endpoint.
+          example: 200
+        response_body:
+          description: Response body returned by the webhook endpoint. Type varies by target.
+          example: ok
+    BearerAuthDto:
+      type: object
+      required:
+      - type
+      - token
+      properties:
+        type:
+          type: string
+          enum:
+          - bearer
+          description: Authentication type.
+        token:
+          type: string
+          description: Bearer token sent in the `Authorization` header.
+          example: my-secret-token
     ApiKeyAuthDto:
       type: object
       required:
@@ -723,103 +1003,6 @@ components:
           type: string
           description: API key value.
           example: sk-abc123
-    ListWebhookResourcesResponseDto:
-      type: object
-      required:
-      - total
-      - page
-      - page_size
-      - total_pages
-      - resources
-      properties:
-        total:
-          type: integer
-          description: Total number of resource mappings for this webhook.
-          example: 2
-        page:
-          type: integer
-          description: Current page number.
-          example: 1
-        page_size:
-          type: integer
-          description: Number of mappings per page.
-          example: 100
-        total_pages:
-          type: integer
-          description: Total number of pages available.
-          example: 1
-        resources:
-          type: array
-          items:
-            $ref: '#/components/schemas/WebhookResourceMappingResponseDto'
-          description: Resource mappings on this page.
-    AssignWebhookResourceResponseDto:
-      type: object
-      required:
-      - success
-      properties:
-        success:
-          type: boolean
-          description: True if the operation succeeded; false otherwise.
-          example: true
-        message:
-          type: string
-          description: Human-readable result message.
-          example: Resource assigned to webhook.
-        already_existed:
-          type: boolean
-          description: True if the assignment already existed before this request.
-          default: false
-          example: false
-        mapping:
-          $ref: '#/components/schemas/WebhookResourceMappingResponseDto'
-          description: The created or existing resource mapping.
-    WebhookResourceMappingResponseDto:
-      type: object
-      required:
-      - id
-      - webhook_id
-      - resource_type
-      - resource_id
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Mapping identifier.
-          example: f1e2d3c4-b5a6-7890-abcd-ef1234567890
-        webhook_id:
-          type: string
-          format: uuid
-          description: Webhook identifier.
-          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-        resource_type:
-          type: string
-          description: Type of the assigned resource.
-          example: monitor
-        resource_id:
-          type: string
-          format: uuid
-          description: Identifier of the assigned resource.
-          example: 3fec5b07-8786-46d7-9486-d43ff67eccd4
-        assigned_at:
-          type: string
-          format: date-time
-          description: Timestamp when the resource was assigned in ISO 8601 format with UTC timezone.
-          example: '2026-05-18T10:00:00Z'
-    AssignWebhookResourceRequestDto:
-      type: object
-      required:
-      - resource_type
-      - resource_id
-      properties:
-        resource_type:
-          $ref: '#/components/schemas/MappableResourceType'
-          description: Type of resource to assign.
-        resource_id:
-          type: string
-          format: uuid
-          description: ID of the resource to assign.
-          example: 3fec5b07-8786-46d7-9486-d43ff67eccd4
     UpdateWebhookRequestDto:
       type: object
       description: All fields are optional. Only supplied fields are updated.
@@ -873,6 +1056,74 @@ components:
           type: boolean
           description: Set to `false` to disable delivery without deleting the webhook.
           example: false
+    AssignWebhookResourceResponseDto:
+      type: object
+      required:
+      - success
+      properties:
+        success:
+          type: boolean
+          description: True if the operation succeeded; false otherwise.
+          example: true
+        message:
+          type: string
+          description: Human-readable result message.
+          example: Resource assigned to webhook.
+        already_existed:
+          type: boolean
+          description: True if the assignment already existed before this request.
+          default: false
+          example: false
+        mapping:
+          $ref: '#/components/schemas/WebhookResourceMappingResponseDto'
+          description: The created or existing resource mapping.
+    UpdateWebhookResponseDto:
+      type: object
+      required:
+      - success
+      - message
+      properties:
+        success:
+          type: boolean
+          description: True if the webhook was updated; false otherwise.
+          example: true
+        message:
+          type: string
+          description: Human-readable result message.
+          example: Webhook updated successfully.
+        webhook:
+          $ref: '#/components/schemas/WebhookResponseDto'
+          description: The updated webhook object.
+    ListWebhookResourcesResponseDto:
+      type: object
+      required:
+      - total
+      - page
+      - page_size
+      - total_pages
+      - resources
+      properties:
+        total:
+          type: integer
+          description: Total number of resource mappings for this webhook.
+          example: 2
+        page:
+          type: integer
+          description: Current page number.
+          example: 1
+        page_size:
+          type: integer
+          description: Number of mappings per page.
+          example: 100
+        total_pages:
+          type: integer
+          description: Total number of pages available.
+          example: 1
+        resources:
+          type: array
+          items:
+            $ref: '#/components/schemas/WebhookResourceMappingResponseDto'
+          description: Resource mappings on this page.
     ValidationErrorDetail:
       type: object
       properties:
@@ -889,34 +1140,6 @@ components:
         type:
           type: string
           description: Error type
-    BearerAuthDto:
-      type: object
-      required:
-      - type
-      - token
-      properties:
-        type:
-          type: string
-          enum:
-          - bearer
-          description: Authentication type.
-        token:
-          type: string
-          description: Bearer token sent in the `Authorization` header.
-          example: my-secret-token
-    TestWebhookRequestDto:
-      type: object
-      properties:
-        payload:
-          type: object
-          description: 'Custom payload to send in the test request. If omitted, a synthetic
-
-            test payload is sent.
-
-            '
-          example:
-            test: true
-            message: CatchAll webhook test
     ListWebhooksResponseDto:
       type: object
       required:
@@ -947,12 +1170,70 @@ components:
           items:
             $ref: '#/components/schemas/WebhookResponseDto'
           description: Webhooks on this page.
-    DeliveryStatus:
+    AssignWebhookResourceRequestDto:
+      type: object
+      required:
+      - resource_type
+      - resource_id
+      properties:
+        resource_type:
+          $ref: '#/components/schemas/MappableResourceType'
+          description: Type of resource to assign.
+        resource_id:
+          type: string
+          format: uuid
+          description: ID of the resource to assign.
+          example: 3fec5b07-8786-46d7-9486-d43ff67eccd4
+    TestWebhookRequestDto:
+      type: object
+      properties:
+        payload:
+          type: object
+          description: 'Custom payload to send in the test request. If omitted, a synthetic
+
+            test payload is sent.
+
+            '
+          example:
+            test: true
+            message: CatchAll webhook test
+    DeliveryMode:
       type: string
       enum:
-      - SUCCESS
-      - FAILED
-      description: Outcome of a webhook delivery attempt.
+      - full
+      - per_record
+      description: 'Delivery mode for webhook payloads.
+
+
+        - `full`: Sends all records in a single request on each trigger.
+
+        - `per_record`: Sends one request per record. For large result sets, this may generate many requests.
+
+        '
+    GetWebhookResponseDto:
+      type: object
+      required:
+      - success
+      - message
+      properties:
+        success:
+          type: boolean
+          description: True if the operation succeeded; false otherwise.
+          example: true
+        message:
+          type: string
+          description: Human-readable result message.
+          example: Webhook retrieved successfully.
+        webhook:
+          $ref: '#/components/schemas/WebhookResponseDto'
+          description: The retrieved webhook object.
+    MappableResourceType:
+      type: string
+      enum:
+      - job
+      - monitor
+      - monitor_group
+      description: Resource types that can be assigned to a webhook.
     BasicAuthDto:
       type: object
       required:
@@ -973,316 +1254,13 @@ components:
           type: string
           description: Basic auth password.
           example: pass
-    Error:
-      type: object
-      properties:
-        detail:
-          type: string
-          description: Error message.
-          example: Invalid API key
-    WebhookType:
+    DeliveryStatus:
       type: string
       enum:
-      - generic
-      - slack
-      - teams
-      - custom
-      description: 'Webhook target type.
-
-
-        - `generic`: Sends the raw result payload to any HTTPS endpoint.
-
-        - `slack`: Sends a formatted Slack Block Kit message. URL must start with `https://hooks.slack.com/`.
-
-        - `teams`: Sends a formatted Microsoft Teams Adaptive Card. URL hostname must match `*webhook.office.com` or `*.webhook.office365.com`.
-
-        - `custom`: Sends a transformed payload using the configuration in `formatter_config`. Requires `formatter_config` to be set.
-
-
-        When `type` is omitted, it is auto-detected from the URL.
-
-        '
-  responses:
-    ListResourceWebhooksResponse:
-      description: Webhooks for resource retrieved successfully.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ListWebhooksResponseDto'
-          example:
-            total: 1
-            page: 1
-            page_size: 100
-            total_pages: 1
-            webhooks:
-            - id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-              name: Layoffs Alert
-              url: https://hooks.slack.com/services/T000/B000/xxx
-              type: slack
-              delivery_mode: full
-              method: POST
-              headers: {}
-              params: {}
-              formatter_config: null
-              is_active: true
-              organization_id: org-uuid-here
-              created_by_user_id: user-uuid-here
-              created_at: '2026-05-18T10:00:00Z'
-              updated_at: '2026-05-18T10:00:00Z'
-    TestWebhookResponse:
-      description: Test delivery attempted. Check `success` and `http_status_code` for the outcome.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/TestWebhookResponseDto'
-          example:
-            success: true
-            message: Test delivery succeeded.
-            http_status_code: 200
-            response_body: ok
-    ValidationError:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ValidationErrorResponse'
-    NotFoundError:
-      description: Job/monitor not found or results not available
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UpdateWebhookResponse:
-      description: Webhook updated successfully.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UpdateWebhookResponseDto'
-          example:
-            success: true
-            message: Webhook updated successfully.
-            webhook:
-              id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-              name: Layoffs Alert (EU)
-              url: https://hooks.slack.com/services/T000/B111/yyyy
-              type: slack
-              delivery_mode: full
-              method: POST
-              headers: {}
-              params: {}
-              formatter_config: null
-              is_active: true
-              organization_id: org-uuid-here
-              created_by_user_id: user-uuid-here
-              created_at: '2026-05-18T10:00:00Z'
-              updated_at: '2026-05-19T08:30:00Z'
-    ListWebhooksResponse:
-      description: Webhooks retrieved successfully.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ListWebhooksResponseDto'
-          example:
-            total: 2
-            page: 1
-            page_size: 100
-            total_pages: 1
-            webhooks:
-            - id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-              name: Layoffs Alert
-              url: https://hooks.slack.com/services/T000/B000/xxx
-              type: slack
-              delivery_mode: full
-              method: POST
-              headers: {}
-              params: {}
-              formatter_config: null
-              is_active: true
-              organization_id: org-uuid-here
-              created_by_user_id: user-uuid-here
-              created_at: '2026-05-18T10:00:00Z'
-              updated_at: '2026-05-18T10:00:00Z'
-            - id: b2c3d4e5-f6a7-8901-bcde-f12345678901
-              name: M&A Tracker
-              url: https://my-service.example.com/catchall-hook
-              type: generic
-              delivery_mode: per_record
-              method: POST
-              headers:
-                Authorization: Bearer token123
-              params: {}
-              formatter_config: null
-              is_active: true
-              organization_id: org-uuid-here
-              created_by_user_id: user-uuid-here
-              created_at: '2026-05-19T09:00:00Z'
-              updated_at: '2026-05-19T09:00:00Z'
-    ForbiddenError:
-      description: Invalid or missing API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    DeliveryHistoryResponse:
-      description: Webhook delivery history retrieved successfully.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/DeliveryHistoryResponseDto'
-          example:
-            resource_type: monitor
-            resource_id: 3fec5b07-8786-46d7-9486-d43ff67eccd4
-            total: 2
-            page: 1
-            page_size: 50
-            total_pages: 1
-            items:
-            - id: 42
-              webhook_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-              resource_type: monitor
-              resource_id: 3fec5b07-8786-46d7-9486-d43ff67eccd4
-              additional_info: {}
-              status_code: 200
-              attempt_number: 1
-              timestamp: '2026-05-18T10:00:00Z'
-              delivery_status: SUCCESS
-              error_message: null
-              warning_message: null
-            - id: 41
-              webhook_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-              resource_type: monitor
-              resource_id: 3fec5b07-8786-46d7-9486-d43ff67eccd4
-              additional_info: {}
-              status_code: 503
-              attempt_number: 1
-              timestamp: '2026-05-17T10:00:00Z'
-              delivery_status: FAILED
-              error_message: Service unavailable
-              warning_message: null
-    BadRequestError:
-      description: 'Bad request - invalid parameters or constraint violations.
-
-
-        Common causes: date ranges outside plan limits, invalid job state for continuation.
-
-        '
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          examples:
-            date_validation:
-              summary: Date outside plan limit
-              value:
-                detail: start_date must be >= 2025-02-05, your plan limited to lookback 365 days.
-            invalid_continuation:
-              summary: Invalid job continuation
-              value:
-                detail: New limit must be greater than the previous limit for this job.
-    ListWebhookResourcesResponse:
-      description: Webhook resource assignments retrieved successfully.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ListWebhookResourcesResponseDto'
-          example:
-            total: 1
-            page: 1
-            page_size: 100
-            total_pages: 1
-            resources:
-            - id: f1e2d3c4-b5a6-7890-abcd-ef1234567890
-              webhook_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-              resource_type: monitor
-              resource_id: 3fec5b07-8786-46d7-9486-d43ff67eccd4
-              assigned_at: '2026-05-18T10:00:00Z'
-    CreateWebhookResponse:
-      description: Webhook created successfully.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CreateWebhookResponseDto'
-          example:
-            success: true
-            message: Webhook created successfully.
-            webhook:
-              id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-              name: Layoffs Alert
-              url: https://hooks.slack.com/services/T000/B000/xxx
-              type: slack
-              delivery_mode: full
-              method: POST
-              headers: {}
-              params: {}
-              formatter_config: null
-              is_active: true
-              organization_id: org-uuid-here
-              created_by_user_id: user-uuid-here
-              created_at: '2026-05-18T10:00:00Z'
-              updated_at: '2026-05-18T10:00:00Z'
-    AssignWebhookResourceResponse:
-      description: Resource assigned to webhook.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/AssignWebhookResourceResponseDto'
-          example:
-            success: true
-            message: Resource assigned to webhook.
-            already_existed: false
-            mapping:
-              id: f1e2d3c4-b5a6-7890-abcd-ef1234567890
-              webhook_id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-              resource_type: monitor
-              resource_id: 3fec5b07-8786-46d7-9486-d43ff67eccd4
-              assigned_at: '2026-05-18T10:00:00Z'
-    GetWebhookResponse:
-      description: Webhook retrieved successfully.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/GetWebhookResponseDto'
-          example:
-            success: true
-            message: Webhook retrieved successfully.
-            webhook:
-              id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
-              name: Layoffs Alert
-              url: https://hooks.slack.com/services/T000/B000/xxx
-              type: slack
-              delivery_mode: full
-              method: POST
-              headers: {}
-              params: {}
-              formatter_config: null
-              is_active: true
-              organization_id: org-uuid-here
-              created_by_user_id: user-uuid-here
-              created_at: '2026-05-18T10:00:00Z'
-              updated_at: '2026-05-18T10:00:00Z'
+      - SUCCESS
+      - FAILED
+      description: Outcome of a webhook delivery attempt.
   parameters:
-    Search:
-      name: search
-      in: query
-      required: false
-      schema:
-        type: string
-      description: Filter results by text (case-insensitive substring match).
-    WebhookResourceId:
-      name: resource_id
-      in: path
-      required: true
-      description: Unique resource identifier.
-      schema:
-        type: string
-        format: uuid
-      example: 3fec5b07-8786-46d7-9486-d43ff67eccd4
-    WebhookResourceType:
-      name: resource_type
-      in: path
-      required: true
-      schema:
-        $ref: '#/components/schemas/MappableResourceType'
     Page:
       name: page
       in: query
@@ -1294,6 +1272,15 @@ components:
       description: 'Page number to retrieve.
 
         '
+    WebhookResourceId:
+      name: resource_id
+      in: path
+      required: true
+      description: Unique resource identifier.
+      schema:
+        type: string
+        format: uuid
+      example: 3fec5b07-8786-46d7-9486-d43ff67eccd4
     WebhookId:
       name: webhook_id
       in: path
@@ -1303,6 +1290,19 @@ components:
         type: string
         format: uuid
       example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+    Search:
+      name: search
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Filter results by text (case-insensitive substring match).
+    WebhookResourceType:
+      name: resource_type
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/MappableResourceType'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
