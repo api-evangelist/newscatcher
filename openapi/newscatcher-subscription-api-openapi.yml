@@ -72,6 +72,13 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   responses:
+    InternalServerError:
+      description: Internal server error
+      content:
+        text/plain:
+          schema:
+            type: string
+          example: Internal Server Error
     BadRequestError:
       description: Bad request
       content:
@@ -82,19 +89,6 @@ components:
             message: Invalid JSON in request body
             status_code: 400
             status: Bad request
-    SubscriptionResponse:
-      description: A successful response containing information about the current subscription plan.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/SubscriptionResponseDto'
-    InternalServerError:
-      description: Internal server error
-      content:
-        text/plain:
-          schema:
-            type: string
-          example: Internal Server Error
     RateLimitError:
       description: Too many requests - Rate limit exceeded
       content:
@@ -115,16 +109,6 @@ components:
             message: Your plan request date range cannot be greater than 400 days
             status_code: 403
             status: Forbidden
-    ValidationError:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: Invalid date format
-            status_code: 422
-            status: Validation error
     UnauthorizedError:
       description: Unauthorized - Authentication failed
       content:
@@ -135,6 +119,22 @@ components:
             message: The 'x-api-token' parameter has an invalid value. Please provide a valid API key.
             status_code: 401
             status: Unauthorized
+    ValidationError:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Invalid date format
+            status_code: 422
+            status: Validation error
+    SubscriptionResponse:
+      description: A successful response containing information about the current subscription plan.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SubscriptionResponseDto'
     RequestTimeoutError:
       description: Request timeout
       content:
@@ -146,22 +146,6 @@ components:
             status_code: 408
             status: Request timeout
   schemas:
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: A detailed description of the error.
-        status_code:
-          type: integer
-          description: The HTTP status code of the error.
-        status:
-          type: string
-          description: A short description of the status code.
-      required:
-      - message
-      - status_code
-      - status
     SubscriptionResponseDto:
       title: Subscription Response
       description: "Response model for a successful `Subscription` request retrieving plan information. Response field behavior:\n- Required fields are guaranteed to be present and non-null. \n- Optional fields may be `null`/`undefined` if the data couldn't \nbe extracted during processing.\n"
@@ -198,6 +182,22 @@ components:
           title: Historical Days
           description: The number of historical days accessible under the current subscription plan.
           type: integer
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A detailed description of the error.
+        status_code:
+          type: integer
+          description: The HTTP status code of the error.
+        status:
+          type: string
+          description: A short description of the status code.
+      required:
+      - message
+      - status_code
+      - status
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
