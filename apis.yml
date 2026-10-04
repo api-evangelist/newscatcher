@@ -336,6 +336,9 @@ apis:
   - type: Documentation
     url: https://www.newscatcherapi.com/docs
 common:
+  - type: CapabilityMap
+    url: capabilities/newscatcher-capability-edges.yml
+    name: Newscatcher Business Capability Map
   - type: AgenticAccess
     url: agentic-access/newscatcher-agentic-access.yml
   - type: DomainSecurity
