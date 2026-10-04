@@ -257,6 +257,12 @@ components:
                 message: 'Validation Error with the following fields: [{''field'': ''body.entity_type'', ''message'': "entity_type must be one of (''company'', ''person'')", ''type'': ''value_error''}]'
                 status: Bad Request
                 status_code: 400
+    EntityListResponse:
+      description: Paginated list of entities.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EntityListResponse'
     CreateEntityResponse:
       description: Entity created successfully.
       content:
@@ -272,19 +278,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    CreateEntitiesBatchResponse:
-      description: Batch of entities created successfully.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/CreateEntitiesBatchResponse'
-          example:
-            entities:
-            - id: 88430468-d784-485d-84d5-6964a29ccd1e
-              status: pending
-            - id: ad4908fe-6db5-4237-a137-68dd8fc9fedc
-              status: pending
-            count: 2
     EntityResponse:
       description: Full entity object with all attributes and metadata.
       content:
@@ -317,13 +310,215 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    EntityListResponse:
-      description: Paginated list of entities.
+    CreateEntitiesBatchResponse:
+      description: Batch of entities created successfully.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/EntityListResponse'
+            $ref: '#/components/schemas/CreateEntitiesBatchResponse'
+          example:
+            entities:
+            - id: 88430468-d784-485d-84d5-6964a29ccd1e
+              status: pending
+            - id: ad4908fe-6db5-4237-a137-68dd8fc9fedc
+              status: pending
+            count: 2
   schemas:
+    CreateEntityResponse:
+      type: object
+      required:
+      - id
+      - status
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier of the created entity.
+          example: 854198fa-f702-49db-a381-0427fa87f173
+        status:
+          type: string
+          description: 'Initial status of the entity. Always `pending` immediately after creation — enrichment happens asynchronously.
+
+            '
+          example: pending
+    CreateEntityRequest:
+      type: object
+      required:
+      - name
+      description: 'Request body for creating a single entity. Only `name` is required.
+
+        The more fields you provide, the better the matching quality.
+
+        '
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: The company or person name. Required and must be non-empty.
+          example: NewsCatcher
+        entity_type:
+          $ref: '#/components/schemas/EntityType'
+        description:
+          type: string
+          description: 'Free-text description of the entity used for disambiguation when similar names exist.
+
+            '
+          example: AI-powered news data provider
+        additional_attributes:
+          $ref: '#/components/schemas/AdditionalAttributes'
+    AdditionalAttributes:
+      type: object
+      description: Additional attributes for the entity, keyed by entity type.
+      properties:
+        company_attributes:
+          $ref: '#/components/schemas/CompanyAttributes'
+    EntityStatus:
+      type: string
+      enum:
+      - pending
+      - enriching
+      - ready
+      - failed
+      description: 'Processing status of an entity.
+
+
+        - `pending`: Entity has been created and is queued for enrichment.
+
+        - `enriching`: Enrichment is in progress.
+
+        - `ready`: Enrichment complete — entity is indexed and ready for use in jobs.
+
+        - `failed`: Enrichment failed. The entity may still be used but matching quality may be reduced.
+
+        '
+    CreateEntitiesBatchRequest:
+      type: object
+      required:
+      - entities
+      properties:
+        entities:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateEntityRequest'
+          description: 'Array of entities to create. Each item follows the same schema
+
+            as single entity creation.
+
+            '
+          minItems: 1
+    CompanyAttributes:
+      type: object
+      description: 'Identifying attributes for a company entity. All fields are optional but improve matching quality.
+
+        '
+      properties:
+        domain:
+          type:
+          - string
+          - 'null'
+          description: 'Company website domain without protocol or trailing slash.
+
+
+            The most reliable identifier — strongly recommended when available.
+
+            '
+          example: newscatcherapi.com
+        description:
+          type:
+          - string
+          - 'null'
+          description: Detailed description of the company used for matching.
+          example: Provider of news and web search APIs for developers
+        key_persons:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: 'Names of key people associated with the company (founders, executives, etc.). Improves matching for articles that mention people rather than the company name.
+
+            '
+          example:
+          - Artem Bugara
+          - Maksym Sugonyaka
+        alternative_names:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          description: 'Alternative names, abbreviations, or aliases. Helps resolve common variations of the company name.
+
+            '
+          example:
+          - NC
+          - NewsCatcher API
+    EntityValidationErrorBody:
+      type: object
+      required:
+      - message
+      - status
+      - status_code
+      description: 'Error body returned by entity endpoints for field-level validation
+
+        failures. Uses a different structure from the standard `Error` schema
+
+        (`{"detail": "..."}`) used elsewhere in the API.
+
+        '
+      properties:
+        message:
+          type: string
+          description: 'Human-readable description of all validation errors, including
+
+            field path, failure message, and error type.
+
+            '
+          example: 'Validation Error with the following fields: [{''field'': ''body.entity_type'', ''message'': "entity_type must be one of (''company'', ''person'')", ''type'': ''value_error''}]'
+        status:
+          type: string
+          description: HTTP status text.
+          example: Bad Request
+        status_code:
+          type: integer
+          description: HTTP status code.
+          example: 400
+    CreateEntitiesBatchResponse:
+      type: object
+      required:
+      - entities
+      - count
+      properties:
+        entities:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateEntityResponse'
+          description: 'Array of created entity stubs in the same order as the input.
+
+            '
+        count:
+          type: integer
+          description: Total number of entities created.
+          example: 3
+    UpdateEntityRequest:
+      type: object
+      description: 'Request body for updating an entity. All fields are optional — only fields included in the request are updated. Fields not included are left unchanged.
+
+
+        **Note**: When updating `additional_attributes.company_attributes`, the provided object replaces the existing company attributes in full. Include all attribute fields you want to retain.
+
+        '
+      properties:
+        name:
+          type: string
+          description: Updated entity name.
+          example: NewsCatcher Inc.
+        description:
+          type: string
+          description: Updated description.
+          example: Updated description
+        additional_attributes:
+          $ref: '#/components/schemas/AdditionalAttributes'
     EntityResponse:
       type: object
       required:
@@ -378,67 +573,6 @@ components:
 
             '
           example: '2026-04-08T15:21:18.248316'
-    EntityType:
-      type: string
-      enum:
-      - company
-      - person
-      description: 'The type of entity.
-
-
-        - `company`: A company or organization (default).
-
-        - `person`: An individual person.
-
-        '
-      default: company
-    CompanyAttributes:
-      type: object
-      description: 'Identifying attributes for a company entity. All fields are optional but improve matching quality.
-
-        '
-      properties:
-        domain:
-          type:
-          - string
-          - 'null'
-          description: 'Company website domain without protocol or trailing slash.
-
-
-            The most reliable identifier — strongly recommended when available.
-
-            '
-          example: newscatcherapi.com
-        description:
-          type:
-          - string
-          - 'null'
-          description: Detailed description of the company used for matching.
-          example: Provider of news and web search APIs for developers
-        key_persons:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: 'Names of key people associated with the company (founders, executives, etc.). Improves matching for articles that mention people rather than the company name.
-
-            '
-          example:
-          - Artem Bugara
-          - Maksym Sugonyaka
-        alternative_names:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-          description: 'Alternative names, abbreviations, or aliases. Helps resolve common variations of the company name.
-
-            '
-          example:
-          - NC
-          - NewsCatcher API
     EntityListResponse:
       type: object
       required:
@@ -464,156 +598,6 @@ components:
           type: integer
           description: Number of entities per page.
           example: 100
-    CreateEntitiesBatchResponse:
-      type: object
-      required:
-      - entities
-      - count
-      properties:
-        entities:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreateEntityResponse'
-          description: 'Array of created entity stubs in the same order as the input.
-
-            '
-        count:
-          type: integer
-          description: Total number of entities created.
-          example: 3
-    EntitySortBy:
-      type: string
-      enum:
-      - created_at
-      - name
-      - status
-      description: Fields available for sorting entity list results.
-      default: created_at
-    UpdateEntityRequest:
-      type: object
-      description: 'Request body for updating an entity. All fields are optional — only fields included in the request are updated. Fields not included are left unchanged.
-
-
-        **Note**: When updating `additional_attributes.company_attributes`, the provided object replaces the existing company attributes in full. Include all attribute fields you want to retain.
-
-        '
-      properties:
-        name:
-          type: string
-          description: Updated entity name.
-          example: NewsCatcher Inc.
-        description:
-          type: string
-          description: Updated description.
-          example: Updated description
-        additional_attributes:
-          $ref: '#/components/schemas/AdditionalAttributes'
-    EntityValidationErrorBody:
-      type: object
-      required:
-      - message
-      - status
-      - status_code
-      description: 'Error body returned by entity endpoints for field-level validation
-
-        failures. Uses a different structure from the standard `Error` schema
-
-        (`{"detail": "..."}`) used elsewhere in the API.
-
-        '
-      properties:
-        message:
-          type: string
-          description: 'Human-readable description of all validation errors, including
-
-            field path, failure message, and error type.
-
-            '
-          example: 'Validation Error with the following fields: [{''field'': ''body.entity_type'', ''message'': "entity_type must be one of (''company'', ''person'')", ''type'': ''value_error''}]'
-        status:
-          type: string
-          description: HTTP status text.
-          example: Bad Request
-        status_code:
-          type: integer
-          description: HTTP status code.
-          example: 400
-    CreateEntitiesBatchRequest:
-      type: object
-      required:
-      - entities
-      properties:
-        entities:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreateEntityRequest'
-          description: 'Array of entities to create. Each item follows the same schema
-
-            as single entity creation.
-
-            '
-          minItems: 1
-    CreateEntityResponse:
-      type: object
-      required:
-      - id
-      - status
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique identifier of the created entity.
-          example: 854198fa-f702-49db-a381-0427fa87f173
-        status:
-          type: string
-          description: 'Initial status of the entity. Always `pending` immediately after creation — enrichment happens asynchronously.
-
-            '
-          example: pending
-    CreateEntityRequest:
-      type: object
-      required:
-      - name
-      description: 'Request body for creating a single entity. Only `name` is required.
-
-        The more fields you provide, the better the matching quality.
-
-        '
-      properties:
-        name:
-          type: string
-          minLength: 1
-          description: The company or person name. Required and must be non-empty.
-          example: NewsCatcher
-        entity_type:
-          $ref: '#/components/schemas/EntityType'
-        description:
-          type: string
-          description: 'Free-text description of the entity used for disambiguation when similar names exist.
-
-            '
-          example: AI-powered news data provider
-        additional_attributes:
-          $ref: '#/components/schemas/AdditionalAttributes'
-    EntityStatus:
-      type: string
-      enum:
-      - pending
-      - enriching
-      - ready
-      - failed
-      description: 'Processing status of an entity.
-
-
-        - `pending`: Entity has been created and is queued for enrichment.
-
-        - `enriching`: Enrichment is in progress.
-
-        - `ready`: Enrichment complete — entity is indexed and ready for use in jobs.
-
-        - `failed`: Enrichment failed. The entity may still be used but matching quality may be reduced.
-
-        '
     SortOrder:
       type: string
       enum:
@@ -635,13 +619,38 @@ components:
           type: string
           description: Error message.
           example: Invalid API key
-    AdditionalAttributes:
-      type: object
-      description: Additional attributes for the entity, keyed by entity type.
-      properties:
-        company_attributes:
-          $ref: '#/components/schemas/CompanyAttributes'
+    EntitySortBy:
+      type: string
+      enum:
+      - created_at
+      - name
+      - status
+      description: Fields available for sorting entity list results.
+      default: created_at
+    EntityType:
+      type: string
+      enum:
+      - company
+      - person
+      description: 'The type of entity.
+
+
+        - `company`: A company or organization (default).
+
+        - `person`: An individual person.
+
+        '
+      default: company
   parameters:
+    EntityId:
+      name: entity_id
+      in: path
+      required: true
+      description: Unique entity identifier.
+      schema:
+        type: string
+        format: uuid
+      example: 854198fa-f702-49db-a381-0427fa87f173
     Page:
       name: page
       in: query
@@ -653,15 +662,6 @@ components:
       description: 'Page number to retrieve.
 
         '
-    EntityId:
-      name: entity_id
-      in: path
-      required: true
-      description: Unique entity identifier.
-      schema:
-        type: string
-        format: uuid
-      example: 854198fa-f702-49db-a381-0427fa87f173
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

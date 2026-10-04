@@ -120,117 +120,34 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    AllLinks:
+    AllLinksText:
       oneOf:
       - type: string
-        example: https://aiindex.stanford.edu/report/, https://www.stateof.ai/
+        example: Nvidia, Tesla
       - type: array
         items:
           type: string
         example:
-        - https://aiindex.stanford.edu/report/
-        - https://www.stateof.ai/
-      description: 'The complete URL(s) mentioned in the article. For multiple URLs, use a comma-separated string or an array of strings.
+        - Nvidia
+        - Tesla
+      description: 'The text content of links mentioned in the article. Searches for links where the anchor text contains the specified terms. For multiple terms, use a comma-separated string or an array of strings.
+
+
+        **Note**: When this parameter is used, the response includes the `all_links_data` field with detailed link information.
 
 
         For more details, see [Search by URL](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-url).
 
         '
-    ToRank:
-      type: integer
-      minimum: 1
-      maximum: 999999
-      default: 999999
-      format: int32
-      description: 'The highest boundary of the rank of a news website to filter by. A lower rank indicates a more popular source.
-
-        '
-      example: 100
-    FromRank:
-      type: integer
-      minimum: 1
-      maximum: 999999
-      default: 1
-      format: int32
-      description: 'The lowest boundary of the rank of a news website to filter by. A lower rank indicates a more popular source.
-
-        '
-      example: 100
-    NotSources:
-      oneOf:
-      - type: string
-        example: cnn.com, wsj.com
-      - type: array
-        items:
-          type: string
-        example:
-        - cnn.com
-        - wsj.com
-      description: 'The news sources to exclude from the search. To exclude multiple sources, use a comma-separated string or an array of strings.
-
-        '
-    To:
-      oneOf:
-      - type: string
-        example: now
-      - type: string
-        format: date-time
-        example: 2024-01-01 00:00:00
-      description: "The ending point in time to search up to. Accepts date-time strings in ISO 8601 format and plain text strings. The default time zone is UTC. \n\nFormats with examples:\n- YYYY-mm-ddTHH:MM:SS: `2024-07-01T00:00:00`\n- YYYY-MM-dd: `2024-07-01`\n- YYYY/mm/dd HH:MM:SS: `2024/07/01 00:00:00`\n- YYYY/mm/dd: `2024/07/01`\n- English phrases: `1 day ago`, `now`\n- Duration shorthand: `7d`, `30d`, `24h`, `48h`\n\n**Note**: By default, applied to the publication date of the article. To use the article's parse date instead, set the `by_parse_date` parameter to `true`.\n"
-      default: now
-    AllDomainLinks:
-      oneOf:
-      - type: string
-        example: who.int, nih.gov
-      - type: array
-        items:
-          type: string
-        example:
-        - who.int
-        - nih.gov
-      description: 'The domain(s) mentioned in the article. For multiple domains, use a comma-separated string or an array of strings.
-
-
-        For more details, see [Search by URL](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-url).
-
-        '
-    Theme:
+    PerEntityName:
       type: string
-      example: Finance,Tech
-      description: 'Filters articles based on their general topic, as determined by NLP analysis. To select multiple themes, use a comma-separated string.
-
-
-        To learn more, see [NLP features](https://www.newscatcherapi.com/docs/news-api/guides-and-concepts/nlp-features).
-
-
-        Available options: `Business`, `Economics`, `Entertainment`, `Finance`, `Health`, `Politics`, `Science`, `Sports`, `Tech`, `Crime`, `Financial Crime`, `Lifestyle`, `Automotive`, `Travel`, `Weather`, `General`.
-
-        '
-    Countries:
-      oneOf:
-      - type: string
-        example: US,CA
-      - type: array
-        items:
-          type: string
-        example:
-        - US
-        - CA
-      description: 'The countries where the news publisher is located. The accepted format is the two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code. To select multiple countries, use a comma-separated string or an array of strings.
-
-
-        To learn more, see [Enumerated parameters > Country](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#country-country-and-not-country).
-
-        '
-    PageSize:
-      type: integer
-      minimum: 1
-      maximum: 1000
-      default: 100
-      description: 'The number of articles to return per page.
-
-        '
-      example: 50
+      description: "Filters articles that mention specific person names, as identified by NLP analysis. \n\n- To specify multiple names, use `AND`, `OR`, `NOT` operators, and `\\\"` escape literals for exact matches. \n- To search in translations, combine with the translation options of the `search_in` parameter (e.g., `title_content_translated`).\n\nTo learn more, see [Search by entity](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-entity).\n"
+      example: '"Elon Musk" OR "Jeff Bezos"'
+    SearchIn:
+      type: string
+      default: title_content
+      description: "The article fields to search in. Use a comma-separated string for multiple options, with a maximum of 2 in a single request.\n\nAvailable options: \n- Standard fields: `title`, `content`, `summary`, `title_content`\n- Translation fields: `title_translated`, `content_translated`, `summary_translated`, `title_content_translated`\n"
+      example: title_content, title_content_translated
     NotLang:
       oneOf:
       - type: string
@@ -247,121 +164,22 @@ components:
         To learn more, see [Enumerated parameters > Language](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#language-lang-and-not-lang).
 
         '
-    AggregationItem:
-      title: Aggregation Item
-      description: 'A single item in the aggregations array containing a collection of time-based article counts.
-
-        '
-      required:
-      - aggregation_count
-      type: object
-      properties:
-        aggregation_count:
-          type: array
-          description: Array of time frames and their corresponding article counts
-          items:
-            $ref: '#/components/schemas/TimeFrameCount'
-    FailedAggregationCountResponseDto:
-      title: Failed Aggregation Response
-      description: The response model for a failed `Aggregation count` request.
-      allOf:
-      - $ref: '#/components/schemas/BaseSearchResponseDto'
-      - type: object
-        properties:
-          user_input:
-            $ref: '#/components/schemas/UserInputDto'
-    NotCountries:
+    AllLinks:
       oneOf:
       - type: string
-        example: UK,FR
+        example: https://aiindex.stanford.edu/report/, https://www.stateof.ai/
       - type: array
         items:
           type: string
         example:
-        - UK
-        - FR
-      description: 'The publisher location countries to exclude from the search. The accepted format is the two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code. To exclude multiple countries, use a comma-separated string or an array of strings.
+        - https://aiindex.stanford.edu/report/
+        - https://www.stateof.ai/
+      description: 'The complete URL(s) mentioned in the article. For multiple URLs, use a comma-separated string or an array of strings.
 
 
-        To learn more, see [Enumerated parameters > Country](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#country-country-and-not-country).
-
-        '
-    AggregationBy:
-      type: string
-      enum:
-      - day
-      - hour
-      - month
-      description: 'The aggregation interval for the results.
+        For more details, see [Search by URL](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-url).
 
         '
-      default: day
-    PublishedDatePrecision:
-      type: string
-      description: 'The precision of the published date. There are three types:
-
-        - `full`: The day and time of an article is correctly identified with the appropriate timezone.
-
-        - `timezone unknown`: The day and time of an article is correctly identified without timezone.
-
-        - `date`: Only the day is identified without an exact time.
-
-        '
-      example: full
-    IptcTags:
-      oneOf:
-      - type: string
-        example: 20000199,20000209
-      - type: array
-        items:
-          type: string
-        example:
-        - '20000199'
-        - '20000209'
-      description: "Filters articles based on International Press Telecommunications Council (IPTC) media topic tags. To specify multiple IPTC tags, use a comma-separated string or an array of strings. \n\n**Note**: The `iptc_tags` parameter is only available in the `v3_nlp_iptc_tags` subscription plan.\n\nTo learn more, see [IPTC Media Topic NewsCodes](https://www.iptc.org/std/NewsCodes/treeview/mediatopic/mediatopic-en-GB.html).\n"
-    PerEntityName:
-      type: string
-      description: "Filters articles that mention specific person names, as identified by NLP analysis. \n\n- To specify multiple names, use `AND`, `OR`, `NOT` operators, and `\\\"` escape literals for exact matches. \n- To search in translations, combine with the translation options of the `search_in` parameter (e.g., `title_content_translated`).\n\nTo learn more, see [Search by entity](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-entity).\n"
-      example: '"Elon Musk" OR "Jeff Bezos"'
-    IsHeadline:
-      type: boolean
-      description: 'If true, only returns articles that were posted on the home page of a given news domain.
-
-        '
-      example: true
-    ContentSentimentMin:
-      type: number
-      format: float
-      minimum: -1.0
-      maximum: 1.0
-      description: 'Filters articles based on the minimum sentiment score of their content.
-
-
-        Range is `-1.0` to `1.0`, where:
-
-        - Negative values indicate negative sentiment.
-
-        - Positive values indicate positive sentiment.
-
-        - Values close to 0 indicate neutral sentiment.
-
-
-        To learn more, see [NLP features](https://www.newscatcherapi.com/docs/news-api/guides-and-concepts/nlp-features).
-
-        '
-      example: -0.5
-    WordCountMin:
-      type: integer
-      minimum: 0
-      description: 'The minimum number of words an article must contain. To be used for avoiding articles with small content.
-
-        '
-      example: 300
-    SearchIn:
-      type: string
-      default: title_content
-      description: "The article fields to search in. Use a comma-separated string for multiple options, with a maximum of 2 in a single request.\n\nAvailable options: \n- Standard fields: `title`, `content`, `summary`, `title_content`\n- Translation fields: `title_translated`, `content_translated`, `summary_translated`, `title_content_translated`\n"
-      example: title_content, title_content_translated
     TimeFrameCount:
       title: Time Frame Count
       description: 'Represents the article count for a specific time frame.
@@ -381,64 +199,13 @@ components:
           type: integer
           description: The number of articles published during this time frame
           example: 86
-    Q:
-      type: string
-      description: 'The keyword(s) to search for in articles. Query syntax supports logical operators (`AND`, `OR`, `NOT`) and wildcards:
-
-
-        - For exact phrases, use escaped quotes: `\"technology news\"`
-
-        - Use `*` for wildcards: `technolog*` (cannot start with `*`)
-
-        - Use `+` to include and `-` to exclude: `+Apple`, `-Google`
-
-        - Boolean operators: `technology AND (Apple OR Microsoft) NOT Google`
-
-        - Forbidden characters: `[` `]` `/` `\\` `:` `^` and URL-encoded equivalents
-
-
-        **Note:** The API automatically inserts `AND` operators between standalone terms, so strings like `"machine learning"` become `"machine AND learning"`. To avoid syntax errors (especially in queries with `OR` operators), use literal escape `"\"machine learning\""`.
-
-
-        For detailed syntax rules, see [Advanced querying](https://www.newscatcherapi.com/docs/news-api/guides-and-concepts/advanced-querying).
-
-        '
-      example: '"supply chain" AND Amazon NOT China'
-    UserInputDto:
-      type: object
-      description: The user input parameters for the request.
-      additionalProperties: true
-    IsPaidContent:
-      type: boolean
-      description: 'Filters articles by content completeness.
-
-
-        If false, returns only articles for which full-text content is publicly available. If true, returns all indexed articles, including those where only partial content is publicly available (e.g., headlines, summaries, or preview paragraphs from paywalled sources).
-
-
-        **Note**: NewsCatcher indexes content that is publicly accessible and available for crawling in accordance with publisher access controls (e.g., robots.txt and similar mechanisms). For paywalled sources, only content that publishers make publicly available (such as headlines, summaries, or preview text) is indexed. NewsCatcher does not bypass paywalls, authentication systems, or other technical access restrictions.
-
-        '
-      example: false
-    IncludeNlpData:
+    ByParseDate:
       type: boolean
       default: false
-      description: 'If true, includes an NLP object for each article in the response. This object provides results of NLP analysis, including article theme, summary, sentiment, tags, and named entity recognition if available.
-
-
-        **Note**: NLP data is only available for articles indexed from July 2023 onward. For articles indexed before July 2023, the `nlp` field is returned as an empty object `{}`.
-
-
-        To learn more, see [NLP features](https://www.newscatcherapi.com/docs/news-api/guides-and-concepts/nlp-features).
+      description: 'If true, the `from_` and `to_` parameters use article parse dates instead of published dates. Additionally, the `parse_date` variable is added to the output for each article object.
 
         '
       example: true
-    Page:
-      type: integer
-      minimum: 1
-      default: 1
-      description: "The page number to scroll through the results. Use for pagination, as a single API response can return up to 1,000 articles. \n\nFor details, see [Retrieve large datasets](https://www.newscatcherapi.com/docs/news-api/how-to/retrieve-more-than-10k-articles)\n"
-      example: 2
     Lang:
       oneOf:
       - type: string
@@ -455,6 +222,14 @@ components:
         To learn more, see [Enumerated parameters > Language](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#language-lang-and-not-lang).
 
         '
+    MiscEntityName:
+      type: string
+      description: "Filters articles that mention other named entities not falling under person, organization, or location categories. Includes events, nationalities, products, works of art, and more.\n\n- To specify multiple entities, use `AND`, `OR`, `NOT` operators, and `\\\"` escape literals for exact matches. \n- To search in translations, combine with the translation options of the `search_in` parameter (e.g., `title_content_translated`).\n\nTo learn more, see [Search by entity](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-entity).\n"
+      example: AWS OR "Microsoft Azure"
+    OrgEntityName:
+      type: string
+      description: "Filters articles that mention specific organization names, as identified by NLP analysis. \n\n- To specify multiple organizations, use `AND`, `OR`, `NOT` operators, and `\\\"` escape literals for exact matches. \n- To search in translations, combine with the translation options of the `search_in` parameter (e.g., `title_content_translated`).\n\nTo learn more, see [Search by entity](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-entity).\n"
+      example: '"Apple Inc" OR Microsoft'
     HasNlp:
       type: boolean
       default: false
@@ -465,6 +240,64 @@ components:
 
 
         To learn more, see [NLP features](https://www.newscatcherapi.com/docs/news-api/guides-and-concepts/nlp-features).
+
+        '
+      example: true
+    FailedAggregationCountResponseDto:
+      title: Failed Aggregation Response
+      description: The response model for a failed `Aggregation count` request.
+      allOf:
+      - $ref: '#/components/schemas/BaseSearchResponseDto'
+      - type: object
+        properties:
+          user_input:
+            $ref: '#/components/schemas/UserInputDto'
+    IncludeNlpData:
+      type: boolean
+      default: false
+      description: 'If true, includes an NLP object for each article in the response. This object provides results of NLP analysis, including article theme, summary, sentiment, tags, and named entity recognition if available.
+
+
+        **Note**: NLP data is only available for articles indexed from July 2023 onward. For articles indexed before July 2023, the `nlp` field is returned as an empty object `{}`.
+
+
+        To learn more, see [NLP features](https://www.newscatcherapi.com/docs/news-api/guides-and-concepts/nlp-features).
+
+        '
+      example: true
+    AggregationItem:
+      title: Aggregation Item
+      description: 'A single item in the aggregations array containing a collection of time-based article counts.
+
+        '
+      required:
+      - aggregation_count
+      type: object
+      properties:
+        aggregation_count:
+          type: array
+          description: Array of time frames and their corresponding article counts
+          items:
+            $ref: '#/components/schemas/TimeFrameCount'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: A detailed description of the error.
+        status_code:
+          type: integer
+          description: The HTTP status code of the error.
+        status:
+          type: string
+          description: A short description of the status code.
+      required:
+      - message
+      - status_code
+      - status
+    IsOpinion:
+      type: boolean
+      description: 'If true, returns only opinion pieces. If false, excludes opinion-based articles and returns news only.
 
         '
       example: true
@@ -489,84 +322,149 @@ components:
 
         '
       example: -0.5
-    NotTheme:
-      type: string
-      example: Crime,Sports
-      description: 'Inverse of the `theme` parameter. Excludes articles based on their general topic, as determined by NLP analysis. To exclude multiple themes, use a comma-separated string.
-
-
-        To learn more, see [NLP features](https://www.newscatcherapi.com/docs/news-api/guides-and-concepts/nlp-features).
-
-        '
-    MiscEntityName:
-      type: string
-      description: "Filters articles that mention other named entities not falling under person, organization, or location categories. Includes events, nationalities, products, works of art, and more.\n\n- To specify multiple entities, use `AND`, `OR`, `NOT` operators, and `\\\"` escape literals for exact matches. \n- To search in translations, combine with the translation options of the `search_in` parameter (e.g., `title_content_translated`).\n\nTo learn more, see [Search by entity](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-entity).\n"
-      example: AWS OR "Microsoft Azure"
-    NotIptcTags:
+    NotAuthorName:
       oneOf:
       - type: string
-        example: 20000205, 20000209
+        example: John Doe, Jane Doe
       - type: array
         items:
           type: string
         example:
-        - '20000205'
-        - '20000209'
-      description: "Inverse of the `iptc_tags` parameter. Excludes articles based on International Press Telecommunications Council (IPTC) media topic tags. To specify multiple IPTC tags to exclude, use a comma-separated string or an array of strings. \n\n**Note**: The `not_iptc_tags` parameter is only available in the `v3_nlp_iptc_tags` subscription plan.\n\nTo learn more, see [IPTC Media Topic NewsCodes](https://www.iptc.org/std/NewsCodes/treeview/mediatopic/mediatopic-en-GB.html).\n"
-    LocEntityName:
-      type: string
-      description: "Filters articles that mention specific location names, as identified by NLP analysis.\n\n- To specify multiple locations, use `AND`, `OR`, `NOT` operators, and `\\\"` escape literals for exact matches. \n- To search in translations, combine with the translation options of the `search_in` parameter (e.g., `title_content_translated`).\n\nTo learn more, see [Search by entity](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-entity).\n"
-      example: '"San Francisco" OR "New York City"'
-    WordCountMax:
-      type: integer
-      minimum: 0
-      description: "The maximum number of words an article can contain. \nTo be used for avoiding articles with large content.\n"
-      example: 1000
-    AllLinksText:
-      oneOf:
-      - type: string
-        example: Nvidia, Tesla
-      - type: array
-        items:
-          type: string
-        example:
-        - Nvidia
-        - Tesla
-      description: 'The text content of links mentioned in the article. Searches for links where the anchor text contains the specified terms. For multiple terms, use a comma-separated string or an array of strings.
-
-
-        **Note**: When this parameter is used, the response includes the `all_links_data` field with detailed link information.
-
-
-        For more details, see [Search by URL](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-url).
+        - John Doe
+        - Jane Doe
+      description: 'The list of author names to exclude from your search. To exclude articles by specific authors, use a comma-separated string or an array of strings.
 
         '
-    ByParseDate:
+    IsPaidContent:
       type: boolean
-      default: false
-      description: 'If true, the `from_` and `to_` parameters use article parse dates instead of published dates. Additionally, the `parse_date` variable is added to the output for each article object.
+      description: 'Filters articles by content completeness.
+
+
+        If false, returns only articles for which full-text content is publicly available. If true, returns all indexed articles, including those where only partial content is publicly available (e.g., headlines, summaries, or preview paragraphs from paywalled sources).
+
+
+        **Note**: NewsCatcher indexes content that is publicly accessible and available for crawling in accordance with publisher access controls (e.g., robots.txt and similar mechanisms). For paywalled sources, only content that publishers make publicly available (such as headlines, summaries, or preview text) is indexed. NewsCatcher does not bypass paywalls, authentication systems, or other technical access restrictions.
+
+        '
+      example: false
+    NotCountries:
+      oneOf:
+      - type: string
+        example: UK,FR
+      - type: array
+        items:
+          type: string
+        example:
+        - UK
+        - FR
+      description: 'The publisher location countries to exclude from the search. The accepted format is the two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code. To exclude multiple countries, use a comma-separated string or an array of strings.
+
+
+        To learn more, see [Enumerated parameters > Country](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#country-country-and-not-country).
+
+        '
+    From:
+      oneOf:
+      - type: string
+        format: date-time
+        example: 2024-07-01 00:00:00
+      - type: string
+        example: 1 day ago
+      default: 7 days ago
+      description: "The starting point in time to search from. Accepts date-time strings in ISO 8601 format and plain text strings. The default time zone is UTC. \n\nFormats with examples:\n- YYYY-mm-ddTHH:MM:SS: `2024-07-01T00:00:00`\n- YYYY-MM-dd: `2024-07-01`\n- YYYY/mm/dd HH:MM:SS: `2024/07/01 00:00:00`\n- YYYY/mm/dd: `2024/07/01`\n- English phrases: `7 day ago`, `today`\n- Duration shorthand: `7d`, `30d`, `24h`, `48h`\n\n**Note**: By default, applied to the publication date of the article. To use the article's parse date instead, set the `by_parse_date` parameter to `true`.\n"
+      example: 2021/01/01
+    IptcTags:
+      oneOf:
+      - type: string
+        example: 20000199,20000209
+      - type: array
+        items:
+          type: string
+        example:
+        - '20000199'
+        - '20000209'
+      description: "Filters articles based on International Press Telecommunications Council (IPTC) media topic tags. To specify multiple IPTC tags, use a comma-separated string or an array of strings. \n\n**Note**: The `iptc_tags` parameter is only available in the `v3_nlp_iptc_tags` subscription plan.\n\nTo learn more, see [IPTC Media Topic NewsCodes](https://www.iptc.org/std/NewsCodes/treeview/mediatopic/mediatopic-en-GB.html).\n"
+    IsHeadline:
+      type: boolean
+      description: 'If true, only returns articles that were posted on the home page of a given news domain.
 
         '
       example: true
-    Error:
-      type: object
-      properties:
-        message:
+    Q:
+      type: string
+      description: 'The keyword(s) to search for in articles. Query syntax supports logical operators (`AND`, `OR`, `NOT`) and wildcards:
+
+
+        - For exact phrases, use escaped quotes: `\"technology news\"`
+
+        - Use `*` for wildcards: `technolog*` (cannot start with `*`)
+
+        - Use `+` to include and `-` to exclude: `+Apple`, `-Google`
+
+        - Boolean operators: `technology AND (Apple OR Microsoft) NOT Google`
+
+        - Forbidden characters: `[` `]` `/` `\\` `:` `^` and URL-encoded equivalents
+
+
+        **Note:** The API automatically inserts `AND` operators between standalone terms, so strings like `"machine learning"` become `"machine AND learning"`. To avoid syntax errors (especially in queries with `OR` operators), use literal escape `"\"machine learning\""`.
+
+
+        For detailed syntax rules, see [Advanced querying](https://www.newscatcherapi.com/docs/news-api/guides-and-concepts/advanced-querying).
+
+        '
+      example: '"supply chain" AND Amazon NOT China'
+    SortBy:
+      type: string
+      enum:
+      - relevancy
+      - date
+      - rank
+      default: relevancy
+      description: 'The sorting order of the results. Possible values are:
+
+        - `relevancy`: The most relevant results first.
+
+        - `date`: The most recently published results first.
+
+        - `rank`: The results from the highest-ranked sources first.
+
+        '
+      example: date
+    Sources:
+      oneOf:
+      - type: string
+        example: nytimes.com, theguardian.com
+      - type: array
+        items:
           type: string
-          description: A detailed description of the error.
-        status_code:
-          type: integer
-          description: The HTTP status code of the error.
-        status:
-          type: string
-          description: A short description of the status code.
-      required:
-      - message
-      - status_code
-      - status
-    IsOpinion:
+        example:
+        - nytimes.com
+        - theguardian.com
+      description: 'One or more news sources to narrow down the search. The format must be a domain URL. Subdomains, such as `finance.yahoo.com`, are also acceptable. To specify multiple sources, use a comma-separated string or an array of strings.
+
+        '
+    FromRank:
+      type: integer
+      minimum: 1
+      maximum: 999999
+      default: 1
+      format: int32
+      description: 'The lowest boundary of the rank of a news website to filter by. A lower rank indicates a more popular source.
+
+        '
+      example: 100
+    PageSize:
+      type: integer
+      minimum: 1
+      maximum: 1000
+      default: 100
+      description: 'The number of articles to return per page.
+
+        '
+      example: 50
+    RobotsCompliant:
       type: boolean
-      description: 'If true, returns only opinion pieces. If false, excludes opinion-based articles and returns news only.
+      description: 'If true, returns only articles that comply with the publisher''s robots.txt rules. If false, returns only articles that do not comply with robots.txt rules. If omitted, returns all articles regardless of compliance status.
 
         '
       example: true
@@ -577,33 +475,12 @@ components:
 
         '
       example: true
-    OrgEntityName:
-      type: string
-      description: "Filters articles that mention specific organization names, as identified by NLP analysis. \n\n- To specify multiple organizations, use `AND`, `OR`, `NOT` operators, and `\\\"` escape literals for exact matches. \n- To search in translations, combine with the translation options of the `search_in` parameter (e.g., `title_content_translated`).\n\nTo learn more, see [Search by entity](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-entity).\n"
-      example: '"Apple Inc" OR Microsoft'
-    AggregationCountResponseDto:
-      title: Aggregation Response
-      description: "The response model for a successful `Aggregation count` request. Response field behavior:\n- Required fields are guaranteed to be present and non-null. \n- Optional fields may be `null` or `undefined` if the data point is not presented or couldn't be extracted during processing.\n"
-      allOf:
-      - $ref: '#/components/schemas/BaseSearchResponseDto'
-      - type: object
-        properties:
-          aggregations:
-            title: Aggregations
-            description: The aggregation results. Can be either a dictionary or a list of dictionaries.
-            oneOf:
-            - $ref: '#/components/schemas/AggregationItem'
-            - type: array
-              items:
-                $ref: '#/components/schemas/AggregationItem'
-          user_input:
-            $ref: '#/components/schemas/UserInputDto'
-    ContentSentimentMax:
+    ContentSentimentMin:
       type: number
       format: float
       minimum: -1.0
       maximum: 1.0
-      description: 'Filters articles based on the maximum sentiment score of their content.
+      description: 'Filters articles based on the minimum sentiment score of their content.
 
 
         Range is `-1.0` to `1.0`, where:
@@ -618,20 +495,7 @@ components:
         To learn more, see [NLP features](https://www.newscatcherapi.com/docs/news-api/guides-and-concepts/nlp-features).
 
         '
-      example: 0.5
-    ParentUrl:
-      oneOf:
-      - type: string
-        example: wsj.com/politics,wsj.com/tech
-      - type: array
-        items:
-          type: string
-        example:
-        - wsj.com/politics
-        - wsj.com/tech
-      description: 'The categorical URL(s) to filter your search. To filter your search by multiple categorical URLs, use a comma-separated string or an array of strings.
-
-        '
+      example: -0.5
     TitleSentimentMax:
       type: number
       format: float
@@ -653,39 +517,89 @@ components:
 
         '
       example: 0.5
-    From:
+    PredefinedSources:
       oneOf:
       - type: string
-        format: date-time
-        example: 2024-07-01 00:00:00
+        example: top 50 US, top 20 GB
+      - type: array
+        items:
+          type: string
+        example:
+        - top 50 US
+        - top 20 GB
+      description: "Predefined top news sources per country. \n\nFormat: start with the word `top`, followed by the number of desired sources, and then the two-letter country code [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). \n\nMultiple countries with the number of top sources can be specified as a comma-separated string or an array of strings.\n"
+    Countries:
+      oneOf:
       - type: string
-        example: 1 day ago
-      default: 7 days ago
-      description: "The starting point in time to search from. Accepts date-time strings in ISO 8601 format and plain text strings. The default time zone is UTC. \n\nFormats with examples:\n- YYYY-mm-ddTHH:MM:SS: `2024-07-01T00:00:00`\n- YYYY-MM-dd: `2024-07-01`\n- YYYY/mm/dd HH:MM:SS: `2024/07/01 00:00:00`\n- YYYY/mm/dd: `2024/07/01`\n- English phrases: `7 day ago`, `today`\n- Duration shorthand: `7d`, `30d`, `24h`, `48h`\n\n**Note**: By default, applied to the publication date of the article. To use the article's parse date instead, set the `by_parse_date` parameter to `true`.\n"
-      example: 2021/01/01
-    SortBy:
+        example: US,CA
+      - type: array
+        items:
+          type: string
+        example:
+        - US
+        - CA
+      description: 'The countries where the news publisher is located. The accepted format is the two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code. To select multiple countries, use a comma-separated string or an array of strings.
+
+
+        To learn more, see [Enumerated parameters > Country](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#country-country-and-not-country).
+
+        '
+    NotTheme:
       type: string
-      enum:
-      - relevancy
-      - date
-      - rank
-      default: relevancy
-      description: 'The sorting order of the results. Possible values are:
+      example: Crime,Sports
+      description: 'Inverse of the `theme` parameter. Excludes articles based on their general topic, as determined by NLP analysis. To exclude multiple themes, use a comma-separated string.
 
-        - `relevancy`: The most relevant results first.
 
-        - `date`: The most recently published results first.
-
-        - `rank`: The results from the highest-ranked sources first.
+        To learn more, see [NLP features](https://www.newscatcherapi.com/docs/news-api/guides-and-concepts/nlp-features).
 
         '
-      example: date
-    RobotsCompliant:
-      type: boolean
-      description: 'If true, returns only articles that comply with the publisher''s robots.txt rules. If false, returns only articles that do not comply with robots.txt rules. If omitted, returns all articles regardless of compliance status.
+    PublishedDatePrecision:
+      type: string
+      description: 'The precision of the published date. There are three types:
+
+        - `full`: The day and time of an article is correctly identified with the appropriate timezone.
+
+        - `timezone unknown`: The day and time of an article is correctly identified without timezone.
+
+        - `date`: Only the day is identified without an exact time.
 
         '
-      example: true
+      example: full
+    NotIptcTags:
+      oneOf:
+      - type: string
+        example: 20000205, 20000209
+      - type: array
+        items:
+          type: string
+        example:
+        - '20000205'
+        - '20000209'
+      description: "Inverse of the `iptc_tags` parameter. Excludes articles based on International Press Telecommunications Council (IPTC) media topic tags. To specify multiple IPTC tags to exclude, use a comma-separated string or an array of strings. \n\n**Note**: The `not_iptc_tags` parameter is only available in the `v3_nlp_iptc_tags` subscription plan.\n\nTo learn more, see [IPTC Media Topic NewsCodes](https://www.iptc.org/std/NewsCodes/treeview/mediatopic/mediatopic-en-GB.html).\n"
+    UserInputDto:
+      type: object
+      description: The user input parameters for the request.
+      additionalProperties: true
+    Page:
+      type: integer
+      minimum: 1
+      default: 1
+      description: "The page number to scroll through the results. Use for pagination, as a single API response can return up to 1,000 articles. \n\nFor details, see [Retrieve large datasets](https://www.newscatcherapi.com/docs/news-api/how-to/retrieve-more-than-10k-articles)\n"
+      example: 2
+    To:
+      oneOf:
+      - type: string
+        example: now
+      - type: string
+        format: date-time
+        example: 2024-01-01 00:00:00
+      description: "The ending point in time to search up to. Accepts date-time strings in ISO 8601 format and plain text strings. The default time zone is UTC. \n\nFormats with examples:\n- YYYY-mm-ddTHH:MM:SS: `2024-07-01T00:00:00`\n- YYYY-MM-dd: `2024-07-01`\n- YYYY/mm/dd HH:MM:SS: `2024/07/01 00:00:00`\n- YYYY/mm/dd: `2024/07/01`\n- English phrases: `1 day ago`, `now`\n- Duration shorthand: `7d`, `30d`, `24h`, `48h`\n\n**Note**: By default, applied to the publication date of the article. To use the article's parse date instead, set the `by_parse_date` parameter to `true`.\n"
+      default: now
+    WordCountMax:
+      type: integer
+      minimum: 0
+      description: "The maximum number of words an article can contain. \nTo be used for avoiding articles with large content.\n"
+      example: 1000
     BaseSearchResponseDto:
       title: Base Search Response
       description: The base response model containing common fields for search operations.
@@ -717,102 +631,474 @@ components:
           title: Page Size
           description: The number of articles per page.
           type: integer
-    Sources:
-      oneOf:
-      - type: string
-        example: nytimes.com, theguardian.com
-      - type: array
-        items:
-          type: string
-        example:
-        - nytimes.com
-        - theguardian.com
-      description: 'One or more news sources to narrow down the search. The format must be a domain URL. Subdomains, such as `finance.yahoo.com`, are also acceptable. To specify multiple sources, use a comma-separated string or an array of strings.
+    AggregationBy:
+      type: string
+      enum:
+      - day
+      - hour
+      - month
+      description: 'The aggregation interval for the results.
 
         '
-    PredefinedSources:
-      oneOf:
-      - type: string
-        example: top 50 US, top 20 GB
-      - type: array
-        items:
-          type: string
-        example:
-        - top 50 US
-        - top 20 GB
-      description: "Predefined top news sources per country. \n\nFormat: start with the word `top`, followed by the number of desired sources, and then the two-letter country code [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). \n\nMultiple countries with the number of top sources can be specified as a comma-separated string or an array of strings.\n"
-    NotAuthorName:
-      oneOf:
-      - type: string
-        example: John Doe, Jane Doe
-      - type: array
-        items:
-          type: string
-        example:
-        - John Doe
-        - Jane Doe
-      description: 'The list of author names to exclude from your search. To exclude articles by specific authors, use a comma-separated string or an array of strings.
+      default: day
+    ContentSentimentMax:
+      type: number
+      format: float
+      minimum: -1.0
+      maximum: 1.0
+      description: 'Filters articles based on the maximum sentiment score of their content.
+
+
+        Range is `-1.0` to `1.0`, where:
+
+        - Negative values indicate negative sentiment.
+
+        - Positive values indicate positive sentiment.
+
+        - Values close to 0 indicate neutral sentiment.
+
+
+        To learn more, see [NLP features](https://www.newscatcherapi.com/docs/news-api/guides-and-concepts/nlp-features).
 
         '
-  responses:
-    BadRequestError:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: Invalid JSON in request body
-            status_code: 400
-            status: Bad request
-    ValidationError:
-      description: Validation error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: Invalid date format
-            status_code: 422
-            status: Validation error
-    ForbiddenError:
-      description: Forbidden - Server refuses action
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: Your plan request date range cannot be greater than 400 days
-            status_code: 403
-            status: Forbidden
-    RequestTimeoutError:
-      description: Request timeout
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: Request timed out after 30 seconds
-            status_code: 408
-            status: Request timeout
-    UnauthorizedError:
-      description: Unauthorized - Authentication failed
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-          example:
-            message: The 'x-api-token' parameter has an invalid value. Please provide a valid API key.
-            status_code: 401
-            status: Unauthorized
-    AggregationCountResponse:
-      description: A successful response containing aggregation count results that match the search criteria. If no matches, returns a failed aggregation response according to the defined schema.
-      content:
-        application/json:
-          schema:
+      example: 0.5
+    Theme:
+      type: string
+      example: Finance,Tech
+      description: 'Filters articles based on their general topic, as determined by NLP analysis. To select multiple themes, use a comma-separated string.
+
+
+        To learn more, see [NLP features](https://www.newscatcherapi.com/docs/news-api/guides-and-concepts/nlp-features).
+
+
+        Available options: `Business`, `Economics`, `Entertainment`, `Finance`, `Health`, `Politics`, `Science`, `Sports`, `Tech`, `Crime`, `Financial Crime`, `Lifestyle`, `Automotive`, `Travel`, `Weather`, `General`.
+
+        '
+    LocEntityName:
+      type: string
+      description: "Filters articles that mention specific location names, as identified by NLP analysis.\n\n- To specify multiple locations, use `AND`, `OR`, `NOT` operators, and `\\\"` escape literals for exact matches. \n- To search in translations, combine with the translation options of the `search_in` parameter (e.g., `title_content_translated`).\n\nTo learn more, see [Search by entity](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-entity).\n"
+      example: '"San Francisco" OR "New York City"'
+    NotSources:
+      oneOf:
+      - type: string
+        example: cnn.com, wsj.com
+      - type: array
+        items:
+          type: string
+        example:
+        - cnn.com
+        - wsj.com
+      description: 'The news sources to exclude from the search. To exclude multiple sources, use a comma-separated string or an array of strings.
+
+        '
+    AggregationCountResponseDto:
+      title: Aggregation Response
+      description: "The response model for a successful `Aggregation count` request. Response field behavior:\n- Required fields are guaranteed to be present and non-null. \n- Optional fields may be `null` or `undefined` if the data point is not presented or couldn't be extracted during processing.\n"
+      allOf:
+      - $ref: '#/components/schemas/BaseSearchResponseDto'
+      - type: object
+        properties:
+          aggregations:
+            title: Aggregations
+            description: The aggregation results. Can be either a dictionary or a list of dictionaries.
             oneOf:
-            - $ref: '#/components/schemas/AggregationCountResponseDto'
-            - $ref: '#/components/schemas/FailedAggregationCountResponseDto'
+            - $ref: '#/components/schemas/AggregationItem'
+            - type: array
+              items:
+                $ref: '#/components/schemas/AggregationItem'
+          user_input:
+            $ref: '#/components/schemas/UserInputDto'
+    ParentUrl:
+      oneOf:
+      - type: string
+        example: wsj.com/politics,wsj.com/tech
+      - type: array
+        items:
+          type: string
+        example:
+        - wsj.com/politics
+        - wsj.com/tech
+      description: 'The categorical URL(s) to filter your search. To filter your search by multiple categorical URLs, use a comma-separated string or an array of strings.
+
+        '
+    ToRank:
+      type: integer
+      minimum: 1
+      maximum: 999999
+      default: 999999
+      format: int32
+      description: 'The highest boundary of the rank of a news website to filter by. A lower rank indicates a more popular source.
+
+        '
+      example: 100
+    AllDomainLinks:
+      oneOf:
+      - type: string
+        example: who.int, nih.gov
+      - type: array
+        items:
+          type: string
+        example:
+        - who.int
+        - nih.gov
+      description: 'The domain(s) mentioned in the article. For multiple domains, use a comma-separated string or an array of strings.
+
+
+        For more details, see [Search by URL](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-url).
+
+        '
+    WordCountMin:
+      type: integer
+      minimum: 0
+      description: 'The minimum number of words an article must contain. To be used for avoiding articles with small content.
+
+        '
+      example: 300
+  parameters:
+    NotLang:
+      description: "The language(s) to exclude from the search. The accepted format is the two-letter [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) code. To exclude multiple languages, use a comma-separated string. \n\nTo learn more, see [Enumerated parameters > Language](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#language-lang-and-not-lang).\n"
+      name: not_lang
+      in: query
+      required: false
+      schema:
+        type: string
+        example: fr,de
+    To:
+      name: to_
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/To'
+    NotAuthorName:
+      description: 'The list of author names to exclude from your search. To exclude articles by specific authors, use a comma-separated string.
+
+        '
+      name: not_author_name
+      in: query
+      required: false
+      schema:
+        type: string
+        example: John Doe, Jane Doe
+    AggregationBy:
+      name: aggregation_by
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/AggregationBy'
+    WordCountMax:
+      name: word_count_max
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/WordCountMax'
+    PerEntityName:
+      name: PER_entity_name
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/PerEntityName'
+    Sources:
+      description: 'One or more news sources to narrow down the search. The format must be a domain URL. Subdomains, such as `finance.yahoo.com`, are also acceptable.To specify multiple sources, use a comma-separated string.
+
+        '
+      name: sources
+      in: query
+      required: false
+      schema:
+        type: string
+        example: nytimes.com,finance.yahoo.com
+    ContentSentimentMax:
+      name: content_sentiment_max
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/ContentSentimentMax'
+    PageSize:
+      name: page_size
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/PageSize'
+    AllDomainLinks:
+      description: 'The domain(s) mentioned in the article. For multiple domains, use a comma-separated string.
+
+
+        For more details, see [Search by URL](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-url).
+
+        '
+      name: all_domain_links
+      in: query
+      required: false
+      schema:
+        type: string
+        example: who.int,nih.gov
+    NotIptcTags:
+      description: 'Inverse of the `iptc_tags` parameter. Excludes articles based on International Press Telecommunications Council (IPTC) media topic tags. To specify multiple IPTC tags to exclude, use a comma-separated string of tag IDs.
+
+
+        **Note**: The `not_iptc_tags` parameter is only available in the `v3_nlp_iptc_tags` subscription plan.
+
+
+        To learn more, see [IPTC Media Topic NewsCodes](https://www.iptc.org/std/NewsCodes/treeview/mediatopic/mediatopic-en-GB.html).
+
+        '
+      name: not_iptc_tags
+      in: query
+      required: false
+      schema:
+        type: string
+        example: 20000205,20000209
+    RankedOnly:
+      name: ranked_only
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/RankedOnly'
+    WordCountMin:
+      name: word_count_min
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/WordCountMin'
+    From:
+      name: from_
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/From'
+    TitleSentimentMin:
+      name: title_sentiment_min
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/TitleSentimentMin'
+    ParentUrl:
+      description: 'The categorical URL(s) to filter your search. To filter your search by multiple categorical URLs, use a comma-separated string.
+
+        '
+      name: parent_url
+      in: query
+      required: false
+      schema:
+        type: string
+        example: wsj.com/politics,wsj.com/tech
+    IsHeadline:
+      name: is_headline
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/IsHeadline'
+    PredefinedSources:
+      description: "Predefined top news sources per country. \n\nFormat: start with the word `top`, followed by the number of desired sources, and then the two-letter country code [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). \n\nMultiple countries with the number of top sources can be specified as a comma-separated string.\n"
+      name: predefined_sources
+      in: query
+      required: false
+      schema:
+        type: string
+        example: top 50 US, top 20 GB
+    NotCountries:
+      description: "The publisher location countries to exclude from the search. The accepted format is the two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code. To exclude multiple countries, use a comma-separated string. \n\nTo learn more, see [Enumerated parameters > Country](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#country-country-and-not-country).\n"
+      name: not_countries
+      in: query
+      required: false
+      schema:
+        type: string
+        example: UK,FR
+    ByParseDate:
+      name: by_parse_date
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/ByParseDate'
+    TitleSentimentMax:
+      name: title_sentiment_max
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/TitleSentimentMax'
+    IptcTags:
+      description: "Filters articles based on International Press Telecommunications Council (IPTC) media topic tags. To specify multiple IPTC tags, use a comma-separated string of tag IDs. \n\n**Note**: The `iptc_tags` parameter is only available in the `v3_nlp_iptc_tags` subscription plan.\n\nTo learn more, see [IPTC Media Topic NewsCodes](https://www.iptc.org/std/NewsCodes/treeview/mediatopic/mediatopic-en-GB.html).\n"
+      name: iptc_tags
+      in: query
+      required: false
+      schema:
+        type: string
+        example: 20000199,20000209
+    HasNlp:
+      name: has_nlp
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/HasNlp'
+    SortBy:
+      name: sort_by
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/SortBy'
+      example: date
+    IsPaidContent:
+      name: is_paid_content
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/IsPaidContent'
+    AllLinksText:
+      description: 'The text content of links mentioned in the article. Searches for links where the anchor text contains the specified terms. For multiple terms, use a comma-separated string.
+
+
+        **Note**: When this parameter is used, the response includes the `all_links_data` field with detailed link information.
+
+
+        To learn more, see [Search by URL](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-url).
+
+        '
+      name: all_links_text
+      in: query
+      required: false
+      schema:
+        type: string
+        example: Nvidia,Tesla
+    Lang:
+      description: 'The language(s) of the search. The only accepted format is the two-letter [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) code. To select multiple languages, use a comma-separated string.
+
+
+        To learn more, see [Enumerated parameters > Language](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#language-lang-and-not-lang).
+
+        '
+      name: lang
+      in: query
+      required: false
+      schema:
+        type: string
+        example: en,es
+    Countries:
+      description: 'The countries where the news publisher is located. The accepted format is the two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code. To select multiple countries, use a comma-separated string.
+
+
+        To learn more, see [Enumerated parameters > Country](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#country-country-and-not-country).
+
+        '
+      name: countries
+      in: query
+      required: false
+      schema:
+        type: string
+        example: US,CA
+    Theme:
+      name: theme
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/Theme'
+    PublishedDatePrecision:
+      name: published_date_precision
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/PublishedDatePrecision'
+    NotSources:
+      description: 'The news sources to exclude from the search. To exclude multiple sources, use a comma-separated string.
+
+        '
+      name: not_sources
+      in: query
+      required: false
+      schema:
+        type: string
+        example: cnn.com,wsj.com
+    FromRank:
+      name: from_rank
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/FromRank'
+    AllLinks:
+      description: 'The complete URL(s) mentioned in the article. For multiple URLs, use a comma-separated string.
+
+
+        For more details, see [Search by URL](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-url).
+
+        '
+      name: all_links
+      in: query
+      required: false
+      schema:
+        type: string
+        example: https://aiindex.stanford.edu/report,https://www.stateof.ai
+    Q:
+      name: q
+      in: query
+      required: true
+      schema:
+        $ref: '#/components/schemas/Q'
+    SearchIn:
+      name: search_in
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/SearchIn'
+    IsOpinion:
+      name: is_opinion
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/IsOpinion'
+    NotTheme:
+      name: not_theme
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/NotTheme'
+    IncludeNlpData:
+      name: include_nlp_data
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/IncludeNlpData'
+    RobotsCompliant:
+      name: robots_compliant
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/RobotsCompliant'
+    OrgEntityName:
+      name: ORG_entity_name
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/OrgEntityName'
+    ContentSentimentMin:
+      name: content_sentiment_min
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/ContentSentimentMin'
+    MiscEntityName:
+      name: MISC_entity_name
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/MiscEntityName'
+    ToRank:
+      name: to_rank
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/ToRank'
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/Page'
+    LocEntityName:
+      name: LOC_entity_name
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/LocEntityName'
+  responses:
     InternalServerError:
       description: Internal server error
       content:
@@ -830,350 +1116,64 @@ components:
             message: Max API requests concurrency reached
             status_code: 429
             status: Too many requests
-  parameters:
-    ContentSentimentMax:
-      name: content_sentiment_max
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/ContentSentimentMax'
-    MiscEntityName:
-      name: MISC_entity_name
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/MiscEntityName'
-    TitleSentimentMin:
-      name: title_sentiment_min
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/TitleSentimentMin'
-    ParentUrl:
-      description: 'The categorical URL(s) to filter your search. To filter your search by multiple categorical URLs, use a comma-separated string.
-
-        '
-      name: parent_url
-      in: query
-      required: false
-      schema:
-        type: string
-        example: wsj.com/politics,wsj.com/tech
-    SortBy:
-      name: sort_by
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/SortBy'
-      example: date
-    NotLang:
-      description: "The language(s) to exclude from the search. The accepted format is the two-letter [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) code. To exclude multiple languages, use a comma-separated string. \n\nTo learn more, see [Enumerated parameters > Language](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#language-lang-and-not-lang).\n"
-      name: not_lang
-      in: query
-      required: false
-      schema:
-        type: string
-        example: fr,de
-    ToRank:
-      name: to_rank
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/ToRank'
-    SearchIn:
-      name: search_in
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/SearchIn'
-    ContentSentimentMin:
-      name: content_sentiment_min
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/ContentSentimentMin'
-    IsHeadline:
-      name: is_headline
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/IsHeadline'
-    NotSources:
-      description: 'The news sources to exclude from the search. To exclude multiple sources, use a comma-separated string.
-
-        '
-      name: not_sources
-      in: query
-      required: false
-      schema:
-        type: string
-        example: cnn.com,wsj.com
-    Lang:
-      description: 'The language(s) of the search. The only accepted format is the two-letter [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) code. To select multiple languages, use a comma-separated string.
-
-
-        To learn more, see [Enumerated parameters > Language](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#language-lang-and-not-lang).
-
-        '
-      name: lang
-      in: query
-      required: false
-      schema:
-        type: string
-        example: en,es
-    TitleSentimentMax:
-      name: title_sentiment_max
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/TitleSentimentMax'
-    AggregationBy:
-      name: aggregation_by
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/AggregationBy'
-    WordCountMin:
-      name: word_count_min
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/WordCountMin'
-    AllLinksText:
-      description: 'The text content of links mentioned in the article. Searches for links where the anchor text contains the specified terms. For multiple terms, use a comma-separated string.
-
-
-        **Note**: When this parameter is used, the response includes the `all_links_data` field with detailed link information.
-
-
-        To learn more, see [Search by URL](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-url).
-
-        '
-      name: all_links_text
-      in: query
-      required: false
-      schema:
-        type: string
-        example: Nvidia,Tesla
-    IsOpinion:
-      name: is_opinion
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/IsOpinion'
-    Page:
-      name: page
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/Page'
-    LocEntityName:
-      name: LOC_entity_name
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/LocEntityName'
-    HasNlp:
-      name: has_nlp
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/HasNlp'
-    RankedOnly:
-      name: ranked_only
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/RankedOnly'
-    Sources:
-      description: 'One or more news sources to narrow down the search. The format must be a domain URL. Subdomains, such as `finance.yahoo.com`, are also acceptable.To specify multiple sources, use a comma-separated string.
-
-        '
-      name: sources
-      in: query
-      required: false
-      schema:
-        type: string
-        example: nytimes.com,finance.yahoo.com
-    PublishedDatePrecision:
-      name: published_date_precision
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/PublishedDatePrecision'
-    NotCountries:
-      description: "The publisher location countries to exclude from the search. The accepted format is the two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code. To exclude multiple countries, use a comma-separated string. \n\nTo learn more, see [Enumerated parameters > Country](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#country-country-and-not-country).\n"
-      name: not_countries
-      in: query
-      required: false
-      schema:
-        type: string
-        example: UK,FR
-    To:
-      name: to_
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/To'
-    NotAuthorName:
-      description: 'The list of author names to exclude from your search. To exclude articles by specific authors, use a comma-separated string.
-
-        '
-      name: not_author_name
-      in: query
-      required: false
-      schema:
-        type: string
-        example: John Doe, Jane Doe
-    WordCountMax:
-      name: word_count_max
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/WordCountMax'
-    Theme:
-      name: theme
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/Theme'
-    NotTheme:
-      name: not_theme
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/NotTheme'
-    PageSize:
-      name: page_size
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/PageSize'
-    FromRank:
-      name: from_rank
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/FromRank'
-    NotIptcTags:
-      description: 'Inverse of the `iptc_tags` parameter. Excludes articles based on International Press Telecommunications Council (IPTC) media topic tags. To specify multiple IPTC tags to exclude, use a comma-separated string of tag IDs.
-
-
-        **Note**: The `not_iptc_tags` parameter is only available in the `v3_nlp_iptc_tags` subscription plan.
-
-
-        To learn more, see [IPTC Media Topic NewsCodes](https://www.iptc.org/std/NewsCodes/treeview/mediatopic/mediatopic-en-GB.html).
-
-        '
-      name: not_iptc_tags
-      in: query
-      required: false
-      schema:
-        type: string
-        example: 20000205,20000209
-    AllDomainLinks:
-      description: 'The domain(s) mentioned in the article. For multiple domains, use a comma-separated string.
-
-
-        For more details, see [Search by URL](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-url).
-
-        '
-      name: all_domain_links
-      in: query
-      required: false
-      schema:
-        type: string
-        example: who.int,nih.gov
-    PerEntityName:
-      name: PER_entity_name
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/PerEntityName'
-    OrgEntityName:
-      name: ORG_entity_name
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/OrgEntityName'
-    PredefinedSources:
-      description: "Predefined top news sources per country. \n\nFormat: start with the word `top`, followed by the number of desired sources, and then the two-letter country code [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). \n\nMultiple countries with the number of top sources can be specified as a comma-separated string.\n"
-      name: predefined_sources
-      in: query
-      required: false
-      schema:
-        type: string
-        example: top 50 US, top 20 GB
-    IptcTags:
-      description: "Filters articles based on International Press Telecommunications Council (IPTC) media topic tags. To specify multiple IPTC tags, use a comma-separated string of tag IDs. \n\n**Note**: The `iptc_tags` parameter is only available in the `v3_nlp_iptc_tags` subscription plan.\n\nTo learn more, see [IPTC Media Topic NewsCodes](https://www.iptc.org/std/NewsCodes/treeview/mediatopic/mediatopic-en-GB.html).\n"
-      name: iptc_tags
-      in: query
-      required: false
-      schema:
-        type: string
-        example: 20000199,20000209
-    Q:
-      name: q
-      in: query
-      required: true
-      schema:
-        $ref: '#/components/schemas/Q'
-    RobotsCompliant:
-      name: robots_compliant
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/RobotsCompliant'
-    IncludeNlpData:
-      name: include_nlp_data
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/IncludeNlpData'
-    AllLinks:
-      description: 'The complete URL(s) mentioned in the article. For multiple URLs, use a comma-separated string.
-
-
-        For more details, see [Search by URL](https://www.newscatcherapi.com/docs/news-api/how-to/search-by-url).
-
-        '
-      name: all_links
-      in: query
-      required: false
-      schema:
-        type: string
-        example: https://aiindex.stanford.edu/report,https://www.stateof.ai
-    IsPaidContent:
-      name: is_paid_content
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/IsPaidContent'
-    ByParseDate:
-      name: by_parse_date
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/ByParseDate'
-    Countries:
-      description: 'The countries where the news publisher is located. The accepted format is the two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code. To select multiple countries, use a comma-separated string.
-
-
-        To learn more, see [Enumerated parameters > Country](https://www.newscatcherapi.com/docs/news-api/api-reference/enumerated-parameters#country-country-and-not-country).
-
-        '
-      name: countries
-      in: query
-      required: false
-      schema:
-        type: string
-        example: US,CA
-    From:
-      name: from_
-      in: query
-      required: false
-      schema:
-        $ref: '#/components/schemas/From'
+    UnauthorizedError:
+      description: Unauthorized - Authentication failed
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: The 'x-api-token' parameter has an invalid value. Please provide a valid API key.
+            status_code: 401
+            status: Unauthorized
+    ForbiddenError:
+      description: Forbidden - Server refuses action
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Your plan request date range cannot be greater than 400 days
+            status_code: 403
+            status: Forbidden
+    AggregationCountResponse:
+      description: A successful response containing aggregation count results that match the search criteria. If no matches, returns a failed aggregation response according to the defined schema.
+      content:
+        application/json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/AggregationCountResponseDto'
+            - $ref: '#/components/schemas/FailedAggregationCountResponseDto'
+    RequestTimeoutError:
+      description: Request timeout
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Request timed out after 30 seconds
+            status_code: 408
+            status: Request timeout
+    ValidationError:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Invalid date format
+            status_code: 422
+            status: Validation error
+    BadRequestError:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            message: Invalid JSON in request body
+            status_code: 400
+            status: Bad request
   requestBodies:
     AggregationRequestBody:
       description: Request body for aggregation counts based on specified criteria such as keyword, language, country, source, and more.
