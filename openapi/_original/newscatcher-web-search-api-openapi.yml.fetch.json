@@ -1,0 +1,12 @@
+{
+ "url": "https://catchall.newscatcherapi.com/openapi.json",
+ "requested_url": "https://catchall.newscatcherapi.com/openapi.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 157739,
+ "sha256": "637c5d7f734068be364d9cf0dff33d07585c7033a34e2cc347b2b5ffaabbbec4",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 0.934), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
