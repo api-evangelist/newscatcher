@@ -1,3 +1,7 @@
+# Provenance stamped 2026-10-07 (roadmap#943): written by an API Evangelist sweep (undated — the file carries no date and git cannot supply one), not
+# harvested from the provider. `method: generated` so the economics campaign may replace it with a
+# dated, verbatim transcription; every figure below is unverified until it does.
+method: generated
 specificationVersion: "0.1"
 id: newscatcher-plans-pricing
 name: Newscatcher Plans & Pricing
@@ -164,3 +168,52 @@ plans:
       - Semantic search enablement
       - Custom recommendation system support
     contact: sales@newscatcherapi.com
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - negotiated
+  units: []
+  plans:
+  - name: Individual
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Starter
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Scale
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Enterprise
+    access: other
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
+  - name: NLP Plan
+    access: other
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
+  - name: IPTC Tags Plan
+    access: other
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
+  - name: Embeddings Plan
+    access: other
+    model: negotiated
+    model_how: derived
+    units: []
+    periods: []
