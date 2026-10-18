@@ -45,7 +45,7 @@ specificationVersion: '0.23'
 tags:
   - News
   - Search
-  - NLP
+  - Natural Language Processing
   - Sentiment Analysis
   - Entity Extraction
   - Clustering
