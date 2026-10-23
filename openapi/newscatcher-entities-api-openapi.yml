@@ -671,3 +671,9 @@ components:
 externalDocs:
   description: Find out more about NewsCatcher CatchAll API
   url: https://www.newscatcherapi.com/docs/web-search-api/get-started/introduction
+x-provenance:
+  method: harvested
+  publisher: Newscatcher
+  source: https://catchall.newscatcherapi.com/openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
