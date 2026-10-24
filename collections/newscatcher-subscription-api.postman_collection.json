@@ -1,799 +1,784 @@
 {
+  "info": {
+    "_postman_id": "31d41543-5e13-436e-93f3-40624b7ef677",
+    "name": "NewsCatcher News Subscription API",
+    "description": "NewsCatcher News API provides programmatic access to a continuously updated global news index.\n\nContact Support:\n Name: Maksym Sugonyaka\n Email: maksym@newscatcherapi.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:34:54.000Z",
+    "updatedAt": "2026-10-21T20:34:54.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-31d41543-5e13-436e-93f3-40624b7ef677"
+  },
   "item": [
     {
-      "id": "af33123d-e7f4-40ad-b280-0cbce58f1e27",
-      "name": "Subscription",
-      "description": {
-        "content": "Operations to get subscription info.",
-        "type": "text/plain"
-      },
+      "name": "api",
       "item": [
         {
-          "id": "2ffd4fdc-a6f9-47ec-814d-a842a987c68e",
-          "name": "Retrieve subscription plan information",
-          "request": {
-            "name": "Retrieve subscription plan information",
-            "description": {
-              "content": "Retrieves information about your subscription plan.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "subscription"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "subscription",
+          "item": [
             {
-              "id": "87b50cce-14e8-4325-95a9-7167bf87a682",
-              "name": "A successful response containing information about the current subscription plan.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "subscription"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+              "name": "Retrieve subscription plan information",
+              "id": "bcf959b7-4c10-400c-a316-dfe20b5c75ec",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"active\": false,\n  \"concurrent_calls\": 1417,\n  \"plan\": \"string\",\n  \"plan_calls\": 1399,\n  \"remaining_calls\": 8808,\n  \"historical_days\": 8452\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "489d5ef0-739a-4a06-98ae-bfc41caed58c",
-              "name": "Bad request",
-              "originalRequest": {
                 "url": {
-                  "path": [
-                    "api",
-                    "subscription"
-                  ],
+                  "raw": "{{baseUrl}}/api/subscription",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": []
+                  "path": [
+                    "api",
+                    "subscription"
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
+                "description": "Retrieves information about your subscription plan."
+              },
+              "response": [
+                {
+                  "id": "05fa3cdd-d5bd-47c0-a2fb-f9cc9bb68db4",
+                  "name": "A successful response containing information about the current subscription plan.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/subscription",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "subscription"
+                      ]
+                    }
                   },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"active\": \"<boolean>\",\n  \"concurrent_calls\": \"<integer>\",\n  \"plan\": \"<string>\",\n  \"plan_calls\": \"<integer>\",\n  \"remaining_calls\": \"<integer>\",\n  \"historical_days\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-21T20:34:54.000Z",
+                  "updatedAt": "2026-10-21T20:34:54.000Z",
+                  "uid": "35240-05fa3cdd-d5bd-47c0-a2fb-f9cc9bb68db4"
+                },
+                {
+                  "id": "9d221144-fbb0-45e3-8a3d-32779ca18e5a",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/subscription",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "subscription"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:34:54.000Z",
+                  "updatedAt": "2026-10-21T20:34:54.000Z",
+                  "uid": "35240-9d221144-fbb0-45e3-8a3d-32779ca18e5a"
+                },
+                {
+                  "id": "081870be-79e5-499f-98e8-66c3024833d3",
+                  "name": "Unauthorized - Authentication failed",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/subscription",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "subscription"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:34:54.000Z",
+                  "updatedAt": "2026-10-21T20:34:54.000Z",
+                  "uid": "35240-081870be-79e5-499f-98e8-66c3024833d3"
+                },
+                {
+                  "id": "d56e856a-3433-4b85-b7f1-a90fdb666002",
+                  "name": "Forbidden - Server refuses action",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/subscription",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "subscription"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:34:54.000Z",
+                  "updatedAt": "2026-10-21T20:34:54.000Z",
+                  "uid": "35240-d56e856a-3433-4b85-b7f1-a90fdb666002"
+                },
+                {
+                  "id": "e7b3cff9-7142-4ef2-a56d-c905779fce3a",
+                  "name": "Request timeout",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/subscription",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "subscription"
+                      ]
+                    }
+                  },
+                  "status": "Request Timeout",
+                  "code": 408,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:34:54.000Z",
+                  "updatedAt": "2026-10-21T20:34:54.000Z",
+                  "uid": "35240-e7b3cff9-7142-4ef2-a56d-c905779fce3a"
+                },
+                {
+                  "id": "6691a3fb-23dc-4c13-ac65-62975d2c208b",
+                  "name": "Validation error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/subscription",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "subscription"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:34:54.000Z",
+                  "updatedAt": "2026-10-21T20:34:54.000Z",
+                  "uid": "35240-6691a3fb-23dc-4c13-ac65-62975d2c208b"
+                },
+                {
+                  "id": "41d7466d-c989-405a-b087-736e7718bbd2",
+                  "name": "Too many requests - Rate limit exceeded",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/subscription",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "subscription"
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:34:54.000Z",
+                  "updatedAt": "2026-10-21T20:34:54.000Z",
+                  "uid": "35240-41d7466d-c989-405a-b087-736e7718bbd2"
+                },
+                {
+                  "id": "e741ccf1-870a-4a47-98c6-f55fe4d642d2",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "text/plain"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/subscription",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "subscription"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "text/plain"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<string>",
+                  "createdAt": "2026-10-21T20:34:54.000Z",
+                  "updatedAt": "2026-10-21T20:34:54.000Z",
+                  "uid": "35240-e741ccf1-870a-4a47-98c6-f55fe4d642d2"
+                }
+              ],
+              "createdAt": "2026-10-21T20:34:54.000Z",
+              "updatedAt": "2026-10-21T20:34:54.000Z",
+              "uid": "35240-bcf959b7-4c10-400c-a316-dfe20b5c75ec"
+            },
+            {
+              "name": "Retrieve subscription plan information",
+              "id": "69554668-ce88-42b2-adbf-3c94c3bdcbc1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"Invalid JSON in request body\",\n  \"status_code\": 400,\n  \"status\": \"Bad request\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "22d2f249-6f25-4448-a6fa-801ed77a0679",
-              "name": "Unauthorized - Authentication failed",
-              "originalRequest": {
                 "url": {
-                  "path": [
-                    "api",
-                    "subscription"
-                  ],
+                  "raw": "{{baseUrl}}/api/subscription",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"The 'x-api-token' parameter has an invalid value. Please provide a valid API key.\",\n  \"status_code\": 401,\n  \"status\": \"Unauthorized\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "34774685-34e3-400b-a4d4-ee9976c1f828",
-              "name": "Forbidden - Server refuses action",
-              "originalRequest": {
-                "url": {
                   "path": [
                     "api",
                     "subscription"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Retrieves information about your subscription plan."
               },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "9dfc5b4d-4ddc-4e8a-853c-652d8b440265",
+                  "name": "A successful response containing information about the current subscription plan.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/subscription",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "subscription"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"active\": \"<boolean>\",\n  \"concurrent_calls\": \"<integer>\",\n  \"plan\": \"<string>\",\n  \"plan_calls\": \"<integer>\",\n  \"remaining_calls\": \"<integer>\",\n  \"historical_days\": \"<integer>\"\n}",
+                  "createdAt": "2026-10-21T20:34:54.000Z",
+                  "updatedAt": "2026-10-21T20:34:54.000Z",
+                  "uid": "35240-9dfc5b4d-4ddc-4e8a-853c-652d8b440265"
+                },
+                {
+                  "id": "f8a19914-311a-4406-9792-11a6dba6a20a",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/subscription",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "subscription"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:34:54.000Z",
+                  "updatedAt": "2026-10-21T20:34:54.000Z",
+                  "uid": "35240-f8a19914-311a-4406-9792-11a6dba6a20a"
+                },
+                {
+                  "id": "ebb29802-aab0-416c-bc5f-5d9967a134ec",
+                  "name": "Unauthorized - Authentication failed",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/subscription",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "subscription"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:34:54.000Z",
+                  "updatedAt": "2026-10-21T20:34:54.000Z",
+                  "uid": "35240-ebb29802-aab0-416c-bc5f-5d9967a134ec"
+                },
+                {
+                  "id": "dd080cb4-e1c4-4470-8856-7023b300fe84",
+                  "name": "Forbidden - Server refuses action",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/subscription",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "subscription"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:34:54.000Z",
+                  "updatedAt": "2026-10-21T20:34:54.000Z",
+                  "uid": "35240-dd080cb4-e1c4-4470-8856-7023b300fe84"
+                },
+                {
+                  "id": "4fde8cc7-b8de-46ac-a90b-9af3dd1ceb56",
+                  "name": "Request timeout",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/subscription",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "subscription"
+                      ]
+                    }
+                  },
+                  "status": "Request Timeout",
+                  "code": 408,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:34:54.000Z",
+                  "updatedAt": "2026-10-21T20:34:54.000Z",
+                  "uid": "35240-4fde8cc7-b8de-46ac-a90b-9af3dd1ceb56"
+                },
+                {
+                  "id": "98bddb97-f5e0-4262-aade-af5c96c1ebc4",
+                  "name": "Validation error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/subscription",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "subscription"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:34:54.000Z",
+                  "updatedAt": "2026-10-21T20:34:54.000Z",
+                  "uid": "35240-98bddb97-f5e0-4262-aade-af5c96c1ebc4"
+                },
+                {
+                  "id": "6a74691b-f9b8-4660-9a32-b55f8a096560",
+                  "name": "Too many requests - Rate limit exceeded",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/subscription",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "subscription"
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:34:54.000Z",
+                  "updatedAt": "2026-10-21T20:34:54.000Z",
+                  "uid": "35240-6a74691b-f9b8-4660-9a32-b55f8a096560"
+                },
+                {
+                  "id": "f7aef02b-d143-4122-91a0-f3c27eddd7da",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "text/plain"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/subscription",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "subscription"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "text/plain"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<string>",
+                  "createdAt": "2026-10-21T20:34:54.000Z",
+                  "updatedAt": "2026-10-21T20:34:54.000Z",
+                  "uid": "35240-f7aef02b-d143-4122-91a0-f3c27eddd7da"
                 }
               ],
-              "body": "{\n  \"message\": \"Your plan request date range cannot be greater than 400 days\",\n  \"status_code\": 403,\n  \"status\": \"Forbidden\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "fb83357b-2f93-4764-bd9d-30d06ef851ff",
-              "name": "Request timeout",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "subscription"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Request Timeout",
-              "code": 408,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"Request timed out after 30 seconds\",\n  \"status_code\": 408,\n  \"status\": \"Request timeout\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "a3892475-4128-4285-be0a-b5e2ae9419a1",
-              "name": "Validation error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "subscription"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"Invalid date format\",\n  \"status_code\": 422,\n  \"status\": \"Validation error\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "f77833d1-bbe0-4be6-a91c-8ce4010100a6",
-              "name": "Too many requests - Rate limit exceeded",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "subscription"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"Max API requests concurrency reached\",\n  \"status_code\": 429,\n  \"status\": \"Too many requests\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "01a7a043-9b4e-41dd-83bc-79458e1b2716",
-              "name": "Internal server error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "subscription"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "text/plain"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "Internal Server Error",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "createdAt": "2026-10-21T20:34:54.000Z",
+              "updatedAt": "2026-10-21T20:34:54.000Z",
+              "uid": "35240-69554668-ce88-42b2-adbf-3c94c3bdcbc1"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "aa043124-c20c-4269-93f8-553b582fcf91",
-          "name": "Retrieve subscription plan information",
-          "request": {
-            "name": "Retrieve subscription plan information",
-            "description": {
-              "content": "Retrieves information about your subscription plan.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "subscription"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "69ea5da5-2199-4faa-b8d3-cd5b432019e9",
-              "name": "A successful response containing information about the current subscription plan.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "subscription"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"active\": false,\n  \"concurrent_calls\": 1417,\n  \"plan\": \"string\",\n  \"plan_calls\": 1399,\n  \"remaining_calls\": 8808,\n  \"historical_days\": 8452\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "990f6792-30e2-4bec-86c7-b77f84b4320b",
-              "name": "Bad request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "subscription"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"Invalid JSON in request body\",\n  \"status_code\": 400,\n  \"status\": \"Bad request\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "660bd474-7ebe-43bd-89c7-77c0bbe3c413",
-              "name": "Unauthorized - Authentication failed",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "subscription"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"The 'x-api-token' parameter has an invalid value. Please provide a valid API key.\",\n  \"status_code\": 401,\n  \"status\": \"Unauthorized\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "68ddec07-4568-473a-9dee-e4bca394fc86",
-              "name": "Forbidden - Server refuses action",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "subscription"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"Your plan request date range cannot be greater than 400 days\",\n  \"status_code\": 403,\n  \"status\": \"Forbidden\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "f587ece5-0aed-4add-a645-51e08086a4cd",
-              "name": "Request timeout",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "subscription"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Request Timeout",
-              "code": 408,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"Request timed out after 30 seconds\",\n  \"status_code\": 408,\n  \"status\": \"Request timeout\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d75d8b01-0b5b-4a9e-877c-60d241fb0f3e",
-              "name": "Validation error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "subscription"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"Invalid date format\",\n  \"status_code\": 422,\n  \"status\": \"Validation error\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "2f070da5-fd5a-4b50-9334-b806462482ae",
-              "name": "Too many requests - Rate limit exceeded",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "subscription"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"Max API requests concurrency reached\",\n  \"status_code\": 429,\n  \"status\": \"Too many requests\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "9cbe9d8d-35e1-4fc8-8a27-9320e8060beb",
-              "name": "Internal server error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "subscription"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "text/plain"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "Internal Server Error",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "e59f43a6-433a-4d2b-acb8-088ff021bbc3",
+          "createdAt": "2026-10-21T20:34:54.000Z",
+          "updatedAt": "2026-10-21T20:34:54.000Z",
+          "uid": "35240-e59f43a6-433a-4d2b-acb8-088ff021bbc3"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://local-news.newscatcherapi.com",
-      "key": "baseUrl"
+      "id": "03086f7e-9bd8-4285-ab7e-361370066cf3",
+      "createdAt": "2026-10-21T20:34:54.000Z",
+      "updatedAt": "2026-10-21T20:34:54.000Z",
+      "uid": "35240-03086f7e-9bd8-4285-ab7e-361370066cf3"
     }
   ],
   "auth": {
@@ -801,25 +786,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "x-api-token"
+        "value": "x-api-token",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "2924bf38-e729-4c78-8dc3-dba54a02a6ad",
-    "name": "Local News AggregationCount Subscription API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Local News API provides access to local news articles with location-specific filtering capabilities.\n\n## Standard endpoints\n\n- `/search`: Search articles by keywords with simple location filtering (\"City, State\" format).\n- `/latest_headlines`: Retrieve recent articles for specified locations and time periods.\n- `/search_by`: Retrieve articles by URL, ID, or RSS GUID.\n- `/sources`: List available news sources.\n\n## Advanced endpoints\n\n- `/search/advanced`: Search with structured GeoNames filtering.\n- `/latest_headlines/advanced`: Latest headlines with structured GeoNames filtering.\n\n## Features\n\n- Multiple location detection methods including dedicated sources, proximity analysis, and AI extraction\n- Natural language processing for sentiment analysis and entity recognition on original content and English translations\n- Article clustering for topic analysis\n- English translations for non-English content\n\n\nContact Support:\n Name: Maksym Sugonyaka\n Email: maksym@newscatcherapi.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://v3-api.newscatcherapi.com"
     }
-  }
+  ]
 }

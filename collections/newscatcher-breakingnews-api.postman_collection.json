@@ -1,160 +1,48 @@
 {
+  "info": {
+    "_postman_id": "ea309512-125e-4009-bc73-8ea7f71e6b25",
+    "name": "NewsCatcher News Breaking News API",
+    "description": "NewsCatcher News API provides programmatic access to a continuously updated global news index.\n\nContact Support:\n Name: Maksym Sugonyaka\n Email: maksym@newscatcherapi.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:33:24.000Z",
+    "updatedAt": "2026-10-21T20:33:25.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ea309512-125e-4009-bc73-8ea7f71e6b25"
+  },
   "item": [
     {
-      "id": "7ab496e9-48b5-4b54-b9e5-4129dd9e9b49",
-      "name": "BreakingNews",
-      "description": {
-        "content": "Operations to retrieve breaking news articles.",
-        "type": "text/plain"
-      },
+      "name": "api",
       "item": [
         {
-          "id": "6530ab45-2a09-4dd3-8752-5177d7a89142",
-          "name": "Get breaking news",
-          "request": {
-            "name": "Get breaking news",
-            "description": {
-              "content": "Retrieves breaking news articles and sorts them based on specified criteria.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "breaking_news"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "sort_by",
-                  "value": "relevancy"
-                },
-                {
-                  "disabled": false,
-                  "key": "ranked_only",
-                  "value": "true"
-                },
-                {
-                  "disabled": false,
-                  "key": "from_rank",
-                  "value": "1"
-                },
-                {
-                  "disabled": false,
-                  "key": "to_rank",
-                  "value": "999999"
-                },
-                {
-                  "disabled": false,
-                  "key": "page",
-                  "value": "1"
-                },
-                {
-                  "disabled": false,
-                  "key": "page_size",
-                  "value": "100"
-                },
-                {
-                  "disabled": false,
-                  "key": "top_n_articles",
-                  "value": "1"
-                },
-                {
-                  "disabled": false,
-                  "key": "include_translation_fields",
-                  "value": "false"
-                },
-                {
-                  "disabled": false,
-                  "key": "include_nlp_data",
-                  "value": "false"
-                },
-                {
-                  "disabled": false,
-                  "key": "has_nlp",
-                  "value": "false"
-                },
-                {
-                  "disabled": false,
-                  "key": "theme",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "not_theme",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "ORG_entity_name",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "PER_entity_name",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "LOC_entity_name",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "MISC_entity_name",
-                  "value": "<string>"
-                },
-                {
-                  "disabled": false,
-                  "key": "title_sentiment_min",
-                  "value": "<float>"
-                },
-                {
-                  "disabled": false,
-                  "key": "title_sentiment_max",
-                  "value": "<float>"
-                },
-                {
-                  "disabled": false,
-                  "key": "content_sentiment_min",
-                  "value": "<float>"
-                },
-                {
-                  "disabled": false,
-                  "key": "content_sentiment_max",
-                  "value": "<float>"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "breaking_news",
+          "item": [
             {
-              "id": "818587ed-05d0-4597-ba0d-21e117e1a0fd",
-              "name": "A successful response containing breaking news articles with additional breaking news event information.",
-              "originalRequest": {
+              "name": "Get breaking news",
+              "id": "9e94f573-a517-49a2-b02e-d8ceee2fb668",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/api/breaking_news?sort_by=relevancy&ranked_only=true&from_rank=1&to_rank=999999&page=1&page_size=100&top_n_articles=1&include_translation_fields=false&include_nlp_data=false&has_nlp=false&theme=<string>&not_theme=<string>&ORG_entity_name=<string>&PER_entity_name=<string>&LOC_entity_name=<string>&MISC_entity_name=<string>&title_sentiment_min=<float>&title_sentiment_max=<float>&content_sentiment_min=<float>&content_sentiment_max=<float>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "api",
                     "breaking_news"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
                       "key": "sort_by",
-                      "value": "date"
+                      "value": "relevancy"
                     },
                     {
                       "key": "ranked_only",
@@ -162,1400 +50,1599 @@
                     },
                     {
                       "key": "from_rank",
-                      "value": "100"
+                      "value": "1"
                     },
                     {
                       "key": "to_rank",
-                      "value": "100"
+                      "value": "999999"
                     },
                     {
                       "key": "page",
-                      "value": "2"
+                      "value": "1"
                     },
                     {
                       "key": "page_size",
-                      "value": "50"
+                      "value": "100"
                     },
                     {
                       "key": "top_n_articles",
-                      "value": "5"
+                      "value": "1"
                     },
                     {
                       "key": "include_translation_fields",
-                      "value": "true"
+                      "value": "false"
                     },
                     {
                       "key": "include_nlp_data",
-                      "value": "true"
+                      "value": "false"
                     },
                     {
                       "key": "has_nlp",
-                      "value": "true"
+                      "value": "false"
                     },
                     {
                       "key": "theme",
-                      "value": "Finance,Tech"
+                      "value": "<string>"
                     },
                     {
                       "key": "not_theme",
-                      "value": "Crime,Sports"
+                      "value": "<string>"
                     },
                     {
                       "key": "ORG_entity_name",
-                      "value": "\"Apple Inc\" OR Microsoft"
+                      "value": "<string>"
                     },
                     {
                       "key": "PER_entity_name",
-                      "value": "\"Elon Musk\" OR \"Jeff Bezos\""
+                      "value": "<string>"
                     },
                     {
                       "key": "LOC_entity_name",
-                      "value": "\"San Francisco\" OR \"New York City\""
+                      "value": "<string>"
                     },
                     {
                       "key": "MISC_entity_name",
-                      "value": "AWS OR \"Microsoft Azure\""
+                      "value": "<string>"
                     },
                     {
                       "key": "title_sentiment_min",
-                      "value": "-0.5"
+                      "value": "<float>"
                     },
                     {
                       "key": "title_sentiment_max",
-                      "value": "0.5"
+                      "value": "<float>"
                     },
                     {
                       "key": "content_sentiment_min",
-                      "value": "-0.5"
+                      "value": "<float>"
                     },
                     {
                       "key": "content_sentiment_max",
-                      "value": "0.5"
+                      "value": "<float>"
+                    }
+                  ]
+                },
+                "description": "Retrieves breaking news articles and sorts them based on specified criteria."
+              },
+              "response": [
+                {
+                  "id": "a7707417-02ff-44cf-ab5e-71ecc08ae605",
+                  "name": "A successful response containing breaking news articles with additional breaking news event information.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/breaking_news?sort_by=relevancy&ranked_only=true&from_rank=1&to_rank=999999&page=1&page_size=100&top_n_articles=1&include_translation_fields=false&include_nlp_data=false&has_nlp=false&theme=<string>&not_theme=<string>&ORG_entity_name=<string>&PER_entity_name=<string>&LOC_entity_name=<string>&MISC_entity_name=<string>&title_sentiment_min=<float>&title_sentiment_max=<float>&content_sentiment_min=<float>&content_sentiment_max=<float>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "breaking_news"
+                      ],
+                      "query": [
+                        {
+                          "key": "sort_by",
+                          "value": "relevancy"
+                        },
+                        {
+                          "key": "ranked_only",
+                          "value": "true"
+                        },
+                        {
+                          "key": "from_rank",
+                          "value": "1"
+                        },
+                        {
+                          "key": "to_rank",
+                          "value": "999999"
+                        },
+                        {
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "key": "page_size",
+                          "value": "100"
+                        },
+                        {
+                          "key": "top_n_articles",
+                          "value": "1"
+                        },
+                        {
+                          "key": "include_translation_fields",
+                          "value": "false"
+                        },
+                        {
+                          "key": "include_nlp_data",
+                          "value": "false"
+                        },
+                        {
+                          "key": "has_nlp",
+                          "value": "false"
+                        },
+                        {
+                          "key": "theme",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "not_theme",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "ORG_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "PER_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "LOC_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "MISC_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "title_sentiment_min",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "title_sentiment_max",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "content_sentiment_min",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "content_sentiment_max",
+                          "value": "<float>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<string>\",\n  \"total_hits\": \"<integer>\",\n  \"page\": \"<integer>\",\n  \"total_pages\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"user_input\": {\n    \"dolore_f\": -2730750.3512450308\n  }\n}",
+                  "createdAt": "2026-10-21T20:33:25.000Z",
+                  "updatedAt": "2026-10-21T20:33:25.000Z",
+                  "uid": "35240-a7707417-02ff-44cf-ab5e-71ecc08ae605"
                 },
+                {
+                  "id": "e7673c1b-6e2d-4ca5-ba80-8de524ca708a",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/breaking_news?sort_by=relevancy&ranked_only=true&from_rank=1&to_rank=999999&page=1&page_size=100&top_n_articles=1&include_translation_fields=false&include_nlp_data=false&has_nlp=false&theme=<string>&not_theme=<string>&ORG_entity_name=<string>&PER_entity_name=<string>&LOC_entity_name=<string>&MISC_entity_name=<string>&title_sentiment_min=<float>&title_sentiment_max=<float>&content_sentiment_min=<float>&content_sentiment_max=<float>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "breaking_news"
+                      ],
+                      "query": [
+                        {
+                          "key": "sort_by",
+                          "value": "relevancy"
+                        },
+                        {
+                          "key": "ranked_only",
+                          "value": "true"
+                        },
+                        {
+                          "key": "from_rank",
+                          "value": "1"
+                        },
+                        {
+                          "key": "to_rank",
+                          "value": "999999"
+                        },
+                        {
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "key": "page_size",
+                          "value": "100"
+                        },
+                        {
+                          "key": "top_n_articles",
+                          "value": "1"
+                        },
+                        {
+                          "key": "include_translation_fields",
+                          "value": "false"
+                        },
+                        {
+                          "key": "include_nlp_data",
+                          "value": "false"
+                        },
+                        {
+                          "key": "has_nlp",
+                          "value": "false"
+                        },
+                        {
+                          "key": "theme",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "not_theme",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "ORG_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "PER_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "LOC_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "MISC_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "title_sentiment_min",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "title_sentiment_max",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "content_sentiment_min",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "content_sentiment_max",
+                          "value": "<float>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:33:25.000Z",
+                  "updatedAt": "2026-10-21T20:33:25.000Z",
+                  "uid": "35240-e7673c1b-6e2d-4ca5-ba80-8de524ca708a"
+                },
+                {
+                  "id": "9804f013-af1d-4d26-839a-695b9f763972",
+                  "name": "Unauthorized - Authentication failed",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/breaking_news?sort_by=relevancy&ranked_only=true&from_rank=1&to_rank=999999&page=1&page_size=100&top_n_articles=1&include_translation_fields=false&include_nlp_data=false&has_nlp=false&theme=<string>&not_theme=<string>&ORG_entity_name=<string>&PER_entity_name=<string>&LOC_entity_name=<string>&MISC_entity_name=<string>&title_sentiment_min=<float>&title_sentiment_max=<float>&content_sentiment_min=<float>&content_sentiment_max=<float>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "breaking_news"
+                      ],
+                      "query": [
+                        {
+                          "key": "sort_by",
+                          "value": "relevancy"
+                        },
+                        {
+                          "key": "ranked_only",
+                          "value": "true"
+                        },
+                        {
+                          "key": "from_rank",
+                          "value": "1"
+                        },
+                        {
+                          "key": "to_rank",
+                          "value": "999999"
+                        },
+                        {
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "key": "page_size",
+                          "value": "100"
+                        },
+                        {
+                          "key": "top_n_articles",
+                          "value": "1"
+                        },
+                        {
+                          "key": "include_translation_fields",
+                          "value": "false"
+                        },
+                        {
+                          "key": "include_nlp_data",
+                          "value": "false"
+                        },
+                        {
+                          "key": "has_nlp",
+                          "value": "false"
+                        },
+                        {
+                          "key": "theme",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "not_theme",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "ORG_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "PER_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "LOC_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "MISC_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "title_sentiment_min",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "title_sentiment_max",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "content_sentiment_min",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "content_sentiment_max",
+                          "value": "<float>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:33:25.000Z",
+                  "updatedAt": "2026-10-21T20:33:25.000Z",
+                  "uid": "35240-9804f013-af1d-4d26-839a-695b9f763972"
+                },
+                {
+                  "id": "0ce6f4d2-3612-4936-816f-8919fc89920d",
+                  "name": "Forbidden - Server refuses action",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/breaking_news?sort_by=relevancy&ranked_only=true&from_rank=1&to_rank=999999&page=1&page_size=100&top_n_articles=1&include_translation_fields=false&include_nlp_data=false&has_nlp=false&theme=<string>&not_theme=<string>&ORG_entity_name=<string>&PER_entity_name=<string>&LOC_entity_name=<string>&MISC_entity_name=<string>&title_sentiment_min=<float>&title_sentiment_max=<float>&content_sentiment_min=<float>&content_sentiment_max=<float>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "breaking_news"
+                      ],
+                      "query": [
+                        {
+                          "key": "sort_by",
+                          "value": "relevancy"
+                        },
+                        {
+                          "key": "ranked_only",
+                          "value": "true"
+                        },
+                        {
+                          "key": "from_rank",
+                          "value": "1"
+                        },
+                        {
+                          "key": "to_rank",
+                          "value": "999999"
+                        },
+                        {
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "key": "page_size",
+                          "value": "100"
+                        },
+                        {
+                          "key": "top_n_articles",
+                          "value": "1"
+                        },
+                        {
+                          "key": "include_translation_fields",
+                          "value": "false"
+                        },
+                        {
+                          "key": "include_nlp_data",
+                          "value": "false"
+                        },
+                        {
+                          "key": "has_nlp",
+                          "value": "false"
+                        },
+                        {
+                          "key": "theme",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "not_theme",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "ORG_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "PER_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "LOC_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "MISC_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "title_sentiment_min",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "title_sentiment_max",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "content_sentiment_min",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "content_sentiment_max",
+                          "value": "<float>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:33:25.000Z",
+                  "updatedAt": "2026-10-21T20:33:25.000Z",
+                  "uid": "35240-0ce6f4d2-3612-4936-816f-8919fc89920d"
+                },
+                {
+                  "id": "62eca279-8c2c-4c25-8d5c-248cd4627d72",
+                  "name": "Request timeout",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/breaking_news?sort_by=relevancy&ranked_only=true&from_rank=1&to_rank=999999&page=1&page_size=100&top_n_articles=1&include_translation_fields=false&include_nlp_data=false&has_nlp=false&theme=<string>&not_theme=<string>&ORG_entity_name=<string>&PER_entity_name=<string>&LOC_entity_name=<string>&MISC_entity_name=<string>&title_sentiment_min=<float>&title_sentiment_max=<float>&content_sentiment_min=<float>&content_sentiment_max=<float>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "breaking_news"
+                      ],
+                      "query": [
+                        {
+                          "key": "sort_by",
+                          "value": "relevancy"
+                        },
+                        {
+                          "key": "ranked_only",
+                          "value": "true"
+                        },
+                        {
+                          "key": "from_rank",
+                          "value": "1"
+                        },
+                        {
+                          "key": "to_rank",
+                          "value": "999999"
+                        },
+                        {
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "key": "page_size",
+                          "value": "100"
+                        },
+                        {
+                          "key": "top_n_articles",
+                          "value": "1"
+                        },
+                        {
+                          "key": "include_translation_fields",
+                          "value": "false"
+                        },
+                        {
+                          "key": "include_nlp_data",
+                          "value": "false"
+                        },
+                        {
+                          "key": "has_nlp",
+                          "value": "false"
+                        },
+                        {
+                          "key": "theme",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "not_theme",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "ORG_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "PER_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "LOC_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "MISC_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "title_sentiment_min",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "title_sentiment_max",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "content_sentiment_min",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "content_sentiment_max",
+                          "value": "<float>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Request Timeout",
+                  "code": 408,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:33:25.000Z",
+                  "updatedAt": "2026-10-21T20:33:25.000Z",
+                  "uid": "35240-62eca279-8c2c-4c25-8d5c-248cd4627d72"
+                },
+                {
+                  "id": "5b9447a3-b0e8-4d29-9405-cb6aabfa1ade",
+                  "name": "Validation error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/breaking_news?sort_by=relevancy&ranked_only=true&from_rank=1&to_rank=999999&page=1&page_size=100&top_n_articles=1&include_translation_fields=false&include_nlp_data=false&has_nlp=false&theme=<string>&not_theme=<string>&ORG_entity_name=<string>&PER_entity_name=<string>&LOC_entity_name=<string>&MISC_entity_name=<string>&title_sentiment_min=<float>&title_sentiment_max=<float>&content_sentiment_min=<float>&content_sentiment_max=<float>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "breaking_news"
+                      ],
+                      "query": [
+                        {
+                          "key": "sort_by",
+                          "value": "relevancy"
+                        },
+                        {
+                          "key": "ranked_only",
+                          "value": "true"
+                        },
+                        {
+                          "key": "from_rank",
+                          "value": "1"
+                        },
+                        {
+                          "key": "to_rank",
+                          "value": "999999"
+                        },
+                        {
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "key": "page_size",
+                          "value": "100"
+                        },
+                        {
+                          "key": "top_n_articles",
+                          "value": "1"
+                        },
+                        {
+                          "key": "include_translation_fields",
+                          "value": "false"
+                        },
+                        {
+                          "key": "include_nlp_data",
+                          "value": "false"
+                        },
+                        {
+                          "key": "has_nlp",
+                          "value": "false"
+                        },
+                        {
+                          "key": "theme",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "not_theme",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "ORG_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "PER_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "LOC_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "MISC_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "title_sentiment_min",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "title_sentiment_max",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "content_sentiment_min",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "content_sentiment_max",
+                          "value": "<float>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:33:25.000Z",
+                  "updatedAt": "2026-10-21T20:33:25.000Z",
+                  "uid": "35240-5b9447a3-b0e8-4d29-9405-cb6aabfa1ade"
+                },
+                {
+                  "id": "33a1c745-1881-4171-81dd-854c373687ed",
+                  "name": "Too many requests - Rate limit exceeded",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/breaking_news?sort_by=relevancy&ranked_only=true&from_rank=1&to_rank=999999&page=1&page_size=100&top_n_articles=1&include_translation_fields=false&include_nlp_data=false&has_nlp=false&theme=<string>&not_theme=<string>&ORG_entity_name=<string>&PER_entity_name=<string>&LOC_entity_name=<string>&MISC_entity_name=<string>&title_sentiment_min=<float>&title_sentiment_max=<float>&content_sentiment_min=<float>&content_sentiment_max=<float>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "breaking_news"
+                      ],
+                      "query": [
+                        {
+                          "key": "sort_by",
+                          "value": "relevancy"
+                        },
+                        {
+                          "key": "ranked_only",
+                          "value": "true"
+                        },
+                        {
+                          "key": "from_rank",
+                          "value": "1"
+                        },
+                        {
+                          "key": "to_rank",
+                          "value": "999999"
+                        },
+                        {
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "key": "page_size",
+                          "value": "100"
+                        },
+                        {
+                          "key": "top_n_articles",
+                          "value": "1"
+                        },
+                        {
+                          "key": "include_translation_fields",
+                          "value": "false"
+                        },
+                        {
+                          "key": "include_nlp_data",
+                          "value": "false"
+                        },
+                        {
+                          "key": "has_nlp",
+                          "value": "false"
+                        },
+                        {
+                          "key": "theme",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "not_theme",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "ORG_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "PER_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "LOC_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "MISC_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "title_sentiment_min",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "title_sentiment_max",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "content_sentiment_min",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "content_sentiment_max",
+                          "value": "<float>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:33:25.000Z",
+                  "updatedAt": "2026-10-21T20:33:25.000Z",
+                  "uid": "35240-33a1c745-1881-4171-81dd-854c373687ed"
+                },
+                {
+                  "id": "3cb33700-fe02-4f8a-8fe7-05b8a38d5a87",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "text/plain"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/breaking_news?sort_by=relevancy&ranked_only=true&from_rank=1&to_rank=999999&page=1&page_size=100&top_n_articles=1&include_translation_fields=false&include_nlp_data=false&has_nlp=false&theme=<string>&not_theme=<string>&ORG_entity_name=<string>&PER_entity_name=<string>&LOC_entity_name=<string>&MISC_entity_name=<string>&title_sentiment_min=<float>&title_sentiment_max=<float>&content_sentiment_min=<float>&content_sentiment_max=<float>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "breaking_news"
+                      ],
+                      "query": [
+                        {
+                          "key": "sort_by",
+                          "value": "relevancy"
+                        },
+                        {
+                          "key": "ranked_only",
+                          "value": "true"
+                        },
+                        {
+                          "key": "from_rank",
+                          "value": "1"
+                        },
+                        {
+                          "key": "to_rank",
+                          "value": "999999"
+                        },
+                        {
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "key": "page_size",
+                          "value": "100"
+                        },
+                        {
+                          "key": "top_n_articles",
+                          "value": "1"
+                        },
+                        {
+                          "key": "include_translation_fields",
+                          "value": "false"
+                        },
+                        {
+                          "key": "include_nlp_data",
+                          "value": "false"
+                        },
+                        {
+                          "key": "has_nlp",
+                          "value": "false"
+                        },
+                        {
+                          "key": "theme",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "not_theme",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "ORG_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "PER_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "LOC_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "MISC_entity_name",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "title_sentiment_min",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "title_sentiment_max",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "content_sentiment_min",
+                          "value": "<float>"
+                        },
+                        {
+                          "key": "content_sentiment_max",
+                          "value": "<float>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "text/plain"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<string>",
+                  "createdAt": "2026-10-21T20:33:25.000Z",
+                  "updatedAt": "2026-10-21T20:33:25.000Z",
+                  "uid": "35240-3cb33700-fe02-4f8a-8fe7-05b8a38d5a87"
+                }
+              ],
+              "createdAt": "2026-10-21T20:33:25.000Z",
+              "updatedAt": "2026-10-21T20:33:25.000Z",
+              "uid": "35240-9e94f573-a517-49a2-b02e-d8ceee2fb668"
+            },
+            {
+              "name": "Get breaking news",
+              "id": "3fcfd8a4-371b-477f-ab11-4d51091055cf",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"string\",\n  \"total_hits\": 4193,\n  \"page\": 3211,\n  \"total_pages\": 3020,\n  \"page_size\": 4651,\n  \"user_input\": {\n    \"key_0\": 9925.14589120556\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "8f3ce26d-08c9-4126-9c20-7b67282010b4",
-              "name": "Bad request",
-              "originalRequest": {
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sort_by\": \"relevancy\",\n  \"ranked_only\": true,\n  \"from_rank\": 1,\n  \"to_rank\": 999999,\n  \"page\": 1,\n  \"page_size\": 100,\n  \"top_n_articles\": 1,\n  \"include_translation_fields\": false,\n  \"include_nlp_data\": false,\n  \"has_nlp\": false,\n  \"theme\": \"<string>\",\n  \"not_theme\": \"<string>\",\n  \"ORG_entity_name\": \"<string>\",\n  \"PER_entity_name\": \"<string>\",\n  \"LOC_entity_name\": \"<string>\",\n  \"MISC_entity_name\": \"<string>\",\n  \"title_sentiment_min\": \"<float>\",\n  \"title_sentiment_max\": \"<float>\",\n  \"content_sentiment_min\": \"<float>\",\n  \"content_sentiment_max\": \"<float>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
-                  "path": [
-                    "api",
-                    "breaking_news"
-                  ],
+                  "raw": "{{baseUrl}}/api/breaking_news",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [
-                    {
-                      "key": "sort_by",
-                      "value": "date"
-                    },
-                    {
-                      "key": "ranked_only",
-                      "value": "true"
-                    },
-                    {
-                      "key": "from_rank",
-                      "value": "100"
-                    },
-                    {
-                      "key": "to_rank",
-                      "value": "100"
-                    },
-                    {
-                      "key": "page",
-                      "value": "2"
-                    },
-                    {
-                      "key": "page_size",
-                      "value": "50"
-                    },
-                    {
-                      "key": "top_n_articles",
-                      "value": "5"
-                    },
-                    {
-                      "key": "include_translation_fields",
-                      "value": "true"
-                    },
-                    {
-                      "key": "include_nlp_data",
-                      "value": "true"
-                    },
-                    {
-                      "key": "has_nlp",
-                      "value": "true"
-                    },
-                    {
-                      "key": "theme",
-                      "value": "Finance,Tech"
-                    },
-                    {
-                      "key": "not_theme",
-                      "value": "Crime,Sports"
-                    },
-                    {
-                      "key": "ORG_entity_name",
-                      "value": "\"Apple Inc\" OR Microsoft"
-                    },
-                    {
-                      "key": "PER_entity_name",
-                      "value": "\"Elon Musk\" OR \"Jeff Bezos\""
-                    },
-                    {
-                      "key": "LOC_entity_name",
-                      "value": "\"San Francisco\" OR \"New York City\""
-                    },
-                    {
-                      "key": "MISC_entity_name",
-                      "value": "AWS OR \"Microsoft Azure\""
-                    },
-                    {
-                      "key": "title_sentiment_min",
-                      "value": "-0.5"
-                    },
-                    {
-                      "key": "title_sentiment_max",
-                      "value": "0.5"
-                    },
-                    {
-                      "key": "content_sentiment_min",
-                      "value": "-0.5"
-                    },
-                    {
-                      "key": "content_sentiment_max",
-                      "value": "0.5"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"Invalid JSON in request body\",\n  \"status_code\": 400,\n  \"status\": \"Bad request\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b8ba368c-f5f9-4860-b6c5-c8627838586d",
-              "name": "Unauthorized - Authentication failed",
-              "originalRequest": {
-                "url": {
                   "path": [
                     "api",
                     "breaking_news"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "sort_by",
-                      "value": "date"
+                  ]
+                },
+                "description": "Retrieves breaking news articles and sorts them based on specified criteria."
+              },
+              "response": [
+                {
+                  "id": "b2a006a0-eb77-42ee-a8c7-c18a27154707",
+                  "name": "A successful response containing breaking news articles with additional breaking news event information.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"sort_by\": \"relevancy\",\n  \"ranked_only\": true,\n  \"from_rank\": 1,\n  \"to_rank\": 999999,\n  \"page\": 1,\n  \"page_size\": 100,\n  \"top_n_articles\": 1,\n  \"include_translation_fields\": false,\n  \"include_nlp_data\": false,\n  \"has_nlp\": false,\n  \"theme\": \"<string>\",\n  \"not_theme\": \"<string>\",\n  \"ORG_entity_name\": \"<string>\",\n  \"PER_entity_name\": \"<string>\",\n  \"LOC_entity_name\": \"<string>\",\n  \"MISC_entity_name\": \"<string>\",\n  \"title_sentiment_min\": \"<float>\",\n  \"title_sentiment_max\": \"<float>\",\n  \"content_sentiment_min\": \"<float>\",\n  \"content_sentiment_max\": \"<float>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/breaking_news",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "breaking_news"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "ranked_only",
-                      "value": "true"
-                    },
-                    {
-                      "key": "from_rank",
-                      "value": "100"
-                    },
-                    {
-                      "key": "to_rank",
-                      "value": "100"
-                    },
-                    {
-                      "key": "page",
-                      "value": "2"
-                    },
-                    {
-                      "key": "page_size",
-                      "value": "50"
-                    },
-                    {
-                      "key": "top_n_articles",
-                      "value": "5"
-                    },
-                    {
-                      "key": "include_translation_fields",
-                      "value": "true"
-                    },
-                    {
-                      "key": "include_nlp_data",
-                      "value": "true"
-                    },
-                    {
-                      "key": "has_nlp",
-                      "value": "true"
-                    },
-                    {
-                      "key": "theme",
-                      "value": "Finance,Tech"
-                    },
-                    {
-                      "key": "not_theme",
-                      "value": "Crime,Sports"
-                    },
-                    {
-                      "key": "ORG_entity_name",
-                      "value": "\"Apple Inc\" OR Microsoft"
-                    },
-                    {
-                      "key": "PER_entity_name",
-                      "value": "\"Elon Musk\" OR \"Jeff Bezos\""
-                    },
-                    {
-                      "key": "LOC_entity_name",
-                      "value": "\"San Francisco\" OR \"New York City\""
-                    },
-                    {
-                      "key": "MISC_entity_name",
-                      "value": "AWS OR \"Microsoft Azure\""
-                    },
-                    {
-                      "key": "title_sentiment_min",
-                      "value": "-0.5"
-                    },
-                    {
-                      "key": "title_sentiment_max",
-                      "value": "0.5"
-                    },
-                    {
-                      "key": "content_sentiment_min",
-                      "value": "-0.5"
-                    },
-                    {
-                      "key": "content_sentiment_max",
-                      "value": "0.5"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<string>\",\n  \"total_hits\": \"<integer>\",\n  \"page\": \"<integer>\",\n  \"total_pages\": \"<integer>\",\n  \"page_size\": \"<integer>\",\n  \"user_input\": {\n    \"dolore_f\": -2730750.3512450308\n  }\n}",
+                  "createdAt": "2026-10-21T20:33:25.000Z",
+                  "updatedAt": "2026-10-21T20:33:25.000Z",
+                  "uid": "35240-b2a006a0-eb77-42ee-a8c7-c18a27154707"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"The 'x-api-token' parameter has an invalid value. Please provide a valid API key.\",\n  \"status_code\": 401,\n  \"status\": \"Unauthorized\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "cbc50933-264d-4e87-9f4c-bc45bc80dff0",
-              "name": "Forbidden - Server refuses action",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "breaking_news"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "sort_by",
-                      "value": "date"
+                  "id": "38eefe60-c52d-49b8-914d-fe0555d468a4",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"sort_by\": \"relevancy\",\n  \"ranked_only\": true,\n  \"from_rank\": 1,\n  \"to_rank\": 999999,\n  \"page\": 1,\n  \"page_size\": 100,\n  \"top_n_articles\": 1,\n  \"include_translation_fields\": false,\n  \"include_nlp_data\": false,\n  \"has_nlp\": false,\n  \"theme\": \"<string>\",\n  \"not_theme\": \"<string>\",\n  \"ORG_entity_name\": \"<string>\",\n  \"PER_entity_name\": \"<string>\",\n  \"LOC_entity_name\": \"<string>\",\n  \"MISC_entity_name\": \"<string>\",\n  \"title_sentiment_min\": \"<float>\",\n  \"title_sentiment_max\": \"<float>\",\n  \"content_sentiment_min\": \"<float>\",\n  \"content_sentiment_max\": \"<float>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/breaking_news",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "breaking_news"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "ranked_only",
-                      "value": "true"
-                    },
-                    {
-                      "key": "from_rank",
-                      "value": "100"
-                    },
-                    {
-                      "key": "to_rank",
-                      "value": "100"
-                    },
-                    {
-                      "key": "page",
-                      "value": "2"
-                    },
-                    {
-                      "key": "page_size",
-                      "value": "50"
-                    },
-                    {
-                      "key": "top_n_articles",
-                      "value": "5"
-                    },
-                    {
-                      "key": "include_translation_fields",
-                      "value": "true"
-                    },
-                    {
-                      "key": "include_nlp_data",
-                      "value": "true"
-                    },
-                    {
-                      "key": "has_nlp",
-                      "value": "true"
-                    },
-                    {
-                      "key": "theme",
-                      "value": "Finance,Tech"
-                    },
-                    {
-                      "key": "not_theme",
-                      "value": "Crime,Sports"
-                    },
-                    {
-                      "key": "ORG_entity_name",
-                      "value": "\"Apple Inc\" OR Microsoft"
-                    },
-                    {
-                      "key": "PER_entity_name",
-                      "value": "\"Elon Musk\" OR \"Jeff Bezos\""
-                    },
-                    {
-                      "key": "LOC_entity_name",
-                      "value": "\"San Francisco\" OR \"New York City\""
-                    },
-                    {
-                      "key": "MISC_entity_name",
-                      "value": "AWS OR \"Microsoft Azure\""
-                    },
-                    {
-                      "key": "title_sentiment_min",
-                      "value": "-0.5"
-                    },
-                    {
-                      "key": "title_sentiment_max",
-                      "value": "0.5"
-                    },
-                    {
-                      "key": "content_sentiment_min",
-                      "value": "-0.5"
-                    },
-                    {
-                      "key": "content_sentiment_max",
-                      "value": "0.5"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:33:25.000Z",
+                  "updatedAt": "2026-10-21T20:33:25.000Z",
+                  "uid": "35240-38eefe60-c52d-49b8-914d-fe0555d468a4"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"Your plan request date range cannot be greater than 400 days\",\n  \"status_code\": 403,\n  \"status\": \"Forbidden\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d4d51dbb-1cc8-4967-a271-b41765a98bbb",
-              "name": "Request timeout",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "breaking_news"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "sort_by",
-                      "value": "date"
+                  "id": "954a7916-cc3e-4d6b-b0dc-6590d19c0597",
+                  "name": "Unauthorized - Authentication failed",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"sort_by\": \"relevancy\",\n  \"ranked_only\": true,\n  \"from_rank\": 1,\n  \"to_rank\": 999999,\n  \"page\": 1,\n  \"page_size\": 100,\n  \"top_n_articles\": 1,\n  \"include_translation_fields\": false,\n  \"include_nlp_data\": false,\n  \"has_nlp\": false,\n  \"theme\": \"<string>\",\n  \"not_theme\": \"<string>\",\n  \"ORG_entity_name\": \"<string>\",\n  \"PER_entity_name\": \"<string>\",\n  \"LOC_entity_name\": \"<string>\",\n  \"MISC_entity_name\": \"<string>\",\n  \"title_sentiment_min\": \"<float>\",\n  \"title_sentiment_max\": \"<float>\",\n  \"content_sentiment_min\": \"<float>\",\n  \"content_sentiment_max\": \"<float>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/breaking_news",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "breaking_news"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "ranked_only",
-                      "value": "true"
-                    },
-                    {
-                      "key": "from_rank",
-                      "value": "100"
-                    },
-                    {
-                      "key": "to_rank",
-                      "value": "100"
-                    },
-                    {
-                      "key": "page",
-                      "value": "2"
-                    },
-                    {
-                      "key": "page_size",
-                      "value": "50"
-                    },
-                    {
-                      "key": "top_n_articles",
-                      "value": "5"
-                    },
-                    {
-                      "key": "include_translation_fields",
-                      "value": "true"
-                    },
-                    {
-                      "key": "include_nlp_data",
-                      "value": "true"
-                    },
-                    {
-                      "key": "has_nlp",
-                      "value": "true"
-                    },
-                    {
-                      "key": "theme",
-                      "value": "Finance,Tech"
-                    },
-                    {
-                      "key": "not_theme",
-                      "value": "Crime,Sports"
-                    },
-                    {
-                      "key": "ORG_entity_name",
-                      "value": "\"Apple Inc\" OR Microsoft"
-                    },
-                    {
-                      "key": "PER_entity_name",
-                      "value": "\"Elon Musk\" OR \"Jeff Bezos\""
-                    },
-                    {
-                      "key": "LOC_entity_name",
-                      "value": "\"San Francisco\" OR \"New York City\""
-                    },
-                    {
-                      "key": "MISC_entity_name",
-                      "value": "AWS OR \"Microsoft Azure\""
-                    },
-                    {
-                      "key": "title_sentiment_min",
-                      "value": "-0.5"
-                    },
-                    {
-                      "key": "title_sentiment_max",
-                      "value": "0.5"
-                    },
-                    {
-                      "key": "content_sentiment_min",
-                      "value": "-0.5"
-                    },
-                    {
-                      "key": "content_sentiment_max",
-                      "value": "0.5"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:33:25.000Z",
+                  "updatedAt": "2026-10-21T20:33:25.000Z",
+                  "uid": "35240-954a7916-cc3e-4d6b-b0dc-6590d19c0597"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Request Timeout",
-              "code": 408,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"Request timed out after 30 seconds\",\n  \"status_code\": 408,\n  \"status\": \"Request timeout\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "8eb4b54f-7368-402b-86a9-9fdf73e880dc",
-              "name": "Validation error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "breaking_news"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "sort_by",
-                      "value": "date"
+                  "id": "ae641158-56b5-4d1f-98b9-2b62168fe407",
+                  "name": "Forbidden - Server refuses action",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"sort_by\": \"relevancy\",\n  \"ranked_only\": true,\n  \"from_rank\": 1,\n  \"to_rank\": 999999,\n  \"page\": 1,\n  \"page_size\": 100,\n  \"top_n_articles\": 1,\n  \"include_translation_fields\": false,\n  \"include_nlp_data\": false,\n  \"has_nlp\": false,\n  \"theme\": \"<string>\",\n  \"not_theme\": \"<string>\",\n  \"ORG_entity_name\": \"<string>\",\n  \"PER_entity_name\": \"<string>\",\n  \"LOC_entity_name\": \"<string>\",\n  \"MISC_entity_name\": \"<string>\",\n  \"title_sentiment_min\": \"<float>\",\n  \"title_sentiment_max\": \"<float>\",\n  \"content_sentiment_min\": \"<float>\",\n  \"content_sentiment_max\": \"<float>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/breaking_news",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "breaking_news"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "ranked_only",
-                      "value": "true"
-                    },
-                    {
-                      "key": "from_rank",
-                      "value": "100"
-                    },
-                    {
-                      "key": "to_rank",
-                      "value": "100"
-                    },
-                    {
-                      "key": "page",
-                      "value": "2"
-                    },
-                    {
-                      "key": "page_size",
-                      "value": "50"
-                    },
-                    {
-                      "key": "top_n_articles",
-                      "value": "5"
-                    },
-                    {
-                      "key": "include_translation_fields",
-                      "value": "true"
-                    },
-                    {
-                      "key": "include_nlp_data",
-                      "value": "true"
-                    },
-                    {
-                      "key": "has_nlp",
-                      "value": "true"
-                    },
-                    {
-                      "key": "theme",
-                      "value": "Finance,Tech"
-                    },
-                    {
-                      "key": "not_theme",
-                      "value": "Crime,Sports"
-                    },
-                    {
-                      "key": "ORG_entity_name",
-                      "value": "\"Apple Inc\" OR Microsoft"
-                    },
-                    {
-                      "key": "PER_entity_name",
-                      "value": "\"Elon Musk\" OR \"Jeff Bezos\""
-                    },
-                    {
-                      "key": "LOC_entity_name",
-                      "value": "\"San Francisco\" OR \"New York City\""
-                    },
-                    {
-                      "key": "MISC_entity_name",
-                      "value": "AWS OR \"Microsoft Azure\""
-                    },
-                    {
-                      "key": "title_sentiment_min",
-                      "value": "-0.5"
-                    },
-                    {
-                      "key": "title_sentiment_max",
-                      "value": "0.5"
-                    },
-                    {
-                      "key": "content_sentiment_min",
-                      "value": "-0.5"
-                    },
-                    {
-                      "key": "content_sentiment_max",
-                      "value": "0.5"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:33:25.000Z",
+                  "updatedAt": "2026-10-21T20:33:25.000Z",
+                  "uid": "35240-ae641158-56b5-4d1f-98b9-2b62168fe407"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"Invalid date format\",\n  \"status_code\": 422,\n  \"status\": \"Validation error\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "968e4fbb-72f7-41e9-8a9f-4e4dfa39e0ad",
-              "name": "Too many requests - Rate limit exceeded",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "breaking_news"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "sort_by",
-                      "value": "date"
+                  "id": "9f673ab3-69f5-437a-aa70-acf7f5314247",
+                  "name": "Request timeout",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"sort_by\": \"relevancy\",\n  \"ranked_only\": true,\n  \"from_rank\": 1,\n  \"to_rank\": 999999,\n  \"page\": 1,\n  \"page_size\": 100,\n  \"top_n_articles\": 1,\n  \"include_translation_fields\": false,\n  \"include_nlp_data\": false,\n  \"has_nlp\": false,\n  \"theme\": \"<string>\",\n  \"not_theme\": \"<string>\",\n  \"ORG_entity_name\": \"<string>\",\n  \"PER_entity_name\": \"<string>\",\n  \"LOC_entity_name\": \"<string>\",\n  \"MISC_entity_name\": \"<string>\",\n  \"title_sentiment_min\": \"<float>\",\n  \"title_sentiment_max\": \"<float>\",\n  \"content_sentiment_min\": \"<float>\",\n  \"content_sentiment_max\": \"<float>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/breaking_news",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "breaking_news"
+                      ]
+                    }
+                  },
+                  "status": "Request Timeout",
+                  "code": 408,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "ranked_only",
-                      "value": "true"
-                    },
-                    {
-                      "key": "from_rank",
-                      "value": "100"
-                    },
-                    {
-                      "key": "to_rank",
-                      "value": "100"
-                    },
-                    {
-                      "key": "page",
-                      "value": "2"
-                    },
-                    {
-                      "key": "page_size",
-                      "value": "50"
-                    },
-                    {
-                      "key": "top_n_articles",
-                      "value": "5"
-                    },
-                    {
-                      "key": "include_translation_fields",
-                      "value": "true"
-                    },
-                    {
-                      "key": "include_nlp_data",
-                      "value": "true"
-                    },
-                    {
-                      "key": "has_nlp",
-                      "value": "true"
-                    },
-                    {
-                      "key": "theme",
-                      "value": "Finance,Tech"
-                    },
-                    {
-                      "key": "not_theme",
-                      "value": "Crime,Sports"
-                    },
-                    {
-                      "key": "ORG_entity_name",
-                      "value": "\"Apple Inc\" OR Microsoft"
-                    },
-                    {
-                      "key": "PER_entity_name",
-                      "value": "\"Elon Musk\" OR \"Jeff Bezos\""
-                    },
-                    {
-                      "key": "LOC_entity_name",
-                      "value": "\"San Francisco\" OR \"New York City\""
-                    },
-                    {
-                      "key": "MISC_entity_name",
-                      "value": "AWS OR \"Microsoft Azure\""
-                    },
-                    {
-                      "key": "title_sentiment_min",
-                      "value": "-0.5"
-                    },
-                    {
-                      "key": "title_sentiment_max",
-                      "value": "0.5"
-                    },
-                    {
-                      "key": "content_sentiment_min",
-                      "value": "-0.5"
-                    },
-                    {
-                      "key": "content_sentiment_max",
-                      "value": "0.5"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:33:25.000Z",
+                  "updatedAt": "2026-10-21T20:33:25.000Z",
+                  "uid": "35240-9f673ab3-69f5-437a-aa70-acf7f5314247"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"Max API requests concurrency reached\",\n  \"status_code\": 429,\n  \"status\": \"Too many requests\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7500a662-752c-4bef-87ce-8606c171afea",
-              "name": "Internal server error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "breaking_news"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "sort_by",
-                      "value": "date"
+                  "id": "92ffb54d-6fba-4a65-8e80-3236a38b7903",
+                  "name": "Validation error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"sort_by\": \"relevancy\",\n  \"ranked_only\": true,\n  \"from_rank\": 1,\n  \"to_rank\": 999999,\n  \"page\": 1,\n  \"page_size\": 100,\n  \"top_n_articles\": 1,\n  \"include_translation_fields\": false,\n  \"include_nlp_data\": false,\n  \"has_nlp\": false,\n  \"theme\": \"<string>\",\n  \"not_theme\": \"<string>\",\n  \"ORG_entity_name\": \"<string>\",\n  \"PER_entity_name\": \"<string>\",\n  \"LOC_entity_name\": \"<string>\",\n  \"MISC_entity_name\": \"<string>\",\n  \"title_sentiment_min\": \"<float>\",\n  \"title_sentiment_max\": \"<float>\",\n  \"content_sentiment_min\": \"<float>\",\n  \"content_sentiment_max\": \"<float>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/breaking_news",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "breaking_news"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "key": "ranked_only",
-                      "value": "true"
-                    },
-                    {
-                      "key": "from_rank",
-                      "value": "100"
-                    },
-                    {
-                      "key": "to_rank",
-                      "value": "100"
-                    },
-                    {
-                      "key": "page",
-                      "value": "2"
-                    },
-                    {
-                      "key": "page_size",
-                      "value": "50"
-                    },
-                    {
-                      "key": "top_n_articles",
-                      "value": "5"
-                    },
-                    {
-                      "key": "include_translation_fields",
-                      "value": "true"
-                    },
-                    {
-                      "key": "include_nlp_data",
-                      "value": "true"
-                    },
-                    {
-                      "key": "has_nlp",
-                      "value": "true"
-                    },
-                    {
-                      "key": "theme",
-                      "value": "Finance,Tech"
-                    },
-                    {
-                      "key": "not_theme",
-                      "value": "Crime,Sports"
-                    },
-                    {
-                      "key": "ORG_entity_name",
-                      "value": "\"Apple Inc\" OR Microsoft"
-                    },
-                    {
-                      "key": "PER_entity_name",
-                      "value": "\"Elon Musk\" OR \"Jeff Bezos\""
-                    },
-                    {
-                      "key": "LOC_entity_name",
-                      "value": "\"San Francisco\" OR \"New York City\""
-                    },
-                    {
-                      "key": "MISC_entity_name",
-                      "value": "AWS OR \"Microsoft Azure\""
-                    },
-                    {
-                      "key": "title_sentiment_min",
-                      "value": "-0.5"
-                    },
-                    {
-                      "key": "title_sentiment_max",
-                      "value": "0.5"
-                    },
-                    {
-                      "key": "content_sentiment_min",
-                      "value": "-0.5"
-                    },
-                    {
-                      "key": "content_sentiment_max",
-                      "value": "0.5"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
                   ],
-                  "variable": []
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:33:25.000Z",
+                  "updatedAt": "2026-10-21T20:33:25.000Z",
+                  "uid": "35240-92ffb54d-6fba-4a65-8e80-3236a38b7903"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "text/plain"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "id": "4f9138cf-ea34-4c15-8663-2eafee035975",
+                  "name": "Too many requests - Rate limit exceeded",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"sort_by\": \"relevancy\",\n  \"ranked_only\": true,\n  \"from_rank\": 1,\n  \"to_rank\": 999999,\n  \"page\": 1,\n  \"page_size\": 100,\n  \"top_n_articles\": 1,\n  \"include_translation_fields\": false,\n  \"include_nlp_data\": false,\n  \"has_nlp\": false,\n  \"theme\": \"<string>\",\n  \"not_theme\": \"<string>\",\n  \"ORG_entity_name\": \"<string>\",\n  \"PER_entity_name\": \"<string>\",\n  \"LOC_entity_name\": \"<string>\",\n  \"MISC_entity_name\": \"<string>\",\n  \"title_sentiment_min\": \"<float>\",\n  \"title_sentiment_max\": \"<float>\",\n  \"content_sentiment_min\": \"<float>\",\n  \"content_sentiment_max\": \"<float>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/breaking_news",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "breaking_news"
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"status_code\": \"<integer>\",\n  \"status\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:33:25.000Z",
+                  "updatedAt": "2026-10-21T20:33:25.000Z",
+                  "uid": "35240-4f9138cf-ea34-4c15-8663-2eafee035975"
+                },
+                {
+                  "id": "62dd29ce-e27a-4d0f-a7d6-6af9164c283c",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "text/plain"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "x-api-token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"sort_by\": \"relevancy\",\n  \"ranked_only\": true,\n  \"from_rank\": 1,\n  \"to_rank\": 999999,\n  \"page\": 1,\n  \"page_size\": 100,\n  \"top_n_articles\": 1,\n  \"include_translation_fields\": false,\n  \"include_nlp_data\": false,\n  \"has_nlp\": false,\n  \"theme\": \"<string>\",\n  \"not_theme\": \"<string>\",\n  \"ORG_entity_name\": \"<string>\",\n  \"PER_entity_name\": \"<string>\",\n  \"LOC_entity_name\": \"<string>\",\n  \"MISC_entity_name\": \"<string>\",\n  \"title_sentiment_min\": \"<float>\",\n  \"title_sentiment_max\": \"<float>\",\n  \"content_sentiment_min\": \"<float>\",\n  \"content_sentiment_max\": \"<float>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/breaking_news",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "breaking_news"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "text/plain"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<string>",
+                  "createdAt": "2026-10-21T20:33:25.000Z",
+                  "updatedAt": "2026-10-21T20:33:25.000Z",
+                  "uid": "35240-62dd29ce-e27a-4d0f-a7d6-6af9164c283c"
                 }
               ],
-              "body": "Internal Server Error",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "createdAt": "2026-10-21T20:33:25.000Z",
+              "updatedAt": "2026-10-21T20:33:25.000Z",
+              "uid": "35240-3fcfd8a4-371b-477f-ab11-4d51091055cf"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "64cf957e-89f9-4ee0-9bf3-49b8e484479e",
-          "name": "Get breaking news",
-          "request": {
-            "name": "Get breaking news",
-            "description": {
-              "content": "Retrieves breaking news articles and sorts them based on specified criteria.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "breaking_news"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"sort_by\": \"relevancy\",\n  \"ranked_only\": true,\n  \"from_rank\": 1,\n  \"to_rank\": 999999,\n  \"page\": 1,\n  \"page_size\": 100,\n  \"top_n_articles\": 1,\n  \"include_translation_fields\": false,\n  \"include_nlp_data\": false,\n  \"has_nlp\": false,\n  \"theme\": \"<string>\",\n  \"not_theme\": \"<string>\",\n  \"ORG_entity_name\": \"<string>\",\n  \"PER_entity_name\": \"<string>\",\n  \"LOC_entity_name\": \"<string>\",\n  \"MISC_entity_name\": \"<string>\",\n  \"title_sentiment_min\": \"<float>\",\n  \"title_sentiment_max\": \"<float>\",\n  \"content_sentiment_min\": \"<float>\",\n  \"content_sentiment_max\": \"<float>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "bf1436b1-f829-43de-8afb-2183b8133714",
-              "name": "A successful response containing breaking news articles with additional breaking news event information.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "breaking_news"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"status\": \"string\",\n  \"total_hits\": 1312,\n  \"page\": 5593,\n  \"total_pages\": 8155,\n  \"page_size\": 8796,\n  \"user_input\": {\n    \"key_0\": \"string\",\n    \"key_1\": false\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "962082e9-a989-48d7-820a-5adb8f63b8b6",
-              "name": "Bad request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "breaking_news"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"Invalid JSON in request body\",\n  \"status_code\": 400,\n  \"status\": \"Bad request\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "bb297456-96be-4a44-9b34-a411763fb0fa",
-              "name": "Unauthorized - Authentication failed",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "breaking_news"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"The 'x-api-token' parameter has an invalid value. Please provide a valid API key.\",\n  \"status_code\": 401,\n  \"status\": \"Unauthorized\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c3573c23-6155-443d-9bcb-b4b2301d10de",
-              "name": "Forbidden - Server refuses action",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "breaking_news"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"Your plan request date range cannot be greater than 400 days\",\n  \"status_code\": 403,\n  \"status\": \"Forbidden\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b1eb5b4b-e045-44b4-882f-ccf570737871",
-              "name": "Request timeout",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "breaking_news"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Request Timeout",
-              "code": 408,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"Request timed out after 30 seconds\",\n  \"status_code\": 408,\n  \"status\": \"Request timeout\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d10d0f2c-d96b-4c3e-8729-2b51ef4c5692",
-              "name": "Validation error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "breaking_news"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"Invalid date format\",\n  \"status_code\": 422,\n  \"status\": \"Validation error\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "efc989b3-23a0-4309-bb65-08fc8e9354be",
-              "name": "Too many requests - Rate limit exceeded",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "breaking_news"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"Max API requests concurrency reached\",\n  \"status_code\": 429,\n  \"status\": \"Too many requests\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c29da8d9-e74d-4cc7-8907-8d690f6829b9",
-              "name": "Internal server error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "breaking_news"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "x-api-token",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "text/plain"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Internal Server Error",
-              "code": 500,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "Internal Server Error",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "402e80e9-315e-4248-aa36-b899fcb6314c",
+          "createdAt": "2026-10-21T20:33:25.000Z",
+          "updatedAt": "2026-10-21T20:33:25.000Z",
+          "uid": "35240-402e80e9-315e-4248-aa36-b899fcb6314c"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "type": "string",
-      "value": "https://local-news.newscatcherapi.com",
-      "key": "baseUrl"
+      "id": "266139ef-af7f-43a4-99fe-1a5396ccb3c4",
+      "createdAt": "2026-10-21T20:33:25.000Z",
+      "updatedAt": "2026-10-21T20:33:25.000Z",
+      "uid": "35240-266139ef-af7f-43a4-99fe-1a5396ccb3c4"
     }
   ],
   "auth": {
@@ -1563,25 +1650,25 @@
     "apikey": [
       {
         "key": "key",
-        "value": "x-api-token"
+        "value": "x-api-token",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "0254d336-dfbd-4012-a823-d7f5564f8669",
-    "name": "Local News AggregationCount BreakingNews API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Local News API provides access to local news articles with location-specific filtering capabilities.\n\n## Standard endpoints\n\n- `/search`: Search articles by keywords with simple location filtering (\"City, State\" format).\n- `/latest_headlines`: Retrieve recent articles for specified locations and time periods.\n- `/search_by`: Retrieve articles by URL, ID, or RSS GUID.\n- `/sources`: List available news sources.\n\n## Advanced endpoints\n\n- `/search/advanced`: Search with structured GeoNames filtering.\n- `/latest_headlines/advanced`: Latest headlines with structured GeoNames filtering.\n\n## Features\n\n- Multiple location detection methods including dedicated sources, proximity analysis, and AI extraction\n- Natural language processing for sentiment analysis and entity recognition on original content and English translations\n- Article clustering for topic analysis\n- English translations for non-English content\n\n\nContact Support:\n Name: Maksym Sugonyaka\n Email: maksym@newscatcherapi.com",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://v3-api.newscatcherapi.com"
     }
-  }
+  ]
 }
