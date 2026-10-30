@@ -1,4 +1,4 @@
-# Newscatcher (newscatcher)
+# Newscatcher
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,56 +64,181 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Newscatcher is a news search and aggregation API platform providing access to over 120,000 news sources worldwide with full-text search, NLP enrichment, entity extraction, sentiment analysis, automated clustering, and vector embeddings. The platform offers three core products: a News API for structured article retrieval, a Web Search (CatchAll) API for recall-first AI-grade web search, and a Local News API for hyper-local geographic news coverage. Newscatcher is backed by Y Combinator (S22) and holds ISO certifications and SOC2 Type II compliance, serving enterprise customers in financial services, AI platforms, government, defense, insurance, and media intelligence.
+Newscatcher is a news search and aggregation API platform that provides access to over 120,000 news sources worldwide with full-text search, NLP enrichment, entity extraction, sentiment analysis, and automated clustering. The platform offers three core products — a News API for structured article retrieval, a Web Search (CatchAll) API for recall-first AI-grade web search, and a Local News API for hyper-local geographic news coverage. All APIs return clean, enriched, and deduplication-ready data designed for enterprise risk teams, financial services, AI platforms, and media intelligence workflows. The company is backed by Y Combinator (S22) and holds ISO certifications and SOC2 Type II compliance.
 
-APIs.json: https://raw.githubusercontent.com/api-evangelist/newscatcher/refs/heads/main/apis.yml
+**Areas:** News · Search · Natural Language Processing · Sentiment Analysis · Entity Extraction · Clustering · Media Intelligence · Financial Intelligence · Artificial Intelligence · Enterprise
 
-Naftiko: https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=newscatcher-api-evangelist&utm_content=repo
+## Newscatcher on APIs.io
 
-## Tags
+Everything profiled for Newscatcher is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/newscatcher/](https://apis.io/providers/newscatcher/)** — or go straight to one of the APIs or properties below.
 
-News, Search, NLP, Sentiment Analysis, Entity Extraction, Clustering, Media Intelligence, Financial Intelligence, AI, Enterprise
+### APIs (16)
 
-## APIs
+- [Newscatcher AggregationCount API](https://apis.io/apis/newscatcher/newscatcher-aggregationcount-api/) — Operations to aggregate news counts.
+- [Newscatcher Authors API](https://apis.io/apis/newscatcher/newscatcher-authors-api/) — Operations to search by author.
+- [Newscatcher BreakingNews API](https://apis.io/apis/newscatcher/newscatcher-breakingnews-api/) — Operations to retrieve breaking news articles.
+- [Newscatcher Datasets API](https://apis.io/apis/newscatcher/newscatcher-datasets-api/) — Operations to create and manage datasets of entities. A dataset is a named collection of entities — think of it as a watchlist or portfolio. Connect a…
+- [Newscatcher Entities API](https://apis.io/apis/newscatcher/newscatcher-entities-api/) — Operations to create, update, and delete company entities. Entities are the building blocks of Company Watchlist. Each entity represents a company (or…
+- [Newscatcher Jobs API](https://apis.io/apis/newscatcher/newscatcher-jobs-api/) — Operations to create, monitor, and retrieve job results.
+- [Newscatcher LatestHeadlines API](https://apis.io/apis/newscatcher/newscatcher-latestheadlines-api/) — Operations to retrieve local news latest headlines. Includes both standard location filtering and advanced GeoNames filtering.
+- [Newscatcher Meta API](https://apis.io/apis/newscatcher/newscatcher-meta-api/) — Operations to check API health and version.
+- [Newscatcher Monitors API](https://apis.io/apis/newscatcher/newscatcher-monitors-api/) — Operations to create, operate and retrieve monitor results.
+- [Newscatcher Projects API](https://apis.io/apis/newscatcher/newscatcher-projects-api/) — Operations to create, organize, and manage projects. A project is a named container for jobs, monitors, and datasets. Group related resources by use case,…
+- [Newscatcher Search API](https://apis.io/apis/newscatcher/newscatcher-search-api/) — Operations to search for local news articles. Includes both standard location filtering and advanced GeoNames filtering.
+- [Newscatcher SearchBy API](https://apis.io/apis/newscatcher/newscatcher-searchby-api/) — Operations to search local news by link, ID or RSS GUID.
+- [Newscatcher SearchByLink API](https://apis.io/apis/newscatcher/newscatcher-searchbylink-api/) — Operations to search by link or ID.
+- [Newscatcher Sources API](https://apis.io/apis/newscatcher/newscatcher-sources-api/) — Operations to retrieve local news sources.
+- [Newscatcher Subscription API](https://apis.io/apis/newscatcher/newscatcher-subscription-api/) — Operations to get subscription info.
+- [Newscatcher Webhooks API](https://apis.io/apis/newscatcher/newscatcher-webhooks-api/) — Operations to create and manage reusable webhook endpoints. A webhook is a named HTTP endpoint that receives a POST notification when a job or monitor…
 
-| Name | Description | Docs |
-|------|-------------|------|
-| News API | Structured access to 120,000+ news sources with NLP, entity recognition, sentiment, IPTC tagging, and embeddings | [Docs](https://www.newscatcherapi.com/docs/v3/api-reference/overview/introduction) |
-| CatchAll Web Search API | Recall-first web search API for AI agents with credit-based pricing and monitor slots | [Docs](https://www.newscatcherapi.com/docs) |
-| Local News API | Hyper-local geographic news coverage with NLP enrichment | [Docs](https://www.newscatcherapi.com/docs) |
+### Published properties
 
-## Plans, Rate Limits, and FinOps
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-| Resource | File |
-|----------|------|
-| Plans & Pricing | [plans/newscatcher-plans-pricing.yml](plans/newscatcher-plans-pricing.yml) |
-| Rate Limits | [rate-limits/newscatcher-rate-limits.yml](rate-limits/newscatcher-rate-limits.yml) |
-| FinOps | [finops/newscatcher-finops.yml](finops/newscatcher-finops.yml) |
+#### Agentic access (1)
 
-**Web Search API** uses a self-service credit-based model: Individual ($0/mo), Starter ($50/mo, 6,000 credits), Scale ($500/mo, 60,000 credits), Enterprise (custom). Unused credits roll over. Lite mode costs 100 credits/search; Base mode costs 10 credits/valid record.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-**News API** is an enterprise product with three plan tiers — NLP, IPTC Tags, and Embeddings — priced on request. Plans define monthly call quotas, concurrent call limits, and historical data depth. The `/subscription` endpoint reports real-time quota consumption.
+- [Newscatcher Agentic Access](https://apis.io/agentic-access/newscatcher/newscatcher-agentic-access/)
 
-## Timestamps
+#### JSON Schema (2)
 
-- Created: 2026-06-12
-- Modified: 2026-06-12
+The data models the API reads and writes.
 
-## Common
+- [Newscatcher Article](https://apis.io/schemas/newscatcher/newscatcher-article/)
+- [Newscatcher Search Response](https://apis.io/schemas/newscatcher/newscatcher-search-response/)
 
-| Type | URL |
-|------|-----|
-| Website | https://www.newscatcherapi.com |
-| Documentation | https://www.newscatcherapi.com/docs |
-| GitHub Org | https://github.com/Newscatcher |
-| LinkedIn | https://www.linkedin.com/company/newscatcherapi |
-| Blog | https://www.newscatcherapi.com/blog |
-| Pricing | https://www.newscatcherapi.com/pricing |
-| Status Page | https://status.newscatcherapi.com |
-| X / Twitter | https://x.com/newscatcherapi |
+#### JSON-LD (1)
 
-## Maintainers
+Linked-data contexts for the provider's vocabulary.
 
-| Name | Email |
-|------|-------|
-| Kin Lane | kin@apievangelist.com |
+- [Newscatcher Context](https://apis.io/jsonld/newscatcher/newscatcher-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Newscatcher Vocabulary](https://apis.io/vocabularies/newscatcher/newscatcher-vocabulary/)
+
+#### Examples (3)
+
+Example requests and responses.
+
+- [Newscatcher Catchall Submit Example](https://apis.io/examples/newscatcher/newscatcher-catchall-submit-example/)
+- [Newscatcher Search Request Example](https://apis.io/examples/newscatcher/newscatcher-search-request-example/)
+- [Newscatcher Search Response Example](https://apis.io/examples/newscatcher/newscatcher-search-response-example/)
+
+#### Collections (16)
+
+Postman and Open Collection request collections.
+
+- [Local News AggregationCount API](https://apis.io/collections/newscatcher/open-newscatcher-aggregationcount-api/)
+- [Local News AggregationCount Authors API](https://apis.io/collections/newscatcher/open-newscatcher-authors-api/)
+- [Local News AggregationCount BreakingNews API](https://apis.io/collections/newscatcher/open-newscatcher-breakingnews-api/)
+- [Local News AggregationCount Datasets API](https://apis.io/collections/newscatcher/open-newscatcher-datasets-api/)
+- [Local News AggregationCount Entities API](https://apis.io/collections/newscatcher/open-newscatcher-entities-api/)
+- [Local News AggregationCount Jobs API](https://apis.io/collections/newscatcher/open-newscatcher-jobs-api/)
+- [Local News AggregationCount LatestHeadlines API](https://apis.io/collections/newscatcher/open-newscatcher-latestheadlines-api/)
+- [Local News AggregationCount Meta API](https://apis.io/collections/newscatcher/open-newscatcher-meta-api/)
+- [Local News AggregationCount Monitors API](https://apis.io/collections/newscatcher/open-newscatcher-monitors-api/)
+- [Local News AggregationCount Projects API](https://apis.io/collections/newscatcher/open-newscatcher-projects-api/)
+- [Local News AggregationCount Search API](https://apis.io/collections/newscatcher/open-newscatcher-search-api/)
+- [Local News AggregationCount SearchBy API](https://apis.io/collections/newscatcher/open-newscatcher-searchby-api/)
+- [Local News AggregationCount SearchByLink API](https://apis.io/collections/newscatcher/open-newscatcher-searchbylink-api/)
+- [Local News AggregationCount Sources API](https://apis.io/collections/newscatcher/open-newscatcher-sources-api/)
+- [Local News AggregationCount Subscription API](https://apis.io/collections/newscatcher/open-newscatcher-subscription-api/)
+- [Local News AggregationCount Webhooks API](https://apis.io/collections/newscatcher/open-newscatcher-webhooks-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Newscatcher — jsonschema rules](https://apis.io/rules/newscatcher/newscatcher-jsonschema-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Newscatcher Authentication](https://apis.io/security/newscatcher/newscatcher-authentication/)
+- [Newscatcher Domain Security](https://apis.io/security/newscatcher/newscatcher-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Newscatcher Plans Pricing](https://apis.io/plans/newscatcher/newscatcher-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Newscatcher Rate Limits](https://apis.io/rate-limits/newscatcher/newscatcher-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Newscatcher Finops](https://apis.io/finops/newscatcher/newscatcher-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.newscatcherapi.com)
+- [Documentation](https://www.newscatcherapi.com/docs)
+- [Pricing](https://www.newscatcherapi.com/pricing)
+- [Blog](https://www.newscatcherapi.com/blog)
+- [Status](https://status.newscatcherapi.com)
+
+## API Evangelist rating
+
+**Kin Score 37.5** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 64.0 |
+| Contract governance | 23.5 |
+| Operational transparency | 28.9 |
+| Developer ergonomics | 23.8 |
+| Access clarity | 18.4 |
+
+**Agent readiness 20.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 15.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/newscatcher/](https://apis.io/providers/newscatcher/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Newscatcher: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/newscatcher/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
